@@ -18,6 +18,7 @@
     "test:deploy": "npm run build && npx http-server ./dist -p 4200 -c-1",
     "prepush": "npm run tslint && npm run build && npm test",
     "tslint": "tslint src/**/*.ts",
+    "package": "mkdir ${ZIP_NAME} && cp package.json package-lock.json ${ZIP_NAME} && cp -r .build/src/* ${ZIP_NAME}/ && cd ${ZIP_NAME} && npm ci --production && rm package.json package-lock.json && zip -qr ../${ZIP_NAME}.zip .",
     "security-checks": "git secrets --scan && git log -p | scanrepo"
   },
   "private": true,
