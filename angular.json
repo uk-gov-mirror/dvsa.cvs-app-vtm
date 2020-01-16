@@ -46,7 +46,10 @@
               }
             ],
             "scripts": [
-              { "input": "node_modules/govuk-frontend/govuk/all.js", "bundleName": "govuk-module" }
+              {
+                "input": "node_modules/govuk-frontend/govuk/all.js",
+                "bundleName": "govuk-module"
+              }
             ]
           },
           "configurations": {
@@ -147,9 +150,7 @@
   },
   "defaultProject": "cvs-app-vtm",
   "cli": {
-    "warnings": {
-      "typescriptMismatch": false
-    }
+    "defaultCollection": "@ngrx/schematics"
   },
   "schematics": {
     "@schematics/angular:component": {
