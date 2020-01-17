@@ -1,18 +1,18 @@
-import {async, ComponentFixture, getTestBed, inject, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, getTestBed, inject, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {MatDialogModule} from '@angular/material/dialog';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MaterialModule} from '../../material.module';
-import {SharedModule} from '../../shared/shared.module';
-import {RouterTestingModule} from '@angular/router/testing';
-import {Store} from '@ngrx/store';
-import {AuthenticationGuard, MsAdalAngular6Module, MsAdalAngular6Service} from 'microsoft-adal-angular6';
-import {APP_BASE_HREF} from '@angular/common';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {AuthenticationGuardMock} from '../../../../testconfig/services-mocks/authentication-guard.mock';
-import {Subject} from 'rxjs';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from '../../material.module';
+import { SharedModule } from '../../shared/shared.module';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Store } from '@ngrx/store';
+import { AuthenticationGuard, MsAdalAngular6Module, MsAdalAngular6Service } from 'microsoft-adal-angular6';
+import { APP_BASE_HREF } from '@angular/common';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { AuthenticationGuardMock } from '../../../../testconfig/services-mocks/authentication-guard.mock';
+import { Subject } from 'rxjs';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -24,7 +24,7 @@ describe('HeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ],
+      declarations: [HeaderComponent],
       imports: [
         HttpClientTestingModule,
         MatDialogModule,
@@ -52,12 +52,16 @@ describe('HeaderComponent', () => {
             select: jest.fn()
           }
         },
-        {provide: AuthenticationGuard, useValue: authenticationGuardMock},
-        {provide: APP_BASE_HREF, useValue: '/'},
+        { provide: AuthenticationGuard, useValue: authenticationGuardMock },
+        { provide: MsAdalAngular6Service, useValue: { userInfo: 
+          { profile: 
+            { name: 'test', oid: 'test' } },
+          userName: 'test User name' }},
+        { provide: APP_BASE_HREF, useValue: '/' },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -74,7 +78,8 @@ describe('HeaderComponent', () => {
     unsubscribe.complete();
   });
 
-  it('should create',  inject([HttpTestingController, MsAdalAngular6Service], () => {
+  it('should create', inject([HttpTestingController], () => {
+    console.log(component.userName);
     expect(component).toBeTruthy();
   }));
 });

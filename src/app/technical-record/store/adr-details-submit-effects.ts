@@ -137,7 +137,8 @@ export class AdrDetailsSubmitEffects implements OnRunEffects {
           productListUnNo: adrDetails.productListUnNo,
           productList: adrDetails.productList
         }
-      }
+      },
+      userDetails: this._store$.select('userDetails')
     };
   }
 }

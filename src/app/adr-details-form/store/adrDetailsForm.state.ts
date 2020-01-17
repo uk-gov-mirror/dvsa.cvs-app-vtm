@@ -28,10 +28,6 @@ export interface IAppState extends RootState {
       options: (string | ArrayBuffer)[];
     };
     submittedValue: adrDetailsFormModel | undefined;
-    // msUserDetails: {
-    //   msUser: string;
-    //   msOid: string;
-    // }
   };
 }
 
