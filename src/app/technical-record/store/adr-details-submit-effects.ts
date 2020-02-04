@@ -72,80 +72,86 @@ export class AdrDetailsSubmitEffects implements OnRunEffects {
     private _filterRecordPipe: FilterRecordPipe
   ) { }
 
+  dateFormatter(year, month, day) {
+    if (!!year && !!month && !!day) { return `${year}-${month}-${day}` };
+
+    return null;
+  }
+
   private createSubmitState = (adrDetails: any, techRecord: any) => {
     const techRecordDTO: any = {};
     techRecord.files = [];
-    techRecordDTO.msUserDetails = {'msUser': 'catalin' , 'msOid': '123243424-234234245'};
+    techRecordDTO.msUserDetails = { 'msUser': 'placeholder', 'msOid': '123243424-234234245' };
     techRecordDTO.techRecord = [];
     techRecord.reasonForCreation = 'Update ADR TYPE';
     techRecord.adrDetails = {
-        vehicleDetails: {
-          type: adrDetails.type,
-          approvalDate: adrDetails.approvalDate.year + '-' + adrDetails.approvalDate.month + '-' + adrDetails.approvalDate.day
-        },
-        listStatementApplicable: adrDetails.listStatementApplicable === 'applicable',
-        batteryListNumber: adrDetails.batteryListNumber,
-        declarationSeen: adrDetails.declarationsSeen === 'true', // boolean
-        brakeDeclarationsSeen: adrDetails.brakeDeclarationsSeen,
-        brakeDeclarationIssuer: adrDetails.brakeDeclarationIssuer,
-        brakeEndurance: adrDetails.brakeEndurance, // boolean
-        weight: adrDetails.weight,
-        compatibilityGroupJ: adrDetails.compatibilityGroupJ,
-        permittedDangerousGoods: [
-          adrDetails.permittedDangerousGoods
-        ],
-        additionalExaminerNotes: adrDetails.additionalNotes,
-        applicantDetails: {
-          name: adrDetails.name,
-          street: adrDetails.street,
-          town: adrDetails.town,
-          city: adrDetails.city,
-          postcode: adrDetails.postcode
-        },
-        memosApply: [
-          adrDetails.memosApply
-        ],
-        additionalNotes: {
-          guidanceNotes: [
-            adrDetails.guidanceNotes
-          ]
-        },
-        adrTypeApprovalNo: adrDetails.adrTypeApprovalNo,
-        tank: {
-          tankDetails: {
-            tankManufacturer: adrDetails.tankManufacturer,
-            yearOfManufacture: adrDetails.yearOfManufacture,
-            tankCode: adrDetails.tankCode,
-            specialProvisions: adrDetails.specialProvisions,
-            tankManufacturerSerialNo: adrDetails.tankManufacturerSerialNo,
-            tankTypeAppNo: adrDetails.tankTypeAppNo,
-            tc2Details: {
-              tc2Type: adrDetails.tc2Type,
-              tc2IntermediateApprovalNo: adrDetails.tc2IntermediateApprovalNo,
-              // tslint:disable-next-line:max-line-length
-              tc2IntermediateExpiryDate: adrDetails.tc2IntermediateExpiryDate.year + '-' + adrDetails.tc2IntermediateExpiryDate.month + '-' + adrDetails.tc2IntermediateExpiryDate.day
-            },
-            tc3Details: [
-              {
-                tc3Type: adrDetails.tc3Type,
-                tc3PeriodicNumber: adrDetails.tc3PeriodicNumber,
-                // tslint:disable-next-line:max-line-length
-                tc3PeriodicExpiryDate: adrDetails.tc3PeriodicExpiryDate.year + '-' + adrDetails.tc3PeriodicExpiryDate.month + '-' + adrDetails.tc3PeriodicExpiryDate.day
-              }
-            ]
-
+      vehicleDetails: {
+        type: adrDetails.type,
+        approvalDate: this.dateFormatter(adrDetails.approvalDate.year, adrDetails.approvalDate.month, adrDetails.approvalDate.day),
+      },
+      listStatementApplicable: adrDetails.listStatementApplicable === 'applicable',
+      batteryListNumber: adrDetails.listStatementApplicable === 'applicable' ? adrDetails.batteryListNumber : null,
+      declarationsSeen: adrDetails.declarationsSeen === 'true', // boolean
+      brakeDeclarationsSeen: adrDetails.brakeDeclarationsSeen,
+      brakeDeclarationIssuer: adrDetails.brakeDeclarationIssuer,
+      brakeEndurance: adrDetails.brakeEndurance, // boolean
+      weight: adrDetails.weight,
+      compatibilityGroupJ: adrDetails.compatibilityGroupJ,
+      permittedDangerousGoods: [
+        adrDetails.permittedDangerousGoods
+      ],
+      additionalExaminerNotes: adrDetails.additionalExaminerNotes,
+      applicantDetails: {
+        name: adrDetails.name,
+        street: adrDetails.street,
+        town: adrDetails.town,
+        city: adrDetails.city,
+        postcode: adrDetails.postcode
+      },
+      memosApply: [
+        adrDetails.memosApply
+      ],
+      additionalNotes: {
+        guidanceNotes: [
+          adrDetails.guidanceNotes
+        ]
+      },
+      adrTypeApprovalNo: adrDetails.adrTypeApprovalNo,
+      tank: {
+        tankDetails: {
+          tankManufacturer: adrDetails.tankManufacturer,
+          yearOfManufacture: adrDetails.yearOfManufacture,
+          tankCode: adrDetails.tankCode,
+          specialProvisions: adrDetails.specialProvisions,
+          tankManufacturerSerialNo: adrDetails.tankManufacturerSerialNo,
+          tankTypeAppNo: adrDetails.tankTypeAppNo,
+          tc2Details: {
+            tc2Type: adrDetails.tc2Type,
+            tc2IntermediateApprovalNo: adrDetails.tc2IntermediateApprovalNo,
+            // tslint:disable-next-line:max-line-length
+            tc2IntermediateExpiryDate: this.dateFormatter(adrDetails.tc2IntermediateExpiryDate.year, adrDetails.tc2IntermediateExpiryDate.month, adrDetails.tc2IntermediateExpiryDate.day),
           },
-          tankStatement: {
-            substancesPermitted: adrDetails.substancesPermitted,
-            statement: adrDetails.statement,
-            productListRefNo: adrDetails.productListRefNo,
-            productListUnNo: adrDetails.productListUnNo,
-            productList: adrDetails.productList
-          }
-        }
-      };
+          tc3Details: [
+            {
+              tc3Type: adrDetails.tc3Type,
+              tc3PeriodicNumber: adrDetails.tc3PeriodicNumber,
+              // tslint:disable-next-line:max-line-length
+              tc3PeriodicExpiryDate: this.dateFormatter(adrDetails.tc3PeriodicExpiryDate.year, adrDetails.tc3PeriodicExpiryDate.month, adrDetails.tc3PeriodicExpiryDate.day),
+            }
+          ]
 
-      techRecordDTO.techRecord.push(techRecord);
-      return techRecordDTO;
+        },
+        tankStatement: {
+          substancesPermitted: adrDetails.substancesPermitted,
+          statement: adrDetails.statement,
+          productListRefNo: adrDetails.productListRefNo,
+          productListUnNo: adrDetails.productListUnNo,
+          productList: adrDetails.productList
+        }
+      }
+    };
+
+    techRecordDTO.techRecord.push(techRecord);
+    return techRecordDTO;
   }
 }

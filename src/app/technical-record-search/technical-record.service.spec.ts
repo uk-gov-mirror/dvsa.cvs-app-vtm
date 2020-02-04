@@ -56,6 +56,48 @@ describe('TechnicalRecordService', () => {
     req.flush(mock);
   });
 
+  describe('updateTechnicalRecords', () => {
+    test('should call the url with vin and give it the form data as payload when called', (done) => {
+      const mockTechRecordData = { mockObject: 'mock' };
+      const mockVin = '123';
+      jest.spyOn(service, 'mapFormDataToPayload').mockReturnValue({ test: 123 })
+      service.updateTechnicalRecords(mockTechRecordData, mockVin).subscribe((res) => {
+        expect(res).toBeDefined();
+        expect(res).toEqual(mockTechRecordData);
+        done();
+      });
+
+      const req = httpMock.expectOne(req => req.url.includes(`/vehicles/${mockVin}`));
+      req.flush(mockTechRecordData);
+    });
+  });
+
+  describe('mapFormDataToPayload', () => {
+    test('returns a backend valid object from the form data when called', () => {
+      const techRecordData = {
+        techRecord: [
+          {
+            adrDetails: {
+              permittedDangerousGoods: [{ 'good1': true, 'good2': true }],
+              tank: {
+                tankDetails: {
+                  tc3Details: [
+                    { tc3Type: [2] ,test1: '123', test2: '456'}
+                  ]
+                }
+              }
+            },
+            reasonForCreation: 'test'
+          }
+        ]
+      };
+      const res = service.mapFormDataToPayload(techRecordData);
+
+      expect(res.techRecord[0].adrDetails.permittedDangerousGoods).toEqual(['good1', 'good2']);
+      expect(res.techRecord[0].adrDetails.tank.tankDetails.tc3Details[0]).toEqual({"tc3Type": [2], "test1": "123", "test2": "456"});
+    });
+  });
+
   describe('uploadDocuments', () => {
     it('should return observable of success mesage when the argument can be transformed into json', (done) => {
       const submitData = { test: 'test' };
@@ -81,7 +123,7 @@ describe('TechnicalRecordService', () => {
       const req = httpMock.expectOne(req => req.url.includes('http://localhost:3005/vehicles/123456/download-file'));
       expect(req.request.method).toBe('GET');
       expect(req.request.responseType).toBe('json');
-      req.flush({ fileBuffer : { data: ['1', '2', '3']}, contentType: 'json'});
+      req.flush({ fileBuffer: { data: ['1', '2', '3'] }, contentType: 'json' });
     });
   });
 

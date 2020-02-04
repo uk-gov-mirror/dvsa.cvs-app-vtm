@@ -49,5 +49,5 @@ export interface adrDetailsFormModel {
     declarationsSeen: string;
     weight: number;
     certificateReq: string;
-    adrMoreDetail: string;
+    additionalExaminerNotes: string;
 }

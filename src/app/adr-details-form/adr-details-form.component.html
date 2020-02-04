@@ -510,9 +510,9 @@
           <span id="more-detail-hint" class="govuk-hint">
               Will not be present on the ADR certificate
             </span>
-          <textarea class="govuk-textarea" rows="8"
-                    aria-describedby="adrMoreDetail"
-                    [ngrxFormControlState]="(formState$ | async).controls.adrMoreDetail">
+          <textarea class="govuk-textarea" id="additionalExaminerNotes" rows="8"
+                    aria-describedby="additionalExaminerNotes"
+                    [ngrxFormControlState]="(formState$ | async).controls.additionalExaminerNotes">
           </textarea>
         </div>
       </form>

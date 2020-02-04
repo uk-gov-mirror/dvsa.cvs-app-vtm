@@ -45,10 +45,6 @@ export class AdrDetailsFormComponent implements OnInit, OnDestroy {
   isBatteryApplicable: boolean;
   isBrakeDeclarationsSeen: boolean;
   isBrakeEndurance: boolean;
-  // msUserDetails: {
-  //   msUser: string,
-  //   msOid: string
-  // };
 
   constructor(private _store: Store<IAppState>/*, private adal: MsAdalAngular6Service*/) {
     this.adrDetails$ = this._store.select(s => s.adrDetails);
@@ -113,10 +109,6 @@ export class AdrDetailsFormComponent implements OnInit, OnDestroy {
           this.initialAdrDetails && this.initialAdrDetails.additionalNotes.guidanceNotes.includes(note)));
       });
     });
-
-    // this.msUserDetails.msOid  =  this.adal.userInfo != null ? this.adal.userInfo.profile.name : '';
-    // this.msUserDetails.msUser =  this.adal.userInfo != null ? this.adal.userInfo.profile.oid : '';
-    // this._store.dispatch(new SetMsUserDetailsAction(this.msUserDetails));
 
   }
 
