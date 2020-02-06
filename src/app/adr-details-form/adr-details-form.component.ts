@@ -113,11 +113,6 @@ export class AdrDetailsFormComponent implements OnInit, OnDestroy {
           this.initialAdrDetails && this.initialAdrDetails.additionalNotes.guidanceNotes.includes(note)));
       });
     });
-
-    // this.msUserDetails.msOid  =  this.adal.userInfo != null ? this.adal.userInfo.profile.name : '';
-    // this.msUserDetails.msUser =  this.adal.userInfo != null ? this.adal.userInfo.profile.oid : '';
-    // this._store.dispatch(new SetMsUserDetailsAction(this.msUserDetails));
-
   }
 
   ngOnDestroy(): void {

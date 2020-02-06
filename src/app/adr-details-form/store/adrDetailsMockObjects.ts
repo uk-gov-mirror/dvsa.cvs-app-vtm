@@ -50,7 +50,7 @@ export const adrDetailsFormModelState: adrDetailsFormModel = {
   declarationsSeen: 'test',
   weight: 23,
   certificateReq: 'test',
-  adrMoreDetail: 'test',
+  additionalExaminerNotes: 'test',
 };
 
 export const adrDetailsState: IAppState['adrDetails'] = {

@@ -27,10 +27,25 @@ export class TechnicalRecordService {
     return this.httpClient.get<any[]>(this.routes.techRecordsAllStatuses(searchIdentifier), { headers });
   }
 
-  updateTechnicalRecords(techRecordDto: any, vin: string): Observable<any> {
+  updateTechnicalRecords(techRecordData: any, vin: string): Observable<any> {
     console.log(`updateTechRecords url => ${this.routes.updateTechRecords(vin)}`);
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-    return this.httpClient.put<any[]>(this.routes.updateTechRecords(vin), techRecordDto, { headers });
+    const payload = this.mapFormDataToPayload(techRecordData);
+
+    return this.httpClient.put<any[]>(this.routes.updateTechRecords(vin), payload, { headers });
+  }
+
+  mapFormDataToPayload(techRecordData: any) {
+    const payload = { ...techRecordData };
+    const { adrDetails, reasonForCreation } = techRecordData.techRecord[0];
+    adrDetails.permittedDangerousGoods = Object.entries(adrDetails.permittedDangerousGoods[0]).filter(entry => entry[1] === true).map(entry => entry[0]);
+    adrDetails.memosApply = Object.entries(adrDetails.memosApply[0]).filter(entry => entry[1] === true).map(entry => entry[0]);
+    if (!adrDetails.tank.tankDetails.tc3Details[0].tc3Type.length) {
+      adrDetails.tank.tankDetails.tc3Details[0] =
+        { ...Object.keys(adrDetails.tank.tankDetails.tc3Details[0]).reduce((reduced, key) => ({ ...reduced, [key]: null }), {}) };
+    };
+    payload.techRecord[0] = { adrDetails: adrDetails, reasonForCreation: reasonForCreation };
+    return payload;
   }
 
   uploadDocuments(submitData: any): Observable<any> {

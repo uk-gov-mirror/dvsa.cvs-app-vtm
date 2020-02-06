@@ -86,7 +86,7 @@ export const INITIAL_STATE = createFormGroupState<adrDetailsFormModel>(FORM_ID, 
   declarationsSeen: '',
   weight: 0,
   certificateReq: '',
-  adrMoreDetail: ''
+  additionalExaminerNotes: ''
 });
 
 export function createInitialState(initialAdrDetails: any): any {
@@ -119,7 +119,7 @@ export function createInitialState(initialAdrDetails: any): any {
         ? 'isStatement' : 'isProductListRefNo' : '') : '',
     statement: initialAdrDetails.hasOwnProperty('tank') ? initialAdrDetails.tank.tankStatement.statement : '',
     productListRefNo: initialAdrDetails.hasOwnProperty('tank') ? initialAdrDetails.tank.tankStatement.productListRefNo : '',
-    productListUnNo: [initialAdrDetails.hasOwnProperty('tank') ? initialAdrDetails.tank.tankStatement.productListUnNo : ''],
+    productListUnNo: initialAdrDetails.hasOwnProperty('tank') ? initialAdrDetails.tank.tankStatement.productListUnNo : '',
     productList: initialAdrDetails.hasOwnProperty('tank') ? initialAdrDetails.tank.tankStatement.productList : '',
     specialProvisions: initialAdrDetails.hasOwnProperty('tank') ? initialAdrDetails.tank.tankDetails.specialProvisions : '',
     tc2Type: initialAdrDetails.hasOwnProperty('tank') ? initialAdrDetails.tank.tankDetails.tc2Details.tc2Type : '',
@@ -145,7 +145,7 @@ export function createInitialState(initialAdrDetails: any): any {
     weight: initialAdrDetails.weight,
     certificateReq: initialAdrDetails.additionalNotes.guidanceNotes ? initialAdrDetails.additionalNotes.guidanceNotes.includes('New certificate requested') 
     ? 'New certificate requested' : '' : '',
-    adrMoreDetail: initialAdrDetails.additionalExaminerNotes
+    additionalExaminerNotes: initialAdrDetails.additionalExaminerNotes
   };
 }
 
@@ -157,7 +157,7 @@ export function createSubmitState(adrDetails: any, techRecord: any): any {
     },
     listStatementApplicable: adrDetails.listStatementApplicable === 'applicable',
     batteryListNumber: adrDetails.batteryListNumber,
-    declarationSeen: adrDetails.declarationsSeen === 'true', // boolean
+    declarationsSeen: adrDetails.declarationsSeen === 'true', // boolean
     brakeDeclarationsSeen: adrDetails.brakeDeclarationsSeen,
     brakeDeclarationIssuer: adrDetails.brakeDeclarationIssuer,
     brakeEndurance: adrDetails.brakeEndurance, // boolean

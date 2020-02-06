@@ -186,7 +186,7 @@ describe('VTM ADR Ticket 1: Updating And Saving Core ADR Details', () => {
       cy.get('#cdk-accordion-child-5 > div > dl > div.ng-star-inserted > vtm-adr-details-form > div > div > fieldset > form > div.ng-star-inserted > div.govuk-inset-text > div > fieldset > div > div:nth-child(1) > input').check();
       cy.get('#adrDetails\\.brakeDeclarationsSeen').check();
       cy.get('#cdk-accordion-child-5 > div > dl > div.ng-star-inserted > vtm-adr-details-form > div > div > fieldset > form > div:nth-child(12) > fieldset > div > div:nth-child(1) > input').check();
-      cy.get('#adrDetails\\.adrMoreDetail').clear().type('ADR more details').should('have.value', 'ADR more details');
+      cy.get('#adrDetails\\.additionalExaminerNotes').clear().type('ADR more details').should('have.value', 'ADR more details');
 
     });
 
@@ -216,7 +216,7 @@ describe('VTM ADR Ticket 1: Updating And Saving Core ADR Details', () => {
     });
 
     it('AND I could have completed the optional ADR fields for my vehicle type', () => {
-      cy.get('#adrDetails\\.adrMoreDetail').should('have.value', 'ADR more details');
+      cy.get('#adrDetails\\.additionalExaminerNotes').should('have.value', 'ADR more details');
     });
 
     it('WHEN I click the call to action to save my ADR record', () => {
