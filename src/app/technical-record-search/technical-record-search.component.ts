@@ -1,5 +1,5 @@
-import {Component, ChangeDetectionStrategy} from '@angular/core';
-import {Store} from '@ngrx/store';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IAppState } from '@app/store/state/app.state';
 import { GetVehicleTechRecordModelHavingStatusAll } from '@app/store/actions/VehicleTechRecordModel.actions';
@@ -11,13 +11,14 @@ import { GetVehicleTechRecordModelHavingStatusAll } from '@app/store/actions/Veh
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TechnicalRecordSearchComponent {
-
   searchIdentifier = '{none searched}';
   isLoading: boolean;
   searchError$: Observable<any>;
 
   constructor(private _store: Store<IAppState>) {
-    this.searchError$ = this._store.select( s => s.vehicleTechRecordModel.error);
+    this.searchError$ = this._store.select(
+      (s) => s.vehicleTechRecordModel.error
+    );
   }
 
   public searchTechRecords(q: string) {
@@ -25,5 +26,4 @@ export class TechnicalRecordSearchComponent {
     this.searchIdentifier = q;
     this._store.dispatch(new GetVehicleTechRecordModelHavingStatusAll(q));
   }
-
 }

@@ -1,8 +1,17 @@
-import { initialAdrDetailsSubmitState, IAdrDetailsSubmitState } from "./adrDetailsSubmit.state";
-import { SubmitAdrAction, SubmitAdrActionFailure, SubmitAdrActionSuccess } from "./adrDetailsSubmit.actions";
+import {
+  initialAdrDetailsSubmitState,
+  IAdrDetailsSubmitState
+} from './adrDetailsSubmit.state';
+import {
+  SubmitAdrAction,
+  SubmitAdrActionFailure,
+  SubmitAdrActionSuccess
+} from './adrDetailsSubmit.actions';
 
-export function AdrDetailsSubmitReducer(state = initialAdrDetailsSubmitState,
-    action: SubmitAdrAction | SubmitAdrActionSuccess | SubmitAdrActionFailure): IAdrDetailsSubmitState {
+export function AdrDetailsSubmitReducer(
+  state = initialAdrDetailsSubmitState,
+  action: SubmitAdrAction | SubmitAdrActionSuccess | SubmitAdrActionFailure
+): IAdrDetailsSubmitState {
   switch (action.type) {
     case SubmitAdrAction.TYPE: {
       return {
@@ -23,7 +32,7 @@ export function AdrDetailsSubmitReducer(state = initialAdrDetailsSubmitState,
     case SubmitAdrActionFailure.TYPE: {
       return {
         ...state,
-        error: action.payload  // capture error message
+        error: action.payload // capture error message
       };
     }
 

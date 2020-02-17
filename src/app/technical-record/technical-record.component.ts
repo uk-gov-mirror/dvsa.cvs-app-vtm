@@ -22,6 +22,30 @@ import { PendingChangesService } from '@app/shared/pending-changes-service/pendi
 })
 export class TechnicalRecordComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
 
+  ngDestroyed$ = new Subject();
+  techRecordsJson$: Observable<any>;
+  testResultJson$: Observable<any>;
+  isFormDirty: boolean;
+
+  searchIdentifier = '{none searched}';
+  panels: { panel: string, isOpened: boolean }[] = [{ panel: 'panel1', isOpened: false }, { panel: 'panel2', isOpened: false },
+  { panel: 'panel3', isOpened: false }, { panel: 'panel4', isOpened: false },
+  { panel: 'panel5', isOpened: false }, { panel: 'panel6', isOpened: false }, { panel: 'panel7', isOpened: false },
+  { panel: 'panel8', isOpened: false }, { panel: 'panel9', isOpened: false }, { panel: 'panel10', isOpened: false }];
+  allOpened = false;
+  color = 'red';
+  changeLabel = 'Change technical record';
+  isSubmit = false;
+  adrData = true;
+  hideForm = false;
+  showCheck = false;
+  numberFee: any;
+  isAdrNull: any;
+  navigationSubscription;
+
+  @HostBinding('@.disabled')
+  public animationsDisabled = true;
+
   constructor(
     private _store: Store<IAppState>,
     public dialog: MatDialog,
@@ -45,30 +69,6 @@ export class TechnicalRecordComponent implements OnInit, OnDestroy, ComponentCan
       return false;
     } else { return true; }
   }
-
-  @HostBinding('@.disabled')
-  public animationsDisabled = true;
-
-  ngDestroyed$ = new Subject();
-  techRecordsJson$: Observable<any>;
-  testResultJson$: Observable<any>;
-  isFormDirty: boolean;
-
-  searchIdentifier = '{none searched}';
-  panels: { panel: string, isOpened: boolean }[] = [{ panel: 'panel1', isOpened: false }, { panel: 'panel2', isOpened: false },
-  { panel: 'panel3', isOpened: false }, { panel: 'panel4', isOpened: false },
-  { panel: 'panel5', isOpened: false }, { panel: 'panel6', isOpened: false }, { panel: 'panel7', isOpened: false },
-  { panel: 'panel8', isOpened: false }, { panel: 'panel9', isOpened: false }, { panel: 'panel10', isOpened: false }];
-  allOpened = false;
-  color = 'red';
-  changeLabel = 'Change technical record';
-  isSubmit = false;
-  adrData = true;
-  hideForm = false;
-  showCheck = false;
-  numberFee: any;
-  isAdrNull: any;
-  navigationSubscription;
 
   initializeTechnicalRecord() {
     this.cancelAddrEdit();

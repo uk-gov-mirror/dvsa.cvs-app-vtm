@@ -1,5 +1,8 @@
 import {
-  EVehicleTestResultModelActions, GetVehicleTestResultModel, GetVehicleTestResultModelSuccess, GetVehicleTestResultModelFailure
+  EVehicleTestResultModelActions,
+  GetVehicleTestResultModel,
+  GetVehicleTestResultModelSuccess,
+  GetVehicleTestResultModelFailure
 } from './VehicleTestResultModel.actions';
 import { TestResultModel } from '@app/models/test-result.model';
 
@@ -30,31 +33,43 @@ const testResultModelExample: TestResultModel = {
   vin: '213',
   vehicleSize: '213',
   preparerName: '213'
-}
+};
 
 describe('GetVehicleTestResultModel', () => {
   test('action should have the right type and payload when used', () => {
-    const actionInstance = new GetVehicleTestResultModel(testResultModelExample);
+    const actionInstance = new GetVehicleTestResultModel(
+      testResultModelExample
+    );
 
-    expect(actionInstance.type).toBe(EVehicleTestResultModelActions.GetVehicleTestResultModel);
-    expect(actionInstance.payload).toBe(testResultModelExample)
+    expect(actionInstance.type).toBe(
+      EVehicleTestResultModelActions.GetVehicleTestResultModel
+    );
+    expect(actionInstance.payload).toBe(testResultModelExample);
   });
 });
 
 describe('GetVehicleTestResultModelSuccess', () => {
   test('action should have the right type and payload when used', () => {
-    const actionInstance = new GetVehicleTestResultModelSuccess(testResultModelExample);
+    const actionInstance = new GetVehicleTestResultModelSuccess(
+      testResultModelExample
+    );
 
-    expect(actionInstance.type).toBe(EVehicleTestResultModelActions.GetVehicleTestResultModelSuccess);
-    expect(actionInstance.payload).toBe(testResultModelExample)
+    expect(actionInstance.type).toBe(
+      EVehicleTestResultModelActions.GetVehicleTestResultModelSuccess
+    );
+    expect(actionInstance.payload).toBe(testResultModelExample);
   });
 });
 
 describe('GetVehicleTestResultModelFailure', () => {
   test('action should have the right type and payload when used', () => {
-    const actionInstance = new GetVehicleTestResultModelFailure(testResultModelExample);
+    const actionInstance = new GetVehicleTestResultModelFailure(
+      testResultModelExample
+    );
 
-    expect(actionInstance.type).toBe(EVehicleTestResultModelActions.GetVehicleTestResultModelFailure);
-    expect(actionInstance.payload).toBe(testResultModelExample)
+    expect(actionInstance.type).toBe(
+      EVehicleTestResultModelActions.GetVehicleTestResultModelFailure
+    );
+    expect(actionInstance.payload).toBe(testResultModelExample);
   });
 });

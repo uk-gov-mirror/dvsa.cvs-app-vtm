@@ -3,12 +3,18 @@ import { Action } from '@ngrx/store';
 import { AddArrayControlAction, RemoveArrayControlAction } from 'ngrx-forms';
 import * as AdrDetailsActions from './adrDetails.actions';
 import { adrDetailsReducer } from './adrDetails.reducer';
-import { adrDetailsFormModelState, adrDetailsState } from './adrDetailsMockObjects';
+import {
+  adrDetailsFormModelState,
+  adrDetailsState
+} from './adrDetailsMockObjects';
 
 describe('adrDetailsReducer', () => {
   describe('permittedDangerousGoodsOptions', () => {
     test('CreatePermittedDangerousGoodElementAction', () => {
-      const action: Action = new AdrDetailsActions.CreatePermittedDangerousGoodElementAction('test', false);
+      const action: Action = new AdrDetailsActions.CreatePermittedDangerousGoodElementAction(
+        'test',
+        false
+      );
       const result = adrDetailsReducer(adrDetailsState, action);
 
       expect(result.permittedDangerousGoodsOptions.length).toBe(3);
@@ -16,7 +22,9 @@ describe('adrDetailsReducer', () => {
     });
 
     test('RemovePermittedDangerousGoodElementAction', () => {
-      const action: Action = new AdrDetailsActions.RemovePermittedDangerousGoodElementAction('12');
+      const action: Action = new AdrDetailsActions.RemovePermittedDangerousGoodElementAction(
+        '12'
+      );
       const result = adrDetailsReducer(adrDetailsState, action);
 
       expect(result.permittedDangerousGoodsOptions.length).toBe(0);
@@ -32,7 +40,10 @@ describe('adrDetailsReducer', () => {
 
   describe('additionalNotesOptions', () => {
     test('CreateGuidanceNoteElementAction', () => {
-      const action: Action = new AdrDetailsActions.CreateGuidanceNoteElementAction('test', false);
+      const action: Action = new AdrDetailsActions.CreateGuidanceNoteElementAction(
+        'test',
+        false
+      );
       const result = adrDetailsReducer(adrDetailsState, action);
 
       expect(result.additionalNotesOptions.length).toBe(3);
@@ -40,7 +51,9 @@ describe('adrDetailsReducer', () => {
     });
 
     test('RemoveGuidanceNoteElementAction', () => {
-      const action: Action = new AdrDetailsActions.RemoveGuidanceNoteElementAction('123');
+      const action: Action = new AdrDetailsActions.RemoveGuidanceNoteElementAction(
+        '123'
+      );
       const result = adrDetailsReducer(adrDetailsState, action);
 
       expect(result.additionalNotesOptions.length).toBe(1);
@@ -50,7 +63,11 @@ describe('adrDetailsReducer', () => {
 
   describe('tc3Type', () => {
     test('CreateTc3TypeElementAction', () => {
-      const action: Action = new AdrDetailsActions.CreateTc3TypeElementAction('12', 12, 12);
+      const action: Action = new AdrDetailsActions.CreateTc3TypeElementAction(
+        '12',
+        12,
+        12
+      );
       const result = adrDetailsReducer(adrDetailsState, action);
 
       expect(result.tc3Type.maxIndex).toBe(4);
@@ -61,7 +78,11 @@ describe('adrDetailsReducer', () => {
 
   describe('tc3PeriodicNumber', () => {
     test('CreateTc3PeriodicNumberElementAction', () => {
-      const action: Action = new AdrDetailsActions.CreateTc3PeriodicNumberElementAction('12', 12, 12);
+      const action: Action = new AdrDetailsActions.CreateTc3PeriodicNumberElementAction(
+        '12',
+        12,
+        12
+      );
       const result = adrDetailsReducer(adrDetailsState, action);
 
       expect(result.tc3PeriodicNumber.maxIndex).toBe(34);
@@ -72,12 +93,18 @@ describe('adrDetailsReducer', () => {
 
   describe('tc3PeriodicExpiryDate', () => {
     test('CreateTc3PeriodicExpiryDateElementAction', () => {
-      const action: Action = new AdrDetailsActions.CreateTc3PeriodicExpiryDateElementAction('12', 12, 12);
+      const action: Action = new AdrDetailsActions.CreateTc3PeriodicExpiryDateElementAction(
+        '12',
+        12,
+        12
+      );
       const result = adrDetailsReducer(adrDetailsState, action);
 
       expect(result.tc3PeriodicExpiryDate.maxIndex).toBe(24);
       expect(result.tc3PeriodicExpiryDate.options.length).toBe(2);
-      expect(result.tc3PeriodicExpiryDate.options[0]).toBe(adrDetailsState.tc3PeriodicExpiryDate.options[0]);
+      expect(result.tc3PeriodicExpiryDate.options[0]).toBe(
+        adrDetailsState.tc3PeriodicExpiryDate.options[0]
+      );
     });
   });
 
@@ -88,7 +115,6 @@ describe('adrDetailsReducer', () => {
 
       expect(result.productListUnNo.maxIndex).toBe(3);
       expect(result.productListUnNo.options.length).toBe(4);
-      
     });
 
     test('RemoveArrayControlAction', () => {
@@ -102,16 +128,20 @@ describe('adrDetailsReducer', () => {
 
   describe('tankDocuments', () => {
     test('AddArrayControlAction', () => {
-      const action: Action = new AdrDetailsActions.AddTankDocumentAction('12', '12');
+      const action: Action = new AdrDetailsActions.AddTankDocumentAction(
+        '12',
+        '12'
+      );
       const result = adrDetailsReducer(adrDetailsState, action);
 
       expect(result.tankDocuments.maxIndex).toBe(524);
       expect(result.tankDocuments.options.length).toBe(3);
-      
     });
 
     test('RemoveTankDocumentAction', () => {
-      const action: Action = new AdrDetailsActions.RemoveTankDocumentAction('12');
+      const action: Action = new AdrDetailsActions.RemoveTankDocumentAction(
+        '12'
+      );
       const result = adrDetailsReducer(adrDetailsState, action);
 
       expect(result.tankDocuments.maxIndex).toBe(523);
@@ -121,7 +151,9 @@ describe('adrDetailsReducer', () => {
 
   describe('submittedValue', () => {
     test('SetSubmittedValueAction', () => {
-      const action: Action = new AdrDetailsActions.SetSubmittedValueAction(adrDetailsFormModelState);
+      const action: Action = new AdrDetailsActions.SetSubmittedValueAction(
+        adrDetailsFormModelState
+      );
       const result = adrDetailsReducer(adrDetailsState, action);
 
       expect(result.submittedValue).toBe(adrDetailsFormModelState);

@@ -15,10 +15,12 @@
     "e2e": "cypress open",
     "sonar-scanner": "npm run test && sonar-scanner",
     "test:deploy": "npm run build && npx http-server ./dist -p 4200 -c-1",
-    "prepush": "npm run build && npm test",
     "tslint": "tslint src/**/*.ts",
     "security-checks": "git secrets --scan && git log -p | scanrepo",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "pre-commit": "npm run lint && npm run prettier",
+    "pre-push": "npm run build && npm test",
+    "prettier": "pretty-quick --staged"
   },
   "private": true,
   "dependencies": {
@@ -80,6 +82,8 @@
     "jest-plugin-context": "^2.9.0",
     "jest-runner-tsc": "^1.6.0",
     "jest-sonar-reporter": "^2.0.0",
+    "prettier": "1.18.2",
+    "pretty-quick": "2.0.0",
     "ts-loader": "^6.2.1",
     "ts-node": "5.0.1",
     "tslint": "5.9.1",
@@ -146,8 +150,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run prepush",
-      "pre-push": "npm run prepush"
+      "pre-commit": "npm run pre-commit",
+      "pre-push": "npm run pre-push"
     }
   },
   "description": "CVS VTM Application"
