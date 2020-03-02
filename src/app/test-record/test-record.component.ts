@@ -36,5 +36,4 @@ export class TestRecordComponent implements OnInit {
 
     initAll();
   }
-
 }
