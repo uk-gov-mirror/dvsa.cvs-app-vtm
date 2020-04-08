@@ -1,4 +1,4 @@
-export interface VehicleClassModel {
+export interface BodyType {
   code: string;
   description: string;
 }

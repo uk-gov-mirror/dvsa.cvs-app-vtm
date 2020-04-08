@@ -30,6 +30,13 @@ import { TestHistoryComponent } from './test-history/test-history.component';
 import { TyresComponent } from './tyres/tyres.component';
 import { VehicleSummaryComponent } from './vehicle-summary/vehicle-summary.component';
 import { WeightsComponent } from './weights/weights.component';
+// import { BodyFieldsComponent } from './technical-record-fields/vehicle-summary/body-fields/body-fields.component';
+import { WeightsFieldsComponent } from './technical-record-fields/weights-fields/weights-fields.component';
+import { TyresFieldsComponent } from './technical-record-fields/tyres-fields/tyres-fields.component';
+import { DimensionsFieldsComponent } from './technical-record-fields/dimensions-fields/dimensions-fields.component';
+import { ApplicantFieldsComponent } from './technical-record-fields/applicant-fields/applicant-fields.component';
+import { DocumentsFieldsComponent } from './technical-record-fields/documents-fields/documents-fields.component';
+import { NotesFieldsComponent } from './technical-record-fields/notes-fields/notes-fields.component';
 
 @NgModule({
   imports: [
@@ -60,7 +67,14 @@ import { WeightsComponent } from './weights/weights.component';
     TestHistoryComponent,
     TechRecHistoryComponent,
     AdrDetailsViewComponent,
-    AdrDetailsComponent
+    AdrDetailsComponent,
+    // BodyFieldsComponent,
+    WeightsFieldsComponent,
+    TyresFieldsComponent,
+    DimensionsFieldsComponent,
+    ApplicantFieldsComponent,
+    DocumentsFieldsComponent,
+    NotesFieldsComponent
   ],
   exports: [
     TechnicalRecordComponent

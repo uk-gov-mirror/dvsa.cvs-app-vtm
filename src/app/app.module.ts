@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormGroupDirective } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -34,6 +34,14 @@ import { SharedModule } from './shared/shared.module';
 import { SpinnerLoaderComponent } from './shared/spinner-loader/spinner-loader.component';
 import { TestRecordComponent } from '@app/test-record/test-record.component';
 import { LogoutModalComponent } from './shell/header/logout-modal/logout-modal.component';
+import { TechnicalRecordFieldsComponent } from './technical-record/technical-record-fields/technical-record-fields.component';
+import { VehicleSummaryFieldsComponent } from './technical-record/technical-record-fields/vehicle-summary/vehicle-summary.component';
+import { BodyFieldsComponent } from './technical-record/technical-record-fields/body-fields/body-fields.component';
+import { WeightsFieldsComponent } from './technical-record/technical-record-fields/weights-fields/weights-fields.component';
+import { TyresFieldsComponent } from './technical-record/technical-record-fields/tyres-fields/tyres-fields.component';
+import { DimensionsFieldsComponent } from './technical-record/technical-record-fields/dimensions-fields/dimensions-fields.component';
+import { ApplicantFieldsComponent } from './technical-record/technical-record-fields/applicant-fields/applicant-fields.component';
+import { DocumentsFieldsComponent } from './technical-record/technical-record-fields/documents-fields/documents-fields.component';
 
 let adalConfig: any; // will be initialized by APP_INITIALIZER
 export function msAdalAngular6ConfigFactory() {
@@ -62,6 +70,14 @@ export const COMPONENTS = [
   HeaderComponent,
   FooterComponent,
   TechnicalRecordCreateComponent,
+  TechnicalRecordFieldsComponent,
+  VehicleSummaryFieldsComponent,
+  BodyFieldsComponent,
+  WeightsFieldsComponent,
+  TyresFieldsComponent,
+  DimensionsFieldsComponent,
+  ApplicantFieldsComponent,
+  DocumentsFieldsComponent,
   SpinnerLoaderComponent,
   TestRecordComponent,
   LogoutModalComponent,
@@ -91,6 +107,7 @@ export const COMPONENTS = [
   exports: COMPONENTS,
   entryComponents: [LogoutModalComponent],
   providers: [
+    FormGroupDirective,
     { provide: RouterStateSerializer, useClass: CustomSerializer },
     AppConfig,
     {
