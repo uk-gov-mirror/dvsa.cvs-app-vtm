@@ -34,7 +34,7 @@ import { WeightsComponent } from './weights/weights.component';
 import { WeightsFieldsComponent } from './technical-record-fields/weights-fields/weights-fields.component';
 import { TyresFieldsComponent } from './technical-record-fields/tyres-fields/tyres-fields.component';
 import { DimensionsFieldsComponent } from './technical-record-fields/dimensions-fields/dimensions-fields.component';
-import { ApplicantFieldsComponent } from './technical-record-fields/applicant-fields/applicant-fields.component';
+import { ApplicantDetailsComponent } from './technical-record-fields/applicant-details/applicant-details.component';
 import { DocumentsFieldsComponent } from './technical-record-fields/documents-fields/documents-fields.component';
 import { NotesFieldsComponent } from './technical-record-fields/notes-fields/notes-fields.component';
 
@@ -72,7 +72,7 @@ import { NotesFieldsComponent } from './technical-record-fields/notes-fields/not
     WeightsFieldsComponent,
     TyresFieldsComponent,
     DimensionsFieldsComponent,
-    ApplicantFieldsComponent,
+    ApplicantDetailsComponent,
     DocumentsFieldsComponent,
     NotesFieldsComponent
   ],

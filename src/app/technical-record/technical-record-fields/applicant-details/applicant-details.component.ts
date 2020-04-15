@@ -3,12 +3,12 @@ import { TechnicalRecordFieldsComponent } from '../technical-record-fields.compo
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'vtm-applicant-fields',
-  templateUrl: './applicant-fields.component.html',
-  styleUrls: ['./applicant-fields.component.scss'],
+  selector: 'vtm-applicant-details',
+  templateUrl: './applicant-details.component.html',
+  styleUrls: ['./applicant-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ApplicantFieldsComponent extends TechnicalRecordFieldsComponent implements OnInit {
+export class ApplicantDetailsComponent extends TechnicalRecordFieldsComponent implements OnInit {
   technicalRecord: FormGroup;
 
   ngOnInit() {

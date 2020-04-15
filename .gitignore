@@ -43,3 +43,4 @@ Thumbs.db
 .sonar
 .scannerwork
 .reports
+/**/*.dev.json
