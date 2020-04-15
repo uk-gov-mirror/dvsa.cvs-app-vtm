@@ -26,6 +26,20 @@ export class WeightsFieldsComponent extends TechnicalRecordFieldsComponent imple
     this.technicalRecord.addControl('maxTrainEecWeight', this.fb.control(''));
     this.technicalRecord.addControl('maxTrainDesignWeight', this.fb.control(''));
 
+    this.technicalRecord.addControl('axles', this.buildAxlesArrayGroup([]));
   }
 
+  buildAxlesArrayGroup(data) {
+    return this.fb.array(data.map(this.buildAxelGroup.bind(this)));
+  }
+
+  buildAxelGroup(data = {}): FormGroup {
+    return this.fb.group({
+      weights: this.fb.group({
+        gbWeight: this.fb.control('gbWeight'),
+        eecWeight: this.fb.control('eecWeight'),
+        designWeight: this.fb.control('designWeight')
+      })
+    })
+  }
 }
