@@ -1,5 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { TechnicalRecordFieldsComponent } from '../technical-record-fields.component';
+// needs to be technical-record.component in fact, we should not be duplicating the component
+// or we might want to create an HGV one but that will be a page level
+// need to check how hgv, psv differ
+import { TechnicalRecordFieldsComponent } from '../technical-record-fields/technical-record-fields.component';
 import { FormGroup } from '@angular/forms';
 
 @Component({

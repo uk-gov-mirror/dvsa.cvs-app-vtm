@@ -40,7 +40,7 @@ import { BodyFieldsComponent } from './technical-record/technical-record-fields/
 import { WeightsFieldsComponent } from './technical-record/technical-record-fields/weights-fields/weights-fields.component';
 import { TyresFieldsComponent } from './technical-record/technical-record-fields/tyres-fields/tyres-fields.component';
 import { DimensionsFieldsComponent } from './technical-record/technical-record-fields/dimensions-fields/dimensions-fields.component';
-import { ApplicantDetailsComponent } from './technical-record/technical-record-fields/applicant-details/applicant-details.component';
+import { ApplicantDetailsComponent } from './technical-record/applicant-details/applicant-details.component';
 import { DocumentsFieldsComponent } from './technical-record/technical-record-fields/documents-fields/documents-fields.component';
 
 let adalConfig: any; // will be initialized by APP_INITIALIZER
