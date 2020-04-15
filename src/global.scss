@@ -86,6 +86,14 @@
   display: none;
 }
 
+.tree-node {
+  color: $govuk-link-colour;
+  &.is-active {
+    color: govuk-colour("white");
+    background-color: $govuk-brand-colour;
+  }
+}
+
 /*********/
 // PAGES //
 /*********/

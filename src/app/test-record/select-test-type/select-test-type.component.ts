@@ -1,10 +1,14 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { selectTestTypeById } from '@app/store/selectors/VehicleTestResultModel.selectors';
-import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { IAppState } from '@app/store/state/app.state';
-import { ActivatedRoute } from '@angular/router';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Input,
+  EventEmitter,
+  Output
+} from '@angular/core';
 import { TestRecordTestType } from '@app/models/test-record-test-type';
+import { TestTypeCategory } from '@app/models/test-type-category';
+import { KeyValue } from '@angular/common';
 
 @Component({
   selector: 'vtm-select-test-type',
@@ -12,13 +16,20 @@ import { TestRecordTestType } from '@app/models/test-record-test-type';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectTestTypeComponent implements OnInit {
-  testRecordObservable$: Observable<TestRecordTestType>;
+  @Input() testResultObj: TestRecordTestType;
+  @Input() filteredCategories: TestTypeCategory[];
+  @Output() selectTypeHandler = new EventEmitter<KeyValue<string, string>>();
+  newTestTypeData: KeyValue<string, string>;
 
-  constructor(private store: Store<IAppState>, private route: ActivatedRoute) {}
+  constructor() {}
 
-  ngOnInit() {
-    this.route.paramMap.subscribe((params) => {
-      this.testRecordObservable$ = this.store.select(selectTestTypeById(params.get('id')));
-    });
+  ngOnInit() {}
+
+  setNewTestTypeData(newTestTypeData: KeyValue<string, string>) {
+    this.newTestTypeData = newTestTypeData;
+  }
+
+  updateSelectedTestResult() {
+    this.selectTypeHandler.emit(this.newTestTypeData);
   }
 }
