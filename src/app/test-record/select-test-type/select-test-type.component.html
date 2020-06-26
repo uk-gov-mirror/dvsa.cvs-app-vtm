@@ -10,7 +10,7 @@
 
     <vtm-tree-component
       [treeData]="filteredCategories"
-      (sendTreeData)="setNewTestTypeData($event)"
+      (sendTreeData)="selectedTestTypeHandler($event)"
     ></vtm-tree-component>
 
     <!-- the emitter btn -->

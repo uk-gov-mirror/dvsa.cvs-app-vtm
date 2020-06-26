@@ -6,9 +6,8 @@ import {
   EventEmitter,
   Output
 } from '@angular/core';
-import { TestRecordTestType } from '@app/models/test-record-test-type';
-import { TestTypeCategory } from '@app/models/test-type-category';
 import { KeyValue } from '@angular/common';
+import { TreeData } from '@app/models/tree-data';
 
 @Component({
   selector: 'vtm-select-test-type',
@@ -16,20 +15,19 @@ import { KeyValue } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectTestTypeComponent implements OnInit {
-  @Input() testResultObj: TestRecordTestType;
-  @Input() filteredCategories: TestTypeCategory[];
-  @Output() selectTypeHandler = new EventEmitter<KeyValue<string, string>>();
-  newTestTypeData: KeyValue<string, string>;
+  @Input() filteredCategories: TreeData[];
+  @Output() testTypeSelected = new EventEmitter<KeyValue<string, string>>();
+  testTypeData: KeyValue<string, string>;
 
   constructor() {}
 
   ngOnInit() {}
 
-  setNewTestTypeData(newTestTypeData: KeyValue<string, string>) {
-    this.newTestTypeData = newTestTypeData;
+  selectedTestTypeHandler(testTypeData: KeyValue<string, string>) {
+    this.testTypeData = testTypeData;
   }
 
   updateSelectedTestResult() {
-    this.selectTypeHandler.emit(this.newTestTypeData);
+    this.testTypeSelected.emit(this.testTypeData);
   }
 }

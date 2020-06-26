@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { Component, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
 import { KeyValue } from '@angular/common';
 import { TestTypeCategory } from '@app/models/test-type-category';
-import { TEST_MODEL_UTILS } from '@app/utils';
+import { TreeData } from '@app/models/tree-data';
 
 describe('SelectTestTypeComponent', () => {
   let component: SelectTestTypeComponent;
@@ -31,7 +31,7 @@ describe('SelectTestTypeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SelectTestTypeComponent);
     component = fixture.componentInstance;
-    component.filteredCategories = [TEST_MODEL_UTILS.mockTestTypeCategory()];
+    component.filteredCategories = [{ id: '1', isActive: true } as TreeData];
     fixture.detectChanges();
   });
 
@@ -46,12 +46,12 @@ describe('SelectTestTypeComponent', () => {
       value: 'test'
     } as KeyValue<string, string>;
 
-    component.newTestTypeData = testTreeNode;
+    component.testTypeData = testTreeNode;
     fixture.detectChanges();
 
-    spyOn(component.selectTypeHandler, 'emit');
+    spyOn(component.testTypeSelected, 'emit');
     component.updateSelectedTestResult();
-    expect(component.selectTypeHandler.emit).toHaveBeenCalledWith(testTreeNode);
+    expect(component.testTypeSelected.emit).toHaveBeenCalledWith(testTreeNode);
   });
 });
 

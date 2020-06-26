@@ -3,7 +3,7 @@
 exports[`SelectTestTypeComponent should create 1`] = `
 <vtm-select-test-type
   filteredCategories={[Function Array]}
-  selectTypeHandler={[Function EventEmitter]}
+  testTypeSelected={[Function EventEmitter]}
 >
   <div
     class="govuk-width-container"

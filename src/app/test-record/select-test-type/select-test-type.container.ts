@@ -4,7 +4,6 @@ import { IAppState } from '@app/store/state/app.state';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { TestRecordTestType } from '@app/models/test-record-test-type';
-import { TestTypeCategory } from '@app/models/test-type-category';
 import {
   getFilteredTestTypeCategories,
   selectTestTypeById
@@ -16,11 +15,10 @@ import { TreeData } from '@app/models/tree-data';
 @Component({
   selector: 'vtm-select-test-type-container',
   template: `
-    <ng-container *ngIf="testRecord$ | async as testResultObj">
+    <ng-container *ngIf="filteredCategories$ | async as filteredCategories">
       <vtm-select-test-type
-        [testResultObj]="testResultObj"
-        [filteredCategories]="filteredCategories$ | async"
-        (selectTypeHandler)="updateSelectedTestResult($event)"
+        [filteredCategories]="filteredCategories"
+        (testTypeSelected)="updateSelectedTestResult($event)"
       >
       </vtm-select-test-type>
     </ng-container>
