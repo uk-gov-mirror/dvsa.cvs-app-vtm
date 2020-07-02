@@ -1,0 +1,28 @@
+<div mat-dialog-content>
+  <h1 class="govuk-heading-m enter-reason-for-cha">Enter reason for deleting test record</h1>
+  <textarea
+    class="govuk-textarea"
+    id="reasonForDelete"
+    rows="8"
+    [(ngModel)]="data.response"
+    aria-describedby="reasonForDelete"
+  >
+  </textarea>
+</div>
+
+<div class="govuk-inset-text">
+  <h2 class="govuk-heading-m">Any linked tests will also be deleted.</h2>
+</div>
+
+<button
+  class="govuk-button govuk-button--warning"
+  data-module="govuk-button"
+  cdkFocusInitial
+  (click)="save(data.response)"
+>
+  Delete test record
+</button>
+
+<a class="cancel" (click)="close()">
+  <span>Cancel</span>
+</a>

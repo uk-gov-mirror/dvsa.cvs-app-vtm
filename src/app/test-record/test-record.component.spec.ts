@@ -18,6 +18,8 @@ import { Location } from '@angular/common';
 import { TEST_TYPE_APPLICABLE_UTILS } from '@app/utils/test-type-applicable-models.utils';
 import { TEST_MODEL_UTILS } from '@app/utils/test-model.utils';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TestRecordModule } from './test-record.module';
+import { MaterialModule } from '@app/material.module';
 
 describe('TestRecordComponent', () => {
   let component: TestRecordComponent;
@@ -39,7 +41,13 @@ describe('TestRecordComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [SharedModule, ReactiveFormsModule, MatDialogModule, BrowserAnimationsModule, RouterTestingModule],
+      imports: [
+        SharedModule,
+        ReactiveFormsModule,
+        MatDialogModule,
+        BrowserAnimationsModule,
+        RouterTestingModule
+      ],
       declarations: [TestRecordComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
@@ -75,10 +83,10 @@ describe('TestRecordComponent', () => {
   });
 
   // TODO: Tests need to be updated in CVSB-12379 as tests are not valid.
-   it('should create', () => {
-     expect(component).toBeTruthy();
-  //   expect(fixture).toMatchSnapshot();
-   });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+    //   expect(fixture).toMatchSnapshot();
+  });
 
   // it('should switch current state to edit', () => {
   //   spyOn(component.switchState, 'emit');
@@ -102,4 +110,11 @@ describe('TestRecordComponent', () => {
 
   //   expect(component.testResultObj).toEqual(testObject);
   // });
+
+  it('should emit on delete test', () => {
+    spyOn(component.archiveTest, 'emit');
+    component.deleteTest();
+
+    expect(component.archiveTest.emit).toHaveBeenCalledWith('123');
+  });
 });
