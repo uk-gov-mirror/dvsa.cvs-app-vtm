@@ -114,15 +114,15 @@ export class TestRecordComponent implements OnInit {
   }
 
   deleteTest() {
-    const dialogRef = this.dialog.open(TestDeleteReasonModalComponent, {
-      width: '45vw',
-      data: { response: '' }
-    });
+    // const dialogRef = this.dialog.open(TestDeleteReasonModalComponent, {
+    //   width: '45vw',
+    //   data: { response: '' }
+    // });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      const newTestType = this.buildTestObjectToBeArchived(result);
+    // dialogRef.afterClosed().subscribe((result) => {
+      const newTestType = this.buildTestObjectToBeArchived('');
       this.archiveTest.emit(newTestType);
-    });
+    // });
   }
 
   buildTestObjectToBeArchived(reason: string) {

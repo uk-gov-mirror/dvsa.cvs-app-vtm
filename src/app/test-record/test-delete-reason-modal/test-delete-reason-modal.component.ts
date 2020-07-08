@@ -1,9 +1,8 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Output, EventEmitter, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ModalPayload, ModalContent } from '@app/modal/modal.model';
+import { EmissionDetailsComponent } from '../emission-details/emission-details.component';
 
-export interface DialogData {
-  response: string;
-}
 
 @Component({
   selector: 'vtm-test-delete-reason-modal',
@@ -11,16 +10,17 @@ export interface DialogData {
   styleUrls: ['./test-delete-reason-modal.component.scss']
 })
 export class TestDeleteReasonModalComponent {
-  constructor(
-    public dialogRef: MatDialogRef<TestDeleteReasonModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) {}
+  @Output() okCancelAction = new EventEmitter<ModalPayload>();
+  @Input() modalContent: ModalContent;
+  constructor() {}
 
   close(): void {
-    this.dialogRef.close();
+    // this.dialogRef.close();
+    this.okCancelAction.emit({ isOk: false });
   }
 
   save(reason: string): void {
-    this.dialogRef.close(reason);
+    // this.dialogRef.close(reason);
+    this.okCancelAction.emit({ isOk: true, payload: reason });
   }
 }

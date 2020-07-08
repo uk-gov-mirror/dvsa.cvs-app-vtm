@@ -61,7 +61,6 @@ export const COMPONENTS = [
   SelectTestTypeComponent,
   SelectTestTypeContainer,
   TreeComponent,
-  TestDeleteReasonModalComponent
 ];
 
 export const MODULES = [
@@ -95,7 +94,6 @@ export const MODULES = [
 @NgModule({
   imports: [MODULES],
   declarations: [COMPONENTS],
-  entryComponents: [TestDeleteReasonModalComponent],
   exports: [COMPONENTS],
   providers: [FormGroupDirective]
 })

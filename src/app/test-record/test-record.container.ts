@@ -16,11 +16,12 @@ import {
   SetTestViewState,
   UpdateTestResult,
   DownloadCertificate,
-  ArchiveTestResult
 } from '@app/store/actions/VehicleTestResultModel.actions';
 import { TestStation } from '@app/models/test-station';
 import { getPreparers, getTestStations } from '@app/store/selectors/ReferenceData.selectors';
 import { TestResultTestTypeNumber } from '@app/models/test-result-test-type-number';
+import { LoadModal } from '../modal/modal.actions';
+import { APP_MODALS } from '../app.enums';
 
 @Component({
   selector: 'vtm-test-record-container',
@@ -99,6 +100,8 @@ export class TestRecordContainer implements OnInit {
   }
 
   archiveTestResult(testResultToUpdate: TestResultModel) {
-    this.store.dispatch(new ArchiveTestResult(testResultToUpdate));
+    //
+    this.store.dispatch(new LoadModal({currentModal: APP_MODALS.REASON_FOR_DELETED}));
+    // this.store.dispatch(new ArchiveTestResult(testResultToUpdate));
   }
 }
