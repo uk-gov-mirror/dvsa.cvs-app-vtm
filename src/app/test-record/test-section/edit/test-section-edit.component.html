@@ -44,7 +44,7 @@
       </label>
       <div class="govuk-radios">
         <div class="govuk-radios__item" *ngFor="let res of resultOptions">
-          <input
+          <!-- <input
             class="govuk-radios__input"
             id="{{ 'test-testResult-' + res }}"
             type="radio"
@@ -55,7 +55,7 @@
                 ? (testType.testResult | titlecase) === res
                 : (testType.testResult | uppercase) === res
             "
-          />
+          /> -->
           <label class="govuk-label govuk-radios__label">
             {{ res }}
           </label>
@@ -127,12 +127,12 @@
       <label class="govuk-label govuk-!-font-weight-bold">
         Certificate number
       </label>
-      <input
+      <!-- <input
         class="govuk-input"
         id="test-certificateNumber"
         formControlName="certificateNumber"
         type="text"
-      />
+      /> -->
     </div>
   </div>
 
@@ -144,13 +144,13 @@
       <label class="govuk-label govuk-!-font-weight-bold">
         Expiry Date
       </label>
-      <vtm-date-input
+      <!-- <vtm-date-input
         id="test-testExpiryDate"
         ariaDescribedBy="testExpiryDate"
         formControlName="testExpiryDate"
         ngDefaultControl
       >
-      </vtm-date-input>
+      </vtm-date-input> -->
     </div>
   </div>
 
@@ -162,13 +162,13 @@
       <label class="govuk-label govuk-!-font-weight-bold">
         Anniversary Date
       </label>
-      <vtm-date-input
+      <!-- <vtm-date-input
         id="test-testAnniversaryDate"
         ariaDescribedBy="testAnniversaryDate"
         formControlName="testAnniversaryDate"
         ngDefaultControl
       >
-      </vtm-date-input>
+      </vtm-date-input> -->
     </div>
   </div>
 
@@ -177,13 +177,13 @@
       <label class="govuk-label govuk-!-font-weight-bold">
         Test date
       </label>
-      <vtm-date-input
+      <!-- <vtm-date-input
         id="test-testTypeEndTimestampDate"
         ariaDescribedBy="testTypeEndTimestampDate"
         formControlName="testTypeEndTimestampDate"
         ngDefaultControl
       >
-      </vtm-date-input>
+      </vtm-date-input> -->
     </div>
   </div>
 
@@ -192,13 +192,13 @@
       <label class="govuk-label govuk-!-font-weight-bold">
         Start time
       </label>
-      <vtm-time-input
+      <!-- <vtm-time-input
         id="test-testTypeStartTimestamp"
         ariaDescribedBy="testTypeStartTimestamp"
         formControlName="testTypeStartTimestamp"
         ngDefaultControl
       >
-      </vtm-time-input>
+      </vtm-time-input> -->
     </div>
   </div>
 
@@ -207,13 +207,13 @@
       <label class="govuk-label govuk-!-font-weight-bold">
         End time
       </label>
-      <vtm-time-input
+      <!-- <vtm-time-input
         id="test-testTypeEndTimestampTime"
         ariaDescribedBy="testTypeEndTimestampTime"
         formControlName="testTypeEndTimestampTime"
         ngDefaultControl
       >
-      </vtm-time-input>
+      </vtm-time-input> -->
     </div>
   </div>
 
