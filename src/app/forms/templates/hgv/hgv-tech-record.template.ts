@@ -91,7 +91,6 @@ export const HgvTechRecord: FormNode = {
 				{ value: false, label: 'Not exempt' },
 			],
 			validators: [],
-			class: 'flex--half',
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
 		},
 		{
@@ -105,7 +104,6 @@ export const HgvTechRecord: FormNode = {
 				{ value: false, label: 'Not exempt' },
 			],
 			validators: [],
-			class: 'flex--half',
 		},
 		{
 			name: 'techRecord_euroStandard',

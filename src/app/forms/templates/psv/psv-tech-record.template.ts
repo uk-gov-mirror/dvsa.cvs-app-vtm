@@ -90,7 +90,6 @@ export const PsvTechRecord: FormNode = {
 				{ value: false, label: 'Not exempt' },
 			],
 			validators: [],
-			class: 'flex--half',
 		},
 		{
 			name: 'techRecord_tachoExemptMrk',
@@ -103,7 +102,6 @@ export const PsvTechRecord: FormNode = {
 				{ value: false, label: 'Not exempt' },
 			],
 			validators: [],
-			class: 'flex--half',
 		},
 		{
 			name: 'techRecord_euroStandard',
