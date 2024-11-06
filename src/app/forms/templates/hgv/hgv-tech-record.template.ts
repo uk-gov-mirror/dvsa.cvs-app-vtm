@@ -1,6 +1,7 @@
 import { EUVehicleCategory } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/euVehicleCategoryHgv.enum.js';
 import { VehicleConfiguration } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/vehicleConfigurationHgvPsv.enum.js';
 import { getOptionsFromEnum } from '@forms/utils/enum-map';
+import { AsyncValidatorNames } from '@models/async-validators.enum';
 import { EmissionStandard } from '@models/test-types/emissions.enum';
 import { ValidatorNames } from '@models/validators.enum';
 import { FuelTypes } from '@models/vehicle-tech-record.model';
@@ -55,6 +56,7 @@ export const HgvTechRecord: FormNode = {
 			validators: [],
 			isoDate: false,
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'techRecord_manufactureYear',
@@ -69,6 +71,7 @@ export const HgvTechRecord: FormNode = {
 				{ name: ValidatorNames.PastYear },
 			],
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'techRecord_noOfAxles',
@@ -93,6 +96,7 @@ export const HgvTechRecord: FormNode = {
 			validators: [],
 			class: 'flex--half',
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'techRecord_tachoExemptMrk',
@@ -128,6 +132,7 @@ export const HgvTechRecord: FormNode = {
 				{ value: false, label: 'No' },
 			],
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'techRecord_fuelPropulsionSystem',
@@ -172,6 +177,7 @@ export const HgvTechRecord: FormNode = {
 				{ colour: TagType.RED, label: TagTypeLabels.REQUIRED },
 				{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES },
 			],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'techRecord_offRoad',

@@ -59,6 +59,7 @@ import {
 	promoteTechRecordSuccess,
 	removeAxle,
 	removeSectionState,
+	setPlatesRequired,
 	unarchiveTechRecord,
 	unarchiveTechRecordFailure,
 	unarchiveTechRecordSuccess,
@@ -86,6 +87,7 @@ export interface TechnicalRecordServiceState {
 	sectionState?: (string | number)[];
 	canGeneratePlate: boolean;
 	scrollPosition: [number, number];
+	platesRequired: boolean;
 }
 
 export const initialState: TechnicalRecordServiceState = {
@@ -95,6 +97,7 @@ export const initialState: TechnicalRecordServiceState = {
 	sectionState: [],
 	canGeneratePlate: false,
 	scrollPosition: [0, 0],
+	platesRequired: false,
 };
 
 export const getTechRecordState = createFeatureSelector<TechnicalRecordServiceState>(
@@ -193,7 +196,9 @@ export const vehicleTechRecordReducer = createReducer(
 	on(updateScrollPosition, (state, action) => ({ ...state, scrollPosition: action.position })),
 	on(clearScrollPosition, (state) => ({ ...state, scrollPosition: [0, 0] as [number, number] })),
 
-	on(clearADRDetailsBeforeUpdate, (state) => handleClearADRDetails(state))
+	on(clearADRDetailsBeforeUpdate, (state) => handleClearADRDetails(state)),
+
+	on(setPlatesRequired, (state, action) => ({ ...state, platesRequired: action.platesRequired }))
 );
 
 function defaultArgs(state: TechnicalRecordServiceState) {

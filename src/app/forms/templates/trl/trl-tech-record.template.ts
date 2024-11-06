@@ -1,6 +1,7 @@
 import { EUVehicleCategory } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/euVehicleCategory.enum.js';
 import { VehicleConfiguration } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/vehicleConfigurationTrl.enum.js';
 import { getOptionsFromEnum } from '@forms/utils/enum-map';
+import { AsyncValidatorNames } from '@models/async-validators.enum';
 import { CouplingTypeOptions } from '@models/coupling-type-enum';
 import { ValidatorNames } from '@models/validators.enum';
 import { FrameDescriptions } from '@models/vehicle-tech-record.model';
@@ -61,6 +62,7 @@ export const TrlTechRecordTemplate: FormNode = {
 				{ name: ValidatorNames.PastYear },
 			],
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'techRecord_firstUseDate',
@@ -93,6 +95,7 @@ export const TrlTechRecordTemplate: FormNode = {
 			],
 			class: 'flex--half',
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'techRecord_suspensionType',
@@ -144,6 +147,7 @@ export const TrlTechRecordTemplate: FormNode = {
 			validators: [{ name: ValidatorNames.Max, args: 99999 }],
 			class: 'flex--half',
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'techRecord_vehicleConfiguration',
@@ -157,6 +161,7 @@ export const TrlTechRecordTemplate: FormNode = {
 				{ colour: TagType.RED, label: TagTypeLabels.REQUIRED },
 				{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES },
 			],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'techRecord_frameDescription',

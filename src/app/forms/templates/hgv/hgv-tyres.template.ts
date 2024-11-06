@@ -1,5 +1,6 @@
 import { TyreUseCode } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/tyreUseCodeHgv.enum.js';
 import { getOptionsFromEnum } from '@forms/utils/enum-map';
+import { AsyncValidatorNames } from '@models/async-validators.enum';
 import { ValidatorNames } from '@models/validators.enum';
 import {
 	FormNode,
@@ -24,6 +25,7 @@ export const tyresTemplateHgv: FormNode = {
 			width: FormNodeWidth.UNSET,
 			options: getOptionsFromEnum(TyreUseCode),
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'techRecord_axles',

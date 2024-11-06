@@ -60,3 +60,5 @@ export const selectTechRecordChanges = createSelector(techRecord, editingTechRec
 
 	return { ...changes.added, ...changes.updated, ...changes.deleted } as Partial<TechRecordType<'get'>>;
 });
+
+export const selectPlatesRequired = createSelector(getTechRecordState, (state) => state.platesRequired);

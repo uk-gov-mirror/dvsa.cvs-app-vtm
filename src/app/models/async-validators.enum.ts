@@ -10,5 +10,6 @@ export enum AsyncValidatorNames {
 	HideIfEqualsWithCondition = 'hideIfEqualsWithCondition',
 	PassResultDependantOnCustomDefects = 'passResultDependantOnCustomDefects',
 	RequiredWhenCarryingDangerousGoods = 'requiredWhenCarryingDangerousGoods',
+	PlatesRequired = 'platesRequired',
 	Custom = 'custom',
 }

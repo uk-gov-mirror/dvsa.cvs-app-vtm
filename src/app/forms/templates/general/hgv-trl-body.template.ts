@@ -23,6 +23,7 @@ export const HgvAndTrlBodyTemplate: FormNode = {
 			type: FormNodeTypes.CONTROL,
 			editType: FormNodeEditTypes.TEXT,
 			validators: [{ name: ValidatorNames.MaxLength, args: 6 }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
 		},
 		{
@@ -33,7 +34,10 @@ export const HgvAndTrlBodyTemplate: FormNode = {
 			type: FormNodeTypes.CONTROL,
 			editType: FormNodeEditTypes.TEXT,
 			validators: [{ name: ValidatorNames.MaxLength, args: 50 }],
-			asyncValidators: [{ name: AsyncValidatorNames.RequiredWhenCarryingDangerousGoods }],
+			asyncValidators: [
+				{ name: AsyncValidatorNames.RequiredWhenCarryingDangerousGoods },
+				{ name: AsyncValidatorNames.PlatesRequired },
+			],
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
 		},
 		{
@@ -45,6 +49,7 @@ export const HgvAndTrlBodyTemplate: FormNode = {
 			editType: FormNodeEditTypes.TEXT,
 			validators: [{ name: ValidatorNames.MaxLength, args: 30 }],
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'techRecord_bodyType_description',
@@ -77,6 +82,7 @@ export const HgvAndTrlBodyTemplate: FormNode = {
 			],
 			validators: [{ name: ValidatorNames.MaxLength, args: 1 }],
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'techRecord_conversionRefNo',

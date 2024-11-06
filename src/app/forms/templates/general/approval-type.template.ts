@@ -1,5 +1,6 @@
 import { ApprovalType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalType.enum.js';
 import { getOptionsFromEnum } from '@forms/utils/enum-map';
+import { AsyncValidatorNames } from '@models/async-validators.enum';
 import { ValidatorNames } from '@models/validators.enum';
 import {
 	FormNode,
@@ -70,6 +71,7 @@ export const HgvAndTrlTypeApprovalTemplate: FormNode = {
 			width: FormNodeWidth.XL,
 			validators: [{ name: ValidatorNames.MaxLength, args: 25 }],
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'techRecord_variantVersionNumber',

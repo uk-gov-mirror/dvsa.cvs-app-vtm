@@ -1,5 +1,13 @@
 <section class="govuk-grid-row">
-  <div [id]="'required-fields-hint'" class="govuk-hint">{{ hint }}</div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <p class="govuk-hint" id="required-fields-hint">Complete all required fields to create a testable record</p>
+    </div>
+    <div class="govuk-grid-column-one-third">
+      <app-checkbox label="Require plates information" [(ngModel)]="requiredPlates" (ngModelChange)="onChangeRequiredPlates($event)"></app-checkbox>
+    </div>
+  </div>
+
   <app-accordion-control [class]="'padding'" [sectionState]="sectionTemplatesState$ | async">
     <div class="govuk-grid-column-one-half">
       <ng-container *ngFor="let section of sectionTemplates; let i = index">

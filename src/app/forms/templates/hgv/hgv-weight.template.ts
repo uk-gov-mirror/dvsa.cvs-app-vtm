@@ -1,3 +1,4 @@
+import { AsyncValidatorNames } from '@models/async-validators.enum';
 import { ValidatorNames } from '@models/validators.enum';
 import { FormNode, FormNodeEditTypes, FormNodeTypes, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
 import { TagType } from '../../../components/tag/tag.component';
@@ -33,6 +34,7 @@ export const HgvWeight: FormNode = {
 			type: FormNodeTypes.CONTROL,
 			validators: requiredValidation,
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'techRecord_grossEecWeight',
@@ -43,6 +45,7 @@ export const HgvWeight: FormNode = {
 			type: FormNodeTypes.CONTROL,
 			validators: optionalValidation,
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'techRecord_grossDesignWeight',
@@ -52,6 +55,7 @@ export const HgvWeight: FormNode = {
 			type: FormNodeTypes.CONTROL,
 			validators: requiredValidation,
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'grossTrainSection',
@@ -67,6 +71,7 @@ export const HgvWeight: FormNode = {
 			type: FormNodeTypes.CONTROL,
 			validators: requiredValidation,
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'techRecord_trainEecWeight',
@@ -77,6 +82,7 @@ export const HgvWeight: FormNode = {
 			type: FormNodeTypes.CONTROL,
 			validators: optionalValidation,
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'techRecord_trainDesignWeight',
@@ -86,6 +92,7 @@ export const HgvWeight: FormNode = {
 			type: FormNodeTypes.CONTROL,
 			validators: optionalValidation,
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'maxTrainSection',
@@ -101,6 +108,7 @@ export const HgvWeight: FormNode = {
 			type: FormNodeTypes.CONTROL,
 			validators: requiredValidation,
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'techRecord_maxTrainEecWeight',
@@ -111,6 +119,7 @@ export const HgvWeight: FormNode = {
 			type: FormNodeTypes.CONTROL,
 			validators: optionalValidation,
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'techRecord_maxTrainDesignWeight',
@@ -120,6 +129,7 @@ export const HgvWeight: FormNode = {
 			type: FormNodeTypes.CONTROL,
 			validators: optionalValidation,
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'axleSection',
@@ -127,6 +137,7 @@ export const HgvWeight: FormNode = {
 			value: '',
 			type: FormNodeTypes.SECTION,
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'techRecord_axles',

@@ -1,3 +1,4 @@
+import { AsyncValidatorNames } from '@models/async-validators.enum';
 import { ValidatorNames } from '@models/validators.enum';
 import { FormNode, FormNodeEditTypes, FormNodeTypes, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
 import { TagType } from '../../../components/tag/tag.component';
@@ -14,6 +15,7 @@ export const HgvDimensionsTemplate: FormNode = {
 			type: FormNodeTypes.CONTROL,
 			validators: [{ name: ValidatorNames.Max, args: 99999 }],
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'techRecord_dimensions_width',
@@ -22,6 +24,7 @@ export const HgvDimensionsTemplate: FormNode = {
 			type: FormNodeTypes.CONTROL,
 			validators: [{ name: ValidatorNames.Max, args: 99999 }],
 			customTags: [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }],
+			asyncValidators: [{ name: AsyncValidatorNames.PlatesRequired }],
 		},
 		{
 			name: 'techRecord_dimensions_axleSpacing',

@@ -37,7 +37,7 @@ import { LoadingService } from '@services/loading/loading.service';
 import { ReferenceDataService } from '@services/reference-data/reference-data.service';
 import { RouterService } from '@services/router/router.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
-import { selectScrollPosition } from '@store/technical-records';
+import { selectScrollPosition, setPlatesRequired } from '@store/technical-records';
 import { cloneDeep, mergeWith } from 'lodash';
 import { Observable, Subject, debounceTime, map, take, takeUntil } from 'rxjs';
 
@@ -69,6 +69,8 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy {
 	scrollPosition: [number, number] = [0, 0];
 	isADREnabled = false;
 	isADRCertGenEnabled = false;
+
+	requiredPlates = false;
 
 	private destroy$ = new Subject<void>();
 
@@ -263,5 +265,9 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy {
 		}
 
 		return record;
+	}
+
+	onChangeRequiredPlates(event: boolean) {
+		this.store.dispatch(setPlatesRequired({ platesRequired: event }));
 	}
 }

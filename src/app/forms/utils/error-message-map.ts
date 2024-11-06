@@ -63,4 +63,6 @@ export const ErrorMessageMap: Record<string, Function> = {
 	[AsyncValidatorNames.RequiredIfNotResultAndSiblingEquals]: (err: boolean, label?: string) =>
 		`${label || DEFAULT_LABEL} is required`,
 	[AsyncValidatorNames.RequiredWhenCarryingDangerousGoods]: (err: { message: string }) => err.message,
+	[AsyncValidatorNames.PlatesRequired]: (err: boolean, label?: string) =>
+		`${label || DEFAULT_LABEL} is required to generate plates`,
 };

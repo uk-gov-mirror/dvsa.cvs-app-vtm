@@ -9,7 +9,7 @@ import { Store, select } from '@ngrx/store';
 import { CustomFormControl } from '@services/dynamic-forms/dynamic-form.types';
 import { State } from '@store/index';
 import { selectUserByResourceKey } from '@store/reference-data';
-import { editingTechRecord } from '@store/technical-records';
+import { editingTechRecord, selectPlatesRequired } from '@store/technical-records';
 import { testResultInEdit } from '@store/test-records';
 import { getTestStationFromProperty } from '@store/test-stations';
 import { Observable, catchError, map, of, take, tap } from 'rxjs';
@@ -303,6 +303,19 @@ export class CustomAsyncValidators {
 	) => {
 		return (control: AbstractControl): Observable<ValidationErrors | null> => {
 			return func(control, store, ...args);
+		};
+	};
+
+	static platesRequired = (store: Store<State>) => {
+		return (control: AbstractControl): Observable<ValidationErrors | null> => {
+			return store.select(selectPlatesRequired).pipe(
+				take(1),
+				map((platesRequired) => {
+					const errors = Validators.required(control);
+					if (errors && platesRequired) return { platesRequired: true };
+					return null;
+				})
+			);
 		};
 	};
 }

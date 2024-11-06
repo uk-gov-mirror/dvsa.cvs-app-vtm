@@ -158,6 +158,8 @@ export const generateContingencyADRCertificate = createAction(
 	}>()
 );
 
+export const setPlatesRequired = createAction(`${prefix} setPlatesRequired`, props<{ platesRequired: boolean }>());
+
 function createOutcomeAction<T extends boolean>(
 	title: string,
 	isSuccess: T
