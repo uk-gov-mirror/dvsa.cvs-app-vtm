@@ -9,8 +9,10 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 export class GovukRadioDirective implements OnInit, OnDestroy {
 	elementRef = inject<ElementRef<HTMLInputElement>>(ElementRef);
 	controlContainer = inject(ControlContainer);
+
 	formControlName = input.required<string>();
 	width = input<FormNodeWidth>();
+
 	destroy$ = new ReplaySubject<boolean>(1);
 
 	ngOnInit(): void {
@@ -25,6 +27,7 @@ export class GovukRadioDirective implements OnInit, OnDestroy {
 					this.elementRef.nativeElement.classList.add('govuk-radio--error');
 					this.elementRef.nativeElement.setAttribute('aria-describedby', `${formControlName}-error`);
 				}
+
 				if (statusChange === 'VALID') {
 					this.elementRef.nativeElement.classList.remove('govuk-radio--error');
 					this.elementRef.nativeElement.setAttribute('aria-describedby', '');
@@ -32,6 +35,7 @@ export class GovukRadioDirective implements OnInit, OnDestroy {
 			});
 		}
 	}
+
 	ngOnDestroy(): void {
 		this.destroy$.next(true);
 		this.destroy$.complete();
