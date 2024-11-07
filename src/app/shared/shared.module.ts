@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { RoleRequiredDirective } from '@directives/app-role-required/app-role-required.directive';
 import { FeatureToggleDirective } from '@directives/feature-toggle/feature-toggle.directive';
 import { GovukInputDirective } from '@directives/govuk-input/govuk-input.directive';
+import { GovukRadioDirective } from '@directives/govuk-radio/govuk-radio.directive';
 import { GovukSelectDirective } from '@directives/govuk-select/govuk-select.directive';
 import { GovukTextareaDirective } from '@directives/govuk-textarea/govuk-textarea.directive';
 import { PreventDoubleClickDirective } from '@directives/prevent-double-click/prevent-double-click.directive';
@@ -61,6 +62,7 @@ import { TyreAxleLoadPipe } from '../pipes/tyre-axle-load/tyre-axle-load.pipe';
 		GovukInputDirective,
 		GovukTextareaDirective,
 		GovukSelectDirective,
+		GovukRadioDirective,
 	],
 	imports: [CommonModule, RouterModule],
 	exports: [
@@ -91,6 +93,7 @@ import { TyreAxleLoadPipe } from '../pipes/tyre-axle-load/tyre-axle-load.pipe';
 		GovukInputDirective,
 		GovukTextareaDirective,
 		GovukSelectDirective,
+		GovukRadioDirective,
 	],
 })
 export class SharedModule {}
