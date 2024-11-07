@@ -1,22 +1,23 @@
 <div [formGroup]="form">
-  <div class="govuk-form-group">
-    <h1 class="govuk-label-wrapper">
-      <label class="govuk-label govuk-label--m" for="techRecord_adrDetails_dangerousGoods"> Able to carry dangerous goods </label>
-    </h1>
-    <div class="govuk-radios" data-module="govuk-radios">
-      <div class="govuk-radios__item" *ngFor="let option of dangerousGoodsOptions">
-        <input
-          type="radio"
-          id="techRecord_adrDetails_dangerousGoods-{{ option.value }}-radio"
-          formControlName="techRecord_adrDetails_dangerousGoods"
-          class="govuk-radios__input"
-          [value]="option.value"
-        />
-        <label class="govuk-label govuk-radios__label" for="techRecord_adrDetails_dangerousGoods-{{ option.value }}-radio'">
-          {{ option.label }}
-        </label>
+  <div class="govuk-form-group-radio">
+    <fieldset>
+      <legend>
+        <h1> Able to carry dangerous goods </h1>
+      </legend>
+      <div data-module="govuk-radios">
+        <div *ngFor="let option of dangerousGoodsOptions">
+          <input
+            id="techRecord_adrDetails_dangerousGoods-{{ option.value }}-radio"
+            formControlName="techRecord_adrDetails_dangerousGoods"
+            govukRadio
+            [value]="option.value"
+          />
+          <label for="techRecord_adrDetails_dangerousGoods-{{ option.value }}-radio'">
+            {{ option.label }}
+          </label>
+        </div>
       </div>
-    </div>
+    </fieldset>
   </div>
 
   <!-- When dangerous goods is true -->
@@ -87,23 +88,23 @@
       </div>
 
       <!-- Used on international journeys -->
-      <div class="govuk-form-group">
-        <h1 class="govuk-label-wrapper">
-          <label class="govuk-label govuk-label--m" for="techRecord_adrDetails_vehicleDetails_usedOnInternationalJourneys">
-            Vehicle used on international journeys
-          </label>
-        </h1>
-        <div class="govuk-radios" data-module="govuk-radios">
-          <div class="govuk-radios__item" *ngFor="let option of usedOnInternationJourneysOptions">
+      <div class="govuk-form-group-radio">
+        <fieldset>
+          <legend>
+            <h1>
+              Vehicle used on international journeys
+            </h1>
+          </legend>
+        </fieldset>
+        <div data-module="govuk-radios">
+          <div *ngFor="let option of usedOnInternationJourneysOptions">
             <input
-              type="radio"
               id="techRecord_adrDetails_vehicleDetails_usedOnInternationalJourneys-{{ option.value }}-radio"
               formControlName="techRecord_adrDetails_vehicleDetails_usedOnInternationalJourneys"
-              class="govuk-radios__input"
+              govukRadio
               [value]="option.value"
             />
             <label
-              class="govuk-label govuk-radios__label"
               for="techRecord_adrDetails_vehicleDetails_usedOnInternationalJourneys-{{ option.value }}-radio'"
             >
               {{ option.label }}
@@ -414,7 +415,7 @@
 
             <!-- UN numbers -->
             <app-control-errors for="techRecord_adrDetails_tank_tankDetails_tankStatement_productListUnNo" />
-            
+
             <div class="govuk-form-group" formArrayName="techRecord_adrDetails_tank_tankDetails_tankStatement_productListUnNo">
               <fieldset
                 class="govuk-fieldset"
@@ -956,8 +957,8 @@
                 <td class="govuk-table__cell">{{ note.lastUpdatedBy | defaultNullOrEmpty }}</td>
                 <td class="govuk-table__cell">{{ note.createdAtDate | date : 'dd/MM/yyyy HH:mm' | defaultNullOrEmpty }}</td>
                 <td class="govuk-table__cell">
-                  <a class="govuk-link" href="javascript:void(0)" (click)="getEditAdditionalExaminerNotePage(((page.currentPage - 1) * page.itemsPerPage) + page.start)"> 
-                    Edit 
+                  <a class="govuk-link" href="javascript:void(0)" (click)="getEditAdditionalExaminerNotePage(((page.currentPage - 1) * page.itemsPerPage) + page.start)">
+                    Edit
                   </a>
                 </td>
               </tr>
