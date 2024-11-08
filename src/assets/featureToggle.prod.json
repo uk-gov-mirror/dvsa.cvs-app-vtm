@@ -2,5 +2,5 @@
   "testToggle": false,
   "adrCertToggle": true,
   "requiredStandards": true,
-  "dfs": false
+  "FsAdr": false
 }

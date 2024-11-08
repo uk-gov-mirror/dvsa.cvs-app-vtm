@@ -126,7 +126,7 @@
             "
           >
             <!-- New ADR section -->
-            <ng-container *ngIf="featureToggleService.isFeatureEnabled('dfs'); else oldADRSection">
+            <ng-container *ngIf="featureToggleService.isFeatureEnabled('FsAdr'); else oldADRSection">
               <app-adr-section [techRecord]="techRecordCalculated" [mode]="(isEditing$ | async) ? 'edit' : 'view'" />
             </ng-container>
 
