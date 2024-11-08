@@ -17,6 +17,7 @@ export class GovukTextareaDirective implements OnInit, OnDestroy {
 		const formControlName = this.formControlName();
 		const control = this.controlContainer.control?.get(formControlName);
 		if (control) {
+			this.elementRef.nativeElement.setAttribute('aria-labelledby', `${formControlName}-label`);
 			this.elementRef.nativeElement.setAttribute('rows', '5');
 			this.elementRef.nativeElement.setAttribute('id', formControlName);
 			this.elementRef.nativeElement.setAttribute('name', formControlName);
