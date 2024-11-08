@@ -71,10 +71,16 @@
             {{ vm.techRecord_adrDetails_permittedDangerousGoods | defaultNullOrEmpty }}
           </dd>
         </div>
+        <div class="govuk-summary-list__row" *ngIf="adrService.canDisplayBodyDeclarationSection(vm)">
+          <dt class="govuk-summary-list__key">Body delclaration</dt>
+          <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_bodyDeclaration_type">
+            {{ vm.techRecord_adrDetails_bodyDeclaration_type | defaultNullOrEmpty }}
+          </dd>
+        </div>
         <div class="govuk-summary-list__row" *ngIf="adrService.canDisplayCompatibilityGroupJSection(vm)">
           <dt class="govuk-summary-list__key">Compatibility Group J</dt>
           <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_compatibilityGroupJ">
-            {{ vm.techRecord_adrDetails_compatibilityGroupJ | defaultNullOrEmpty }}
+            {{ vm.techRecord_adrDetails_compatibilityGroupJ === 'I' ? 'Yes' : 'No' }}
           </dd>
         </div>
         <div class="govuk-summary-list__row">

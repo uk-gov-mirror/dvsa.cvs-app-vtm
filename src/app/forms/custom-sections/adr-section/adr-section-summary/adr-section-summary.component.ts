@@ -22,4 +22,74 @@ export class AdrSectionSummaryComponent {
 		if (!current || !amended) return true;
 		return current[property] !== amended[property];
 	}
+
+	haveAnyApplicantDetailItemsChanged() {
+		return [
+			this.hasChanged('techRecord_adrDetails_applicantDetails_city'),
+			this.hasChanged('techRecord_adrDetails_applicantDetails_name'),
+			this.hasChanged('techRecord_adrDetails_applicantDetails_postcode'),
+			this.hasChanged('techRecord_adrDetails_applicantDetails_street'),
+			this.hasChanged('techRecord_adrDetails_applicantDetails_town'),
+		].some((hasChanged) => hasChanged);
+	}
+
+	haveAnyADRDetailItemsChanged() {
+		return [
+			this.hasChanged('techRecord_adrDetails_vehicleDetails_type'),
+			this.hasChanged('techRecord_adrDetails_vehicleDetails_usedOnInternationalJourneys'),
+			this.hasChanged('techRecord_adrDetails_vehicleDetails_approvalDate'),
+			this.hasChanged('techRecord_adrDetails_permittedDangerousGoods'),
+			this.hasChanged('techRecord_adrDetails_bodyDeclaration_type'),
+			this.hasChanged('techRecord_adrDetails_compatibilityGroupJ'),
+			this.hasChanged('techRecord_adrDetails_additionalNotes_number'),
+			this.hasChanged('techRecord_adrDetails_adrTypeApprovalNo'),
+		].some((hasChanged) => hasChanged);
+	}
+
+	haveAnyTankDetailItemsChanged() {
+		return [
+			this.hasChanged('techRecord_adrDetails_tank_tankDetails_tankManufacturer'),
+			this.hasChanged('techRecord_adrDetails_tank_tankDetails_yearOfManufacture'),
+			this.hasChanged('techRecord_adrDetails_tank_tankDetails_tankManufacturerSerialNo'),
+			this.hasChanged('techRecord_adrDetails_tank_tankDetails_tankTypeAppNo'),
+			this.hasChanged('techRecord_adrDetails_tank_tankDetails_tankCode'),
+			this.hasChanged('techRecord_adrDetails_tank_tankDetails_tankStatement_substancesPermitted'),
+			this.hasChanged('techRecord_adrDetails_tank_tankDetails_tankStatement_statement'),
+			this.hasChanged('techRecord_adrDetails_tank_tankDetails_tankStatement_productListRefNo'),
+			this.hasChanged('techRecord_adrDetails_tank_tankDetails_tankStatement_productList'),
+			this.hasChanged('techRecord_adrDetails_tank_tankDetails_specialProvisions'),
+		].some((hasChanged) => hasChanged);
+	}
+
+	haveAnyTankInspectionItemsChanged() {
+		return [
+			this.hasChanged('techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateApprovalNo'),
+			this.hasChanged('techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate'),
+			this.hasChanged('techRecord_adrDetails_tank_tankDetails_tc3Details'),
+		].some((hasChanged) => hasChanged);
+	}
+
+	haveAnyMiscellaneousItemsChanged() {
+		return [
+			this.hasChanged('techRecord_adrDetails_memosApply'),
+			this.hasChanged('techRecord_adrDetails_m145Statement'),
+		].some((hasChanged) => hasChanged);
+	}
+
+	haveAnyBatteryListItemsChanged() {
+		return [
+			this.hasChanged('techRecord_adrDetails_listStatementApplicable'),
+			this.hasChanged('techRecord_adrDetails_batteryListNumber'),
+		].some((hasChanged) => hasChanged);
+	}
+
+	haveAnyDeclarationsSeenItemsChanged() {
+		return [
+			this.hasChanged('techRecord_adrDetails_brakeDeclarationsSeen'),
+			this.hasChanged('techRecord_adrDetails_brakeDeclarationIssuer'),
+			this.hasChanged('techRecord_adrDetails_brakeEndurance'),
+			this.hasChanged('techRecord_adrDetails_weight'),
+			this.hasChanged('techRecord_adrDetails_declarationsSeen'),
+		].some((hasChanged) => hasChanged);
+	}
 }
