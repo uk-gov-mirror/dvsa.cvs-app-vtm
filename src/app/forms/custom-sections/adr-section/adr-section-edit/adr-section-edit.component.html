@@ -222,6 +222,30 @@
         </fieldset>
       </div>
 
+      <!-- Body declaration -->
+      <div class="govuk-form-group-radio" *ngIf="adrService.canDisplayBodyDeclarationSection($any(form.getRawValue()))">
+        <fieldset>
+          <legend>
+            <h1>Body declaration </h1>
+          </legend>
+          <div data-module="govuk-radios">
+            <div *ngFor="let option of bodyDeclarationOptions">
+              <input
+                id="techRecord_adrDetails_bodyDeclaration_type-{{ option.value }}-radio"
+                formControlName="techRecord_adrDetails_bodyDeclaration_type"
+                govukRadio
+                type="radio"
+                class="govuk-radios__input"
+                [value]="option.value"
+              />
+              <label for="techRecord_adrDetails_bodyDeclaration_type-{{ option.value }}-radio">
+                {{ option.label }}
+              </label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
       <!-- Compatibility group J -->
     <ng-container *ngIf="adrService.canDisplayCompatibilityGroupJSection($any(form.getRawValue()))">
       <div class="govuk-form-group" id="techRecord_adrDetails_compatibilityGroupJ">

@@ -109,7 +109,7 @@ export class AdrService {
 		return this.canDisplayDangerousGoodsSection(techRecord) && brakeDeclarationsSeen === true;
 	}
 
-	canDisplayExplosivesOptions(techRecord: TechRecordType<'hgv' | 'lgv' | 'trl'>) {
+	canDisplayBodyDeclarationSection(techRecord: TechRecordType<'hgv' | 'lgv' | 'trl'>) {
 		const explosivesApplicableForBodyType = [
 			ADRBodyType.RIGID_BOX_BODY,
 			ADRBodyType.FULL_DRAWBAR_BOX_BODY,
@@ -117,14 +117,12 @@ export class AdrService {
 			ADRBodyType.SEMI_TRAILER_BOX_BODY,
 		].includes(techRecord.techRecord_adrDetails_vehicleDetails_type as ADRBodyType);
 
-		return this.canDisplayDangerousGoodsSection(techRecord) && explosivesApplicableForBodyType;
-	}
-
-	canDisplayBodyDeclarationSection(techRecord: TechRecordType<'hgv' | 'lgv' | 'trl'>) {
 		const carriesExplosivesType3 = techRecord.techRecord_adrDetails_permittedDangerousGoods?.includes(
 			ADRDangerousGood.EXPLOSIVES_TYPE_3
 		);
 
-		return this.canDisplayExplosivesOptions(techRecord) && carriesExplosivesType3;
+		return (
+			this.canDisplayDangerousGoodsSection(techRecord) && explosivesApplicableForBodyType && carriesExplosivesType3
+		);
 	}
 }
