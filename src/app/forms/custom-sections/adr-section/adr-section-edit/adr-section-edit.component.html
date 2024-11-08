@@ -513,7 +513,7 @@
         <!-- TC2: Certificate Number -->
         <div class="govuk-form-group-input">
           <h1>
-            <label>
+            <label id="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateApprovalNo-label">
               TC2: Certificate Number
             </label>
           </h1>
@@ -829,7 +829,7 @@
         <!-- Battery list reference number -->
         <div class="govuk-form-group-input">
           <h1>
-            <label> Reference number </label>
+            <label id="techRecord_adrDetails_batteryListNumber-label"> Reference number </label>
           </h1>
           <app-control-errors for="techRecord_adrDetails_batteryListNumber" />
           <input govukInput formControlName="techRecord_adrDetails_batteryListNumber" class="govuk-input--width-10" />
@@ -899,7 +899,7 @@
     <!-- Weight (tonnes) -->
     <div class="govuk-form-group-input" *ngIf="adrService.canDisplayWeightSection($any(form.getRawValue()))">
       <h1>
-        <label> Weight (tonnes) </label>
+        <label id="techRecord_adrDetails_weight-label"> Weight (tonnes) </label>
       </h1>
       <app-control-errors for="techRecord_adrDetails_weight" />
       <div class="govuk-input__wrapper">
