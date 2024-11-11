@@ -104,7 +104,6 @@
                 id="techRecord_adrDetails_vehicleDetails_usedOnInternationalJourneys-{{ option.value }}-radio"
                 formControlName="techRecord_adrDetails_vehicleDetails_usedOnInternationalJourneys"
                 govukRadio
-                class="govuk-radios__input"
                 type="radio"
                 [value]="option.value"
               />
@@ -805,25 +804,27 @@
     <!-- When ADR body type contains 'battery' -->
     <ng-container *ngIf="adrService.canDisplayBatterySection($any(form.getRawValue()))">
       <!-- Battery list applicable -->
-      <div class="govuk-form-group">
-        <h1 class="govuk-label-wrapper">
-          <label class="govuk-label govuk-label--m" for="techRecord_adrDetails_listStatementApplicable"> Battery List Applicable </label>
-        </h1>
-        <app-control-errors for="techRecord_adrDetails_listStatementApplicable" />
-        <div class="govuk-radios" data-module="govuk-radios">
-          <div class="govuk-radios__item" *ngFor="let option of batteryListApplicableOptions">
-            <input
-              type="radio"
-              id="techRecord_adrDetails_listStatementApplicable-{{ option.value }}-radio"
-              formControlName="techRecord_adrDetails_listStatementApplicable"
-              class="govuk-radios__input"
-              [value]="option.value"
-            />
-            <label class="govuk-label govuk-radios__label" for="techRecord_adrDetails_listStatementApplicable-{{ option.value }}-radio">
-              {{ option.label }}
-            </label>
+      <div class="govuk-form-group-radio">
+        <fieldset>
+          <legend>
+            <h1> Battery List Applicable </h1>
+          </legend>
+          <app-control-errors for="techRecord_adrDetails_listStatementApplicable" />
+          <div data-module="govuk-radios">
+            <div *ngFor="let option of batteryListApplicableOptions">
+              <input
+                type="radio"
+                id="techRecord_adrDetails_listStatementApplicable-{{ option.value }}-radio"
+                formControlName="techRecord_adrDetails_listStatementApplicable"
+                govukRadio
+                [value]="option.value"
+              />
+              <label for="techRecord_adrDetails_listStatementApplicable-{{ option.value }}-radio">
+                {{ option.label }}
+              </label>
+            </div>
           </div>
-        </div>
+        </fieldset>
       </div>
 
       <!-- When Battery list applicable is true -->
