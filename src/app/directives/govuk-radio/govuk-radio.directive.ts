@@ -16,7 +16,6 @@ export class GovukRadioDirective implements OnInit, OnDestroy {
 	destroy$ = new ReplaySubject<boolean>(1);
 
 	ngOnInit(): void {
-		this.elementRef.nativeElement.setAttribute('type', 'radio');
 		this.elementRef.nativeElement.classList.add('govuk-radios__input');
 
 		const formControlName = this.formControlName();

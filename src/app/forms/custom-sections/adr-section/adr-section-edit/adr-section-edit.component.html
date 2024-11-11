@@ -4,6 +4,7 @@
       <legend>
         <h1> Able to carry dangerous goods </h1>
       </legend>
+      <app-control-errors for="techRecord_adrDetails_dangerousGoods" />
       <div data-module="govuk-radios">
         <div *ngFor="let option of dangerousGoodsOptions">
           <input
@@ -11,7 +12,6 @@
             formControlName="techRecord_adrDetails_dangerousGoods"
             govukRadio
             type="radio"
-            class="govuk-radios__input"
             [value]="option.value"
           />
           <label for="techRecord_adrDetails_dangerousGoods-{{ option.value }}-radio">
@@ -97,6 +97,7 @@
               Vehicle used on international journeys
             </h1>
           </legend>
+          <app-control-errors for="techRecord_adrDetails_vehicleDetails_usedOnInternationalJourneys" />
           <div data-module="govuk-radios">
             <div *ngFor="let option of usedOnInternationJourneysOptions">
               <input
@@ -226,8 +227,9 @@
       <div class="govuk-form-group-radio" *ngIf="adrService.canDisplayBodyDeclarationSection($any(form.getRawValue()))">
         <fieldset>
           <legend>
-            <h1>Body declaration </h1>
+            <h1>Body declaration</h1>
           </legend>
+          <app-control-errors for="techRecord_adrDetails_bodyDeclaration_type" />
           <div data-module="govuk-radios">
             <div *ngFor="let option of bodyDeclarationOptions">
               <input
@@ -235,7 +237,6 @@
                 formControlName="techRecord_adrDetails_bodyDeclaration_type"
                 govukRadio
                 type="radio"
-                class="govuk-radios__input"
                 [value]="option.value"
               />
               <label for="techRecord_adrDetails_bodyDeclaration_type-{{ option.value }}-radio">
@@ -247,28 +248,30 @@
       </div>
 
       <!-- Compatibility group J -->
-    <ng-container *ngIf="adrService.canDisplayCompatibilityGroupJSection($any(form.getRawValue()))">
-      <div class="govuk-form-group" id="techRecord_adrDetails_compatibilityGroupJ">
-        <h1 class="govuk-label-wrapper">
-          <label class="govuk-label govuk-label--m" for="techRecord_adrDetails_compatibilityGroupJ"> Compatibility group J </label>
-        </h1>
-        <app-control-errors for="techRecord_adrDetails_compatibilityGroupJ" />
-        <div class="govuk-radios" data-module="govuk-radios">
-          <div class="govuk-radios__item" *ngFor="let option of compatibilityGroupJOptions; let i = index">
-            <input
-              type="radio"
-              id="techRecord_adrDetails_compatibilityGroupJ-{{ option.value }}-radio"
-              formControlName="techRecord_adrDetails_compatibilityGroupJ"
-              class="govuk-radios__input"
-              [value]="option.value"
-            />
-            <label class="govuk-label govuk-radios__label" for="techRecord_adrDetails_compatibilityGroupJ-{{ option.value }}-radio">
-              {{ option.label }}
-            </label>
+
+      <ng-container *ngIf="adrService.canDisplayCompatibilityGroupJSection($any(form.getRawValue()))">
+        <div class="govuk-form-group-radio">
+          <fieldset>
+            <legend>
+              <h1>Compatibility group J</h1>
+            </legend>
+          </fieldset>
+          <app-control-errors for="techRecord_adrDetails_compatibilityGroupJ" />
+          <div data-module="govuk-radios">
+            <div *ngFor="let option of compatibilityGroupJOptions">
+              <input
+                type="radio"
+                id="techRecord_adrDetails_compatibilityGroupJ-{{ option.value }}-radio"
+                formControlName="techRecord_adrDetails_compatibilityGroupJ"
+                [value]="option.value"
+              />
+              <label for="techRecord_adrDetails_compatibilityGroupJ-{{ option.value }}-radio">
+                {{ option.label }}
+              </label>
+            </div>
           </div>
         </div>
-      </div>
-    </ng-container>
+      </ng-container>
 
       <!-- Guidance notes -->
       <div class="govuk-form-group" id="techRecord_adrDetails_additionalNotes_number">
@@ -361,57 +364,56 @@
         </div>
 
         <!-- Substances permitted -->
-        <div class="govuk-form-group" id="techRecord_adrDetails_tank_tankDetails_tankStatement_substancesPermitted">
-          <h1 class="govuk-label-wrapper">
-            <label class="govuk-label govuk-label--m" for="techRecord_adrDetails_tank_tankDetails_tankStatement_substancesPermitted">
-              Substances permitted
-            </label>
-          </h1>
-          <app-control-errors for="techRecord_adrDetails_tank_tankDetails_tankStatement_substancesPermitted" />
-          <div class="govuk-radios" data-module="govuk-radios">
-            <div class="govuk-radios__item" *ngFor="let option of tankStatementSubstancePermittedOptions">
+        <div class="govuk-form-group-radio" id="techRecord_adrDetails_tank_tankDetails_tankStatement_substancesPermitted">
+          <fieldset>
+            <legend>
+              <h1> Substances permitted </h1>
+            </legend>
+            <app-control-errors for="techRecord_adrDetails_tank_tankDetails_tankStatement_substancesPermitted" /><div class="govuk-radios" data-module="govuk-radios">
+            <div *ngFor="let option of tankStatementSubstancePermittedOptions">
               <input
                 type="radio"
                 id="techRecord_adrDetails_tank_tankDetails_tankStatement_substancesPermitted-{{ option.value }}-radio"
                 formControlName="techRecord_adrDetails_tank_tankDetails_tankStatement_substancesPermitted"
-                class="govuk-radios__input"
+                govukRadio
                 [value]="option.value"
               />
               <label
-                class="govuk-label govuk-radios__label"
                 for="techRecord_adrDetails_tank_tankDetails_tankStatement_substancesPermitted-{{ option.value }}-radio"
               >
                 {{ option.label }}
               </label>
             </div>
           </div>
+          </fieldset>
         </div>
 
         <!-- When tank statement (substances permitted) is 'Under UN Number' -->
         <ng-container *ngIf="adrService.canDisplayTankStatementSelectSection($any(form.getRawValue()))">
           <!-- Tank statement select -->
-          <div class="govuk-form-group" id="techRecord_adrDetails_tank_tankDetails_tankStatement_select">
-            <h1 class="govuk-label-wrapper">
-              <label class="govuk-label govuk-label--m" for="techRecord_adrDetails_tank_tankDetails_tankStatement_select"> Select </label>
-            </h1>
-            <app-control-errors for="techRecord_adrDetails_tank_tankDetails_tankStatement_select" />
-            <div class="govuk-radios" data-module="govuk-radios">
-              <div class="govuk-radios__item" *ngFor="let option of tankStatementSelectOptions">
-                <input
-                  type="radio"
-                  id="techRecord_adrDetails_tank_tankDetails_tankStatement_select-{{ option.value }}-radio"
-                  formControlName="techRecord_adrDetails_tank_tankDetails_tankStatement_select"
-                  class="govuk-radios__input"
-                  [value]="option.value"
-                />
-                <label
-                  class="govuk-label govuk-radios__label"
-                  for="techRecord_adrDetails_tank_tankDetails_tankStatement_select-{{ option.value }}-radio"
-                >
-                  {{ option.label }}
-                </label>
+          <div class="govuk-form-group-radio">
+            <fieldset>
+              <legend>
+                <h1> Tank statement </h1>
+              </legend>
+              <app-control-errors for="techRecord_adrDetails_tank_tankDetails_tankStatement_select" />
+              <div data-module="govuk-radios">
+                <div *ngFor="let option of tankStatementSelectOptions">
+                  <input
+                    type="radio"
+                    id="techRecord_adrDetails_tank_tankDetails_tankStatement_select-{{ option.value }}-radio"
+                    formControlName="techRecord_adrDetails_tank_tankDetails_tankStatement_select"
+                    govukRadio
+                    [value]="option.value"
+                  />
+                  <label
+                    for="techRecord_adrDetails_tank_tankDetails_tankStatement_select-{{ option.value }}-radio"
+                  >
+                    {{ option.label }}
+                  </label>
+                </div>
               </div>
-            </div>
+            </fieldset>
           </div>
 
           <!-- When select is 'statement' -->
