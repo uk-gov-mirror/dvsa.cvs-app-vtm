@@ -1,6 +1,17 @@
-<ng-container *ngIf="controlContainer.control?.get(for) as control">
+<ng-container *ngIf="controlContainer.control?.get(for) as control; else otherErrors">
   <p id="{{ for }}-error" class="govuk-error-message" *ngIf="control?.invalid && control?.touched && control?.errors">
     <span class="govuk-visually-hidden">Error:</span>
     <span>{{ (control.errors | keyvalue)?.[0]?.value }}</span>
   </p>
 </ng-container>
+
+<ng-template #otherErrors>
+  <ng-container *ngFor="let form of forms">
+    <ng-container *ngIf="form?.invalid && errorService.extractErrors(form) as errors">
+      <p id="{{ for }}-error" class="govuk-error-message">
+        <span class="govuk-visually-hidden">Error:</span>
+        <span>{{ (errors | keyvalue)?.[0]?.value }}</span>
+      </p>
+    </ng-container>
+  </ng-container>
+</ng-template>

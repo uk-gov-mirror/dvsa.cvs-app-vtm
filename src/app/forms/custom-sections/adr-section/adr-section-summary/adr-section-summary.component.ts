@@ -3,6 +3,7 @@ import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/
 import { Store } from '@ngrx/store';
 import { AdrService } from '@services/adr/adr.service';
 import { editingTechRecord, techRecord } from '@store/technical-records';
+import { isEqual } from 'lodash';
 
 @Component({
 	selector: 'app-adr-section-summary',
@@ -20,7 +21,8 @@ export class AdrSectionSummaryComponent {
 		const current = this.currentTechRecord() as TechRecordType<'hgv' | 'trl' | 'lgv'>;
 		const amended = this.amendedTechRecord() as TechRecordType<'hgv' | 'trl' | 'lgv'>;
 		if (!current || !amended) return true;
-		return current[property] !== amended[property];
+
+		return !isEqual(current[property], amended[property]);
 	}
 
 	haveAnyApplicantDetailItemsChanged() {

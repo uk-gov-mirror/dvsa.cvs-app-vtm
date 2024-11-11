@@ -121,74 +121,26 @@
       <app-date-controls formControlName="techRecord_adrDetails_vehicleDetails_approvalDate" #approvalDate>
         <div class="govuk-form-group" [formGroup]="approvalDate.form">
           <h1 class="govuk-label-wrapper">
-            <label class="govuk-label govuk-label--m" for="techRecord_adrDetails_vehicleDetails_approvalDate"> Date processed </label>
+            <label class="govuk-label govuk-label--m" for="techRecord_adrDetails_vehicleDetails_approvalDate">Date processed</label>
           </h1>
-          <p
-            id="techRecord_adrDetails_vehicleDetails_approvalDate-error"
-            class="govuk-error-message"
-            *ngIf="isInvalid('techRecord_adrDetails_vehicleDetails_approvalDate') || approvalDate.form.invalid"
-          >
-            <span class="govuk-visually-hidden">Error:</span>
-            <span *ngIf="form.get('techRecord_adrDetails_vehicleDetails_approvalDate')?.getError('required') as error">{{ error }}</span>
-            <span *ngIf="form.get('techRecord_adrDetails_vehicleDetails_approvalDate')?.getError('invalidDate') as error">{{ error }}</span>
-            <span *ngIf="form.get('techRecord_adrDetails_vehicleDetails_approvalDate')?.getError('pastDate') as error">{{ error }}</span>
-            <span *ngIf="approvalDate.form.get('day')?.getError('min') || approvalDate.form.get('day')?.getError('max')">
-              Day must between 1 and 31
-            </span>
-            <span *ngIf="approvalDate.form.get('month')?.getError('min') || approvalDate.form.get('month')?.getError('max')">
-              Month must between 1 and 12
-            </span>
-            <span *ngIf="approvalDate.form.get('year')?.getError('min') || approvalDate.form.get('year')?.getError('max')">
-              Year must between 1000 and 9999
-            </span>
-          </p>
+          <app-control-errors for="techRecord_adrDetails_vehicleDetails_approvalDate" [forms]="[approvalDate.form]" />
           <div class="govuk-date-input" id="techRecord_adrDetails_vehicleDetails_approvalDate">
             <div class="govuk-date-input__item">
               <div class="govuk-form-group">
-                <label class="govuk-label govuk-date-input__label" for="techRecord_adrDetails_vehicleDetails_approvalDate-day"> Day </label>
-                <input
-                  appFocusNext
-                  appNumberOnly
-                  formControlName="day"
-                  class="govuk-input govuk-date-input__input govuk-input--width-2"
-                  id="techRecord_adrDetails_vehicleDetails_approvalDate-day"
-                  name="techRecord_adrDetails_vehicleDetails_approvalDate-day"
-                  type="number"
-                  inputmode="numeric"
-                  [class.govuk-input--error]="approvalDate.form.get('day')?.invalid && approvalDate.form.get('day')?.touched"
-                />
+                <label class="govuk-label govuk-date-input__label" for="techRecord_adrDetails_vehicleDetails_approvalDate-day">Day</label>
+                <input class="govuk-input--width-2" govukDateInput="techRecord_adrDetails_vehicleDetails_approvalDate" formControlName="day" />
               </div>
             </div>
             <div class="govuk-date-input__item">
               <div class="govuk-form-group">
-                <label class="govuk-label govuk-date-input__label" for="techRecord_adrDetails_vehicleDetails_approvalDate-month"> Month </label>
-                <input
-                  appFocusNext
-                  appNumberOnly
-                  formControlName="month"
-                  class="govuk-input govuk-date-input__input govuk-input--width-2"
-                  id="techRecord_adrDetails_vehicleDetails_approvalDate-month"
-                  name="techRecord_adrDetails_vehicleDetails_approvalDate-month"
-                  type="number"
-                  inputmode="numeric"
-                  [class.govuk-input--error]="approvalDate.form.get('month')?.invalid && approvalDate.form.get('month')?.touched"
-                />
+                <label class="govuk-label govuk-date-input__label" for="techRecord_adrDetails_vehicleDetails_approvalDate-month">Month</label>
+                <input class="govuk-input--width-2" govukDateInput="techRecord_adrDetails_vehicleDetails_approvalDate" formControlName="month" />
               </div>
             </div>
             <div class="govuk-date-input__item">
               <div class="govuk-form-group">
-                <label class="govuk-label govuk-date-input__label" for="techRecord_adrDetails_vehicleDetails_approvalDate-year"> Year </label>
-                <input
-                  appFocusNext
-                  appNumberOnly
-                  formControlName="year"
-                  class="govuk-input govuk-date-input__input govuk-input--width-4"
-                  id="techRecord_adrDetails_vehicleDetails_approvalDate-year"
-                  name="techRecord_adrDetails_vehicleDetails_approvalDate-year"
-                  type="number"
-                  inputmode="numeric"
-                  [class.govuk-input--error]="approvalDate.form.get('year')?.invalid && approvalDate.form.get('year')?.touched"
-                />
+                <label class="govuk-label govuk-date-input__label" for="techRecord_adrDetails_vehicleDetails_approvalDate-year">Year</label>
+                <input class="govuk-input--width-4" govukDateInput="techRecord_adrDetails_vehicleDetails_approvalDate" formControlName="year" />
               </div>
             </div>
           </div>
@@ -532,95 +484,43 @@
                 TC2: Expiry Date
               </label>
             </h1>
-            <app-control-errors for="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate" />
+            <app-control-errors for="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate" [forms]="[tc2ExpiryDate.form]" />
             <div [formGroup]="tc2ExpiryDate.form">
-              <p
-              id="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate-error"
-              class="govuk-error-message"
-              *ngIf="tc2ExpiryDate.form.invalid"
-            >
-              <span class="govuk-visually-hidden">Error:</span>
-              <span *ngIf="form.get('techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate')?.getError('required') as error">
-                {{ error }}
-              </span>
-              <span *ngIf="form.get('techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate')?.getError('invalidDate') as error">
-                {{ error }}
-              </span>
-              <span *ngIf="tc2ExpiryDate.form.get('day')?.getError('min') || tc2ExpiryDate.form.get('day')?.getError('max')">
-                Day must between 1 and 31
-              </span>
-              <span *ngIf="tc2ExpiryDate.form.get('month')?.getError('min') || tc2ExpiryDate.form.get('month')?.getError('max')">
-                Month must between 1 and 12
-              </span>
-              <span *ngIf="tc2ExpiryDate.form.get('year')?.getError('min') || tc2ExpiryDate.form.get('year')?.getError('max')">
-                Year must between 1000 and 9999
-              </span>
-            </p>
-            <div class="govuk-date-input" id="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate">
-              <div class="govuk-date-input__item">
-                <div class="govuk-form-group">
-                  <label
-                    class="govuk-label govuk-date-input__label"
-                    for="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate-day"
-                  >
-                    Day
-                  </label>
-                  <input
-                    appFocusNext
-                    appNumberOnly
-                    formControlName="day"
-                    class="govuk-input govuk-date-input__input govuk-input--width-2"
-                    id="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate-day"
-                    name="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate-day"
-                    type="number"
-                    inputmode="numeric"
-                    [class.govuk-input--error]="tc2ExpiryDate.form.get('day')?.invalid && tc2ExpiryDate.form.get('day')?.touched"
-                  />
+              <div class="govuk-date-input" id="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate">
+                <div class="govuk-date-input__item">
+                  <div class="govuk-form-group">
+                    <label
+                      class="govuk-label govuk-date-input__label"
+                      for="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate-day"
+                    >
+                      Day
+                    </label>
+                    <input class="govuk-input--width-2" formControlName="day" govukDateInput="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate" />
+                  </div>
+                </div>
+                <div class="govuk-date-input__item">
+                  <div class="govuk-form-group">
+                    <label
+                      class="govuk-label govuk-date-input__label"
+                      for="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate-month"
+                    >
+                      Month
+                    </label>
+                    <input class="govuk-input--width-2" formControlName="month" govukDateInput="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate" />
+                  </div>
+                </div>
+                <div class="govuk-date-input__item">
+                  <div class="govuk-form-group">
+                    <label
+                      class="govuk-label govuk-date-input__label"
+                      for="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate-year"
+                    >
+                      Year
+                    </label>
+                    <input class="govuk-input--width-4" formControlName="year" govukDateInput="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate" />
+                  </div>
                 </div>
               </div>
-              <div class="govuk-date-input__item">
-                <div class="govuk-form-group">
-                  <label
-                    class="govuk-label govuk-date-input__label"
-                    for="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate-month"
-                  >
-                    Month
-                  </label>
-                  <input
-                    appFocusNext
-                    appNumberOnly
-                    formControlName="month"
-                    class="govuk-input govuk-date-input__input govuk-input--width-2"
-                    id="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate-month"
-                    name="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate-month"
-                    type="number"
-                    inputmode="numeric"
-                    [class.govuk-input--error]="tc2ExpiryDate.form.get('month')?.invalid && tc2ExpiryDate.form.get('month')?.touched"
-                  />
-                </div>
-              </div>
-              <div class="govuk-date-input__item">
-                <div class="govuk-form-group">
-                  <label
-                    class="govuk-label govuk-date-input__label"
-                    for="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate-year"
-                  >
-                    Year
-                  </label>
-                  <input
-                    appFocusNext
-                    appNumberOnly
-                    formControlName="year"
-                    class="govuk-input govuk-date-input__input govuk-input--width-4"
-                    id="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate-year"
-                    name="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate-year"
-                    type="number"
-                    inputmode="numeric"
-                    [class.govuk-input--error]="tc2ExpiryDate.form.get('year')?.invalid && tc2ExpiryDate.form.get('year')?.touched"
-                  />
-                </div>
-              </div>
-            </div>
             </div>
           </div>
         </app-date-controls>
@@ -664,73 +564,25 @@
                 <h1 class="govuk-label-wrapper">
                   <label class="govuk-label govuk-label--m" for="tc3PeriodicExpiryDate-{{ i + 1 }}"> TC3: Expiry Date </label>
                 </h1>
-                <app-control-errors for="tc3PeriodicExpiryDate" />
+                <app-control-errors for="tc3PeriodicExpiryDate" [forms]="[tc3ApprovalDate.form]" />
                 <div [formGroup]="tc3ApprovalDate.form">
-                  <p id="tc3PeriodicExpiryDate-{{ i + 1 }}-error" class="govuk-error-message" *ngIf="tc3ApprovalDate.form.invalid">
-                    <span class="govuk-visually-hidden">Error:</span>
-                    <span *ngIf="form.get('tc3PeriodicExpiryDate')?.getError('required') as error">
-                      {{ error }}
-                    </span>
-                    <span *ngIf="form.get('tc3PeriodicExpiryDate')?.getError('invalidDate') as error">
-                      {{ error }}
-                    </span>
-                    <span *ngIf="tc3ApprovalDate.form.get('day')?.getError('min') || tc3ApprovalDate.form.get('day')?.getError('max')">
-                      Day must between 1 and 31
-                    </span>
-                    <span *ngIf="tc3ApprovalDate.form.get('month')?.getError('min') || tc3ApprovalDate.form.get('month')?.getError('max')">
-                      Month must between 1 and 12
-                    </span>
-                    <span *ngIf="tc3ApprovalDate.form.get('year')?.getError('min') || tc3ApprovalDate.form.get('year')?.getError('max')">
-                      Year must between 1000 and 9999
-                    </span>
-                  </p>
                   <div class="govuk-date-input" id="tc3PeriodicExpiryDate-{{ i + 1 }}">
                     <div class="govuk-date-input__item">
                       <div class="govuk-form-group">
                         <label class="govuk-label govuk-date-input__label" for="tc3PeriodicExpiryDate-{{ i + 1 }}-day"> Day </label>
-                        <input
-                          appFocusNext
-                          appNumberOnly
-                          formControlName="day"
-                          class="govuk-input govuk-date-input__input govuk-input--width-2"
-                          id="tc3PeriodicExpiryDate-{{ i + 1 }}-day"
-                          name="tc3PeriodicExpiryDate{{ i + 1 }}-day"
-                          type="number"
-                          inputmode="numeric"
-                          [class.govuk-input--error]="tc3ApprovalDate.form.get('day')?.invalid && tc3ApprovalDate.form.get('day')?.touched"
-                        />
+                        <input formControlName="day" govukDateInput="tc3PeriodicExpiryDate-{{ i + 1 }}" class="govuk-input--width-2" />
                       </div>
                     </div>
                     <div class="govuk-date-input__item">
                       <div class="govuk-form-group">
                         <label class="govuk-label govuk-date-input__label" for="tc3PeriodicExpiryDate-{{ i + 1 }}-month"> Month </label>
-                        <input
-                          appFocusNext
-                          appNumberOnly
-                          formControlName="month"
-                          class="govuk-input govuk-date-input__input govuk-input--width-2"
-                          id="tc3PeriodicExpiryDate-{{ i + 1 }}-month"
-                          name="tc3PeriodicExpiryDate-{{ i + 1 }}-month"
-                          type="number"
-                          inputmode="numeric"
-                          [class.govuk-input--error]="tc3ApprovalDate.form.get('month')?.invalid && tc3ApprovalDate.form.get('month')?.touched"
-                        />
+                        <input formControlName="month" govukDateInput="tc3PeriodicExpiryDate-{{ i + 1 }}" class="govuk-input--width-2" />
                       </div>
                     </div>
                     <div class="govuk-date-input__item">
                       <div class="govuk-form-group">
                         <label class="govuk-label govuk-date-input__label" for="tc3PeriodicExpiryDate-{{ i + 1 }}-year"> Year </label>
-                        <input
-                          appFocusNext
-                          appNumberOnly
-                          formControlName="year"
-                          class="govuk-input govuk-date-input__input govuk-input--width-4"
-                          id="tc3PeriodicExpiryDate-{{ i + 1 }}-year"
-                          name="tc3PeriodicExpiryDate-{{ i + 1 }}-year"
-                          type="number"
-                          inputmode="numeric"
-                          [class.govuk-input--error]="tc3ApprovalDate.form.get('year')?.invalid && tc3ApprovalDate.form.get('year')?.touched"
-                        />
+                        <input formControlName="year" govukDateInput="tc3PeriodicExpiryDate-{{ i + 1 }}" class="govuk-input--width-4" />
                       </div>
                     </div>
                   </div>
