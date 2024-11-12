@@ -158,7 +158,9 @@
             <div *ngFor="let option of permittedDangerousGoodsOptions; let i = index">
               <input
                 id="techRecord_adrDetails_permittedDangerousGoods-{{ option.value }}"
+                formControlName="techRecord_adrDetails_permittedDangerousGoods-{{ option.value }}"
                 type="checkbox"
+                govukCheckbox
                 [checked]="form.get('techRecord_adrDetails_permittedDangerousGoods')?.value?.includes(option.value.toString())"
                 [attr.aria-describedby]="
                   isInvalid('techRecord_adrDetails_permittedDangerousGoods') ? 'techRecord_adrDetails_permittedDangerousGoods-error' : null
@@ -234,7 +236,9 @@
             <div *ngFor="let option of guidanceNotesOptions">
               <input
                 id="techRecord_adrDetails_additionalNotes_number-{{ option.value }}"
+                formControlName="techRecord_adrDetails_additionalNotes_number-{{ option.value }}"
                 type="checkbox"
+                govukCheckbox
                 [checked]="form.get('techRecord_adrDetails_additionalNotes_number')?.value?.includes(option.value.toString())"
                 [attr.aria-describedby]="
                   isInvalid('techRecord_adrDetails_additionalNotes_number') ? 'techRecord_adrDetails_additionalNotes_number-error' : null
@@ -613,7 +617,9 @@
             <div *ngFor="let option of memosApplyOptions; let i = index">
               <input
                 id="techRecord_adrDetails_memosApply-{{ option.value }}"
+                formControlName="techRecord_adrDetails_memosApply-{{ option.value }}"
                 type="checkbox"
+                govukCheckbox
                 [checked]="form.get('techRecord_adrDetails_memosApply')?.value?.includes(option.value.toString())"
                 [attr.aria-describedby]="
                   isInvalid('techRecord_adrDetails_memosApply') ? 'techRecord_adrDetails_memosApply-error' : null
@@ -641,6 +647,7 @@
                 id="techRecord_adrDetails_m145Statement"
                 formControlName="techRecord_adrDetails_m145Statement"
                 type="checkbox"
+                govukCheckbox
                 [value]="true"
                 [attr.aria-describedby]="isInvalid('techRecord_adrDetails_m145Statement') ? 'techRecord_adrDetails_m145Statement-error' : null"
               />
@@ -703,6 +710,7 @@
               id="techRecord_adrDetails_brakeDeclarationsSeen"
               formControlName="techRecord_adrDetails_brakeDeclarationsSeen"
               type="checkbox"
+              govukCheckbox
               [value]="true"
               [attr.aria-describedby]="
                 isInvalid('techRecord_adrDetails_brakeDeclarationsSeen') ? 'techRecord_adrDetails_brakeDeclarationsSeen-error' : null
@@ -737,6 +745,7 @@
               id="techRecord_adrDetails_brakeEndurance"
               formControlName="techRecord_adrDetails_brakeEndurance"
               type="checkbox"
+              govukCheckbox
               [value]="true"
               [attr.aria-describedby]="isInvalid('techRecord_adrDetails_brakeEndurance') ? 'techRecord_adrDetails_brakeEndurance-error' : null"
               checked
@@ -772,6 +781,7 @@
               id="techRecord_adrDetails_declarationsSeen"
               formControlName="techRecord_adrDetails_declarationsSeen"
               type="checkbox"
+              govukCheckbox
               [value]="true"
               [attr.aria-describedby]="isInvalid('techRecord_adrDetails_declarationsSeen') ? 'techRecord_adrDetails_declarationsSeen-error' : null"
             />
@@ -794,6 +804,7 @@
               id="techRecord_adrDetails_newCertificateRequested"
               formControlName="techRecord_adrDetails_newCertificateRequested"
               type="checkbox"
+              govukCheckbox
               [value]="true"
               [attr.aria-describedby]="
                 isInvalid('techRecord_adrDetails_newCertificateRequested') ? 'techRecord_adrDetails_newCertificateRequested-error' : null

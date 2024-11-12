@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { RoleRequiredDirective } from '@directives/app-role-required/app-role-required.directive';
 import { FeatureToggleDirective } from '@directives/feature-toggle/feature-toggle.directive';
+import { GovukCheckboxDirective } from '@directives/govuk-checkbox/govuk-checkbox.directive';
 import { GovukDateInputDirective } from '@directives/govuk-date-input/govuk-date-input.directive';
 import { GovukInputDirective } from '@directives/govuk-input/govuk-input.directive';
 import { GovukRadioDirective } from '@directives/govuk-radio/govuk-radio.directive';
@@ -64,6 +65,7 @@ import { TyreAxleLoadPipe } from '../pipes/tyre-axle-load/tyre-axle-load.pipe';
 		GovukTextareaDirective,
 		GovukSelectDirective,
 		GovukRadioDirective,
+		GovukCheckboxDirective,
 	],
 	imports: [CommonModule, RouterModule, GovukDateInputDirective],
 	exports: [
@@ -96,6 +98,7 @@ import { TyreAxleLoadPipe } from '../pipes/tyre-axle-load/tyre-axle-load.pipe';
 		GovukSelectDirective,
 		GovukRadioDirective,
 		GovukDateInputDirective,
+		GovukCheckboxDirective,
 	],
 })
 export class SharedModule {}
