@@ -47,6 +47,34 @@
   }
 }
 
+.govuk-form-group-checkbox {
+  @extend .govuk-form-group;
+  > fieldset {
+    @extend .govuk-fieldset;
+    > legend {
+      @extend .govuk-fieldset__legend;
+      @extend .govuk-fieldset__legend--m;
+      > h1 {
+        @extend .govuk-fieldset__heading;
+      }
+    }
+    > div {
+      > div {
+        @extend .govuk-checkboxes__item;
+
+        > input {
+          @extend .govuk-checkboxes__input;
+        }
+
+        > label {
+          @extend .govuk-label;
+          @extend .govuk-checkboxes__label;
+        }
+      }
+    }
+  }
+}
+
 .govuk-form-group-radio {
   @extend .govuk-form-group;
   > fieldset {

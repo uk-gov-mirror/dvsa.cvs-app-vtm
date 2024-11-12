@@ -206,33 +206,33 @@
             <legend>
               <h1>Compatibility group J</h1>
             </legend>
-          </fieldset>
-          <app-control-errors for="techRecord_adrDetails_compatibilityGroupJ" />
-          <div data-module="govuk-radios">
-            <div *ngFor="let option of compatibilityGroupJOptions">
-              <input
-                type="radio"
-                id="techRecord_adrDetails_compatibilityGroupJ-{{ option.value }}-radio"
-                formControlName="techRecord_adrDetails_compatibilityGroupJ"
-                [value]="option.value"
-              />
-              <label for="techRecord_adrDetails_compatibilityGroupJ-{{ option.value }}-radio">
-                {{ option.label }}
-              </label>
+            <app-control-errors for="techRecord_adrDetails_compatibilityGroupJ" />
+            <div data-module="govuk-radios">
+              <div *ngFor="let option of compatibilityGroupJOptions">
+                <input
+                  type="radio"
+                  id="techRecord_adrDetails_compatibilityGroupJ-{{ option.value }}-radio"
+                  formControlName="techRecord_adrDetails_compatibilityGroupJ"
+                  [value]="option.value"
+                />
+                <label for="techRecord_adrDetails_compatibilityGroupJ-{{ option.value }}-radio">
+                  {{ option.label }}
+                </label>
+              </div>
             </div>
-          </div>
+          </fieldset>
         </div>
       </ng-container>
 
       <!-- Guidance notes -->
-      <div class="govuk-form-group" id="techRecord_adrDetails_additionalNotes_number">
-        <fieldset class="govuk-fieldset" aria-describedby="techRecord_adrDetails_additionalNotes_number-error">
-          <h1 class="govuk-label-wrapper">
-            <label class="govuk-label govuk-label--m" for="techRecord_adrDetails_additionalNotes_number"> Guidance notes </label>
-          </h1>
+      <div class="govuk-form-group-checkbox" id="techRecord_adrDetails_additionalNotes_number">
+        <fieldset aria-describedby="techRecord_adrDetails_additionalNotes_number-error">
+          <legend>
+            <h1>Guidance notes</h1>
+          </legend>
           <app-control-errors for="techRecord_adrDetails_additionalNotes_number" />
-          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-            <div class="govuk-checkboxes__item" *ngFor="let option of guidanceNotesOptions">
+          <div data-module="govuk-checkboxes">
+            <div *ngFor="let option of guidanceNotesOptions">
               <input
                 class="govuk-checkboxes__input"
                 id="techRecord_adrDetails_additionalNotes_number-{{ option.value }}"

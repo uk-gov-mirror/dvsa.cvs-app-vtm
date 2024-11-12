@@ -79,8 +79,8 @@
               </dd>
             </div>
             <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_adrDetails_bodyDeclaration_type')">
-              <dt class="govuk-summary-list__key">Body delcaration</dt>
-              <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_compatibilityGroupJ">
+              <dt class="govuk-summary-list__key">Body declaration</dt>
+              <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_bodyDeclaration_type">
                 {{ amended.techRecord_adrDetails_bodyDeclaration_type | defaultNullOrEmpty }}
               </dd>
             </div>
@@ -209,7 +209,7 @@
                 <div class="govuk-summary-list__row">
                   <dt class="govuk-summary-list__key">Certificate number</dt>
                   <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_tank_tankDetails_tc3Details_{{ i }}_tc3PeriodicNumber">
-                    {{ inspection.tc3PeriodicNumber | defaultNullOrEmpty }} 
+                    {{ inspection.tc3PeriodicNumber | defaultNullOrEmpty }}
                   </dd>
                 </div>
                 <div class="govuk-summary-list__row">
