@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormArray, FormGroup, ValidationErrors } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { State } from '@store/.';
 import { globalErrorState } from '@store/global-error/global-error-service.reducer';
@@ -58,17 +58,28 @@ export class GlobalErrorService {
 			});
 	}
 
-	extractErrors = (form: FormGroup | FormArray) => {
+	extractErrors = (control: AbstractControl) => {
 		const errors: ValidationErrors = {};
-		Object.values(form.controls).forEach((control) => {
-			if (control instanceof FormGroup || control instanceof FormArray) {
-				this.extractErrors(control);
-			} else if (control.invalid && control.errors) {
-				Object.entries(control.errors).forEach(([key, error]) => {
-					errors[key] = error;
-				});
-			}
-		});
+
+		if (control instanceof FormControl) {
+			Object.entries(control.errors || {}).forEach(([key, error]) => {
+				errors[key] = error;
+			});
+
+			return errors;
+		}
+
+		if (control instanceof FormGroup || control instanceof FormArray) {
+			Object.values(control.controls).forEach((control) => {
+				if (control instanceof FormGroup || control instanceof FormArray) {
+					this.extractErrors(control);
+				} else if (control.invalid && control.errors) {
+					Object.entries(control.errors).forEach(([key, error]) => {
+						errors[key] = error;
+					});
+				}
+			});
+		}
 
 		return errors;
 	};

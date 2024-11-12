@@ -69,6 +69,7 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 		]),
 		techRecord_adrDetails_vehicleDetails_usedOnInternationalJourneys: this.fb.control<string | null>(null),
 		techRecord_adrDetails_vehicleDetails_approvalDate: this.fb.control<string | null>(null, [
+			this.commonValidators.date('Date processed'),
 			this.commonValidators.pastDate('Date processed must be in the past'),
 			this.adrValidators.requiredWithDangerousGoods('Date processed is required with Able to carry dangerous goods'),
 		]),
@@ -155,6 +156,7 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 			this.commonValidators.maxLength(70, 'TC2: Certificate Number must be less than or equal to 70 characters'),
 		]),
 		techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate: this.fb.control<string | null>(null, [
+			this.commonValidators.date('TC2: Expiry Date'),
 			this.adrValidators.requiredWithTankOrBattery('TC2: Expiry Date is required with ADR body type'),
 		]),
 		techRecord_adrDetails_tank_tankDetails_tc3Details: this.fb.array<FormGroup>([]),
@@ -317,6 +319,7 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 					),
 				]),
 				tc3PeriodicExpiryDate: this.fb.control<string | null>(null, [
+					this.commonValidators.date('TC3: Expiry Date'),
 					this.adrValidators.requiresOnePopulatedTC3Field(
 						'TC3 Subsequent inspection must have at least one populated field'
 					),
