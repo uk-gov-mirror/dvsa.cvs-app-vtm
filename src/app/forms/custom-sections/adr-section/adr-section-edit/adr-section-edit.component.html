@@ -117,27 +117,27 @@
 
       <!-- Approval date -->
       <app-date-controls formControlName="techRecord_adrDetails_vehicleDetails_approvalDate" #approvalDate>
-        <div class="govuk-form-group" [formGroup]="approvalDate.form">
-          <h1 class="govuk-label-wrapper">
-            <label class="govuk-label govuk-label--m" for="techRecord_adrDetails_vehicleDetails_approvalDate">Date processed</label>
+        <div class="govuk-form-group-date" [formGroup]="approvalDate.form">
+          <h1>
+            <label for="techRecord_adrDetails_vehicleDetails_approvalDate">Date processed</label>
           </h1>
           <app-control-errors [formControl]="form.controls.techRecord_adrDetails_vehicleDetails_approvalDate" />
-          <div class="govuk-date-input" id="techRecord_adrDetails_vehicleDetails_approvalDate">
-            <div class="govuk-date-input__item">
-              <div class="govuk-form-group">
-                <label class="govuk-label govuk-date-input__label" for="techRecord_adrDetails_vehicleDetails_approvalDate-day">Day</label>
+          <div id="techRecord_adrDetails_vehicleDetails_approvalDate">
+            <div>
+              <div>
+                <label id="techRecord_adrDetails_vehicleDetails_approvalDate-day-label">Day</label>
                 <input class="govuk-input--width-2" govukDateInput="techRecord_adrDetails_vehicleDetails_approvalDate" formControlName="day" />
               </div>
             </div>
-            <div class="govuk-date-input__item">
-              <div class="govuk-form-group">
-                <label class="govuk-label govuk-date-input__label" for="techRecord_adrDetails_vehicleDetails_approvalDate-month">Month</label>
+            <div>
+              <div>
+                <label id="techRecord_adrDetails_vehicleDetails_approvalDate-month-label">Month</label>
                 <input class="govuk-input--width-2" govukDateInput="techRecord_adrDetails_vehicleDetails_approvalDate" formControlName="month" />
               </div>
             </div>
-            <div class="govuk-date-input__item">
-              <div class="govuk-form-group">
-                <label class="govuk-label govuk-date-input__label" for="techRecord_adrDetails_vehicleDetails_approvalDate-year">Year</label>
+            <div>
+              <div>
+                <label id="techRecord_adrDetails_vehicleDetails_approvalDate-year-label">Year</label>
                 <input class="govuk-input--width-4" govukDateInput="techRecord_adrDetails_vehicleDetails_approvalDate" formControlName="year" />
               </div>
             </div>
@@ -267,8 +267,8 @@
       <ng-container>
         <!-- Tank Make -->
         <div class="govuk-form-group-input">
-          <h1 class="govuk-label-wrapper">
-            <label class="govuk-label govuk-label--m"> Tank Make </label>
+          <h1>
+            <label> Tank Make </label>
           </h1>
           <app-control-errors [formControl]="form.controls.techRecord_adrDetails_tank_tankDetails_tankManufacturer" />
           <input govukInput formControlName="techRecord_adrDetails_tank_tankDetails_tankManufacturer" />
@@ -478,47 +478,26 @@
 
         <!-- TC2: Expiry Date -->
         <app-date-controls formControlName="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate" #tc2ExpiryDate>
-          <div class="govuk-form-group">
-            <h1 class="govuk-label-wrapper">
-              <label class="govuk-label govuk-label--m" for="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate">
+          <div class="govuk-form-group-date">
+            <h1>
+              <label for="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate">
                 TC2: Expiry Date
               </label>
             </h1>
             <app-control-errors [formControl]="form.controls.techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate" />
             <div [formGroup]="tc2ExpiryDate.form">
-              <div class="govuk-date-input" id="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate">
-                <div class="govuk-date-input__item">
-                  <div class="govuk-form-group">
-                    <label
-                      class="govuk-label govuk-date-input__label"
-                      for="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate-day"
-                    >
-                      Day
-                    </label>
-                    <input class="govuk-input--width-2" formControlName="day" govukDateInput="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate" />
-                  </div>
+              <div id="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate">
+                <div>
+                  <label id="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate-day-label">Day</label>
+                  <input class="govuk-input--width-2" formControlName="day" govukDateInput="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate" />
                 </div>
-                <div class="govuk-date-input__item">
-                  <div class="govuk-form-group">
-                    <label
-                      class="govuk-label govuk-date-input__label"
-                      for="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate-month"
-                    >
-                      Month
-                    </label>
-                    <input class="govuk-input--width-2" formControlName="month" govukDateInput="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate" />
-                  </div>
+                <div>
+                  <label id="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate-month-label">Month</label>
+                  <input class="govuk-input--width-2" formControlName="month" govukDateInput="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate" />
                 </div>
-                <div class="govuk-date-input__item">
-                  <div class="govuk-form-group">
-                    <label
-                      class="govuk-label govuk-date-input__label"
-                      for="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate-year"
-                    >
-                      Year
-                    </label>
-                    <input class="govuk-input--width-4" formControlName="year" govukDateInput="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate" />
-                  </div>
+                <div>
+                  <label id="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate-year-label">Year</label>
+                  <input class="govuk-input--width-4" formControlName="year" govukDateInput="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate" />
                 </div>
               </div>
             </div>
@@ -557,28 +536,28 @@
 
             <!-- TC3 Expiry Date -->
             <app-date-controls formControlName="tc3PeriodicExpiryDate" #tc3ApprovalDate>
-              <div class="govuk-form-group">
-                <h1 class="govuk-label-wrapper">
-                  <label class="govuk-label govuk-label--m" for="tc3PeriodicExpiryDate-{{ i + 1 }}"> TC3: Expiry Date </label>
+              <div class="govuk-form-group-date">
+                <h1>
+                  <label for="tc3PeriodicExpiryDate-{{ i + 1 }}"> TC3: Expiry Date </label>
                 </h1>
                 <app-control-errors [formControl]="$any(inspection.get('tc3PeriodicExpiryDate'))" />
                 <div [formGroup]="tc3ApprovalDate.form">
-                  <div class="govuk-date-input" id="tc3PeriodicExpiryDate-{{ i + 1 }}">
-                    <div class="govuk-date-input__item">
-                      <div class="govuk-form-group">
-                        <label class="govuk-label govuk-date-input__label" for="tc3PeriodicExpiryDate-{{ i + 1 }}-day"> Day </label>
+                  <div id="tc3PeriodicExpiryDate-{{ i + 1 }}">
+                    <div>
+                      <div>
+                        <label for="tc3PeriodicExpiryDate-{{ i + 1 }}-day"> Day </label>
                         <input formControlName="day" govukDateInput="tc3PeriodicExpiryDate-{{ i + 1 }}" class="govuk-input--width-2" />
                       </div>
                     </div>
-                    <div class="govuk-date-input__item">
-                      <div class="govuk-form-group">
-                        <label class="govuk-label govuk-date-input__label" for="tc3PeriodicExpiryDate-{{ i + 1 }}-month"> Month </label>
+                    <div>
+                      <div>
+                        <label for="tc3PeriodicExpiryDate-{{ i + 1 }}-month"> Month </label>
                         <input formControlName="month" govukDateInput="tc3PeriodicExpiryDate-{{ i + 1 }}" class="govuk-input--width-2" />
                       </div>
                     </div>
-                    <div class="govuk-date-input__item">
-                      <div class="govuk-form-group">
-                        <label class="govuk-label govuk-date-input__label" for="tc3PeriodicExpiryDate-{{ i + 1 }}-year"> Year </label>
+                    <div>
+                      <div>
+                        <label for="tc3PeriodicExpiryDate-{{ i + 1 }}-year"> Year </label>
                         <input formControlName="year" govukDateInput="tc3PeriodicExpiryDate-{{ i + 1 }}" class="govuk-input--width-4" />
                       </div>
                     </div>
