@@ -148,16 +148,15 @@
       </app-date-controls>
 
       <!-- Permitted dangerous goods -->
-      <div class="govuk-form-group" id="techRecord_adrDetails_permittedDangerousGoods">
-        <fieldset class="govuk-fieldset" aria-describedby="techRecord_adrDetails_permittedDangerousGoods-error">
-          <h1 class="govuk-label-wrapper">
-            <label class="govuk-label govuk-label--m" for="techRecord_adrDetails_permittedDangerousGoods"> Permitted dangerous goods </label>
-          </h1>
+      <div class="govuk-form-group-checkbox" id="techRecord_adrDetails_permittedDangerousGoods">
+        <fieldset aria-describedby="techRecord_adrDetails_permittedDangerousGoods-error">
+          <legend>
+            <h1>Permitted dangerous goods</h1>
+          </legend>
           <app-control-errors for="techRecord_adrDetails_permittedDangerousGoods" />
-          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-            <div class="govuk-checkboxes__item" *ngFor="let option of permittedDangerousGoodsOptions; let i = index">
+          <div data-module="govuk-checkboxes">
+            <div *ngFor="let option of permittedDangerousGoodsOptions; let i = index">
               <input
-                class="govuk-checkboxes__input"
                 id="techRecord_adrDetails_permittedDangerousGoods-{{ option.value }}"
                 type="checkbox"
                 [checked]="form.get('techRecord_adrDetails_permittedDangerousGoods')?.value?.includes(option.value.toString())"
@@ -166,7 +165,7 @@
                 "
                 (input)="toggle('techRecord_adrDetails_permittedDangerousGoods', option.value.toString())"
               />
-              <label class="govuk-label govuk-checkboxes__label" for="techRecord_adrDetails_permittedDangerousGoods-{{ option.value }}">
+              <label for="techRecord_adrDetails_permittedDangerousGoods-{{ option.value }}">
                 {{ option.label }}
               </label>
             </div>
@@ -234,7 +233,6 @@
           <div data-module="govuk-checkboxes">
             <div *ngFor="let option of guidanceNotesOptions">
               <input
-                class="govuk-checkboxes__input"
                 id="techRecord_adrDetails_additionalNotes_number-{{ option.value }}"
                 type="checkbox"
                 [checked]="form.get('techRecord_adrDetails_additionalNotes_number')?.value?.includes(option.value.toString())"
@@ -243,7 +241,7 @@
                 "
                 (input)="toggle('techRecord_adrDetails_additionalNotes_number', option.value.toString())"
               />
-              <label class="govuk-label govuk-checkboxes__label" for="techRecord_adrDetails_additionalNotes_number-{{ option.value }}">
+              <label for="techRecord_adrDetails_additionalNotes_number-{{ option.value }}">
                 {{ option.label }}
               </label>
             </div>
@@ -604,49 +602,49 @@
       </ng-container>
 
       <!-- Memo 07/09 (3 month extension) can be applied -->
-      <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset" aria-describedby="techRecord_adrDetails_memosApply-error">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-            <h1 class="govuk-fieldset__heading">Memo 07/09 (3 month extension) can be applied</h1>
+      <div class="govuk-form-group-checkbox">
+        <fieldset aria-describedby="techRecord_adrDetails_memosApply-error">
+          <legend>
+            <h1>Memo 07/09 (3 month extension) can be applied</h1>
           </legend>
           <div id="techRecord_adrDetails_memosApply-hint" class="govuk-hint">Only applicable for vehicles used on national journeys</div>
           <app-control-errors for="techRecord_adrDetails_memosApply" />
-          <div class="govuk-checkboxes__item" *ngFor="let option of memosApplyOptions; let i = index">
-            <input
-              class="govuk-checkboxes__input"
-              id="techRecord_adrDetails_memosApply-{{ option.value }}"
-              type="checkbox"
-              [checked]="form.get('techRecord_adrDetails_memosApply')?.value?.includes(option.value.toString())"
-              [attr.aria-describedby]="
-                isInvalid('techRecord_adrDetails_memosApply') ? 'techRecord_adrDetails_memosApply-error' : null
-              "
-              (input)="toggle('techRecord_adrDetails_memosApply', option.value.toString())"
-            />
-            <label class="govuk-label govuk-checkboxes__label" for="techRecord_adrDetails_memosApply-{{ option.value }}">
-              {{ option.label }}
-            </label>
+          <div data-module="govuk-checkboxes">
+            <div *ngFor="let option of memosApplyOptions; let i = index">
+              <input
+                id="techRecord_adrDetails_memosApply-{{ option.value }}"
+                type="checkbox"
+                [checked]="form.get('techRecord_adrDetails_memosApply')?.value?.includes(option.value.toString())"
+                [attr.aria-describedby]="
+                  isInvalid('techRecord_adrDetails_memosApply') ? 'techRecord_adrDetails_memosApply-error' : null
+                "
+                (input)="toggle('techRecord_adrDetails_memosApply', option.value.toString())"
+              />
+              <label for="techRecord_adrDetails_memosApply-{{ option.value }}">
+                {{ option.label }}
+              </label>
+            </div>
           </div>
         </fieldset>
       </div>
 
       <!-- M145 -->
-      <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset" aria-describedby="techRecord_adrDetails_m145Statement-error">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-            <h1 class="govuk-fieldset__heading">M145</h1>
+      <div class="govuk-form-group-checkbox">
+        <fieldset aria-describedby="techRecord_adrDetails_m145Statement-error">
+          <legend>
+            <h1>M145</h1>
           </legend>
           <app-control-errors for="techRecord_adrDetails_m145Statement" />
-          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-            <div class="govuk-checkboxes__item">
+          <div data-module="govuk-checkboxes">
+            <div>
               <input
-                class="govuk-checkboxes__input"
                 id="techRecord_adrDetails_m145Statement"
                 formControlName="techRecord_adrDetails_m145Statement"
                 type="checkbox"
                 [value]="true"
                 [attr.aria-describedby]="isInvalid('techRecord_adrDetails_m145Statement') ? 'techRecord_adrDetails_m145Statement-error' : null"
               />
-              <label class="govuk-label govuk-checkboxes__label" for="techRecord_adrDetails_m145Statement"> Yes </label>
+              <label for="techRecord_adrDetails_m145Statement"> Yes </label>
             </div>
           </div>
         </fieldset>
@@ -693,16 +691,15 @@
     </ng-container>
 
     <!-- Declarations seen section -->
-    <span class="govuk-label govuk-label--m">Declarations seen</span>
-
-    <!-- Manufacturer brake declaration -->
-    <div class="govuk-form-group">
+    <div class="govuk-form-group-checkbox">
       <fieldset class="govuk-fieldset" aria-describedby="techRecord_adrDetails_brakeDeclarationsSeen-error">
+        <legend>
+          <h1>Declarations Seen</h1>
+        </legend>
         <app-control-errors for="techRecord_adrDetails_brakeDeclarationsSeen" />
-        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-          <div class="govuk-checkboxes__item">
+        <div data-module="govuk-checkboxes">
+          <div>
             <input
-              class="govuk-checkboxes__input"
               id="techRecord_adrDetails_brakeDeclarationsSeen"
               formControlName="techRecord_adrDetails_brakeDeclarationsSeen"
               type="checkbox"
@@ -712,7 +709,7 @@
               "
               checked
             />
-            <label class="govuk-label govuk-checkboxes__label" for="techRecord_adrDetails_brakeDeclarationsSeen">
+            <label for="techRecord_adrDetails_brakeDeclarationsSeen">
               Manufacturer brake declaration
             </label>
           </div>
@@ -731,13 +728,12 @@
     </div>
 
     <!-- Brake endurance -->
-    <div class="govuk-form-group">
+    <div class="govuk-form-group-checkbox">
       <fieldset class="govuk-fieldset" aria-describedby="techRecord_adrDetails_brakeEndurance-error">
         <app-control-errors for="techRecord_adrDetails_brakeEndurance" />
-        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-          <div class="govuk-checkboxes__item">
+        <div data-module="govuk-checkboxes">
+          <div>
             <input
-              class="govuk-checkboxes__input"
               id="techRecord_adrDetails_brakeEndurance"
               formControlName="techRecord_adrDetails_brakeEndurance"
               type="checkbox"
@@ -745,7 +741,7 @@
               [attr.aria-describedby]="isInvalid('techRecord_adrDetails_brakeEndurance') ? 'techRecord_adrDetails_brakeEndurance-error' : null"
               checked
             />
-            <label class="govuk-label govuk-checkboxes__label" for="techRecord_adrDetails_brakeEndurance"> Owner/operator declaration </label>
+            <label for="techRecord_adrDetails_brakeEndurance"> Owner/operator declaration </label>
           </div>
         </div>
       </fieldset>
@@ -764,39 +760,37 @@
     </div>
 
     <!-- Delcarations seen (Owner/operator declaration )-->
-    <div class="govuk-form-group">
-      <fieldset class="govuk-fieldset" aria-describedby="techRecord_adrDetails_declarationsSeen-error">
-        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-          <h1 class="govuk-fieldset__heading">Owner/operator declaration</h1>
+    <div class="govuk-form-group-checkbox">
+      <fieldset aria-describedby="techRecord_adrDetails_declarationsSeen-error">
+        <legend>
+          <h1>Owner/operator declaration</h1>
         </legend>
         <app-control-errors for="techRecord_adrDetails_declarationsSeen" />
-        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-          <div class="govuk-checkboxes__item">
+        <div data-module="govuk-checkboxes">
+          <div>
             <input
-              class="govuk-checkboxes__input"
               id="techRecord_adrDetails_declarationsSeen"
               formControlName="techRecord_adrDetails_declarationsSeen"
               type="checkbox"
               [value]="true"
               [attr.aria-describedby]="isInvalid('techRecord_adrDetails_declarationsSeen') ? 'techRecord_adrDetails_declarationsSeen-error' : null"
             />
-            <label class="govuk-label govuk-checkboxes__label" for="techRecord_adrDetails_declarationsSeen"> Yes </label>
+            <label for="techRecord_adrDetails_declarationsSeen"> Yes </label>
           </div>
         </div>
       </fieldset>
     </div>
 
     <!-- New certificate required -->
-    <div class="govuk-form-group">
-      <fieldset class="govuk-fieldset" aria-describedby="techRecord_adrDetails_newCertificateRequested-error">
-        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-          <h1 class="govuk-fieldset__heading">New certificate required</h1>
+    <div class="govuk-form-group-checkbox">
+      <fieldset aria-describedby="techRecord_adrDetails_newCertificateRequested-error">
+        <legend>
+          <h1>New certificate required</h1>
         </legend>
         <app-control-errors for="techRecord_adrDetails_newCertificateRequested" />
-        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-          <div class="govuk-checkboxes__item">
+        <div data-module="govuk-checkboxes">
+          <div>
             <input
-              class="govuk-checkboxes__input"
               id="techRecord_adrDetails_newCertificateRequested"
               formControlName="techRecord_adrDetails_newCertificateRequested"
               type="checkbox"
@@ -805,7 +799,7 @@
                 isInvalid('techRecord_adrDetails_newCertificateRequested') ? 'techRecord_adrDetails_newCertificateRequested-error' : null
               "
             />
-            <label class="govuk-label govuk-checkboxes__label" for="techRecord_adrDetails_newCertificateRequested"> Yes </label>
+            <label for="techRecord_adrDetails_newCertificateRequested"> Yes </label>
           </div>
         </div>
       </fieldset>
