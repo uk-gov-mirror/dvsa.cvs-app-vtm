@@ -450,9 +450,9 @@
       </ng-container>
 
       <!-- Special provisions -->
-      <div class="govuk-form-group govuk-character-count">
-        <h1 class="govuk-label-wrapper">
-          <label class="govuk-label govuk-label--m" for="techRecord_adrDetails_tank_tankDetails_specialProvisions"> Special Provisions </label>
+      <div class="govuk-form-group-text-area">
+        <h1>
+          <label id="techRecord_adrDetails_tank_tankDetails_specialProvisions-label"> Special Provisions </label>
         </h1>
         <app-control-errors [formControl]="form.controls.techRecord_adrDetails_tank_tankDetails_specialProvisions" />
         <textarea govukTextarea formControlName="techRecord_adrDetails_tank_tankDetails_specialProvisions"></textarea>
@@ -721,9 +721,9 @@
     </div>
 
     <!-- Issuer -->
-    <div class="govuk-form-group govuk-character-count" *ngIf="adrService.canDisplayIssueSection($any(form.getRawValue()))">
-      <h1 class="govuk-label-wrapper">
-        <label class="govuk-label govuk-label--m" for="techRecord_adrDetails_brakeDeclarationIssuer"> Issuer </label>
+    <div class="govuk-form-group-text-area" *ngIf="adrService.canDisplayIssueSection($any(form.getRawValue()))">
+      <h1>
+        <label id="techRecord_adrDetails_brakeDeclarationIssuer-label"> Issuer </label>
       </h1>
       <app-control-errors [formControl]="form.controls.techRecord_adrDetails_brakeDeclarationIssuer" />
       <textarea govukTextarea formControlName="techRecord_adrDetails_brakeDeclarationIssuer"></textarea>
@@ -812,9 +812,9 @@
     </div>
 
     <!-- ADR Additional Examiner Note -->
-    <div class="govuk-form-group govuk-character-count">
-      <h1 class="govuk-label-wrapper">
-        <label class="govuk-label govuk-label--m" for="techRecord_adrDetails_additionalExaminerNotes_note"> ADR Certificate Notes </label>
+    <div class="govuk-form-group-text-area">
+      <h1>
+        <label id="techRecord_adrDetails_additionalExaminerNotes_note-label"> ADR Certificate Notes </label>
       </h1>
       <div id="techRecord_adrDetails_additionalExaminerNotes_note-hint" class="govuk-hint">Will not be present on the ADR certificate</div>
       <app-control-errors [formControl]="form.controls.techRecord_adrDetails_additionalExaminerNotes_note" />
@@ -860,9 +860,9 @@
     </ng-template>
 
     <!-- ADR Certificate Notes -->
-    <div class="govuk-form-group govuk-character-count">
-      <h1 class="govuk-label-wrapper">
-        <label class="govuk-label govuk-label--m" for="techRecord_adrDetails_adrCertificateNotes"> ADR Certificate Notes </label>
+    <div class="govuk-form-group-text-area">
+      <h1>
+        <label id="techRecord_adrDetails_adrCertificateNotes-label"> ADR Certificate Notes </label>
       </h1>
       <app-control-errors [formControl]="form.controls.techRecord_adrDetails_adrCertificateNotes" />
       <textarea govukTextarea formControlName="techRecord_adrDetails_adrCertificateNotes"></textarea>

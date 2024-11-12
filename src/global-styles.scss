@@ -89,6 +89,28 @@
   }
 }
 
+.govuk-form-group-text-area {
+  @extend .govuk-form-group;
+  @extend .govuk-character-count;
+  > h1 {
+    @extend .govuk-label-wrapper;
+    > label {
+      @extend .govuk-label;
+      @extend .govuk-label--m;
+    }
+  }
+  > div {
+    @extend .govuk-hint;
+  }
+  > textarea {
+    @extend .govuk-textarea;
+  }
+
+  > div#with-hint-info {
+    @extend .govuk-character-count__message;
+  }
+}
+
 .govuk-form-group-radio {
   @extend .govuk-form-group;
   > fieldset {
