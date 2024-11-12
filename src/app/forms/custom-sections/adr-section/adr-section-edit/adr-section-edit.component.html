@@ -79,10 +79,8 @@
       <span class="govuk-label govuk-label--m">ADR Details</span>
 
       <!-- ADR Body Type -->
-      <div class="govuk-form-group-input">
-        <h1>
-          <label id="techRecord_adrDetails_vehicleDetails_type-label"> ADR body type </label>
-        </h1>
+      <div class="govuk-form-group-select">
+        <label id="techRecord_adrDetails_vehicleDetails_type-label"> ADR body type </label>
         <app-control-errors for="techRecord_adrDetails_vehicleDetails_type" />
         <select govukSelect formControlName="techRecord_adrDetails_vehicleDetails_type" class="govuk-input--width-10">
           <option [value]="option.value" *ngFor="let option of adrBodyTypesOptions">{{ option.label }}</option>
@@ -535,10 +533,8 @@
             *ngFor="let inspection of form.controls.techRecord_adrDetails_tank_tankDetails_tc3Details.controls; let i = index"
           >
             <!-- TC3 Inspection Type -->
-            <div class="govuk-form-group">
-              <h1 class="govuk-label-wrapper">
-                <label class="govuk-label govuk-label--m" for="tc3Type"> TC3: Inspection Type </label>
-              </h1>
+            <div class="govuk-form-group-select">
+              <label class="govuk-label govuk-label--m" id="tc3Type-label"> TC3: Inspection Type </label>
               <app-control-errors for="tc3Type" />
               <select govukSelect formControlName="tc3Type">
                 <option [value]="option.value" *ngFor="let option of tc3InspectionOptions">{{ option.label }}</option>
@@ -546,17 +542,16 @@
             </div>
 
             <!-- TC3 Certificate Number -->
-            <div class="govuk-form-group">
-              <h1 class="govuk-label-wrapper">
-                <label class="govuk-label govuk-label--m" for="tc3PeriodicNumber"> TC3: Certificate Number </label>
+            <div class="govuk-form-group-input">
+              <h1>
+                <label id="tc3PeriodicNumber-label"> TC3: Certificate Number </label>
               </h1>
               <app-control-errors for="tc3PeriodicNumber" />
               <input
-                id="tc3PeriodicNumber"
                 type="text"
                 name="tc3PeriodicNumber"
                 formControlName="tc3PeriodicNumber"
-                class="govuk-input"
+                govukInput
               />
             </div>
 

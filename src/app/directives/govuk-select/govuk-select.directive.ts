@@ -19,6 +19,7 @@ export class GovukSelectDirective {
 		if (control) {
 			this.elementRef.nativeElement.setAttribute('id', formControlName);
 			this.elementRef.nativeElement.setAttribute('name', formControlName);
+			this.elementRef.nativeElement.setAttribute('aria-labelledby', `${formControlName}-label`);
 			this.elementRef.nativeElement.classList.add('govuk-select');
 
 			control.statusChanges.pipe(takeUntil(this.destroy$)).subscribe((statusChange) => {
