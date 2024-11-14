@@ -2,7 +2,7 @@
   <div class="govuk-form-group-radio">
     <fieldset>
       <legend>
-        <h1> Able to carry dangerous goods </h1>
+        <h1 id="techRecord_adrDetails_dangerousGoods-label"> Able to carry dangerous goods </h1>
       </legend>
       <app-control-errors [formControl]="form.controls.techRecord_adrDetails_dangerousGoods" />
       <div data-module="govuk-radios">
@@ -91,7 +91,7 @@
       <div class="govuk-form-group-radio">
         <fieldset>
           <legend>
-            <h1>
+            <h1 id="techRecord_adrDetails_vehicleDetails_usedOnInternationalJourneys-label">
               Vehicle used on international journeys
             </h1>
           </legend>
@@ -119,7 +119,7 @@
       <app-date-controls formControlName="techRecord_adrDetails_vehicleDetails_approvalDate" #approvalDate>
         <div class="govuk-form-group-date" [formGroup]="approvalDate.form">
           <h1>
-            <label for="techRecord_adrDetails_vehicleDetails_approvalDate">Date processed</label>
+            <label for="techRecord_adrDetails_vehicleDetails_approvalDate-label">Date processed</label>
           </h1>
           <app-control-errors [formControl]="form.controls.techRecord_adrDetails_vehicleDetails_approvalDate" />
           <div id="techRecord_adrDetails_vehicleDetails_approvalDate">
@@ -149,7 +149,7 @@
       <div class="govuk-form-group-checkbox" id="techRecord_adrDetails_permittedDangerousGoods">
         <fieldset aria-describedby="techRecord_adrDetails_permittedDangerousGoods-error">
           <legend>
-            <h1>Permitted dangerous goods</h1>
+            <h1 id="techRecord_adrDetails_permittedDangerousGoods-label">Permitted dangerous goods</h1>
           </legend>
           <app-control-errors [formControl]="form.controls.techRecord_adrDetails_permittedDangerousGoods" />
           <div data-module="govuk-checkboxes">
@@ -177,7 +177,7 @@
       <div class="govuk-form-group-radio" *ngIf="adrService.canDisplayBodyDeclarationSection($any(form.getRawValue()))">
         <fieldset>
           <legend>
-            <h1>Body declaration</h1>
+            <h1 id="techRecord_adrDetails_bodyDeclaration_type-label">Body declaration</h1>
           </legend>
           <app-control-errors [formControl]="form.controls.techRecord_adrDetails_bodyDeclaration_type" />
           <div data-module="govuk-radios">
@@ -203,7 +203,7 @@
         <div class="govuk-form-group-radio">
           <fieldset>
             <legend>
-              <h1>Compatibility group J</h1>
+              <h1 id="techRecord_adrDetails_compatibilityGroupJ-label">Compatibility group J</h1>
             </legend>
             <app-control-errors [formControl]="form.controls.techRecord_adrDetails_compatibilityGroupJ" />
             <div data-module="govuk-radios">
@@ -227,7 +227,7 @@
       <div class="govuk-form-group-checkbox" id="techRecord_adrDetails_additionalNotes_number">
         <fieldset aria-describedby="techRecord_adrDetails_additionalNotes_number-error">
           <legend>
-            <h1>Guidance notes</h1>
+            <h1 id="techRecord_adrDetails_additionalNotes_number-label">Guidance notes</h1>
           </legend>
           <app-control-errors [formControl]="form.controls.techRecord_adrDetails_additionalNotes_number" />
           <div data-module="govuk-checkboxes">
@@ -268,7 +268,7 @@
         <!-- Tank Make -->
         <div class="govuk-form-group-input">
           <h1>
-            <label> Tank Make </label>
+            <label id="techRecord_adrDetails_tank_tankDetails_tankManufacturer-label"> Tank Make </label>
           </h1>
           <app-control-errors [formControl]="form.controls.techRecord_adrDetails_tank_tankDetails_tankManufacturer" />
           <input govukInput formControlName="techRecord_adrDetails_tank_tankDetails_tankManufacturer" />
@@ -277,7 +277,7 @@
         <!-- Tank Year of manufacture -->
         <div class="govuk-form-group-input">
           <h1 >
-            <label>
+            <label id="techRecord_adrDetails_tank_tankDetails_yearOfManufacture-label">
               Tank year of manufacture
             </label>
           </h1>
@@ -308,7 +308,7 @@
         <!-- Tank code -->
         <div class="govuk-form-group-input">
           <h1>
-            <label id="techRecord_adrDetails_tank_tankDetails_tankCode"> Code </label>
+            <label id="techRecord_adrDetails_tank_tankDetails_tankCode-label"> Code </label>
           </h1>
           <app-control-errors [formControl]="form.controls.techRecord_adrDetails_tank_tankDetails_tankCode" />
           <input govukInput formControlName="techRecord_adrDetails_tank_tankDetails_tankCode" class="govuk-input--width-10" />
@@ -318,7 +318,7 @@
         <div class="govuk-form-group-radio" id="techRecord_adrDetails_tank_tankDetails_tankStatement_substancesPermitted">
           <fieldset>
             <legend>
-              <h1> Substances permitted </h1>
+              <h1 id="techRecord_adrDetails_tank_tankDetails_tankStatement_substancesPermitted-label"> Substances permitted </h1>
             </legend>
             <app-control-errors [formControl]="form.controls.techRecord_adrDetails_tank_tankDetails_tankStatement_substancesPermitted" /><div class="govuk-radios" data-module="govuk-radios">
             <div *ngFor="let option of tankStatementSubstancePermittedOptions">
@@ -386,7 +386,7 @@
             <!-- Reference number -->
             <div class="govuk-form-group-input">
               <h1>
-                <label>
+                <label id="techRecord_adrDetails_tank_tankDetails_tankStatement_productListRefNo">
                   Reference number
                 </label>
               </h1>
@@ -583,7 +583,7 @@
       <div class="govuk-form-group-checkbox">
         <fieldset aria-describedby="techRecord_adrDetails_memosApply-error">
           <legend>
-            <h1>Memo 07/09 (3 month extension) can be applied</h1>
+            <h1 id="techRecord_adrDetails_memosApply-label">Memo 07/09 (3 month extension) can be applied</h1>
           </legend>
           <div id="techRecord_adrDetails_memosApply-hint" class="govuk-hint">Only applicable for vehicles used on national journeys</div>
           <app-control-errors [formControl]="form.controls.techRecord_adrDetails_memosApply" />
@@ -612,7 +612,7 @@
       <div class="govuk-form-group-checkbox">
         <fieldset aria-describedby="techRecord_adrDetails_m145Statement-error">
           <legend>
-            <h1>M145</h1>
+            <h1 id="techRecord_adrDetails_m145Statement-label">M145</h1>
           </legend>
           <app-control-errors [formControl]="form.controls.techRecord_adrDetails_m145Statement" />
           <div data-module="govuk-checkboxes">
@@ -638,7 +638,7 @@
       <div class="govuk-form-group-radio">
         <fieldset>
           <legend>
-            <h1> Battery List Applicable </h1>
+            <h1 id="techRecord_adrDetails_listStatementApplicable-label"> Battery List Applicable </h1>
           </legend>
           <app-control-errors [formControl]="form.controls.techRecord_adrDetails_listStatementApplicable" />
           <div data-module="govuk-radios">
@@ -675,7 +675,7 @@
     <div class="govuk-form-group-checkbox">
       <fieldset class="govuk-fieldset" aria-describedby="techRecord_adrDetails_brakeDeclarationsSeen-error">
         <legend>
-          <h1>Declarations Seen</h1>
+          <h1 id="techRecord_adrDetails_brakeDeclarationsSeen-label">Declarations Seen</h1>
         </legend>
         <app-control-errors [formControl]="form.controls.techRecord_adrDetails_brakeDeclarationsSeen" />
         <div data-module="govuk-checkboxes">
@@ -746,7 +746,7 @@
     <div class="govuk-form-group-checkbox">
       <fieldset aria-describedby="techRecord_adrDetails_declarationsSeen-error">
         <legend>
-          <h1>Owner/operator declaration</h1>
+          <h1 id="techRecord_adrDetails_declarationsSeen-label">Owner/operator declaration</h1>
         </legend>
         <app-control-errors [formControl]="form.controls.techRecord_adrDetails_declarationsSeen"  />
         <div data-module="govuk-checkboxes">
@@ -769,7 +769,7 @@
     <div class="govuk-form-group-checkbox">
       <fieldset aria-describedby="techRecord_adrDetails_newCertificateRequested-error">
         <legend>
-          <h1>New certificate required</h1>
+          <h1 id="techRecord_adrDetails_newCertificateRequested-label">New certificate required</h1>
         </legend>
         <app-control-errors [formControl]="form.controls.techRecord_adrDetails_newCertificateRequested" />
         <div data-module="govuk-checkboxes">
