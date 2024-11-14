@@ -113,6 +113,46 @@
 
 .govuk-form-group-date {
   @extend .govuk-form-group;
+
+  > fieldset {
+    @extend .govuk-fieldset;
+
+    > legend {
+      @extend .govuk-fieldset__legend;
+      @extend .govuk-fieldset__legend--m;
+
+      > h1 {
+        @extend .govuk-fieldset__heading;
+      }
+    }
+
+    > div {
+      @extend .govuk-date-input;
+
+      > div {
+        @extend .govuk-date-input__item;
+
+        > div {
+          @extend .govuk-form-group;
+
+          > label {
+            @extend .govuk-label;
+            @extend .govuk-date-input__label;
+          }
+
+          > input {
+            @extend .govuk-input;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+/*
+.govuk-form-group-date {
+  @extend .govuk-form-group;
   > h1 {
     @extend .govuk-label-wrapper;
     > label {
@@ -137,6 +177,7 @@
     }
   }
 }
+*/
 
 .govuk-form-group-radio {
   @extend .govuk-form-group;
