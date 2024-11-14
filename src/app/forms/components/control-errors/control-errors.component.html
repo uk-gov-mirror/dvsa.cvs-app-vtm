@@ -1,0 +1,5 @@
+  <p class="govuk-error-message" *ngIf="control?.invalid && control?.touched && control?.errors">
+    <span class="govuk-visually-hidden">Error:</span>
+    <span>{{ (control.errors | keyvalue)?.[0]?.value }}</span>
+  </p>
+

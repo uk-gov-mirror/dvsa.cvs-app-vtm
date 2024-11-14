@@ -94,7 +94,12 @@
             techRecordEdited.techRecord_vehicleType === 'lgv'
           "
         >
-          <app-adr [techRecord]="techRecordEdited" [isReviewScreen]="true"></app-adr>
+          <ng-container *ngIf="featureToggleService.isFeatureEnabled('FsAdr'); else oldADRSection">
+            <app-adr-section [techRecord]="techRecordEdited" mode="summary" />
+          </ng-container>
+          <ng-template #oldADRSection>
+            <app-adr [techRecord]="techRecordEdited" [isReviewScreen]="true" />
+          </ng-template>
         </ng-container>
       </ng-container>
 
