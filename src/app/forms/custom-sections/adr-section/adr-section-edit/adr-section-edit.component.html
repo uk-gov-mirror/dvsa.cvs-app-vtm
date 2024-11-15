@@ -157,7 +157,7 @@
           <div data-module="govuk-checkboxes">
             <div *ngFor="let option of permittedDangerousGoodsOptions; let i = index">
               <input
-                id="techRecord_adrDetails_permittedDangerousGoods-{{ option.value }}"
+                id="techRecord_adrDetails_permittedDangerousGoods-{{ option.value }}-checkbox"
                 formControlName="techRecord_adrDetails_permittedDangerousGoods-{{ option.value }}"
                 type="checkbox"
                 govukCheckbox
@@ -235,7 +235,7 @@
           <div data-module="govuk-checkboxes">
             <div *ngFor="let option of guidanceNotesOptions">
               <input
-                id="techRecord_adrDetails_additionalNotes_number-{{ option.value }}"
+                id="techRecord_adrDetails_additionalNotes_number-{{ option.value }}-checkbox"
                 formControlName="techRecord_adrDetails_additionalNotes_number-{{ option.value }}"
                 type="checkbox"
                 govukCheckbox
@@ -600,7 +600,7 @@
           <div data-module="govuk-checkboxes">
             <div *ngFor="let option of memosApplyOptions; let i = index">
               <input
-                id="techRecord_adrDetails_memosApply-{{ option.value }}"
+                id="techRecord_adrDetails_memosApply-{{ option.value }}-checkbox"
                 formControlName="techRecord_adrDetails_memosApply-{{ option.value }}"
                 type="checkbox"
                 govukCheckbox
