@@ -814,12 +814,12 @@
     <!-- ADR Additional Examiner Note -->
     <div class="govuk-form-group-text-area">
       <h1>
-        <label id="techRecord_adrDetails_additionalExaminerNotes_note-label"> ADR Certificate Notes </label>
+        <label id="techRecord_adrDetails_additionalExaminerNotes_note-label"> Additional Examiner Notes </label>
       </h1>
       <div id="techRecord_adrDetails_additionalExaminerNotes_note-hint" class="govuk-hint">Will not be present on the ADR certificate</div>
       <app-control-errors [control]="form.controls.techRecord_adrDetails_additionalExaminerNotes_note" />
       <textarea govukTextarea formControlName="techRecord_adrDetails_additionalExaminerNotes_note"></textarea>
-      <app-character-count for="techRecord_adrDetails_additionalExaminerNotes_note" [limit]="1500" />
+      <app-character-count for="techRecord_adrDetails_additionalExaminerNotes_note" [limit]="1024" />
     </div>
 
     <!-- ADR Additional Examiner Note History -->
