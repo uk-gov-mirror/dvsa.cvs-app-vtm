@@ -458,8 +458,9 @@
         </h1>
         <app-control-errors [control]="form.controls.techRecord_adrDetails_tank_tankDetails_specialProvisions" />
         <textarea govukTextarea formControlName="techRecord_adrDetails_tank_tankDetails_specialProvisions"></textarea>
-        <app-character-count for="techRecord_adrDetails_tank_tankDetails_specialProvisions" [limit]="500" />
+        <app-character-count for="techRecord_adrDetails_tank_tankDetails_specialProvisions" [limit]="1024" />
       </div>
+
 
       <!-- Tank Inspections section -->
       <ng-container>
@@ -808,7 +809,7 @@
       <div id="techRecord_adrDetails_additionalExaminerNotes_note-hint" class="govuk-hint">Will not be present on the ADR certificate</div>
       <app-control-errors [control]="form.controls.techRecord_adrDetails_additionalExaminerNotes_note" />
       <textarea govukTextarea formControlName="techRecord_adrDetails_additionalExaminerNotes_note"></textarea>
-      <app-character-count for="techRecord_adrDetails_additionalExaminerNotes_note" [limit]="1024" />
+      <app-character-count for="techRecord_adrDetails_additionalExaminerNotes_note" [limit]="1500" />
     </div>
 
     <!-- ADR Additional Examiner Note History -->
