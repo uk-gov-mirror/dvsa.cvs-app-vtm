@@ -144,7 +144,9 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 				),
 			]
 		),
-		techRecord_adrDetails_tank_tankDetails_tankStatement_productList: this.fb.control<string | null>(null, []),
+		techRecord_adrDetails_tank_tankDetails_tankStatement_productList: this.fb.control<string | null>(null, [
+			this.commonValidators.maxLength(1500, 'Additional Details must be less than or equal to 1500 characters'),
+		]),
 		techRecord_adrDetails_tank_tankDetails_specialProvisions: this.fb.control<string | null>(null, [
 			this.commonValidators.maxLength(1500, 'Special provisions must be less than or equal to 1500 characters'),
 		]),

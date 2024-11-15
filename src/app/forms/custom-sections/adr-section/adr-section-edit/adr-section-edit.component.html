@@ -447,6 +447,16 @@
                 <a class="govuk-link" href="javascript:void(0)" (click)="addUNNumber()">Add UN Number</a>
               </p>
             </div>
+
+            <!-- Additional details -->
+            <div class="govuk-form-group-text-area">
+              <h1>
+                <label id="techRecord_adrDetails_tank_tankDetails_tankStatement_productList-label">Additional Details </label>
+              </h1>
+              <app-control-errors [control]="form.controls.techRecord_adrDetails_tank_tankDetails_tankStatement_productList" />
+              <textarea govukTextarea formControlName="techRecord_adrDetails_tank_tankDetails_tankStatement_productList"></textarea>
+              <app-character-count for="techRecord_adrDetails_tank_tankDetails_tankStatement_productList" [limit]="1500" />
+            </div>
           </ng-container>
         </ng-container>
       </ng-container>
