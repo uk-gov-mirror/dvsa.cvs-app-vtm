@@ -9,22 +9,23 @@ export class GovukSelectDirective {
 	elementRef = inject<ElementRef<HTMLSelectElement>>(ElementRef);
 	controlContainer = inject(ControlContainer);
 
-	formControlName = input.required<string>();
+	controlName = input.required<string>({ alias: 'formControlName' });
 
 	destroy$ = new ReplaySubject<boolean>(1);
 
 	ngOnInit(): void {
-		const formControlName = this.formControlName();
-		const control = this.controlContainer.control?.get(formControlName);
+		const controlName = this.controlName();
+		const control = this.controlContainer.control?.get(controlName);
 		if (control) {
-			this.elementRef.nativeElement.setAttribute('id', formControlName);
-			this.elementRef.nativeElement.setAttribute('name', formControlName);
+			this.elementRef.nativeElement.setAttribute('id', controlName);
+			this.elementRef.nativeElement.setAttribute('name', controlName);
+			this.elementRef.nativeElement.setAttribute('aria-labelledby', `${controlName}-label`);
 			this.elementRef.nativeElement.classList.add('govuk-select');
 
 			control.statusChanges.pipe(takeUntil(this.destroy$)).subscribe((statusChange) => {
 				if (statusChange === 'INVALID' && control.touched) {
 					this.elementRef.nativeElement.classList.add('govuk-select--error');
-					this.elementRef.nativeElement.setAttribute('aria-describedby', `${formControlName}-error`);
+					this.elementRef.nativeElement.setAttribute('aria-describedby', `${controlName}-error`);
 				}
 
 				if (statusChange === 'VALID') {

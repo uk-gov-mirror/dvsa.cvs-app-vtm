@@ -1,13 +1,5 @@
 import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
-import {
-	ControlContainer,
-	ControlValueAccessor,
-	FormBuilder,
-	NG_VALUE_ACCESSOR,
-	ValidatorFn,
-	Validators,
-} from '@angular/forms';
-import { GlobalErrorService } from '@core/components/global-error/global-error.service';
+import { ControlContainer, ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ReplaySubject, takeUntil } from 'rxjs';
 
 @Component({
@@ -25,15 +17,13 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 export class DateControlsComponent implements ControlValueAccessor, OnInit, OnDestroy {
 	fb = inject(FormBuilder);
 	controlContainer = inject(ControlContainer);
-	globalErrorService = inject(GlobalErrorService);
 
 	mode = input<Format>('yyyy-mm-dd');
-	formControlName = input.required<string>();
 
 	form = this.fb.group({
-		year: this.fb.nonNullable.control<null | number>(null, [this.min(1000, 'Year'), this.max(9999, 'Year')]),
-		month: this.fb.nonNullable.control<null | number>(null, [this.min(1, 'Month'), this.max(12, 'Month')]),
-		day: this.fb.nonNullable.control<null | number>(null, [this.min(1, 'Day'), this.max(31, 'Day')]),
+		year: this.fb.nonNullable.control<null | number>(null),
+		month: this.fb.nonNullable.control<null | number>(null),
+		day: this.fb.nonNullable.control<null | number>(null),
 		hours: this.fb.nonNullable.control<null | number>(null),
 		minutes: this.fb.nonNullable.control<null | number>(null),
 		seconds: this.fb.nonNullable.control<null | number>(null),
@@ -85,16 +75,6 @@ export class DateControlsComponent implements ControlValueAccessor, OnInit, OnDe
 			}
 		});
 
-		// Ensure form errors are propagated to the parent
-		this.form.statusChanges.pipe(takeUntil(this.destroy)).subscribe(() => {
-			const control = this.controlContainer.control?.get(this.formControlName());
-			if (control) {
-				this.form.updateValueAndValidity({ onlySelf: true, emitEvent: false });
-				const errors = this.globalErrorService.extractErrors(this.form);
-				control.setErrors({ ...control.errors, ...errors });
-			}
-		});
-
 		// Map the seperate form controls to a single date string
 		this.form.valueChanges.pipe(takeUntil(this.destroy)).subscribe(() => {
 			const { year, month, day, hours, minutes, seconds } = this.form.value;
@@ -123,18 +103,6 @@ export class DateControlsComponent implements ControlValueAccessor, OnInit, OnDe
 	ngOnDestroy(): void {
 		this.destroy.next(true);
 		this.destroy.complete();
-	}
-
-	min(min: number, label: string): ValidatorFn {
-		return (control) => {
-			return Validators.min(min)(control) ? { min: `${label} must be greater than or equal to ${min}` } : null;
-		};
-	}
-
-	max(max: number, label: string): ValidatorFn {
-		return (control) => {
-			return Validators.max(max)(control) ? { max: `${label} must be less than or equal to ${max}` } : null;
-		};
 	}
 }
 

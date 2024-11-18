@@ -94,7 +94,7 @@
             techRecordEdited.techRecord_vehicleType === 'lgv'
           "
         >
-          <ng-container *ngIf="featureToggleService.isFeatureEnabled('dfs'); else oldADRSection">
+          <ng-container *ngIf="featureToggleService.isFeatureEnabled('FsAdr'); else oldADRSection">
             <app-adr-section [techRecord]="techRecordEdited" mode="summary" />
           </ng-container>
           <ng-template #oldADRSection>

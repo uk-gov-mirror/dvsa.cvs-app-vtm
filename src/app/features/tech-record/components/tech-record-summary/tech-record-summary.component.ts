@@ -94,7 +94,7 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 
 	ngOnInit(): void {
 		this.isADRCertGenEnabled = this.featureToggleService.isFeatureEnabled('adrCertToggle');
-		this.isDFSEnabled = this.featureToggleService.isFeatureEnabled('dfs');
+		this.isDFSEnabled = this.featureToggleService.isFeatureEnabled('FsAdr');
 
 		this.technicalRecordService.techRecord$
 			.pipe(

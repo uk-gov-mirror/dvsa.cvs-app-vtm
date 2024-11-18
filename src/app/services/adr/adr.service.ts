@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ADRBodyType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/adrBodyType.enum.js';
 import { ADRDangerousGood } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/adrDangerousGood.enum.js';
 import { ADRTankDetailsTankStatementSelect } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/adrTankDetailsTankStatementSelect.enum.js';
 import { ADRTankStatementSubstancePermitted } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/adrTankStatementSubstancePermitted.js';
@@ -106,5 +107,22 @@ export class AdrService {
 	canDisplayIssueSection(techRecord: TechRecordType<'hgv' | 'lgv' | 'trl'>) {
 		const brakeDeclarationsSeen = techRecord.techRecord_adrDetails_brakeDeclarationsSeen;
 		return this.canDisplayDangerousGoodsSection(techRecord) && brakeDeclarationsSeen === true;
+	}
+
+	canDisplayBodyDeclarationSection(techRecord: TechRecordType<'hgv' | 'lgv' | 'trl'>) {
+		const explosivesApplicableForBodyType = [
+			ADRBodyType.RIGID_BOX_BODY,
+			ADRBodyType.FULL_DRAWBAR_BOX_BODY,
+			ADRBodyType.CENTRE_AXLE_BOX_BODY,
+			ADRBodyType.SEMI_TRAILER_BOX_BODY,
+		].includes(techRecord.techRecord_adrDetails_vehicleDetails_type as ADRBodyType);
+
+		const carriesExplosivesType3 = techRecord.techRecord_adrDetails_permittedDangerousGoods?.includes(
+			ADRDangerousGood.EXPLOSIVES_TYPE_3
+		);
+
+		return (
+			this.canDisplayDangerousGoodsSection(techRecord) && explosivesApplicableForBodyType && carriesExplosivesType3
+		);
 	}
 }

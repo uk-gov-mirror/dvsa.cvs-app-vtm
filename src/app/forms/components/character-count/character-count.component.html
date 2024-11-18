@@ -1,8 +1,8 @@
-<div id="with-hint-info" class="govuk-hint govuk-character-count__message" *ngIf="(control()?.value?.length ?? 0) <= limit()">
+<div id="{{ for() }}-max-length" class="govuk-hint govuk-character-count__message" *ngIf="(control()?.value?.length ?? 0) <= limit()">
   You have {{ limit() - (control()?.value?.length ?? 0) }} characters remaining
 </div>
 <div
-  id="{{ for() }}-info"
+  id="{{ for() }}-max-length-exceeded"
   class="govuk-hint govuk-character-count__message govuk-character-count__status govuk-error-message"
   *ngIf="(control()?.value?.length ?? 0) > limit()"
 >

@@ -3,7 +3,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { RoleRequiredDirective } from '@directives/app-role-required/app-role-required.directive';
 import { FeatureToggleDirective } from '@directives/feature-toggle/feature-toggle.directive';
+import { GovukCheckboxDirective } from '@directives/govuk-checkbox/govuk-checkbox.directive';
+import { GovukDateInputDirective } from '@directives/govuk-date-input/govuk-date-input.directive';
 import { GovukInputDirective } from '@directives/govuk-input/govuk-input.directive';
+import { GovukRadioDirective } from '@directives/govuk-radio/govuk-radio.directive';
 import { GovukSelectDirective } from '@directives/govuk-select/govuk-select.directive';
 import { GovukTextareaDirective } from '@directives/govuk-textarea/govuk-textarea.directive';
 import { PreventDoubleClickDirective } from '@directives/prevent-double-click/prevent-double-click.directive';
@@ -61,8 +64,10 @@ import { TyreAxleLoadPipe } from '../pipes/tyre-axle-load/tyre-axle-load.pipe';
 		GovukInputDirective,
 		GovukTextareaDirective,
 		GovukSelectDirective,
+		GovukRadioDirective,
+		GovukCheckboxDirective,
 	],
-	imports: [CommonModule, RouterModule],
+	imports: [CommonModule, RouterModule, GovukDateInputDirective],
 	exports: [
 		DefaultNullOrEmpty,
 		ButtonGroupComponent,
@@ -91,6 +96,9 @@ import { TyreAxleLoadPipe } from '../pipes/tyre-axle-load/tyre-axle-load.pipe';
 		GovukInputDirective,
 		GovukTextareaDirective,
 		GovukSelectDirective,
+		GovukRadioDirective,
+		GovukDateInputDirective,
+		GovukCheckboxDirective,
 	],
 })
 export class SharedModule {}

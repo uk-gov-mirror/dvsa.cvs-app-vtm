@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
 import { ControlContainer, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ADRAdditionalNotesNumber } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/adrAdditionalNotesNumber.enum.js';
+import { ADRBodyDeclarationTypes } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/adrBodyDeclarationType.enum.js';
 import { ADRBodyType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/adrBodyType.enum.js';
 import { ADRCompatibilityGroupJ } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/adrCompatibilityGroupJ.enum.js';
 import { ADRDangerousGood } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/adrDangerousGood.enum.js';
@@ -68,6 +69,7 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 		]),
 		techRecord_adrDetails_vehicleDetails_usedOnInternationalJourneys: this.fb.control<string | null>(null),
 		techRecord_adrDetails_vehicleDetails_approvalDate: this.fb.control<string | null>(null, [
+			this.commonValidators.date('Date processed'),
 			this.commonValidators.pastDate('Date processed must be in the past'),
 			this.adrValidators.requiredWithDangerousGoods('Date processed is required with Able to carry dangerous goods'),
 		]),
@@ -79,6 +81,7 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 				),
 			]
 		),
+		techRecord_adrDetails_bodyDeclaration_type: this.fb.control<string | null>(null, []),
 		techRecord_adrDetails_compatibilityGroupJ: this.fb.control<boolean | null>(null, [
 			this.adrValidators.requiredWithExplosives('Compatibility group J is required with Permitted dangerous goods'),
 		]),
@@ -141,9 +144,11 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 				),
 			]
 		),
-		techRecord_adrDetails_tank_tankDetails_tankStatement_productList: this.fb.control<string | null>(null, []),
+		techRecord_adrDetails_tank_tankDetails_tankStatement_productList: this.fb.control<string | null>(null, [
+			this.commonValidators.maxLength(1500, 'Additional Details must be less than or equal to 1500 characters'),
+		]),
 		techRecord_adrDetails_tank_tankDetails_specialProvisions: this.fb.control<string | null>(null, [
-			this.commonValidators.maxLength(1500, 'Special provisions must be less than or equal to 1500 characters'),
+			this.commonValidators.maxLength(1500, 'Special provisions must be less than or equal to 1024 characters'),
 		]),
 
 		// Tank Details > Tank Inspections
@@ -153,6 +158,7 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 			this.commonValidators.maxLength(70, 'TC2: Certificate Number must be less than or equal to 70 characters'),
 		]),
 		techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate: this.fb.control<string | null>(null, [
+			this.commonValidators.date('TC2: Expiry Date'),
 			this.adrValidators.requiredWithTankOrBattery('TC2: Expiry Date is required with ADR body type'),
 		]),
 		techRecord_adrDetails_tank_tankDetails_tc3Details: this.fb.array<FormGroup>([]),
@@ -187,7 +193,9 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 
 		// Miscellaneous
 		techRecord_adrDetails_newCertificateRequested: this.fb.control<boolean>(false),
-		techRecord_adrDetails_additionalExaminerNotes_note: this.fb.control<string | null>(null),
+		techRecord_adrDetails_additionalExaminerNotes_note: this.fb.control<string | null>(null, [
+			this.commonValidators.maxLength(1024, 'Additional Examiner Notes must be less han or equal to 1024 characters'),
+		]),
 		techRecord_adrDetails_additionalExaminerNotes: this.fb.control<AdditionalExaminerNotes[] | null>(null),
 		techRecord_adrDetails_adrCertificateNotes: this.fb.control<string | null>(null, [
 			this.commonValidators.maxLength(1500, 'ADR Certificate Notes must be less han or equal to 1500 characters'),
@@ -230,6 +238,8 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 
 	memosApplyOptions = [{ value: '07/09 3mth leak ext ', label: 'Yes' }];
 
+	bodyDeclarationOptions = getOptionsFromEnum(ADRBodyDeclarationTypes);
+
 	isInvalid(formControlName: string) {
 		const control = this.form.get(formControlName);
 		return control?.invalid && control?.touched;
@@ -239,7 +249,7 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 		const control = this.form.get(formControlName);
 		if (!control) return;
 
-		if (control.value === null) {
+		if (!control.value) {
 			return control.setValue([value]);
 		}
 
@@ -286,6 +296,7 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 								return good !== ADRDangerousGood.EXPLOSIVES_TYPE_2 && good !== ADRDangerousGood.EXPLOSIVES_TYPE_3;
 							}),
 						techRecord_adrDetails_compatibilityGroupJ: null,
+						techRecord_adrDetails_bodyDeclaration_type: null,
 					});
 
 					this.permittedDangerousGoodsOptions = options.filter(({ value }) => {
@@ -312,6 +323,7 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 					),
 				]),
 				tc3PeriodicExpiryDate: this.fb.control<string | null>(null, [
+					this.commonValidators.date('TC3: Expiry Date'),
 					this.adrValidators.requiresOnePopulatedTC3Field(
 						'TC3 Subsequent inspection must have at least one populated field'
 					),
