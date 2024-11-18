@@ -7,5 +7,8 @@ import { FormControl } from '@angular/forms';
 })
 export class ControlErrorsComponent {
 	@Input({ required: true })
+	id!: string;
+
+	@Input({ required: true })
 	control!: FormControl;
 }
