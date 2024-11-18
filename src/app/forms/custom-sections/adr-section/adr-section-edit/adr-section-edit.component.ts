@@ -249,7 +249,7 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 		const control = this.form.get(formControlName);
 		if (!control) return;
 
-		if (control.value === null) {
+		if (!control.value) {
 			return control.setValue([value]);
 		}
 

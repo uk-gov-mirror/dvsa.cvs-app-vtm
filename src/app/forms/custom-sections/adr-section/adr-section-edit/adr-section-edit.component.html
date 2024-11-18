@@ -158,7 +158,6 @@
             <div *ngFor="let option of permittedDangerousGoodsOptions; let i = index">
               <input
                 id="techRecord_adrDetails_permittedDangerousGoods-{{ option.value }}-checkbox"
-                formControlName="techRecord_adrDetails_permittedDangerousGoods-{{ option.value }}"
                 type="checkbox"
                 govukCheckbox
                 [checked]="form.get('techRecord_adrDetails_permittedDangerousGoods')?.value?.includes(option.value.toString())"
@@ -236,7 +235,6 @@
             <div *ngFor="let option of guidanceNotesOptions">
               <input
                 id="techRecord_adrDetails_additionalNotes_number-{{ option.value }}-checkbox"
-                formControlName="techRecord_adrDetails_additionalNotes_number-{{ option.value }}"
                 type="checkbox"
                 govukCheckbox
                 [checked]="form.get('techRecord_adrDetails_additionalNotes_number')?.value?.includes(option.value.toString())"
@@ -612,7 +610,6 @@
             <div *ngFor="let option of memosApplyOptions; let i = index">
               <input
                 id="techRecord_adrDetails_memosApply-{{ option.value }}-checkbox"
-                formControlName="techRecord_adrDetails_memosApply-{{ option.value }}"
                 type="checkbox"
                 govukCheckbox
                 [checked]="form.get('techRecord_adrDetails_memosApply')?.value?.includes(option.value.toString())"

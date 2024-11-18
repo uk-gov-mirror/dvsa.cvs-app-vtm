@@ -19,7 +19,6 @@ export class DateControlsComponent implements ControlValueAccessor, OnInit, OnDe
 	controlContainer = inject(ControlContainer);
 
 	mode = input<Format>('yyyy-mm-dd');
-	formControlName = input.required<string>();
 
 	form = this.fb.group({
 		year: this.fb.nonNullable.control<null | number>(null),

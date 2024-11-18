@@ -14,16 +14,16 @@ export class GovukDateInputDirective implements OnInit, OnDestroy {
 	controlContainer = inject(ControlContainer);
 
 	govukDateInput = input.required<string>();
-	formControlName = input.required<string>();
+	controlName = input.required<string>({ alias: 'formControlName' });
 
 	destroy$ = new ReplaySubject<boolean>(1);
 
 	ngOnInit(): void {
 		const parent = this.govukDateInput();
-		const formControlName = this.formControlName();
-		const id = `${parent}-${formControlName}`;
+		const controlName = this.controlName();
+		const id = `${parent}-${controlName}`;
 
-		const control = this.controlContainer.control?.get(formControlName);
+		const control = this.controlContainer.control?.get(controlName);
 		if (control) {
 			this.elementRef.nativeElement.setAttribute('id', id);
 			this.elementRef.nativeElement.setAttribute('name', id);
@@ -34,7 +34,7 @@ export class GovukDateInputDirective implements OnInit, OnDestroy {
 			control.statusChanges.pipe(takeUntil(this.destroy$)).subscribe((statusChange) => {
 				if (statusChange === 'INVALID' && control.touched) {
 					this.elementRef.nativeElement.classList.add('govuk-input--error');
-					this.elementRef.nativeElement.setAttribute('aria-describedby', `${formControlName}-error`);
+					this.elementRef.nativeElement.setAttribute('aria-describedby', `${controlName}-error`);
 				}
 
 				if (statusChange === 'VALID') {
