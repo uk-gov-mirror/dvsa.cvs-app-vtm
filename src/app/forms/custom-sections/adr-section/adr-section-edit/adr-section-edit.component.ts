@@ -99,6 +99,7 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 		]),
 		techRecord_adrDetails_tank_tankDetails_yearOfManufacture: this.fb.control<number | null>(null, [
 			this.adrValidators.requiredWithTankOrBattery('Tank Year of manufacture is required with ADR body type'),
+			this.commonValidators.pastOrCurrentYear('Tank Year of manufacture must be the current or a past year'),
 			this.commonValidators.min(1000, 'Tank Year of manufacture must be greater than or equal to 1000'),
 			this.commonValidators.max(9999, 'Tank Year of manufacture must be less than or equal to 9999'),
 		]),
@@ -171,8 +172,8 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 			this.adrValidators.requiredWithBattery('Battery List Applicable is required with ADR body type', true),
 		]),
 		techRecord_adrDetails_batteryListNumber: this.fb.control<string | null>(null, [
-			this.adrValidators.requiredWithBatteryListApplicable('Reference Number is required with Battery List Applicable'),
-			this.commonValidators.maxLength(8, 'Reference Number must be less than or equal to 8 characters'),
+			this.adrValidators.requiredWithBatteryListApplicable('Reference number is required with Battery List Applicable'),
+			this.commonValidators.maxLength(8, 'Reference number must be less than or equal to 8 characters'),
 		]),
 
 		// Brake declaration

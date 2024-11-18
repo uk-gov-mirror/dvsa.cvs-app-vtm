@@ -54,6 +54,16 @@ export class CommonValidatorsService {
 		};
 	}
 
+	pastOrCurrentYear(message: string): ValidatorFn {
+		return (control) => {
+			if (control.value && +control.value > new Date().getFullYear()) {
+				return { pastOrCurrentYear: message };
+			}
+
+			return null;
+		};
+	}
+
 	invalidDate(message: string): ValidatorFn {
 		return (control) => {
 			if (control.value && Number.isNaN(Date.parse(control.value))) {
