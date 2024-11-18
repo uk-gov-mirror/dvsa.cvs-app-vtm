@@ -15,7 +15,6 @@ import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/
 import { getOptionsFromEnum } from '@forms/utils/enum-map';
 import { AdrValidatorsService } from '@forms/validators/adr-validators.service';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
-import { TC2Types } from '@models/adr.enum';
 import { Store } from '@ngrx/store';
 import { AdrService } from '@services/adr/adr.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
@@ -152,7 +151,7 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 		]),
 
 		// Tank Details > Tank Inspections
-		techRecord_adrDetails_tank_tankDetails_tc2Details_tc2Type: this.fb.control<string | null>(TC2Types.INITIAL),
+		techRecord_adrDetails_tank_tankDetails_tc2Details_tc2Type: this.fb.control<string | null>('initial'),
 		techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateApprovalNo: this.fb.control<string | null>(null, [
 			this.adrValidators.requiredWithTankOrBattery('TC2: Certificate Number is required with ADR body type'),
 			this.commonValidators.maxLength(70, 'TC2: Certificate Number must be less than or equal to 70 characters'),
@@ -169,7 +168,7 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 
 		// Battery List
 		techRecord_adrDetails_listStatementApplicable: this.fb.control<string | null>(null, [
-			this.adrValidators.requiredWithBattery('Battery List Applicable is required with ADR body type'),
+			this.adrValidators.requiredWithBattery('Battery List Applicable is required with ADR body type', true),
 		]),
 		techRecord_adrDetails_batteryListNumber: this.fb.control<string | null>(null, [
 			this.adrValidators.requiredWithBatteryListApplicable('Reference Number is required with Battery List Applicable'),

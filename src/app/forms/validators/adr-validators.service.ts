@@ -34,10 +34,16 @@ export class AdrValidatorsService {
 		};
 	}
 
-	requiredWithBattery(message: string): ValidatorFn {
+	requiredWithBattery(message: string, allowFalse = false): ValidatorFn {
 		return (control) => {
-			if (control.parent && !control.value && this.adrService.canDisplayBatterySection(control.parent.value)) {
-				return { required: message };
+			if (control.parent && this.adrService.canDisplayBatterySection(control.parent.value)) {
+				if (allowFalse && control.value === false) {
+					return null;
+				}
+
+				if (!control.value) {
+					return { required: message };
+				}
 			}
 
 			return null;
