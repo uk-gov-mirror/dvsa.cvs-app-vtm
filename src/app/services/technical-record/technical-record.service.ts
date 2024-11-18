@@ -130,6 +130,16 @@ export class TechnicalRecordService {
 			record.techRecord_noOfAxles =
 				record.techRecord_axles && record.techRecord_axles.length > 0 ? record.techRecord_axles?.length : null;
 		}
+
+		// @TODO - replace this hacky solution with a better one
+		if (
+			record.techRecord_vehicleType === 'hgv' ||
+			record.techRecord_vehicleType === 'trl' ||
+			record.techRecord_vehicleType === 'lgv'
+		) {
+			record.techRecord_adrDetails_bodyDeclaration_type = undefined;
+		}
+
 		this.store.dispatch(updateEditingTechRecord({ vehicleTechRecord: record }));
 	}
 

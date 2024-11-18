@@ -80,7 +80,7 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 				),
 			]
 		),
-		techRecord_adrDetails_bodyDeclaration_type: this.fb.control<string | null>(null, []),
+		techRecord_adrDetails_bodyDeclaration_type: this.fb.control<string | undefined>(undefined, []),
 		techRecord_adrDetails_compatibilityGroupJ: this.fb.control<boolean | null>(null, [
 			this.adrValidators.requiredWithExplosives('Compatibility group J is required with Permitted dangerous goods'),
 		]),
@@ -295,7 +295,7 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 								return good !== ADRDangerousGood.EXPLOSIVES_TYPE_2 && good !== ADRDangerousGood.EXPLOSIVES_TYPE_3;
 							}),
 						techRecord_adrDetails_compatibilityGroupJ: null,
-						techRecord_adrDetails_bodyDeclaration_type: null,
+						techRecord_adrDetails_bodyDeclaration_type: undefined,
 					});
 
 					this.permittedDangerousGoodsOptions = options.filter(({ value }) => {
