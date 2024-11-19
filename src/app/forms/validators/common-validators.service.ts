@@ -119,7 +119,7 @@ export class CommonValidatorsService {
 			}
 
 			if (year.length !== 4) {
-				return { invalidDate: { error: true, reason: `'${label || 'Date'}' year must be four digits` } };
+				return { invalidDate: `'${label || 'Date'}' year must be four digits` };
 			}
 
 			return null;
