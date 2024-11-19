@@ -105,7 +105,7 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 		]),
 		techRecord_adrDetails_tank_tankDetails_tankManufacturerSerialNo: this.fb.control<string | null>(null, [
 			this.adrValidators.requiredWithTankOrBattery('Manufacturer serial number is required with ADR body type'),
-			this.commonValidators.maxLength(70, 'Manufacturer serial number must be less than or equal to 70 characters'),
+			this.commonValidators.maxLength(50, 'Manufacturer serial number must be less than or equal to 50 characters'),
 		]),
 		techRecord_adrDetails_tank_tankDetails_tankTypeAppNo: this.fb.control<string | null>(null, [
 			this.adrValidators.requiredWithTankOrBattery('Tank type approval number is required with ADR body type'),
