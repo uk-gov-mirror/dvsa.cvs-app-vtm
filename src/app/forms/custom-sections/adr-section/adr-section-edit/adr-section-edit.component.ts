@@ -179,12 +179,12 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 		// Brake declaration
 		techRecord_adrDetails_brakeDeclarationsSeen: this.fb.control<boolean>(false),
 		techRecord_adrDetails_brakeDeclarationIssuer: this.fb.control<string | null>(null, [
-			this.commonValidators.maxLength(500, 'Issuer must be lest than or equal to 500 characters'),
+			this.commonValidators.maxLength(500, 'Issuer must be less than or equal to 500 characters'),
 		]),
 		techRecord_adrDetails_brakeEndurance: this.fb.control<boolean>(false),
 		techRecord_adrDetails_weight: this.fb.control<number | null>(null, [
 			this.commonValidators.max(99999999, 'Weight (tonnes) must be less than or equal to 99999999'),
-			this.adrValidators.requiredWithBrakeEndurance('Weight (tonnes) is required with Brake Endurance'),
+			this.adrValidators.requiredWithBrakeEndurance('Weight (tonnes) is required'),
 			this.commonValidators.pattern('^\\d*(\\.\\d{0,2})?$', 'Weight (tonnes) must be a number'),
 		]),
 
