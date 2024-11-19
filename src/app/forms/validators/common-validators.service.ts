@@ -74,7 +74,7 @@ export class CommonValidatorsService {
 		};
 	}
 
-	date(label: string): ValidatorFn {
+	_date(label: string): ValidatorFn {
 		return (control) => {
 			if (!control.value) return null;
 
@@ -89,17 +89,37 @@ export class CommonValidatorsService {
 				// Only validate the day/month/year element if it has a value
 				const sortedErrors = errors.errors?.sort((a, b) => a.index - b.index);
 
-				if (days && sortedErrors?.[0].index === 0) {
+				if (sortedErrors?.[0].index === 0) {
 					return { date: sortedErrors[0].reason };
 				}
 
-				if (months && sortedErrors?.[0].index === 1) {
+				if (sortedErrors?.[0].index === 1) {
 					return { date: sortedErrors[0].reason };
 				}
 
 				if (sortedErrors?.[0].index === 2) {
 					return { date: sortedErrors[0].reason };
 				}
+			}
+
+			return null;
+		};
+	}
+
+	date(label: string): ValidatorFn {
+		return (control) => {
+			if (!control.value) return null;
+
+			const [d] = (control.value as string).split('T');
+			const [year, month, day] = d.split('-');
+			const { error, errors } = validateDate(day || '', month || '', year || '', label);
+
+			if (error && errors?.length) {
+				return { invalidDate: errors[0].reason };
+			}
+
+			if (year.length !== 4) {
+				return { invalidDate: { error: true, reason: `'${label || 'Date'}' year must be four digits` } };
 			}
 
 			return null;
