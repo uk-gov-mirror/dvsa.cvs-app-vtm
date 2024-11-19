@@ -194,11 +194,11 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 		// Miscellaneous
 		techRecord_adrDetails_newCertificateRequested: this.fb.control<boolean>(false),
 		techRecord_adrDetails_additionalExaminerNotes_note: this.fb.control<string | null>(null, [
-			this.commonValidators.maxLength(1024, 'Additional Examiner Notes must be less han or equal to 1024 characters'),
+			this.commonValidators.maxLength(1024, 'Additional Examiner Notes must be less than or equal to 1024 characters'),
 		]),
 		techRecord_adrDetails_additionalExaminerNotes: this.fb.control<AdditionalExaminerNotes[] | null>(null),
 		techRecord_adrDetails_adrCertificateNotes: this.fb.control<string | null>(null, [
-			this.commonValidators.maxLength(1500, 'ADR Certificate Notes must be less han or equal to 1500 characters'),
+			this.commonValidators.maxLength(1500, 'ADR Certificate Notes must be less than or equal to 1500 characters'),
 		]),
 	});
 
