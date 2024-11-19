@@ -6,5 +6,5 @@
   class="govuk-hint govuk-character-count__message govuk-character-count__status govuk-error-message"
   *ngIf="(control()?.value?.length ?? 0) > limit()"
 >
-  You have {{ (control()?.value?.length ?? limit()) - limit() }} too many
+  You have {{ (control()?.value?.length ?? limit()) - limit() }} characters too many
 </div>
