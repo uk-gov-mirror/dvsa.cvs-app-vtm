@@ -5,7 +5,7 @@
     >
       <dl class="govuk-summary-list">
         <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">Carries dangerous goods</dt>
+          <dt class="govuk-summary-list__key">Able to carry dangerous goods</dt>
           <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_dangerousGoods">
             {{ amended.techRecord_adrDetails_dangerousGoods | defaultNullOrEmpty }}
           </dd>
@@ -91,7 +91,11 @@
               </dd>
             </div>
             <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_adrDetails_additionalNotes_number')">
-              <dt class="govuk-summary-list__key">Guidance notes</dt>
+              <dt class="govuk-summary-list__key">
+                <a class="govuk-link--no-visited-state" target="_blank" href="https://dvsauk.sharepoint.com/sites/HVTPDVSA/SitePages/ADR-Assessor-Guidance-Notes.aspx">
+                  Guidance notes
+                </a>
+              </dt>
               <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_additionalNotes_number">
                 {{ amended.techRecord_adrDetails_additionalNotes_number | defaultNullOrEmpty }}
               </dd>
@@ -281,7 +285,7 @@
               </dd>
             </div>
             <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_adrDetails_weight')">
-              <dt class="govuk-summary-list__key">Weight</dt>
+              <dt class="govuk-summary-list__key">Weight (tonnes)</dt>
               <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_weight">
                 {{ amended.techRecord_adrDetails_weight | defaultNullOrEmpty }}
               </dd>
@@ -295,14 +299,14 @@
           </dl>
         </dl>
 
-        <!-- New certificate requested -->
+        <!-- New Certificate required -->
         <ng-container *ngIf="hasChanged('techRecord_adrDetails_newCertificateRequested')">
-          <h2 class="govuk-heading-m">New certificate requested</h2>
+          <h2 class="govuk-heading-m">New Certificate required</h2>
           <dl class="govuk-summary-list">
             <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">New certificate requested</dt>
+              <dt class="govuk-summary-list__key">New Certificate required</dt>
               <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_newCertificateRequested">
-                {{ amended.techRecord_adrDetails_newCertificateRequested | defaultNullOrEmpty }}
+                {{ amended.techRecord_adrDetails_newCertificateRequested ? 'Yes' : 'No' }}
               </dd>
             </div>
           </dl>

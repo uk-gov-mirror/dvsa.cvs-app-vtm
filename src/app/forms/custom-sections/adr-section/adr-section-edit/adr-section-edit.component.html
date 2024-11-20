@@ -4,7 +4,13 @@
       <legend>
         <h1 id="techRecord_adrDetails_dangerousGoods-label"> Able to carry dangerous goods </h1>
       </legend>
-      <app-control-errors elementId="techRecord_adrDetails_dangerousGoods-error" [control]="form.controls.techRecord_adrDetails_dangerousGoods" />
+      <ng-container *ngIf="canDisplayDangerousGoodsWarning($any(form.getRawValue()))">
+        <!-- Show warning message when setting from yes to no -->
+        <p class="govuk-error-message" id="techRecord_adrDetails_dangerousGoods-error">
+          <span class="govuk-visually-hidden">Error: </span>
+          <span>By selecting this field it will delete all previous ADR field inputs</span>
+        </p>
+      </ng-container>
       <div data-module="govuk-radios">
         <div *ngFor="let option of dangerousGoodsOptions">
           <input
@@ -693,7 +699,7 @@
     <div class="govuk-form-group-checkbox">
       <fieldset class="govuk-fieldset" aria-describedby="techRecord_adrDetails_brakeDeclarationsSeen-error">
         <legend>
-          <h1 id="techRecord_adrDetails_brakeDeclarationsSeen-label">Declarations Seen</h1>
+          <h1 id="techRecord_adrDetails_brakeDeclarationsSeen-label">Declarations seen</h1>
         </legend>
         <app-control-errors elementId="techRecord_adrDetails_brakeDeclarationsSeen-error" [control]="form.controls.techRecord_adrDetails_brakeDeclarationsSeen" />
         <div data-module="govuk-checkboxes">
@@ -742,7 +748,7 @@
               [attr.aria-describedby]="isInvalid('techRecord_adrDetails_brakeEndurance') ? 'techRecord_adrDetails_brakeEndurance-error' : null"
               checked
             />
-            <label for="techRecord_adrDetails_brakeEndurance-checkbox"> Owner/operator declaration </label>
+            <label for="techRecord_adrDetails_brakeEndurance-checkbox"> Brake endurance </label>
           </div>
         </div>
       </fieldset>
@@ -763,9 +769,6 @@
     <!-- Delcarations seen (Owner/operator declaration )-->
     <div class="govuk-form-group-checkbox">
       <fieldset aria-describedby="techRecord_adrDetails_declarationsSeen-error">
-        <legend>
-          <h1 id="techRecord_adrDetails_declarationsSeen-label">Owner/operator declaration</h1>
-        </legend>
         <app-control-errors elementId="techRecord_adrDetails_declarationsSeen-error" [control]="form.controls.techRecord_adrDetails_declarationsSeen"  />
         <div data-module="govuk-checkboxes">
           <div>
@@ -777,17 +780,17 @@
               [value]="true"
               [attr.aria-describedby]="isInvalid('techRecord_adrDetails_declarationsSeen') ? 'techRecord_adrDetails_declarationsSeen-error' : null"
             />
-            <label for="techRecord_adrDetails_declarationsSeen-checkbox"> Yes </label>
+            <label for="techRecord_adrDetails_declarationsSeen-checkbox"> Owner/operator declaration </label>
           </div>
         </div>
       </fieldset>
     </div>
 
-    <!-- New certificate required -->
+    <!-- New Certificate required -->
     <div class="govuk-form-group-checkbox">
       <fieldset aria-describedby="techRecord_adrDetails_newCertificateRequested-error">
         <legend>
-          <h1 id="techRecord_adrDetails_newCertificateRequested-label">New certificate required</h1>
+          <h1 id="techRecord_adrDetails_newCertificateRequested-label">New Certificate required</h1>
         </legend>
         <app-control-errors elementId="techRecord_adrDetails_newCertificateRequested-error" [control]="form.controls.techRecord_adrDetails_newCertificateRequested" />
         <div data-module="govuk-checkboxes">

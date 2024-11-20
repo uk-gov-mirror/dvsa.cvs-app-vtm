@@ -366,4 +366,11 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 		this.store.dispatch(updateScrollPosition({ position: this.viewportScroller.getScrollPosition() }));
 		this.router.navigate([route], { relativeTo: this.route, state: this.techRecord });
 	}
+
+	canDisplayDangerousGoodsWarning(value: TechRecordType<'hgv' | 'lgv' | 'trl'>) {
+		return (
+			value.techRecord_adrDetails_dangerousGoods === false &&
+			this.form.controls.techRecord_adrDetails_dangerousGoods.touched
+		);
+	}
 }

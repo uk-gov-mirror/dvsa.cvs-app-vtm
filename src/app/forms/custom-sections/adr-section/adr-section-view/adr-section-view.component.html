@@ -62,7 +62,7 @@
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">Date processed</dt>
           <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_vehicleDetails_approvalDate">
-            {{ vm.techRecord_adrDetails_vehicleDetails_approvalDate | defaultNullOrEmpty }}
+            {{ vm.techRecord_adrDetails_vehicleDetails_approvalDate | date : 'dd/MM/yyyy' | defaultNullOrEmpty }}
           </dd>
         </div>
         <div class="govuk-summary-list__row">
@@ -84,7 +84,11 @@
           </dd>
         </div>
         <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">Guidance notes</dt>
+          <dt class="govuk-summary-list__key">
+            <a class="govuk-link--no-visited-state" target="_blank" href="https://dvsauk.sharepoint.com/sites/HVTPDVSA/SitePages/ADR-Assessor-Guidance-Notes.aspx">
+              Guidance notes
+            </a>
+          </dt>
           <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_additionalNotes_number">
             {{ vm.techRecord_adrDetails_additionalNotes_number | defaultNullOrEmpty }}
           </dd>
@@ -188,7 +192,7 @@
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">Expiry date</dt>
             <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate">
-              {{ vm.techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate | defaultNullOrEmpty }}
+              {{ vm.techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate | date : 'dd/MM/yyyy' | defaultNullOrEmpty }}
             </dd>
           </div>
         </dl>
@@ -212,7 +216,7 @@
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key">Expiry date</dt>
               <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_tank_tankDetails_tc3Details_{{ i }}_tc3PeriodicExpiryDate">
-                {{ inspection.tc3PeriodicExpiryDate | defaultNullOrEmpty }}
+                {{ inspection.tc3PeriodicExpiryDate | date : 'dd/MM/yyyy' | defaultNullOrEmpty }}
               </dd>
             </div>
           </ng-container>
@@ -277,7 +281,7 @@
             </dd>
           </div>
           <div class="govuk-summary-list__row" *ngIf="adrService.canDisplayWeightSection(vm)">
-            <dt class="govuk-summary-list__key">Weight</dt>
+            <dt class="govuk-summary-list__key">Weight (tonnes)</dt>
             <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_weight">
               {{ vm.techRecord_adrDetails_weight | defaultNullOrEmpty }}
             </dd>
@@ -291,12 +295,12 @@
         </dl>
       </dl>
 
-      <h2 class="govuk-heading-m">New certificate requested</h2>
+      <h2 class="govuk-heading-m">New Certificate required</h2>
       <dl class="govuk-summary-list">
         <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">New certificate requested</dt>
+          <dt class="govuk-summary-list__key">New Certificate required</dt>
           <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_newCertificateRequested">
-            {{ vm.techRecord_adrDetails_newCertificateRequested | defaultNullOrEmpty }}
+            {{ vm.techRecord_adrDetails_newCertificateRequested ? 'Yes' : 'No' }}
           </dd>
         </div>
       </dl>
