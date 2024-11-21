@@ -727,48 +727,50 @@
       </fieldset>
     </div>
 
-    <!-- Issuer -->
-    <div class="govuk-form-group-text-area" *ngIf="adrService.canDisplayIssueSection($any(form.getRawValue()))">
-      <h1>
-        <label id="techRecord_adrDetails_brakeDeclarationIssuer-label"> Issuer </label>
-      </h1>
-      <app-control-errors elementId="techRecord_adrDetails_brakeDeclarationIssuer-error" [control]="form.controls.techRecord_adrDetails_brakeDeclarationIssuer" />
-      <textarea govukTextarea formControlName="techRecord_adrDetails_brakeDeclarationIssuer"></textarea>
-      <app-character-count for="techRecord_adrDetails_brakeDeclarationIssuer" [limit]="500" />
-    </div>
-
-    <!-- Brake endurance -->
-    <div class="govuk-form-group-checkbox">
-      <fieldset class="govuk-fieldset" aria-describedby="techRecord_adrDetails_brakeEndurance-error">
-        <app-control-errors elementId="techRecord_adrDetails_brakeEndurance-error" [control]="form.controls.techRecord_adrDetails_brakeEndurance" />
-        <div data-module="govuk-checkboxes">
-          <div>
-            <input
-              id="techRecord_adrDetails_brakeEndurance"
-              formControlName="techRecord_adrDetails_brakeEndurance"
-              type="checkbox"
-              govukCheckbox
-              [value]="true"
-              [attr.aria-describedby]="isInvalid('techRecord_adrDetails_brakeEndurance') ? 'techRecord_adrDetails_brakeEndurance-error' : null"
-              checked
-            />
-            <label for="techRecord_adrDetails_brakeEndurance-checkbox"> Brake endurance </label>
-          </div>
-        </div>
-      </fieldset>
-    </div>
-
-    <!-- Weight (tonnes) -->
-    <div class="govuk-form-group-input" *ngIf="adrService.canDisplayWeightSection($any(form.getRawValue()))">
-      <h1>
-        <label id="techRecord_adrDetails_weight-label"> Weight (tonnes) </label>
-      </h1>
-      <app-control-errors elementId="techRecord_adrDetails_weight-error" [control]="form.controls.techRecord_adrDetails_weight" />
-      <div class="govuk-input__wrapper">
-        <input type="number" govukInput appNumberOnly class="govuk-input--width-5" spellcheck="false" formControlName="techRecord_adrDetails_weight" />
-        <div class="govuk-input__suffix" aria-hidden="true">tonnes</div>
+    <ng-container *ngIf="adrService.canDisplayIssueSection($any(form.getRawValue()))">
+      <!-- Issuer -->
+      <div class="govuk-form-group-text-area">
+        <h1>
+          <label id="techRecord_adrDetails_brakeDeclarationIssuer-label"> Issuer </label>
+        </h1>
+        <app-control-errors elementId="techRecord_adrDetails_brakeDeclarationIssuer-error" [control]="form.controls.techRecord_adrDetails_brakeDeclarationIssuer" />
+        <textarea govukTextarea formControlName="techRecord_adrDetails_brakeDeclarationIssuer"></textarea>
+        <app-character-count for="techRecord_adrDetails_brakeDeclarationIssuer" [limit]="500" />
       </div>
-    </div>
+  
+      <!-- Brake endurance -->
+      <div class="govuk-form-group-checkbox">
+        <fieldset class="govuk-fieldset" aria-describedby="techRecord_adrDetails_brakeEndurance-error">
+          <app-control-errors elementId="techRecord_adrDetails_brakeEndurance-error" [control]="form.controls.techRecord_adrDetails_brakeEndurance" />
+          <div data-module="govuk-checkboxes">
+            <div>
+              <input
+                id="techRecord_adrDetails_brakeEndurance"
+                formControlName="techRecord_adrDetails_brakeEndurance"
+                type="checkbox"
+                govukCheckbox
+                [value]="true"
+                [attr.aria-describedby]="isInvalid('techRecord_adrDetails_brakeEndurance') ? 'techRecord_adrDetails_brakeEndurance-error' : null"
+                checked
+              />
+              <label for="techRecord_adrDetails_brakeEndurance-checkbox"> Brake endurance </label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+  
+      <!-- Weight (tonnes) -->
+      <div class="govuk-form-group-input" *ngIf="adrService.canDisplayWeightSection($any(form.getRawValue()))">
+        <h1>
+          <label id="techRecord_adrDetails_weight-label"> Weight (tonnes) </label>
+        </h1>
+        <app-control-errors elementId="techRecord_adrDetails_weight-error" [control]="form.controls.techRecord_adrDetails_weight" />
+        <div class="govuk-input__wrapper">
+          <input type="number" govukInput appNumberOnly class="govuk-input--width-5" spellcheck="false" formControlName="techRecord_adrDetails_weight" />
+          <div class="govuk-input__suffix" aria-hidden="true">tonnes</div>
+        </div>
+      </div>
+    </ng-container>
 
     <!-- Delcarations seen (Owner/operator declaration )-->
     <div class="govuk-form-group-checkbox">
