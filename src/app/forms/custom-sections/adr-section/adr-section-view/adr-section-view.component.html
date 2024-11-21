@@ -280,7 +280,7 @@
               {{ vm.techRecord_adrDetails_brakeDeclarationIssuer | defaultNullOrEmpty }}
             </dd>
           </div>
-          <div class="govuk-summary-list__row">
+          <div class="govuk-summary-list__row" *ngIf="adrService.canDisplayIssueSection(vm)">
             <dt class="govuk-summary-list__key">Brake endurance</dt>
             <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_brakeEndurance">
               {{ vm.techRecord_adrDetails_brakeEndurance | defaultNullOrEmpty }}
