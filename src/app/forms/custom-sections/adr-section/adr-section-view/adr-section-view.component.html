@@ -2,7 +2,7 @@
   <ng-container *ngIf="vm.techRecord_vehicleType === 'hgv' || vm.techRecord_vehicleType === 'trl' || vm.techRecord_vehicleType === 'lgv'">
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">Carries dangerous goods</dt>
+        <dt class="govuk-summary-list__key">Able to carry dangerous goods</dt>
         <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_dangerousGoods">
           {{ vm.techRecord_adrDetails_dangerousGoods | defaultNullOrEmpty }}
         </dd>
@@ -139,6 +139,12 @@
             <dt class="govuk-summary-list__key">Substances permitted</dt>
             <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_tank_tankDetails_tankStatement_substancesPermitted">
               {{ vm.techRecord_adrDetails_tank_tankDetails_tankStatement_substancesPermitted | defaultNullOrEmpty }}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Select</dt>
+            <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_tank_tankDetails_tankStatement_select">
+              {{ vm.techRecord_adrDetails_tank_tankDetails_tankStatement_select | defaultNullOrEmpty }}
             </dd>
           </div>
           <div class="govuk-summary-list__row" *ngIf="adrService.canDisplayTankStatementStatementSection(vm)">

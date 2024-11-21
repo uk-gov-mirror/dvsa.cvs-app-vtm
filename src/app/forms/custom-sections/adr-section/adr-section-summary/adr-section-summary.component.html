@@ -152,6 +152,12 @@
                   {{ amended.techRecord_adrDetails_tank_tankDetails_tankStatement_substancesPermitted | defaultNullOrEmpty }}
                 </dd>
               </div>
+              <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_adrDetails_tank_tankDetails_tankStatement_select')">
+                <dt class="govuk-summary-list__key">Select</dt>
+                <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_tank_tankDetails_tankStatement_select">
+                  {{ amended.techRecord_adrDetails_tank_tankDetails_tankStatement_select | defaultNullOrEmpty }}
+                </dd>
+              </div>
               <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_adrDetails_tank_tankDetails_tankStatement_statement')">
                 <dt class="govuk-summary-list__key">Reference number</dt>
                 <dd class="govuk-summary-list__value" id="techRecord_adrDetails_tank_tankDetails_tankStatement_statement">

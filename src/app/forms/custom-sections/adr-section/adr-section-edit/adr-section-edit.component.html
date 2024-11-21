@@ -270,6 +270,8 @@
     <!-- When ADR body type contains the words 'tank' or 'battery' -->
     <ng-container *ngIf="adrService.canDisplayTankOrBatterySection($any(form.getRawValue()))">
       <!-- Tank details section -->
+      <span class="govuk-label govuk-label--m">Tank Details</span>
+
       <ng-container>
         <!-- Tank Make -->
         <div class="govuk-form-group-input">
@@ -351,7 +353,7 @@
           <div class="govuk-form-group-radio">
             <fieldset>
               <legend>
-                <h1> Tank statement </h1>
+                <h1>Select</h1>
               </legend>
               <app-control-errors elementId="techRecord_adrDetails_tank_tankDetails_tankStatement_select-error" [control]="form.controls.techRecord_adrDetails_tank_tankDetails_tankStatement_select" />
               <div data-module="govuk-radios">
@@ -491,8 +493,6 @@
           <input govukInput formControlName="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateApprovalNo" />
         </div>
 
-        <div class="govuk-section-break--visible govuk-!-margin-top-4 govuk-!-margin-bottom-6"></div>
-
         <!-- TC2: Expiry Date -->
         <app-date-controls formControlName="techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate" #tc2ExpiryDate>
           <div class="govuk-form-group-date">
@@ -529,6 +529,8 @@
           </div>
         </app-date-controls>
 
+        <div class="govuk-section-break--visible govuk-!-margin-top-4 govuk-!-margin-bottom-6"></div>
+
         <!-- TC3: Inspections -->
         <div class="govuk-form-group" formArrayName="techRecord_adrDetails_tank_tankDetails_tc3Details">
           <fieldset
@@ -536,6 +538,8 @@
             formGroupName="{{ i }}"
             *ngFor="let inspection of form.controls.techRecord_adrDetails_tank_tankDetails_tc3Details.controls; let i = index"
           >
+            <span class="govuk-label govuk-label--m">Subsequent {{ i + 1 }}</span>
+
             <!-- TC3 Inspection Type -->
             <div class="govuk-form-group-select">
               <label class="govuk-label govuk-label--m" id="tc3Type-label"> TC3: Inspection Type </label>
