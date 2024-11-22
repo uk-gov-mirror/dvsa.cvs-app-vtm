@@ -39,6 +39,13 @@ export class AdrSectionSummaryComponent {
 		].some((hasChanged) => hasChanged);
 	}
 
+	hasInitialInspectionChanged() {
+		return [
+			this.hasChanged('techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateApprovalNo'),
+			this.hasChanged('techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate'),
+		].some((hasChanged) => hasChanged);
+	}
+
 	haveAnyADRDetailItemsChanged() {
 		return [
 			this.hasChanged('techRecord_adrDetails_vehicleDetails_type'),
