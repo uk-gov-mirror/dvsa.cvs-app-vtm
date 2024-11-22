@@ -1,9 +1,13 @@
-import { Component, inject } from '@angular/core';
+import { Component, Signal, inject } from '@angular/core';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { Store } from '@ngrx/store';
 import { AdrService } from '@services/adr/adr.service';
 import { editingTechRecord, techRecord } from '@store/technical-records';
 import { isEqual } from 'lodash';
+
+type ADRTechRecord = TechRecordType<'hgv' | 'trl' | 'lgv'> & {
+	techRecord_adrDetails_additionalExaminerNotes_note: string;
+};
 
 @Component({
 	selector: 'app-adr-section-summary',
@@ -15,11 +19,11 @@ export class AdrSectionSummaryComponent {
 	adrService = inject(AdrService);
 
 	currentTechRecord = this.store.selectSignal(techRecord);
-	amendedTechRecord = this.store.selectSignal(editingTechRecord);
+	amendedTechRecord = this.store.selectSignal(editingTechRecord) as Signal<ADRTechRecord>;
 
-	hasChanged(property: keyof TechRecordType<'hgv' | 'trl' | 'lgv'>) {
-		const current = this.currentTechRecord() as TechRecordType<'hgv' | 'trl' | 'lgv'>;
-		const amended = this.amendedTechRecord() as TechRecordType<'hgv' | 'trl' | 'lgv'>;
+	hasChanged(property: keyof ADRTechRecord) {
+		const current = this.currentTechRecord() as ADRTechRecord;
+		const amended = this.amendedTechRecord() as ADRTechRecord;
 		if (!current || !amended) return true;
 
 		return !isEqual(current[property], amended[property]);
@@ -94,4 +98,6 @@ export class AdrSectionSummaryComponent {
 			this.hasChanged('techRecord_adrDetails_declarationsSeen'),
 		].some((hasChanged) => hasChanged);
 	}
+
+	protected readonly techRecord = techRecord;
 }

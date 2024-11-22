@@ -737,7 +737,7 @@
         <textarea govukTextarea formControlName="techRecord_adrDetails_brakeDeclarationIssuer"></textarea>
         <app-character-count for="techRecord_adrDetails_brakeDeclarationIssuer" [limit]="500" />
       </div>
-  
+
       <!-- Brake endurance -->
       <div class="govuk-form-group-checkbox">
         <fieldset class="govuk-fieldset" aria-describedby="techRecord_adrDetails_brakeEndurance-error">
@@ -758,16 +758,16 @@
           </div>
         </fieldset>
       </div>
-  
+
       <!-- Weight (tonnes) -->
       <div class="govuk-form-group-input" *ngIf="adrService.canDisplayWeightSection($any(form.getRawValue()))">
         <h1>
-          <label id="techRecord_adrDetails_weight-label"> Weight (tonnes) </label>
+          <label id="techRecord_adrDetails_weight-label"> Weight </label>
         </h1>
         <app-control-errors elementId="techRecord_adrDetails_weight-error" [control]="form.controls.techRecord_adrDetails_weight" />
         <div class="govuk-input__wrapper">
           <input type="number" govukInput appNumberOnly class="govuk-input--width-5" spellcheck="false" formControlName="techRecord_adrDetails_weight" />
-          <div class="govuk-input__suffix" aria-hidden="true">tonnes</div>
+          <div class="govuk-input__suffix" aria-hidden="true">Tonnes</div>
         </div>
       </div>
     </ng-container>

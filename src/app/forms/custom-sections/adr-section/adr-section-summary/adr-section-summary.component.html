@@ -69,7 +69,7 @@
             <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_adrDetails_vehicleDetails_approvalDate')">
               <dt class="govuk-summary-list__key">Date processed</dt>
               <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_vehicleDetails_approvalDate">
-                {{ amended.techRecord_adrDetails_vehicleDetails_approvalDate | defaultNullOrEmpty }}
+                {{ amended.techRecord_adrDetails_vehicleDetails_approvalDate | defaultNullOrEmpty | date : 'dd/MM/yyyy' }}
               </dd>
             </div>
             <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_adrDetails_permittedDangerousGoods')">
@@ -91,11 +91,7 @@
               </dd>
             </div>
             <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_adrDetails_additionalNotes_number')">
-              <dt class="govuk-summary-list__key">
-                <a class="govuk-link--no-visited-state" target="_blank" href="https://dvsauk.sharepoint.com/sites/HVTPDVSA/SitePages/ADR-Assessor-Guidance-Notes.aspx">
-                  Guidance notes
-                </a>
-              </dt>
+              <dt class="govuk-summary-list__key">Guidance notes</dt>
               <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_additionalNotes_number">
                 {{ amended.techRecord_adrDetails_additionalNotes_number | defaultNullOrEmpty }}
               </dd>
@@ -201,7 +197,7 @@
               <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate')">
                 <dt class="govuk-summary-list__key">Expiry date</dt>
                 <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate">
-                  {{ amended.techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate | defaultNullOrEmpty }}
+                  {{ amended.techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate | defaultNullOrEmpty | date : 'dd/MM/yyyy'  }}
                 </dd>
               </div>
             </dl>
@@ -209,7 +205,7 @@
             <!-- Subsequent inspections -->
             <dl class="govuk-summary-list" *ngIf="amended.techRecord_adrDetails_tank_tankDetails_tc3Details?.length">
               <ng-container *ngFor="let inspection of amended.techRecord_adrDetails_tank_tankDetails_tc3Details; let i = index">
-                <h2 class="govuk-heading-s">Subsequent {{ i + 1 }}</h2>
+                <h2 class="govuk-heading-s ">Subsequent {{ i + 1 }}</h2>
                 <div class="govuk-summary-list__row">
                   <dt class="govuk-summary-list__key">Inspection type</dt>
                   <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_tank_tankDetails_tc3Details_{{ i }}_tc3Type">
@@ -225,7 +221,7 @@
                 <div class="govuk-summary-list__row">
                   <dt class="govuk-summary-list__key">Expiry date</dt>
                   <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_tank_tankDetails_tc3Details_{{ i }}_tc3PeriodicExpiryDate">
-                    {{ inspection.tc3PeriodicExpiryDate | defaultNullOrEmpty }}
+                    {{ inspection.tc3PeriodicExpiryDate | defaultNullOrEmpty | date : 'dd/MM/yyyy'  }}
                   </dd>
                 </div>
               </ng-container>
@@ -291,9 +287,9 @@
               </dd>
             </div>
             <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_adrDetails_weight')">
-              <dt class="govuk-summary-list__key">Weight (tonnes)</dt>
+              <dt class="govuk-summary-list__key">Weight</dt>
               <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_weight">
-                {{ amended.techRecord_adrDetails_weight | defaultNullOrEmpty }}
+                {{ amended.techRecord_adrDetails_weight | defaultNullOrEmpty }} (Tonnes)
               </dd>
             </div>
             <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_adrDetails_declarationsSeen')">
@@ -318,7 +314,20 @@
           </dl>
         </ng-container>
 
-        <!-- Additional Examiner Notes History -->
+          <!-- additional Examiner Notes -->
+         <ng-container *ngIf="amended.techRecord_adrDetails_additionalExaminerNotes_note">
+            <h2 class="govuk-heading-m">Additional Examiner Notes</h2>
+            <dl class="govuk-summary-list">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Additional Examiner Notes</dt>
+                <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_additionalExaminerNotes">
+                  {{ amended.techRecord_adrDetails_additionalExaminerNotes_note | defaultNullOrEmpty }}
+                </dd>
+              </div>
+            </dl>
+          </ng-container>
+
+          <!-- Additional Examiner Notes History -->
         <h2 class="govuk-heading-m">Additional Examiner Notes History</h2>
         <ng-container *ngIf="amended.techRecord_adrDetails_additionalExaminerNotes as notes; else noExaminerNotes">
           <ng-container *ngIf="notes?.length as notesCount; else noExaminerNotes">
