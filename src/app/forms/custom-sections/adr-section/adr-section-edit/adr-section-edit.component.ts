@@ -368,9 +368,10 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 	}
 
 	canDisplayDangerousGoodsWarning(value: TechRecordType<'hgv' | 'lgv' | 'trl'>) {
-		return (
-			value.techRecord_adrDetails_dangerousGoods === false &&
-			this.form.controls.techRecord_adrDetails_dangerousGoods.touched
-		);
+		const touched = Object.entries(this.form.controls).some(([key, control]) => {
+			return key !== 'techRecord_adrDetails_dangerousGoods' && control.touched;
+		});
+
+		return value.techRecord_adrDetails_dangerousGoods === false && touched;
 	}
 }
