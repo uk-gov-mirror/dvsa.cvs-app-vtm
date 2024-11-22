@@ -240,24 +240,6 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 
 	bodyDeclarationOptions = getOptionsFromEnum(ADRBodyDeclarationTypes);
 
-	isInvalid(formControlName: string) {
-		const control = this.form.get(formControlName);
-		return control?.invalid && control?.touched;
-	}
-
-	toggle(formControlName: string, value: string) {
-		const control = this.form.get(formControlName);
-		if (!control) return;
-
-		if (!control.value) {
-			return control.setValue([value]);
-		}
-
-		const arr = [...control.value];
-		arr.includes(value) ? arr.splice(arr.indexOf(value), 1) : arr.push(value);
-		control.setValue(arr);
-	}
-
 	ngOnInit(): void {
 		// Attatch all form controls to parent
 		const parent = this.controlContainer.control;

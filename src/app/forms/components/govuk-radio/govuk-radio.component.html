@@ -1,0 +1,22 @@
+@let id = controlId() || controlName();
+@let labelId = id + '-' + controlValue() + '-label';
+@let hasError = control()?.invalid && control()?.touched && control()?.errors;
+
+<input
+  id="{{ id }}-{{ controlValue()}}-radio"
+  name="{{ controlId() }}"
+  type="radio"
+  class="govuk-radios__input"
+  [value]="controlValue()"
+  [disabled]="disabled()"
+  [(ngModel)]="model" 
+  (ngModelChange)="onChange($event)" 
+  [class.govuk-input--error]="hasError"
+  [attr.data-testid]="controlId()"
+  [attr.aria-labelledby]="labelId"
+  [attr.checked]="controlValue() === model"
+  />
+
+<label class="govuk-label govuk-radios__label" id="{{ labelId }}" for="{{ id }}-{{ controlValue() }}-radio">
+  <ng-content />
+</label>

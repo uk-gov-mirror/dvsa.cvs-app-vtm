@@ -1,0 +1,30 @@
+@let id = controlId() || controlName();
+@let hintId = id + '-hint';
+@let labelId = id + '-label';
+@let errorId = id + '-error';
+@let hasError = control()?.invalid && control()?.touched && control()?.errors;
+
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    @if (controlLabel(); as label) {
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+        <h1 class="govuk-fieldset__heading" id="{{ labelId }}">{{ label }}</h1>
+      </legend>
+    }
+
+    @if (controlHint(); as hint) {
+      <div class="govuk-hint" id="{{ hintId }}"> {{ hint }} </div>
+    }
+
+    @if(hasError) {
+      <p class="govuk-error-message" id="{{ errorId }}">
+        <span class="govuk-visually-hidden">Error: </span>
+        <span>{{ (control()?.errors | keyvalue)?.[0]?.value }}</span>
+      </p>
+    }
+
+    <div class="govuk-radios" data-module="govuk-radios">
+      <ng-content />
+    </div>
+  </fieldset>
+</div>

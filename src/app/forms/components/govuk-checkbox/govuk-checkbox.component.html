@@ -1,0 +1,40 @@
+@let id = controlId() || controlName();
+@let hintId = id + '-hint';
+@let labelId = id + '-label';
+@let errorId = id + '-error';
+@let hasError = control()?.invalid && control()?.touched && control()?.errors;
+
+<div class="govuk-form-group">
+  @if (controlHint(); as hint) {
+    <div class="govuk-hint" id="{{ hintId }}"> {{ hint }} </div>
+  }
+
+  @if(hasError) {
+    <p class="govuk-error-message" id="{{ errorId }}">
+      <span class="govuk-visually-hidden">Error: </span>
+      <span>{{ (control()?.errors | keyvalue)?.[0]?.value }}</span>
+    </p>
+  }
+
+  <div class="govuk-checkboxes__item">
+    <input
+      type="checkbox"
+      class="govuk-checkboxes__input"
+      id="{{ id }}"
+      name="{{ id }}"
+      [(ngModel)]="value" 
+      (ngModelChange)="onChange($event)" 
+      (blur)="blur.emit($event); onTouched()" 
+      (focus)="focus.emit($event)"
+      [disabled]="disabled()"
+      [class.govuk-input--error]="hasError"
+      [attr.data-testid]="id"
+      [attr.aria-labelledby]="controlLabel() ? labelId : null"
+      [attr.aria-describedby]="(controlHint() ? hintId : '') + (hasError ? ' ' + errorId : '')"
+      [attr.checked]="controlValue() === model"
+      />
+    <label class="govuk-label govuk-checkboxes__label" id="{{ labelId }}" for="{{ id }}">
+      {{ controlLabel() }}
+    </label>
+  </div>
+</div>

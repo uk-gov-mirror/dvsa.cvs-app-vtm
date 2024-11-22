@@ -1,0 +1,44 @@
+@let id = controlId() || controlName();
+@let hintId = id + '-hint';
+@let labelId = id + '-label';
+@let errorId = id + '-error';
+@let hasError = control()?.invalid && control()?.touched && control()?.errors;
+
+<div class="govuk-form-group">
+  @if (controlLabel(); as label) {
+    <h1 class="govuk-label-wrapper">
+      <label class="govuk-label govuk-label--m" id="{{ labelId }}" for="{{ id }}"> {{ label }} </label>
+    </h1>
+  }
+
+  @if (controlHint(); as hint) {
+    <div class="govuk-hint" id="{{ hintId }}"> {{ hint }} </div>
+  }
+
+  @if(hasError) {
+    <p class="govuk-error-message" id="{{ errorId }}">
+      <span class="govuk-visually-hidden">Error: </span>
+      <span>{{ (control()?.errors | keyvalue)?.[0]?.value }}</span>
+    </p>
+  }
+
+  <select
+    type="text"
+    class="govuk-select" 
+    id="{{ id }}"
+    name="{{ id }}"
+    [(ngModel)]="value" 
+    (ngModelChange)="onChange($event)" 
+    (blur)="blur.emit($event); onTouched()" 
+    (focus)="focus.emit($event);"
+    [disabled]="disabled()"
+    [class.govuk-select--error]="hasError"
+    [attr.data-testid]="controlId()"
+    [attr.aria-labelledby]="controlLabel() ? labelId : null"
+    [attr.aria-describedby]="(controlHint() ? hintId : '') + (hasError ? ' ' + errorId : '')">
+    <option [ngValue]="null" selected></option>
+    <option *ngFor="let option of options()" [ngValue]="option.value" [selected]="value === option.value">
+      {{ option.label }}
+    </option>
+  </select>
+</div>

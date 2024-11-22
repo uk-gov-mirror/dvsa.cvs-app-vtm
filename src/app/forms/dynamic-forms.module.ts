@@ -32,6 +32,16 @@ import { DynamicFormFieldComponent } from './components/dynamic-form-field/dynam
 import { DynamicFormGroupComponent } from './components/dynamic-form-group/dynamic-form-group.component';
 import { FieldErrorMessageComponent } from './components/field-error-message/field-error-message.component';
 import { FieldWarningMessageComponent } from './components/field-warning-message/field-warning-message.component';
+import { GovukCheckboxGroupComponent } from './components/govuk-checkbox-group/govuk-checkbox-group.component';
+import { GovukCheckboxComponent } from './components/govuk-checkbox/govuk-checkbox.component';
+import { GovukDateComponent } from './components/govuk-date/govuk-date.component';
+import { GovukInputComponent } from './components/govuk-input/govuk-input.component';
+import { GovukNumberInputComponent } from './components/govuk-number-input/govuk-number-input.component';
+import { GovukOptionComponent } from './components/govuk-option/govuk-option.component';
+import { GovukRadioGroupComponent } from './components/govuk-radio-group/govuk-radio-group.component';
+import { GovukRadioComponent } from './components/govuk-radio/govuk-radio.component';
+import { GovukSelectComponent } from './components/govuk-select/govuk-select.component';
+import { GovukTextareaComponent } from './components/govuk-textarea/govuk-textarea.component';
 import { NumberInputComponent } from './components/number-input/number-input.component';
 import { RadioGroupComponent } from './components/radio-group/radio-group.component';
 import { ReadOnlyComponent } from './components/read-only/read-only.component';
@@ -154,6 +164,16 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		RouterModule,
 		DateFocusNextDirective,
 		NumberOnlyDirective,
+		GovukInputComponent,
+		GovukNumberInputComponent,
+		GovukTextareaComponent,
+		GovukSelectComponent,
+		GovukOptionComponent,
+		GovukRadioComponent,
+		GovukCheckboxComponent,
+		GovukRadioGroupComponent,
+		GovukCheckboxGroupComponent,
+		GovukDateComponent,
 	],
 	exports: [
 		TextInputComponent,
