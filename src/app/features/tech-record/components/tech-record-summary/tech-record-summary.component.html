@@ -24,7 +24,7 @@
       <ng-container [ngSwitch]="sectionName">
         <ng-container *ngSwitchCase="'techRecordSummary'">
           <!-- New Vehicle Summary section -->
-          <ng-container *ngIf="featureToggleService.isFeatureEnabled('dfs'); else oldTechRecordSummary">
+          <ng-container *ngIf="featureToggleService.isFeatureEnabled('FsVehicleSummary'); else oldTechRecordSummary">
             <app-vehicle-section [mode]="(isEditing$ | async) ? 'edit' : 'view'" />
           </ng-container>
 

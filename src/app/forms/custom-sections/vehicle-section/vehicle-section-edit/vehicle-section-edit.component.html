@@ -154,7 +154,7 @@
   <!-- Fuel / propulsion system -->
   <div class="govuk-form-group-select">
     <label> Fuel / propulsion system </label>
-    <app-control-errors for="techRecord_fuelPropulsionSystem" />
+    <app-control-errors elementId="techRecord_fuelPropulsionSystem" [control]="$any(form.get('techRecord_fuelPropulsionSystem'))" />
     <select govukSelect formControlName="techRecord_fuelPropulsionSystem">
       <option [value]="option.value" *ngFor="let option of fuelPropulsionSystemOptions">{{ option.label }}</option>
     </select>
@@ -201,7 +201,7 @@
         <app-tag [type]="TagType.PURPLE">{{ TagTypeLabels.PLATES }}</app-tag>
       </div>
     </label>
-    <app-control-errors for="techRecord_vehicleConfiguration" />
+    <app-control-errors elementId="techRecord_vehicleConfiguration" [control]="$any(form.get('techRecord_vehicleConfiguration'))" />
     <select govukSelect formControlName="techRecord_vehicleConfiguration">
       <option [value]="option.value" *ngFor="let option of vehicleConfigurationOptions">{{ option.label }}</option>
     </select>
@@ -237,7 +237,7 @@
   <!-- EU Category -->
   <div class="govuk-form-group-select">
     <label>EU vehicle category</label>
-    <app-control-errors for="techRecord_euVehicleCategory" />
+    <app-control-errors elementId="techRecord_euVehicleCategory" [control]="$any(form.get('techRecord_euVehicleCategory'))" />
     <select govukSelect [width]="FormNodeWidth.XXS" formControlName="techRecord_euVehicleCategory">
       <option [value]="option.value" *ngFor="let option of EUCategoryOptions">{{ option.label }}</option>
     </select>
@@ -248,7 +248,7 @@
     <h1>
       <label tag for="techRecord_emissionsLimit">Emission limit (m-1) (plate value)</label>
     </h1>
-    <app-control-errors for="techRecord_emissionsLimit" />
+    <app-control-errors elementId="techRecord_emissionsLimit" [control]="$any(form.get('techRecord_emissionsLimit'))" />
     <input type="number" spellcheck="false" id="techRecord_emissionsLimit" [width]="FormNodeWidth.XXS" govukInput formControlName="techRecord_emissionsLimit" />
   </div>
 
@@ -268,7 +268,7 @@
             </div>
           </label>
         </h1>
-        <app-control-errors for="techRecord_seatsUpperDeck" />
+        <app-control-errors elementId="techRecord_seatsUpperDeck" [control]="$any(form.get('techRecord_seatsUpperDeck'))" />
         <input appNumberOnly inputmode="numeric" type="number" spellcheck="false" id="techRecord_seatsUpperDeck" [width]="FormNodeWidth.XS" govukInput formControlName="techRecord_seatsUpperDeck" />
       </div>
 
@@ -282,7 +282,7 @@
             </div>
           </label>
         </h1>
-        <app-control-errors for="techRecord_seatsLowerDeck" />
+        <app-control-errors elementId="techRecord_seatsLowerDeck" [control]="$any(form.get('techRecord_seatsLowerDeck'))" />
         <input appNumberOnly inputmode="numeric" type="number" spellcheck="false" id="techRecord_seatsLowerDeck" [width]="FormNodeWidth.XS" govukInput formControlName="techRecord_seatsLowerDeck" />
       </div>
     </div>
@@ -292,7 +292,7 @@
       <h1>
         <label tag for="techRecord_standingCapacity">Standing capacity</label>
       </h1>
-      <app-control-errors for="techRecord_standingCapacity" />
+      <app-control-errors elementId="techRecord_standingCapacity" [control]="$any(form.get('techRecord_standingCapacity'))" />
       <input type="number" spellcheck="false" id="techRecord_standingCapacity" [width]="FormNodeWidth.XXS" govukInput formControlName="techRecord_standingCapacity" />
     </div>
 
@@ -367,7 +367,7 @@
         The Vehicle Class is calculated automatically based on the number of seats and standing capacity.
         Only change the Class if you need to
       </div>
-      <app-control-errors for="techRecord_vehicleClass_description" />
+      <app-control-errors elementId="techRecord_vehicleClass_description" [control]="$any(form.get('techRecord_vehicleClass_description'))" />
       <select govukSelect formControlName="techRecord_vehicleClass_description">
         <option [value]="option.value" *ngFor="let option of vehicleClassDescriptionOptions">{{ option.label }}</option>
       </select>
