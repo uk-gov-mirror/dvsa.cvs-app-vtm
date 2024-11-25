@@ -54,11 +54,12 @@
             <input
               id="techRecord_speedLimiterMrk-{{ option.value }}-radio"
               govukRadio
+              type="radio"
               formControlName="techRecord_speedLimiterMrk"
               [value]="option.value"
             />
             <label
-             for="techRecord_speedLimiterMrk-{{ option.value }}-radio'"
+             for="techRecord_speedLimiterMrk-{{ option.value }}-radio"
             >
               {{ option.label }}
             </label>
@@ -83,6 +84,7 @@
               formControlName="techRecord_tachoExemptMrk"
               [value]="option.value"
               govukRadio
+              type="radio"
             />
             <label
               for="techRecord_tachoExemptMrk-{{ option.value }}-radio'"
@@ -110,6 +112,7 @@
             formControlName="techRecord_euroStandard"
             [value]="option.value"
             govukRadio
+            type="radio"
           />
           <label
             for="techRecord_euroStandard-{{ option.value }}-radio'"
@@ -137,6 +140,7 @@
         <div *ngFor="let option of ExemptOrNotOptions">
           <input
             govukRadio
+            type="radio"
             id="techRecord_roadFriendly-{{ option.value }}-radio"
             formControlName="techRecord_roadFriendly"
             [value]="option.value"
@@ -172,6 +176,7 @@
         <div *ngFor="let option of YesNoOptions">
           <input
             govukRadio
+            type="radio"
             id="techRecord_drawbarCouplingFitted-{{ option.value }}-radio"
             formControlName="techRecord_drawbarCouplingFitted"
             [value]="option.value"
@@ -223,6 +228,7 @@
             name="techRecord_offRoad-{{ option.value }}-radio"
             formControlName="techRecord_offRoad"
             [value]="option.value"
+            type="radio"
           />
           <label
             for="techRecord_offRoad-{{ option.value }}-radio'"
@@ -316,6 +322,7 @@
             id="techRecord_departmentalVehicleMarker-{{ option.value }}-radio"
             formControlName="techRecord_departmentalVehicleMarker"
             [value]="option.value"
+            type="radio"
           />
           <label
             for="techRecord_departmentalVehicleMarker-{{ option.value }}-radio'"
@@ -342,6 +349,7 @@
             id="techRecord_alterationMarker-{{ option.value }}-radio"
             formControlName="techRecord_alterationMarker"
             [value]="option.value"
+            type="radio"
           />
           <label
             for="techRecord_alterationMarker-{{ option.value }}-radio'"
