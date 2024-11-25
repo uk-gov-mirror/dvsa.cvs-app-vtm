@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
 import {
 	AbstractControl,
 	ControlContainer,
@@ -21,10 +21,9 @@ import {
 	TrlVehicleConfiguration,
 	VehicleConfiguration,
 } from '@models/vehicle-configuration.enum';
-import { FuelTypes, VehicleTypes } from '@models/vehicle-tech-record.model';
+import { FuelTypes, V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
 import { FormNodeWidth, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
-import { techRecord } from '@store/technical-records';
 import { ReplaySubject } from 'rxjs';
 
 type VehicleSectionForm = Partial<Record<keyof TechRecordType<'hgv' | 'car' | 'psv' | 'lgv' | 'trl'>, FormControl>>;
@@ -43,7 +42,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 	store = inject(Store);
 	controlContainer = inject(ControlContainer);
 	commonValidators = inject(CommonValidatorsService);
-	techRecord = this.store.selectSignal(techRecord);
+	techRecord = input.required<V3TechRecordModel>();
 
 	destroy$ = new ReplaySubject<boolean>(1);
 
@@ -60,8 +59,6 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 			techRecord_statusCode: this.fb.control<string | null>(null),
 			techRecord_vehicleConfiguration: this.fb.control<VehicleConfiguration | null>(null, [this.updateFunctionCode]),
 			techRecord_vehicleType: this.fb.control<VehicleTypes | null>({ value: null, disabled: true }),
-			// vehicle type specific properties
-			...this.controlsBasedOffVehicleType,
 		},
 		{ validators: [] }
 	);
@@ -84,16 +81,14 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 	];
 
 	ngOnInit(): void {
+		this.addControlsBasedOffVehicleType();
+
 		// Attach all form controls to parent
 		const parent = this.controlContainer.control;
 		if (parent instanceof FormGroup) {
 			for (const [key, control] of Object.entries(this.form.controls)) {
-				parent.addControl(key, control);
+				parent.addControl(key, control, { emitEvent: false });
 			}
-		}
-
-		if (this.techRecord()) {
-			this.form.patchValue(this.techRecord() as any);
 		}
 	}
 

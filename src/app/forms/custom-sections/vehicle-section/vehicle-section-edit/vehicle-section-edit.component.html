@@ -9,7 +9,6 @@
   </div>
 
   <!--  Date of First Registration Here -->
-
   <div class="govuk-form-group-input">
     <h1>
       <label tag id="techRecord_manufactureYear-label">
@@ -80,7 +79,6 @@
           <div *ngFor="let option of ExemptOrNotOptions">
             <input
               id="techRecord_tachoExemptMrk-{{ option.value }}-radio"
-              name="techRecord_tachoExemptMrk-{{ option.value }}-radio"
               formControlName="techRecord_tachoExemptMrk"
               [value]="option.value"
               govukRadio

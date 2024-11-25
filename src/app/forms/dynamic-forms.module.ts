@@ -219,6 +219,9 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		AdrSectionViewComponent,
 		AdrSectionSummaryComponent,
 		VehicleSectionComponent,
+		VehicleSectionSummaryComponent,
+		VehicleSectionViewComponent,
+		VehicleSectionEditComponent,
 	],
 })
 export class DynamicFormsModule {}
