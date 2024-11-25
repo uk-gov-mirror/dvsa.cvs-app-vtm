@@ -199,6 +199,10 @@
             <dt class="govuk-summary-list__key">Expiry date</dt>
             <dd class="govuk-summary-list__value" id="test-techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate">
               {{ vm.techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate | date : 'dd/MM/yyyy' | defaultNullOrEmpty }}
+            </dd>
+          </div>
+        </dl>
+        
         <!-- Subsequent inspections -->
         <dl class="govuk-summary-list" *ngIf="vm.techRecord_adrDetails_tank_tankDetails_tc3Details?.length">
           <ng-container *ngFor="let inspection of vm.techRecord_adrDetails_tank_tankDetails_tc3Details; let i = index">
