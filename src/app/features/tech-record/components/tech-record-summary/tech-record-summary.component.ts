@@ -1,5 +1,6 @@
 import { ViewportScroller } from '@angular/common';
 import {
+	AfterViewInit,
 	ChangeDetectionStrategy,
 	Component,
 	EventEmitter,
@@ -9,7 +10,9 @@ import {
 	QueryList,
 	ViewChild,
 	ViewChildren,
+	inject,
 } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
@@ -39,7 +42,7 @@ import { RouterService } from '@services/router/router.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { selectScrollPosition } from '@store/technical-records';
 import { cloneDeep, mergeWith } from 'lodash';
-import { Observable, Subject, debounceTime, map, take, takeUntil } from 'rxjs';
+import { Observable, Subject, debounceTime, map, skipWhile, take, takeUntil } from 'rxjs';
 
 @Component({
 	selector: 'app-tech-record-summary',
@@ -47,7 +50,7 @@ import { Observable, Subject, debounceTime, map, take, takeUntil } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	styleUrls: ['./tech-record-summary.component.scss'],
 })
-export class TechRecordSummaryComponent implements OnInit, OnDestroy {
+export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewInit {
 	@ViewChildren(DynamicFormGroupComponent) sections!: QueryList<DynamicFormGroupComponent>;
 	@ViewChild(BodyComponent) body!: BodyComponent;
 	@ViewChild(DimensionsComponent) dimensions!: DimensionsComponent;
@@ -67,28 +70,32 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy {
 	middleIndex = 0;
 	isEditing = false;
 	scrollPosition: [number, number] = [0, 0];
-	isADREnabled = false;
 	isADRCertGenEnabled = false;
+	isDFSEnabled = false;
+
+	private axlesService = inject(AxlesService);
+	private errorService = inject(GlobalErrorService);
+	private warningService = inject(GlobalWarningService);
+	private referenceDataService = inject(ReferenceDataService);
+	private technicalRecordService = inject(TechnicalRecordService);
+	private routerService = inject(RouterService);
+	private activatedRoute = inject(ActivatedRoute);
+	private viewportScroller = inject(ViewportScroller);
+	private store = inject(Store);
+	private loading = inject(LoadingService);
+
+	fb = inject(FormBuilder);
+	featureToggleService = inject(FeatureToggleService);
+	globalErrorService = inject(GlobalErrorService);
 
 	private destroy$ = new Subject<void>();
 
-	constructor(
-		private axlesService: AxlesService,
-		private errorService: GlobalErrorService,
-		private warningService: GlobalWarningService,
-		private referenceDataService: ReferenceDataService,
-		private technicalRecordService: TechnicalRecordService,
-		private routerService: RouterService,
-		private activatedRoute: ActivatedRoute,
-		private viewportScroller: ViewportScroller,
-		private store: Store,
-		private loading: LoadingService,
-		private featureToggleService: FeatureToggleService
-	) {}
+	form = this.fb.group({});
 
 	ngOnInit(): void {
-		this.isADREnabled = this.featureToggleService.isFeatureEnabled('adrToggle');
 		this.isADRCertGenEnabled = this.featureToggleService.isFeatureEnabled('adrCertToggle');
+		this.isDFSEnabled = this.featureToggleService.isFeatureEnabled('FsAdr');
+
 		this.technicalRecordService.techRecord$
 			.pipe(
 				map((record) => {
@@ -147,11 +154,27 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy {
 				this.viewportScroller.scrollToPosition(this.scrollPosition);
 			}
 		});
+
+		this.form.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((changes) => {
+			this.handleFormState(changes);
+		});
 	}
 
 	ngOnDestroy(): void {
 		this.destroy$.next();
 		this.destroy$.complete();
+	}
+
+	ngAfterViewInit(): void {
+		this.technicalRecordService.techRecord$
+			.pipe(
+				takeUntil(this.destroy$),
+				skipWhile((techRecord) => !techRecord),
+				take(1)
+			)
+			.subscribe((techRecord) => {
+				if (this.isEditing && techRecord) this.form.patchValue({ ...techRecord });
+			});
 	}
 
 	get vehicleType() {
@@ -171,7 +194,6 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy {
 			vehicleTemplateMap
 				.get(this.vehicleType)
 				?.filter((template) => template.name !== (this.isEditing ? 'audit' : 'reasonForCreationSection'))
-				.filter((template) => template.name !== (this.isADREnabled ? '' : 'adrSection'))
 				.filter((template) => template.name !== (this.isADRCertGenEnabled ? '' : 'adrCertificateSection')) ?? []
 		);
 	}
@@ -188,10 +210,6 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy {
 		return this.routerService.getRouteDataProperty$('isEditing').pipe(map((isEditing) => !!isEditing));
 	}
 
-	get hint(): string {
-		return 'Complete all required fields to create a testable record';
-	}
-
 	get customSectionForms(): Array<CustomFormGroup | CustomFormArray> {
 		const commonCustomSections = [
 			this.body?.form,
@@ -205,13 +223,13 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy {
 			case VehicleTypes.PSV:
 				return [...commonCustomSections, this.psvBrakes.form];
 			case VehicleTypes.HGV:
-				return this.isADREnabled ? [...commonCustomSections, this.adr.form] : commonCustomSections;
+				return !this.isDFSEnabled ? [...commonCustomSections, this.adr.form] : commonCustomSections;
 			case VehicleTypes.TRL:
-				return this.isADREnabled
+				return !this.isDFSEnabled
 					? [...commonCustomSections, this.trlBrakes.form, this.letters.form, this.adr.form]
 					: [...commonCustomSections, this.trlBrakes.form, this.letters.form];
 			case VehicleTypes.LGV:
-				return this.isADREnabled ? [this.adr.form] : [];
+				return !this.isDFSEnabled ? [this.adr.form] : [];
 			default:
 				return [];
 		}
@@ -227,19 +245,25 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy {
 	}
 
 	checkForms(): void {
-		const forms = this.sections?.map((section) => section.form).concat(this.customSectionForms);
+		const forms: Array<CustomFormGroup | CustomFormArray | FormGroup> = this.sections
+			?.map((section) => section.form)
+			.concat(this.customSectionForms);
 
 		this.isFormDirty.emit(forms.some((form) => form.dirty));
 
 		this.setErrors(forms);
 
-		this.isFormInvalid.emit(forms.some((form) => form.invalid));
+		this.isFormInvalid.emit(forms.some((form) => form.invalid || this.form.invalid));
 	}
 
-	setErrors(forms: Array<CustomFormGroup | CustomFormArray>): void {
+	setErrors(forms: Array<CustomFormGroup | CustomFormArray | FormGroup>): void {
 		const errors: GlobalError[] = [];
 
 		forms.forEach((form) => DynamicFormService.validate(form, errors));
+
+		this.form.markAllAsTouched();
+		this.form.updateValueAndValidity();
+		errors.push(...this.globalErrorService.extractGlobalErrors(this.form));
 
 		if (errors.length) {
 			this.errorService.setErrors(errors);
