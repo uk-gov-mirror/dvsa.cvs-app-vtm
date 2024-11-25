@@ -64,6 +64,19 @@ export class CommonValidatorsService {
 		};
 	}
 
+	pastYear(message: string): ValidatorFn {
+		return (control) => {
+			if (control.value) {
+				const currentYear = new Date().getFullYear();
+				const inputYear = control.value;
+				if (inputYear && inputYear > currentYear) {
+					return { pastYear: message };
+				}
+			}
+			return null;
+		};
+	}
+
 	invalidDate(message: string): ValidatorFn {
 		return (control) => {
 			if (control.value && Number.isNaN(Date.parse(control.value))) {
@@ -120,6 +133,16 @@ export class CommonValidatorsService {
 
 			if (year.length !== 4) {
 				return { invalidDate: `'${label || 'Date'}' year must be four digits` };
+			}
+
+			return null;
+		};
+	}
+
+	required(message: string): ValidatorFn {
+		return (control) => {
+			if (control.parent && (!control.value || (Array.isArray(control.value) && control.value.length === 0))) {
+				return { required: message };
 			}
 
 			return null;

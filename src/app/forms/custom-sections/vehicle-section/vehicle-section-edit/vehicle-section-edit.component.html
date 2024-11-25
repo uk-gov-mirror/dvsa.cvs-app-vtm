@@ -1,0 +1,376 @@
+<div [formGroup]="form">
+  <div class="govuk-form-group-input">
+    <h1>
+      <label tag for="techRecord_vehicleType"> Vehicle type <div>
+        <app-tag [type]="TagType.RED">{{ TagTypeLabels.REQUIRED }}</app-tag>
+      </div></label>
+    </h1>
+    <input id="techRecord_vehicleType" [width]="FormNodeWidth.XS" govukInput formControlName="techRecord_vehicleType" />
+  </div>
+
+  <!--  Date of First Registration Here -->
+
+  <div class="govuk-form-group-input">
+    <h1>
+      <label tag for="techRecord_manufactureYear"> Year of manufacture <div>
+        <app-tag [type]="TagType.PURPLE">{{ TagTypeLabels.PLATES }}</app-tag>
+      </div></label>
+    </h1>
+    <p
+      id="techRecord_manufactureYear-error"
+      class="govuk-error-message"
+      *ngIf="isInvalid('techRecord_manufactureYear')"
+    >
+      <span class="govuk-visually-hidden">Error:</span>
+      <span *ngIf="form.get('techRecord_manufactureYear')?.getError('min') as error">{{ error }}</span>
+      <span *ngIf="form.get('techRecord_manufactureYear')?.getError('pastYear') as error">{{ error }}</span>
+    </p>
+    <input appNumberOnly inputmode="numeric" type="number" spellcheck="false" id="techRecord_manufactureYear" [width]="FormNodeWidth.XS" govukInput formControlName="techRecord_manufactureYear" />
+  </div>
+
+  <div class="govuk-form-group-input">
+    <h1>
+      <label tag for="techRecord_noOfAxles"> Number of axles <div>
+        <app-tag [type]="TagType.RED">{{ TagTypeLabels.REQUIRED }}</app-tag>
+      </div></label>
+    </h1>
+    <input id="techRecord_noOfAxles" [width]="FormNodeWidth.XXS" govukInput formControlName="techRecord_noOfAxles" />
+  </div>
+
+  <div class="flex-row">
+    <!-- Speed limiter exempt -->
+    <div class="govuk-form-group-radio">
+      <fieldset>
+        <legend>
+          <h1 tag>
+            Speed limiter exempt
+            <div>
+              <app-tag [type]="TagType.PURPLE">{{ TagTypeLabels.PLATES }}</app-tag>
+            </div>
+          </h1>
+        </legend>
+        <div data-module="govuk-radios">
+          <div *ngFor="let option of ExemptOrNotOptions">
+            <input
+              id="techRecord_speedLimiterMrk-{{ option.value }}-radio"
+              govukRadio
+              formControlName="techRecord_speedLimiterMrk"
+              [value]="option.value"
+            />
+            <label
+             for="techRecord_speedLimiterMrk-{{ option.value }}-radio'"
+            >
+              {{ option.label }}
+            </label>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <!-- Tacho exempt -->
+    <div class="govuk-form-group-radio">
+      <fieldset>
+        <legend>
+          <h1>
+            Tacho exempt
+          </h1>
+        </legend>
+        <div data-module="govuk-radios">
+          <div *ngFor="let option of ExemptOrNotOptions">
+            <input
+              id="techRecord_tachoExemptMrk-{{ option.value }}-radio"
+              name="techRecord_tachoExemptMrk-{{ option.value }}-radio"
+              formControlName="techRecord_tachoExemptMrk"
+              [value]="option.value"
+              govukRadio
+            />
+            <label
+              for="techRecord_tachoExemptMrk-{{ option.value }}-radio'"
+            >
+              {{ option.label }}
+            </label>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+
+  <!-- Euro standard -->
+  <div class="govuk-form-group-radio">
+    <fieldset>
+      <legend>
+        <h1>
+          Euro standard
+        </h1>
+      </legend>
+      <div data-module="govuk-radios">
+        <div *ngFor="let option of euroStandardOptions">
+          <input
+            id="techRecord_euroStandard-{{ option.value }}-radio"
+            formControlName="techRecord_euroStandard"
+            [value]="option.value"
+            govukRadio
+          />
+          <label
+            for="techRecord_euroStandard-{{ option.value }}-radio'"
+          >
+            {{ option.label }}
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+
+  <!-- Road friendly suspension -->
+  <div class="govuk-form-group-radio">
+    <fieldset>
+      <legend>
+        <h1 tag>
+          Road friendly suspension
+          <div>
+            <app-tag [type]="TagType.PURPLE">{{ TagTypeLabels.PLATES }}</app-tag>
+          </div>
+        </h1>
+      </legend>
+      <div data-module="govuk-radios">
+        <div *ngFor="let option of ExemptOrNotOptions">
+          <input
+            govukRadio
+            id="techRecord_roadFriendly-{{ option.value }}-radio"
+            formControlName="techRecord_roadFriendly"
+            [value]="option.value"
+          />
+          <label
+            for="techRecord_roadFriendly-{{ option.value }}-radio'"
+          >
+            {{ option.label }}
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  <!-- Fuel / propulsion system -->
+  <div class="govuk-form-group-select">
+    <label> Fuel / propulsion system </label>
+    <app-control-errors for="techRecord_fuelPropulsionSystem" />
+    <select govukSelect formControlName="techRecord_fuelPropulsionSystem">
+      <option [value]="option.value" *ngFor="let option of fuelPropulsionSystemOptions">{{ option.label }}</option>
+    </select>
+  </div>
+
+  <!-- Drawbar coupling fitted -->
+  <div class="govuk-form-group-radio">
+    <fieldset>
+      <legend>
+        <h1>
+          Drawbar coupling fitted
+        </h1>
+      </legend>
+      <div data-module="govuk-radios">
+        <div *ngFor="let option of YesNoOptions">
+          <input
+            govukRadio
+            id="techRecord_drawbarCouplingFitted-{{ option.value }}-radio"
+            formControlName="techRecord_drawbarCouplingFitted"
+            [value]="option.value"
+          />
+          <label
+            for="techRecord_drawbarCouplingFitted-{{ option.value }}-radio'"
+          >
+            {{ option.label }}
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+<!--  Vehicle class (HGV) -->
+  <ng-template *ngIf="techRecord()?.techRecord_vehicleType === VehicleTypes.HGV" [ngTemplateOutlet]="vehicleClass"></ng-template>
+
+
+<!--  Vehicle configuration-->
+  <div class="govuk-form-group-select">
+    <label tag>
+      Vehicle configuration
+      <div>
+        <app-tag [type]="TagType.RED">{{ TagTypeLabels.REQUIRED }}</app-tag>
+      </div>
+      <div>
+        <app-tag [type]="TagType.PURPLE">{{ TagTypeLabels.PLATES }}</app-tag>
+      </div>
+    </label>
+    <app-control-errors for="techRecord_vehicleConfiguration" />
+    <select govukSelect formControlName="techRecord_vehicleConfiguration">
+      <option [value]="option.value" *ngFor="let option of vehicleConfigurationOptions">{{ option.label }}</option>
+    </select>
+  </div>
+
+<!-- Off road vehicle -->
+  <div class="govuk-form-group-radio">
+    <fieldset>
+      <legend>
+        <h1>
+          Off road vehicle
+        </h1>
+      </legend>
+      <div data-module="govuk-radios">
+        <div *ngFor="let option of YesNoOptions">
+          <input
+            govukRadio
+            id="techRecord_offRoad-{{ option.value }}-radio"
+            name="techRecord_offRoad-{{ option.value }}-radio"
+            formControlName="techRecord_offRoad"
+            [value]="option.value"
+          />
+          <label
+            for="techRecord_offRoad-{{ option.value }}-radio'"
+          >
+            {{ option.label }}
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  <!-- EU Category -->
+  <div class="govuk-form-group-select">
+    <label>EU vehicle category</label>
+    <app-control-errors for="techRecord_euVehicleCategory" />
+    <select govukSelect [width]="FormNodeWidth.XXS" formControlName="techRecord_euVehicleCategory">
+      <option [value]="option.value" *ngFor="let option of EUCategoryOptions">{{ option.label }}</option>
+    </select>
+  </div>
+
+  <!-- Emission Limit -->
+  <div class="govuk-form-group-input">
+    <h1>
+      <label tag for="techRecord_emissionsLimit">Emission limit (m-1) (plate value)</label>
+    </h1>
+    <app-control-errors for="techRecord_emissionsLimit" />
+    <input type="number" spellcheck="false" id="techRecord_emissionsLimit" [width]="FormNodeWidth.XXS" govukInput formControlName="techRecord_emissionsLimit" />
+  </div>
+
+  <!-- PSV Only Fields -->
+  <div class="govuk-form-group-split-controls" *ngIf="techRecord()?.techRecord_vehicleType === VehicleTypes.PSV">
+    <h1>
+      <label>Seats:</label>
+    </h1>
+    <div class="flex-row">
+      <!-- Upper Deck -->
+      <div class="govuk-form-group-input">
+        <h1>
+          <label tag for="techRecord_seatsUpperDeck">
+            Upper deck
+            <div>
+              <app-tag [type]="TagType.RED">{{ TagTypeLabels.REQUIRED }}</app-tag>
+            </div>
+          </label>
+        </h1>
+        <app-control-errors for="techRecord_seatsUpperDeck" />
+        <input appNumberOnly inputmode="numeric" type="number" spellcheck="false" id="techRecord_seatsUpperDeck" [width]="FormNodeWidth.XS" govukInput formControlName="techRecord_seatsUpperDeck" />
+      </div>
+
+      <!-- Lower Deck -->
+      <div class="govuk-form-group-input">
+        <h1>
+          <label tag for="techRecord_seatsLowerDeck">
+            Lower deck
+            <div>
+              <app-tag [type]="TagType.RED">{{ TagTypeLabels.REQUIRED }}</app-tag>
+            </div>
+          </label>
+        </h1>
+        <app-control-errors for="techRecord_seatsLowerDeck" />
+        <input appNumberOnly inputmode="numeric" type="number" spellcheck="false" id="techRecord_seatsLowerDeck" [width]="FormNodeWidth.XS" govukInput formControlName="techRecord_seatsLowerDeck" />
+      </div>
+    </div>
+
+    <!-- Standing Capacity -->
+    <div class="govuk-form-group-input">
+      <h1>
+        <label tag for="techRecord_standingCapacity">Standing capacity</label>
+      </h1>
+      <app-control-errors for="techRecord_standingCapacity" />
+      <input type="number" spellcheck="false" id="techRecord_standingCapacity" [width]="FormNodeWidth.XXS" govukInput formControlName="techRecord_standingCapacity" />
+    </div>
+
+    <!-- Vehicle Class (PSV) -->
+    <ng-template [ngTemplateOutlet]="vehicleClass"></ng-template>
+  </div>
+
+
+  <!-- Departmental vehicle marker -->
+  <div class="govuk-form-group-radio">
+    <fieldset>
+      <legend>
+        <h1>
+          Departmental vehicle marker
+        </h1>
+      </legend>
+      <div data-module="govuk-radios">
+        <div *ngFor="let option of YesNoOptions">
+          <input
+            govukRadio
+            id="techRecord_departmentalVehicleMarker-{{ option.value }}-radio"
+            formControlName="techRecord_departmentalVehicleMarker"
+            [value]="option.value"
+          />
+          <label
+            for="techRecord_departmentalVehicleMarker-{{ option.value }}-radio'"
+          >
+            {{ option.label }}
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  <!-- Alteration marker -->
+  <div class="govuk-form-group-radio">
+    <fieldset>
+      <legend>
+        <h1>
+          Alteration marker
+        </h1>
+      </legend>
+      <div data-module="govuk-radios">
+        <div *ngFor="let option of YesNoOptions">
+          <input
+            govukRadio
+            id="techRecord_alterationMarker-{{ option.value }}-radio"
+            formControlName="techRecord_alterationMarker"
+            [value]="option.value"
+          />
+          <label
+            for="techRecord_alterationMarker-{{ option.value }}-radio'"
+          >
+            {{ option.label }}
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+
+
+  <ng-template #vehicleClass>
+    <div  class="govuk-form-group-select">
+      <label tag>
+        Vehicle class
+        <div>
+          <app-tag [type]="TagType.RED">{{ TagTypeLabels.REQUIRED }}</app-tag>
+        </div>
+      </label>
+      <div *ngIf="techRecord()?.techRecord_vehicleType === VehicleTypes.PSV" class="govuk-hint">
+        The Vehicle Class is calculated automatically based on the number of seats and standing capacity.
+        Only change the Class if you need to
+      </div>
+      <app-control-errors for="techRecord_vehicleClass_description" />
+      <select govukSelect formControlName="techRecord_vehicleClass_description">
+        <option [value]="option.value" *ngFor="let option of vehicleClassDescriptionOptions">{{ option.label }}</option>
+      </select>
+    </div>
+  </ng-template>
+</div>

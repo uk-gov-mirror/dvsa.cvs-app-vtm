@@ -16,8 +16,12 @@ import { AdrCertificateHistoryComponent } from '@forms/custom-sections/adr-certi
 import { AdrExaminerNotesHistoryEditComponent } from '@forms/custom-sections/adr-examiner-notes-history-edit/adr-examiner-notes-history.component-edit';
 import { AdrPermittedDangerousGoodsComponent } from '@forms/custom-sections/adr-permitted-dangerous-goods/adr-permitted-dangerous-goods.component';
 import { ApprovalTypeComponent } from '@forms/custom-sections/approval-type/approval-type.component';
+import { VehicleSectionEditComponent } from '@forms/custom-sections/vehicle-section/vehicle-section-edit/vehicle-section-edit.component';
+import { VehicleSectionSummaryComponent } from '@forms/custom-sections/vehicle-section/vehicle-section-summary/vehicle-section-summary.component';
+import { VehicleSectionViewComponent } from '@forms/custom-sections/vehicle-section/vehicle-section-view/vehicle-section-view.component';
+import { VehicleSectionComponent } from '@forms/custom-sections/vehicle-section/vehicle-section.component';
+import { TruncatePipe } from '@pipes/truncate/truncate.pipe';
 import { SharedModule } from '@shared/shared.module';
-import { TruncatePipe } from '../pipes/truncate/truncate.pipe';
 import { AutocompleteComponent } from './components/autocomplete/autocomplete.component';
 import { BaseControlComponent } from './components/base-control/base-control.component';
 import { CharacterCountComponent } from './components/character-count/character-count.component';
@@ -144,6 +148,10 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		AdrSectionEditComponent,
 		AdrSectionViewComponent,
 		AdrSectionSummaryComponent,
+		VehicleSectionComponent,
+		VehicleSectionSummaryComponent,
+		VehicleSectionViewComponent,
+		VehicleSectionEditComponent,
 		AdrPermittedDangerousGoodsComponent,
 	],
 	imports: [
@@ -210,6 +218,7 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		AdrSectionEditComponent,
 		AdrSectionViewComponent,
 		AdrSectionSummaryComponent,
+		VehicleSectionComponent,
 	],
 })
 export class DynamicFormsModule {}
