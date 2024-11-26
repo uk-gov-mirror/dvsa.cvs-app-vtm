@@ -96,5 +96,44 @@
         {{ vm.techRecord_vehicleConfiguration | defaultNullOrEmpty }}
       </dd>
     </div>
+    <ng-container *ngIf="
+      vm.techRecord_vehicleType === VehicleTypes.HGV">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Off road vehicle</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_offRoad">
+          {{ vm.techRecord_offRoad | defaultNullOrEmpty }}
+        </dd>
+      </div>
+    </ng-container>
+
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">EU vehicle category</dt>
+      <dd class="govuk-summary-list__value" id="test-techRecord_euVehicleCategory">
+        {{ vm.techRecord_euVehicleCategory | defaultNullOrEmpty }}
+      </dd>
+    </div>
+
+    <ng-container *ngIf="
+      vm.techRecord_vehicleType === VehicleTypes.HGV ||
+      vm.techRecord_vehicleType === VehicleTypes.PSV">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Emission limit (m-1) (plate value)</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_emissionsLimit">
+          {{ vm.techRecord_emissionsLimit | defaultNullOrEmpty }}
+        </dd>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="
+      vm.techRecord_vehicleType === VehicleTypes.HGV ||
+      vm.techRecord_vehicleType === VehicleTypes.PSV">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Departmental vehicle marker</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_departmentalVehicleMarker">
+          {{ vm.techRecord_departmentalVehicleMarker | defaultNullOrEmpty }}
+        </dd>
+      </div>
+    </ng-container>
+
   </dl>
 </ng-container>
