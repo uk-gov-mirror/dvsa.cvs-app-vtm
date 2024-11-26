@@ -1,3 +1,120 @@
 <ng-container *ngIf="techRecord() as vm">
-  <p>vehicle view</p>
+  <dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">Vehicle type</dt>
+      <dd class="govuk-summary-list__value" id="test-techRecord_vehicleType">
+        {{ vm.techRecord_vehicleType | defaultNullOrEmpty }}
+      </dd>
+    </div>
+  </dl>
+  <dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">Year of manufacture</dt>
+      <dd class="govuk-summary-list__value" id="test-techRecord_manufactureYear">
+        {{ vm.techRecord_manufactureYear | defaultNullOrEmpty }}
+      </dd>
+    </div>
+  </dl>
+  <dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">Number of axles</dt>
+      <dd class="govuk-summary-list__value" id="test-techRecord_noOfAxles">
+        {{ vm.techRecord_noOfAxles | defaultNullOrEmpty }}
+      </dd>
+    </div>
+  </dl>
+  <ng-container
+    *ngIf="
+      vm.techRecord_vehicleType === VehicleTypes.HGV ||
+      vm.techRecord_vehicleType === VehicleTypes.PSV">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Speed limiter exempt</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_speedLimiterMrk">
+          {{ vm.techRecord_speedLimiterMrk | defaultNullOrEmpty }}
+        </dd>
+      </div>
+    </dl>
+  </ng-container>
+  <ng-container *ngIf="
+      vm.techRecord_vehicleType === VehicleTypes.HGV ||
+      vm.techRecord_vehicleType === VehicleTypes.PSV">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Tacho exempt</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_tachoExemptMrk">
+          {{ vm.techRecord_tachoExemptMrk | defaultNullOrEmpty }}
+        </dd>
+      </div>
+    </dl>
+  </ng-container>
+  <ng-container *ngIf="
+      vm.techRecord_vehicleType === VehicleTypes.HGV ||
+      vm.techRecord_vehicleType === VehicleTypes.PSV">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Tacho exempt</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_euroStandard">
+          {{ vm.techRecord_euroStandard | defaultNullOrEmpty }}
+        </dd>
+      </div>
+    </dl>
+  </ng-container>
+  <ng-container *ngIf="
+      vm.techRecord_vehicleType === VehicleTypes.HGV ||
+      vm.techRecord_vehicleType === VehicleTypes.TRL">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Road friendly suspension</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_roadFriendly">
+          {{ vm.techRecord_roadFriendly | defaultNullOrEmpty }}
+        </dd>
+      </div>
+    </dl>
+  </ng-container>
+  <ng-container *ngIf="
+      vm.techRecord_vehicleType === VehicleTypes.HGV ||
+      vm.techRecord_vehicleType === VehicleTypes.PSV">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Fuel / propulsion system</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_fuelPropulsionSystem">
+          {{ vm.techRecord_fuelPropulsionSystem | defaultNullOrEmpty }}
+        </dd>
+      </div>
+    </dl>
+  </ng-container>
+  <ng-container *ngIf="
+      vm.techRecord_vehicleType === VehicleTypes.HGV">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Drawbar coupling fitted</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_drawbarCouplingFitted">
+          {{ vm.techRecord_drawbarCouplingFitted | defaultNullOrEmpty }}
+        </dd>
+      </div>
+    </dl>
+  </ng-container>
+  <ng-container *ngIf="
+      vm.techRecord_vehicleType === VehicleTypes.HGV ||
+      vm.techRecord_vehicleType === VehicleTypes.MOTORCYCLE ||
+      vm.techRecord_vehicleType === VehicleTypes.PSV ||
+      vm.techRecord_vehicleType === VehicleTypes.TRL">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Vehicle class</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_vehicleClass">
+          {{ vm.techRecord_vehicleClass_description | defaultNullOrEmpty }}
+        </dd>
+      </div>
+    </dl>
+  </ng-container>
+  <dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">Vehicle configuration</dt>
+      <dd class="govuk-summary-list__value" id="test-techRecord_vehicleConfiguration">
+        {{ vm.techRecord_vehicleConfiguration | defaultNullOrEmpty }}
+      </dd>
+    </div>
+  </dl>
 </ng-container>
