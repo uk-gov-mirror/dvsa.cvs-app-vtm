@@ -7,6 +7,22 @@
       </dd>
     </div>
     <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">Registration date</dt>
+      <dd class="govuk-summary-list__value" id="test-techRecord_regnDate">
+        {{ vm.techRecord_regnDate | defaultNullOrEmpty | date: 'dd/MM/yyyy' }}
+      </dd>
+    </div>
+    <ng-container *ngIf="
+      vm.techRecord_vehicleType === VehicleTypes.TRL
+    ">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Month of manufacture</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_manufactureMonth">
+          {{ vm.techRecord_manufactureMonth | defaultNullOrEmpty }}
+        </dd>
+      </div>
+    </ng-container>
+    <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">Year of manufacture</dt>
       <dd class="govuk-summary-list__value" id="test-techRecord_manufactureYear">
         {{ vm.techRecord_manufactureYear | defaultNullOrEmpty }}
@@ -18,8 +34,18 @@
         {{ vm.techRecord_noOfAxles | defaultNullOrEmpty }}
       </dd>
     </div>
-  <ng-container
-    *ngIf="
+    <ng-container *ngIf="
+      vm.techRecord_vehicleType === VehicleTypes.CAR ||
+      vm.techRecord_vehicleType === VehicleTypes.LGV
+    ">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Vehicle subclass</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_vehicleSubclass">
+          {{ vm.techRecord_vehicleSubclass | defaultNullOrEmpty }}
+        </dd>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="
       vm.techRecord_vehicleType === VehicleTypes.HGV ||
       vm.techRecord_vehicleType === VehicleTypes.PSV">
       <div class="govuk-summary-list__row">
@@ -28,8 +54,8 @@
           {{ vm.techRecord_speedLimiterMrk | defaultNullOrEmpty }}
         </dd>
       </div>
-  </ng-container>
-  <ng-container *ngIf="
+    </ng-container>
+    <ng-container *ngIf="
       vm.techRecord_vehicleType === VehicleTypes.HGV ||
       vm.techRecord_vehicleType === VehicleTypes.PSV">
       <div class="govuk-summary-list__row">
@@ -38,8 +64,8 @@
           {{ vm.techRecord_tachoExemptMrk | defaultNullOrEmpty }}
         </dd>
       </div>
-  </ng-container>
-  <ng-container *ngIf="
+    </ng-container>
+    <ng-container *ngIf="
       vm.techRecord_vehicleType === VehicleTypes.HGV ||
       vm.techRecord_vehicleType === VehicleTypes.PSV">
       <div class="govuk-summary-list__row">
@@ -59,6 +85,16 @@
         </dd>
       </div>
   </ng-container>
+    <ng-container *ngIf="
+      vm.techRecord_vehicleType === VehicleTypes.TRL
+    ">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Suspension type (optional)</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_suspensionType">
+          {{ vm.techRecord_suspensionType | defaultNullOrEmpty }}
+        </dd>
+      </div>
+    </ng-container>
   <ng-container *ngIf="
       vm.techRecord_vehicleType === VehicleTypes.HGV ||
       vm.techRecord_vehicleType === VehicleTypes.PSV">
@@ -90,6 +126,28 @@
         </dd>
       </div>
   </ng-container>
+    <ng-container
+      *ngIf="
+      vm.techRecord_vehicleType === VehicleTypes.TRL
+    ">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Coupling type (optional)</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_couplingType">
+          {{ vm.techRecord_couplingType | defaultNullOrEmpty }}
+        </dd>
+      </div>
+    </ng-container>
+    <ng-container
+      *ngIf="
+      vm.techRecord_vehicleType === VehicleTypes.TRL
+    ">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Max load on coupling (optional)</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_maxLoadOnCoupling">
+          {{ vm.techRecord_maxLoadOnCoupling | defaultNullOrEmpty }}
+        </dd>
+      </div>
+    </ng-container>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">Vehicle configuration</dt>
       <dd class="govuk-summary-list__value" id="test-techRecord_vehicleConfiguration">
@@ -124,9 +182,21 @@
       </div>
     </ng-container>
 
+    <ng-container
+      *ngIf="
+      vm.techRecord_vehicleType === VehicleTypes.TRL
+    ">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Frame description (optional)</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_frameDescription">
+          {{ vm.techRecord_frameDescription | defaultNullOrEmpty }}
+        </dd>
+      </div>
+    </ng-container>
     <ng-container *ngIf="
       vm.techRecord_vehicleType === VehicleTypes.HGV ||
-      vm.techRecord_vehicleType === VehicleTypes.PSV">
+      vm.techRecord_vehicleType === VehicleTypes.PSV ||
+      vm.techRecord_vehicleType === VehicleTypes.TRL ">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Departmental vehicle marker</dt>
         <dd class="govuk-summary-list__value" id="test-techRecord_departmentalVehicleMarker">
