@@ -5,7 +5,75 @@
   </app-banner>
 
   <app-icon [icon]="techRecordEdited.techRecord_vehicleType || ''"></app-icon>
-  <app-dynamic-form-group [data]="techRecordEdited" [template]="vehicleSummary"></app-dynamic-form-group>
+  
+  <dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Vehicle identification number (VIN):
+      </dt>
+      <dd class="govuk-summary-list__value" id="test-vin">
+        {{ techRecordEdited.vin | defaultNullOrEmpty }}
+      </dd>
+    </div>
+    <ng-container *ngIf="techRecordEdited.techRecord_vehicleType === 'trl'">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          TrailerID:
+        </dt>
+        <dd class="govuk-summary-list__value" id="test-trailerId">
+        <app-number-plate [vrm]="techRecordEdited.trailerId"></app-number-plate>
+        </dd>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="techRecordEdited.techRecord_vehicleType !== 'trl'">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Vehicle registration mark (VRM):
+        </dt>
+        <dd class="govuk-summary-list__value" id="test-vrm">
+        <app-number-plate [vrm]="$any(techRecordEdited.primaryVrm)"></app-number-plate>
+        </dd>
+      </div>
+    </ng-container>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Vehicle type:
+      </dt>
+      <dd class="govuk-summary-list__value" id="test-vehicleType">
+        {{ $any(techRecordEdited.techRecord_vehicleType) | formatVehicleType }}
+      </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Year of manufacture:
+      </dt>
+      <dd class="govuk-summary-list__value" id="test-manufactureYear">
+        {{ techRecordEdited.techRecord_manufactureYear | defaultNullOrEmpty }}
+      </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Make:
+      </dt>
+      <dd class="govuk-summary-list__value" id="test-make">
+        <ng-container *ngIf="techRecordEdited.techRecord_vehicleType === 'psv'; else make">
+          {{ techRecordEdited.techRecord_chassisMake | defaultNullOrEmpty }}
+        </ng-container>
+        <ng-template #make>{{ $any(techRecordEdited).techRecord_make | defaultNullOrEmpty }}</ng-template>
+      </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Model:
+      </dt>
+      <dd class="govuk-summary-list__value" id="test-model">
+        <ng-container *ngIf="techRecordEdited.techRecord_vehicleType === 'psv'; else model">
+          {{ techRecordEdited.techRecord_chassisModel | defaultNullOrEmpty }}
+        </ng-container>
+        <ng-template #model>{{ $any(techRecordEdited).techRecord_model | defaultNullOrEmpty }}</ng-template>
+      </dd>
+    </div>
+  </dl>
 
   <app-accordion-control [class]="'padding'" [sectionState]="sectionTemplatesState$ | async">
     <ng-container *ngFor="let section of customVehicleTemplate; let i = index">
