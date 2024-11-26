@@ -172,6 +172,16 @@
     </div>
 
     <ng-container *ngIf="
+      vm.techRecord_vehicleType === VehicleTypes.MOTORCYCLE">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Number of wheels</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_numberOfWheelsDriven">
+          {{ vm.techRecord_numberOfWheelsDriven | defaultNullOrEmpty }}
+        </dd>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="
       vm.techRecord_vehicleType === VehicleTypes.HGV ||
       vm.techRecord_vehicleType === VehicleTypes.PSV">
       <div class="govuk-summary-list__row">
