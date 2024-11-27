@@ -21,8 +21,7 @@ import {
 	TrlVehicleConfiguration,
 	VehicleConfiguration,
 } from '@models/vehicle-configuration.enum';
-import { FuelTypes, V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
-import { VehicleSubclass } from '@models/vehicle-tech-record.model';
+import { FuelTypes, V3TechRecordModel, VehicleSubclass, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
 import { FormNodeWidth, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
 import { ReplaySubject } from 'rxjs';
@@ -91,8 +90,6 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 				parent.addControl(key, control, { emitEvent: false });
 			}
 		}
-
-		console.log(this.form.controls);
 	}
 
 	ngOnDestroy(): void {

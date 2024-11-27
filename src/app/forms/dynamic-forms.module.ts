@@ -36,6 +36,7 @@ import { DynamicFormFieldComponent } from './components/dynamic-form-field/dynam
 import { DynamicFormGroupComponent } from './components/dynamic-form-group/dynamic-form-group.component';
 import { FieldErrorMessageComponent } from './components/field-error-message/field-error-message.component';
 import { FieldWarningMessageComponent } from './components/field-warning-message/field-warning-message.component';
+import { GovukCheckboxGroupComponent } from './components/govuk-checkbox-group/govuk-checkbox-group.component';
 import { NumberInputComponent } from './components/number-input/number-input.component';
 import { RadioGroupComponent } from './components/radio-group/radio-group.component';
 import { ReadOnlyComponent } from './components/read-only/read-only.component';
@@ -162,6 +163,7 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		RouterModule,
 		DateFocusNextDirective,
 		NumberOnlyDirective,
+		GovukCheckboxGroupComponent,
 	],
 	exports: [
 		TextInputComponent,

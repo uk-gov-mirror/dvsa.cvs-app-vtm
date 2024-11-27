@@ -73,34 +73,7 @@
 
   <!-- Vehicle Subclass (LGV/CAR only) -->
   <ng-container *ngIf="shouldDisplayFormControl('techRecord_vehicleSubclass')">
-    <div class="govuk-form-group-checkbox" id="techRecord_vehicleSubclass">
-      <fieldset aria-describedby="techRecord_vehicleSubclass-error">
-        <legend>
-          <h1 id="techRecord_vehicleSubclass-label">Vehicle Subclass</h1>
-          <div>
-            <app-tag [type]="TagType.RED">{{ TagTypeLabels.REQUIRED }}</app-tag>
-          </div>
-        </legend>
-        <app-control-errors elementId="techRecord_vehicleSubclass-error" [control]="$any(form.get('techRecord_vehicleSubclass'))" />
-        <div data-module="govuk-checkboxes">
-          <div *ngFor="let option of subClassOptions">
-            <input
-              id="techRecord_vehicleSubclass-{{ option.value }}-checkbox"
-              type="checkbox"
-              govukCheckbox
-              [checked]="form.get('techRecord_vehicleSubclass')?.value?.includes(option.value.toString())"
-              [attr.aria-describedby]="
-                  isInvalid('techRecord_vehicleSubclass') ? 'techRecord_vehicleSubclass-error' : null
-                "
-              (input)="toggle('techRecord_vehicleSubclass', option.value.toString())"
-            />
-            <label for="techRecord_vehicleSubclass-{{ option.value }}-checkbox">
-              {{ option.label }}
-            </label>
-          </div>
-        </div>
-      </fieldset>
-    </div>
+    <govuk-checkbox-group label="Vehicle Subclass" formControlName="techRecord_vehicleSubclass" [options]="subClassOptions" />
   </ng-container>
 
   <div class="flex-row">
