@@ -22,6 +22,7 @@ import {
 	VehicleConfiguration,
 } from '@models/vehicle-configuration.enum';
 import { FuelTypes, V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
+import { VehicleSubclass } from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
 import { FormNodeWidth, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
 import { ReplaySubject } from 'rxjs';
@@ -90,6 +91,8 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 				parent.addControl(key, control, { emitEvent: false });
 			}
 		}
+
+		console.log(this.form.controls);
 	}
 
 	ngOnDestroy(): void {
@@ -184,7 +187,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 
 	get lgvAndCarFields(): Partial<Record<keyof TechRecordType<'lgv' | 'car'>, FormControl>> {
 		return {
-			techRecord_vehicleSubclass: this.fb.control<string | null>(null),
+			techRecord_vehicleSubclass: this.fb.control<string[] | null>(null),
 		};
 	}
 
@@ -192,6 +195,9 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 	get motorcycleFields(): Partial<Record<string, FormControl>> {
 		return {
 			techRecord_numberOfWheelsDriven: this.fb.control<number | null>(null),
+			techRecord_vehicleClass_description: this.fb.control<string | null>(null, [
+				this.commonValidators.required('Vehicle class is required'),
+			]),
 		};
 	}
 
@@ -255,8 +261,27 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 			case VehicleTypes.SMALL_TRL:
 			case VehicleTypes.LGV:
 			case VehicleTypes.CAR:
-			case VehicleTypes.MOTORCYCLE:
 				return null;
+			case VehicleTypes.MOTORCYCLE:
+				return [
+					{ label: 'motorbikes over 200cc or with a sidecar', value: 'motorbikes over 200cc or with a sidecar' },
+					{ label: 'not applicable', value: 'not applicable' },
+					{
+						label: 'small psv (ie: less than or equal to 22 passengers)',
+						value: 'small psv (ie: less than or equal to 22 seats)',
+					},
+					{ label: 'motorbikes up to 200cc', value: 'motorbikes up to 200cc' },
+					{ label: 'trailer', value: 'trailer' },
+					{
+						label: 'large psv(ie: greater than or equal to 23 passengers)',
+						value: 'large psv(ie: greater than 23 seats)',
+					},
+					{ label: '3 wheelers', value: '3 wheelers' },
+					{ label: 'heavy goods vehicle', value: 'heavy goods vehicle' },
+					{ label: 'MOT class 4', value: 'MOT class 4' },
+					{ label: 'MOT class 7', value: 'MOT class 7' },
+					{ label: 'MOT class 5', value: 'MOT class 5' },
+				];
 			default:
 				return null;
 		}
@@ -275,7 +300,13 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 		}
 	}
 
+	get subClassOptions() {
+		console.log(getOptionsFromEnum(VehicleSubclass));
+		return getOptionsFromEnum(VehicleSubclass);
+	}
+
 	get controlsBasedOffVehicleType() {
+		console.log(this.techRecord().techRecord_vehicleType.toLowerCase() === VehicleTypes.MOTORCYCLE);
 		switch (this.techRecord()?.techRecord_vehicleType.toLowerCase()) {
 			case VehicleTypes.HGV:
 				return this.hgvFields;
@@ -299,5 +330,22 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 		for (const [key, control] of Object.entries(vehicleControls)) {
 			this.form.addControl(key, control);
 		}
+	}
+
+	toggle(formControlName: string, value: string) {
+		const control = this.form.get(formControlName);
+		if (!control) return;
+
+		if (!control.value) {
+			return control.setValue([value]);
+		}
+
+		const arr = [...control.value];
+		arr.includes(value) ? arr.splice(arr.indexOf(value), 1) : arr.push(value);
+		control.setValue(arr);
+	}
+
+	shouldDisplayFormControl(formControlName: string) {
+		return !!this.form.get(formControlName);
 	}
 }
