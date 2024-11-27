@@ -9,6 +9,7 @@ import {
 	ValidatorFn,
 } from '@angular/forms';
 import { TagType } from '@components/tag/tag.component';
+import { EUVehicleCategory } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/euVehicleCategory.enum.js';
 import { EUVehicleCategory as HGVCategories } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/euVehicleCategoryHgv.enum.js';
 import { EUVehicleCategory as PSVCategories } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/euVehicleCategoryPsv.enum.js';
 import { FuelPropulsionSystem } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/hgv/complete';
@@ -21,6 +22,7 @@ import {
 	TrlVehicleConfiguration,
 	VehicleConfiguration,
 } from '@models/vehicle-configuration.enum';
+import { VehicleSize } from '@models/vehicle-size.enum';
 import { FuelTypes, V3TechRecordModel, VehicleSubclass, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
 import { FormNodeWidth, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
@@ -134,7 +136,11 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 
 	get psvFields(): Partial<Record<keyof TechRecordType<'psv'>, FormControl>> {
 		return {
+			techRecord_speedLimiterMrk: this.fb.control<boolean | null>(null),
+			techRecord_tachoExemptMrk: this.fb.control<boolean | null>(null),
+			techRecord_euroStandard: this.fb.control<string | null>(null),
 			techRecord_alterationMarker: this.fb.control<boolean | null>(null),
+			techRecord_departmentalVehicleMarker: this.fb.control<boolean | null>(null),
 			techRecord_emissionsLimit: this.fb.control<number | null>(null, [
 				this.commonValidators.max(99, 'Emission limit (m-1) (plate value) must be less than or equal to 99'),
 				this.commonValidators.pattern(/^\d*(\.\d{0,5})?$/, 'Emission limit (m-1) (plate value) Max 5 decimal places'),
@@ -233,9 +239,9 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 			case VehicleTypes.LGV:
 			case VehicleTypes.CAR:
 			case VehicleTypes.MOTORCYCLE:
-				return null;
+				return getOptionsFromEnum(EUVehicleCategory);
 			default:
-				return getOptionsFromEnum(HGVCategories);
+				return getOptionsFromEnum(EUVehicleCategory);
 		}
 	}
 
@@ -288,22 +294,24 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 		switch (this.techRecord()?.techRecord_vehicleType.toLowerCase()) {
 			case VehicleTypes.HGV:
 			case VehicleTypes.PSV:
-				return [...getOptionsFromEnum(HgvPsvVehicleConfiguration)];
+				return getOptionsFromEnum(HgvPsvVehicleConfiguration);
 			case VehicleTypes.TRL:
 			case VehicleTypes.SMALL_TRL:
-				return [...getOptionsFromEnum(TrlVehicleConfiguration)];
+				return getOptionsFromEnum(TrlVehicleConfiguration);
 			default:
-				return [...getOptionsFromEnum(VehicleConfiguration)];
+				return getOptionsFromEnum(VehicleConfiguration);
 		}
 	}
 
 	get subClassOptions() {
-		console.log(getOptionsFromEnum(VehicleSubclass));
 		return getOptionsFromEnum(VehicleSubclass);
 	}
 
+	get vehicleSizeOptions() {
+		return getOptionsFromEnum(VehicleSize);
+	}
+
 	get controlsBasedOffVehicleType() {
-		console.log(this.techRecord().techRecord_vehicleType.toLowerCase() === VehicleTypes.MOTORCYCLE);
 		switch (this.techRecord()?.techRecord_vehicleType.toLowerCase()) {
 			case VehicleTypes.HGV:
 				return this.hgvFields;

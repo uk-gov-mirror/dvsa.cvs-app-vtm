@@ -42,6 +42,8 @@
     </div>
   </app-date-controls>
 
+  <!--  Month of manufacture (TRL Only) -->
+
   <!--  Year of manufacture -->
   <div *ngIf="shouldDisplayFormControl('techRecord_manufactureYear')" class="govuk-form-group-input">
     <h1>
@@ -61,10 +63,12 @@
       formControlName="techRecord_manufactureYear" />
   </div>
 
+  <!--  Date of first use (TRL only) -->
+
   <!--  Number of axles -->
   <div *ngIf="shouldDisplayFormControl('techRecord_noOfAxles')" class="govuk-form-group-input">
     <h1>
-      <label tag for="techRecord_noOfAxles"> Number of axles 
+      <label tag for="techRecord_noOfAxles"> Number of axles
         <div>
           <app-tag [type]="TagType.RED">{{ TagTypeLabels.REQUIRED }}</app-tag>
         </div>
@@ -74,10 +78,11 @@
   </div>
 
   <!-- Vehicle Subclass (LGV/CAR only) -->
-  <ng-container *ngIf="shouldDisplayFormControl('techRecord_vehicleSubclass')">
-    <govuk-checkbox-group 
-      label="Vehicle subclass" 
-      formControlName="techRecord_vehicleSubclass" 
+  <ng-container *ngIf="techRecord().techRecord_vehicleType === VehicleTypes.LGV || techRecord().techRecord_vehicleType === VehicleTypes.CAR">
+    <govuk-checkbox-group
+      *ngIf="shouldDisplayFormControl('techRecord_vehicleSubclass')"
+      label="Vehicle subclass"
+      formControlName="techRecord_vehicleSubclass"
       [options]="subClassOptions"
       [tags]="[{ label: TagTypeLabels.REQUIRED, colour: TagType.RED }]"
     ></govuk-checkbox-group>
@@ -182,7 +187,7 @@
         </h1>
       </legend>
       <div data-module="govuk-radios">
-        <div *ngFor="let option of ExemptOrNotOptions">
+        <div *ngFor="let option of YesNoOptions">
           <input
             govukRadio
             type="radio"
@@ -199,6 +204,8 @@
       </div>
     </fieldset>
   </div>
+
+  <!--  Suspension type (TRL Only) -->
 
   <!-- Fuel / propulsion system -->
   <div *ngIf="shouldDisplayFormControl('techRecord_fuelPropulsionSystem')" class="govuk-form-group-select">
@@ -236,11 +243,16 @@
     </fieldset>
   </div>
 
-<!--  Vehicle class (HGV/Motorcycle) -->
-  <ng-container *ngIf="shouldDisplayFormControl('techRecord_vehicleClass_description')" [ngTemplateOutlet]="vehicleClass"></ng-container>
+  <!--  Vehicle class (HGV/Motorcycle) -->
+  <ng-container *ngIf="techRecord().techRecord_vehicleType === VehicleTypes.HGV || techRecord().techRecord_vehicleType === VehicleTypes.MOTORCYCLE">
+    <ng-container *ngIf="shouldDisplayFormControl('techRecord_vehicleClass_description')" [ngTemplateOutlet]="vehicleClass"></ng-container>
+  </ng-container>
+
+  <!--  Coupling type (TRL Only) -->
+  <!--  Max load on coupling (TRL Only) -->
 
 
-<!--  Vehicle configuration-->
+  <!--  Vehicle configuration-->
   <div *ngIf="shouldDisplayFormControl('techRecord_vehicleConfiguration')" class="govuk-form-group-select">
     <label tag>
       Vehicle configuration
@@ -361,8 +373,82 @@
 
     <!-- Vehicle Class (PSV) -->
     <ng-template [ngTemplateOutlet]="vehicleClass"></ng-template>
+
+    <!--  Vehicle Size -->
+    <div *ngIf="shouldDisplayFormControl('techRecord_vehicleSize')" class="govuk-form-group-radio">
+      <fieldset>
+        <legend>
+          <h1>
+            Vehicle size
+            <div>
+              <app-tag [type]="TagType.RED">{{ TagTypeLabels.REQUIRED }}</app-tag>
+            </div>
+          </h1>
+          <div class="govuk-hint">
+            The Vehicle Size is calculated automatically based on the number of seats and standing capacity. Only change the Size if you need to
+          </div>
+        </legend>
+        <div data-module="govuk-radios">
+          <div *ngFor="let option of vehicleSizeOptions">
+            <input
+              govukRadio
+              id="techRecord_vehicleSize-{{ option.value }}-radio"
+              formControlName="techRecord_vehicleSize"
+              [value]="option.value"
+              type="radio"
+            />
+            <label
+              for="techRecord_vehicleSize-{{ option.value }}-radio'"
+            >
+              {{ option.label }}
+            </label>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    <!--  Number of Seatbelts -->
+    <div class="govuk-form-group-input" *ngIf="shouldDisplayFormControl('techRecord_numberOfSeatbelts')">
+      <h1>
+        <label tag for="techRecord_numberOfSeatbelts">Number of seat belts</label>
+      </h1>
+      <app-control-errors elementId="techRecord_numberOfSeatbelts" [control]="$any(form.get('techRecord_numberOfSeatbelts'))" />
+      <input type="number" spellcheck="false" id="techRecord_numberOfSeatbelts" [width]="FormNodeWidth.XXS" govukInput formControlName="techRecord_numberOfSeatbelts" />
+    </div>
+
+    <!--  Seatbelt installation approval date / type approved -->
+    <app-date-controls *ngIf="shouldDisplayFormControl('techRecord_seatbeltInstallationApprovalDate')" formControlName="techRecord_seatbeltInstallationApprovalDate" #seatbeltInstallationDate>
+      <div class="govuk-form-group-date" [formGroup]="seatbeltInstallationDate.form">
+        <fieldset role="group">
+          <legend>
+            Seatbelt installation approval date / type approved
+          </legend>
+          <app-control-errors elementId="techRecord_seatbeltInstallationApprovalDate-error" [control]="$any(form.get('techRecord_seatbeltInstallationApprovalDate'))" />
+          <div id="techRecord_seatbeltInstallationApprovalDate">
+            <div>
+              <div>
+                <label id="techRecord_seatbeltInstallationApprovalDate-day-label">Day</label>
+                <input class="govuk-input--width-2" govukDateInput="techRecord_seatbeltInstallationApprovalDate" formControlName="day" />
+              </div>
+            </div>
+            <div>
+              <div>
+                <label id="techRecord_seatbeltInstallationApprovalDate-month-label">Month</label>
+                <input class="govuk-input--width-2" govukDateInput="techRecord_seatbeltInstallationApprovalDate" formControlName="month" />
+              </div>
+            </div>
+            <div>
+              <div>
+                <label id="techRecord_seatbeltInstallationApprovalDate-year-label">Year</label>
+                <input class="govuk-input--width-4" govukDateInput="techRecord_seatbeltInstallationApprovalDate" formControlName="year" />
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </app-date-controls>
   </div>
 
+  <!-- Frame description (TRL Only) -->
 
   <!-- Departmental vehicle marker -->
   <div *ngIf="shouldDisplayFormControl('techRecord_departmentalVehicleMarker')" class="govuk-form-group-radio">
