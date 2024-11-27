@@ -13,4 +13,26 @@ export class VehicleSectionViewComponent {
 
 	techRecord = this.store.selectSignal(techRecord);
 	protected readonly VehicleTypes = VehicleTypes;
+
+	get speedLimiterExemptDisplayValue() {
+		const techRecord = this.techRecord();
+		if (
+			techRecord?.techRecord_vehicleType === VehicleTypes.HGV ||
+			techRecord?.techRecord_vehicleType === VehicleTypes.PSV
+		) {
+			let value;
+			switch (techRecord?.techRecord_speedLimiterMrk) {
+				case true:
+					value = 'Exempt';
+					break;
+				case false:
+					value = 'Not Exempt';
+					break;
+				default:
+					value = '-';
+			}
+			return value;
+		}
+		return '';
+	}
 }
