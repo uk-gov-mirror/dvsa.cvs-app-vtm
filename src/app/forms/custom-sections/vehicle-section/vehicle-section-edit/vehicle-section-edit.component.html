@@ -64,16 +64,23 @@
   <!--  Number of axles -->
   <div *ngIf="shouldDisplayFormControl('techRecord_noOfAxles')" class="govuk-form-group-input">
     <h1>
-      <label tag for="techRecord_noOfAxles"> Number of axles <div>
-        <app-tag [type]="TagType.RED">{{ TagTypeLabels.REQUIRED }}</app-tag>
-      </div></label>
+      <label tag for="techRecord_noOfAxles"> Number of axles 
+        <div>
+          <app-tag [type]="TagType.RED">{{ TagTypeLabels.REQUIRED }}</app-tag>
+        </div>
+      </label>
     </h1>
     <input id="techRecord_noOfAxles" [width]="FormNodeWidth.XXS" govukInput formControlName="techRecord_noOfAxles" />
   </div>
 
   <!-- Vehicle Subclass (LGV/CAR only) -->
   <ng-container *ngIf="shouldDisplayFormControl('techRecord_vehicleSubclass')">
-    <govuk-checkbox-group label="Vehicle Subclass" formControlName="techRecord_vehicleSubclass" [options]="subClassOptions" />
+    <govuk-checkbox-group 
+      label="Vehicle subclass" 
+      formControlName="techRecord_vehicleSubclass" 
+      [options]="subClassOptions"
+      [tags]="[{ label: TagTypeLabels.REQUIRED, colour: TagType.RED }]"
+    ></govuk-checkbox-group>
   </ng-container>
 
   <div class="flex-row">

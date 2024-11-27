@@ -26,6 +26,14 @@
   }
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
 .justify {
   &--flex-start {
     justify-content: flex-start;
