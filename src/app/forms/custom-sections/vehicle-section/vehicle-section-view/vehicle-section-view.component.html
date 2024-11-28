@@ -6,12 +6,14 @@
         {{ vm.techRecord_vehicleType | defaultNullOrEmpty }}
       </dd>
     </div>
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">Date of first registration</dt>
-      <dd class="govuk-summary-list__value" id="test-techRecord_regnDate">
-        {{ vm.techRecord_regnDate | date: 'dd/MM/yyyy'  | defaultNullOrEmpty }}
-      </dd>
-    </div>
+    <ng-container *ngIf="technicalRecordService.getVehicleTypeWithSmallTrl(vm) !== VehicleTypes.SMALL_TRL">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Date of first registration</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_regnDate">
+          {{ vm.techRecord_regnDate | date: 'dd/MM/yyyy'  | defaultNullOrEmpty }}
+        </dd>
+      </div>
+    </ng-container>
     <ng-container *ngIf="
       vm.techRecord_vehicleType === VehicleTypes.TRL
     ">
@@ -35,13 +37,14 @@
       </dd>
     </div>
     <ng-container *ngIf="
-      vm.techRecord_vehicleType === VehicleTypes.CAR ||
-      vm.techRecord_vehicleType === VehicleTypes.LGV
+      (vm.techRecord_vehicleType === VehicleTypes.CAR ||
+      vm.techRecord_vehicleType === VehicleTypes.LGV ||
+      technicalRecordService.getVehicleTypeWithSmallTrl(vm) === VehicleTypes.SMALL_TRL)
     ">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Vehicle subclass</dt>
         <dd class="govuk-summary-list__value" id="test-techRecord_vehicleSubclass">
-          {{ vm.techRecord_vehicleSubclass | defaultNullOrEmpty }}
+          {{ $any(vm).techRecord_vehicleSubclass | defaultNullOrEmpty }}
         </dd>
       </div>
     </ng-container>
@@ -77,7 +80,7 @@
   </ng-container>
   <ng-container *ngIf="
       vm.techRecord_vehicleType === VehicleTypes.HGV ||
-      vm.techRecord_vehicleType === VehicleTypes.TRL">
+      (vm.techRecord_vehicleType === VehicleTypes.TRL && technicalRecordService.getVehicleTypeWithSmallTrl(vm) !== VehicleTypes.SMALL_TRL)">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Road friendly suspension</dt>
         <dd class="govuk-summary-list__value" id="test-techRecord_roadFriendly">
@@ -86,7 +89,7 @@
       </div>
   </ng-container>
     <ng-container *ngIf="
-      vm.techRecord_vehicleType === VehicleTypes.TRL
+      vm.techRecord_vehicleType === VehicleTypes.TRL && technicalRecordService.getVehicleTypeWithSmallTrl(vm) !== VehicleTypes.SMALL_TRL
     ">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Suspension type (optional)</dt>
@@ -127,7 +130,7 @@
   </ng-container>
     <ng-container
       *ngIf="
-      vm.techRecord_vehicleType === VehicleTypes.TRL
+      vm.techRecord_vehicleType === VehicleTypes.TRL && technicalRecordService.getVehicleTypeWithSmallTrl(vm) !== VehicleTypes.SMALL_TRL
     ">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Coupling type (optional)</dt>
@@ -138,7 +141,7 @@
     </ng-container>
     <ng-container
       *ngIf="
-      vm.techRecord_vehicleType === VehicleTypes.TRL
+      vm.techRecord_vehicleType === VehicleTypes.TRL && technicalRecordService.getVehicleTypeWithSmallTrl(vm) !== VehicleTypes.SMALL_TRL
     ">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Max load on coupling (optional)</dt>
@@ -193,7 +196,8 @@
 
     <ng-container
       *ngIf="
-      vm.techRecord_vehicleType === VehicleTypes.TRL
+      vm.techRecord_vehicleType === VehicleTypes.TRL &&
+      technicalRecordService.getVehicleTypeWithSmallTrl(vm) !== VehicleTypes.SMALL_TRL
     ">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Frame description (optional)</dt>
@@ -204,7 +208,8 @@
     </ng-container>
     <ng-container *ngIf="
       vm.techRecord_vehicleType === VehicleTypes.HGV ||
-      vm.techRecord_vehicleType === VehicleTypes.TRL ">
+      (vm.techRecord_vehicleType === VehicleTypes.TRL &&
+      technicalRecordService.getVehicleTypeWithSmallTrl(vm) !== VehicleTypes.SMALL_TRL) ">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Departmental vehicle marker</dt>
         <dd class="govuk-summary-list__value" id="test-techRecord_departmentalVehicleMarker">

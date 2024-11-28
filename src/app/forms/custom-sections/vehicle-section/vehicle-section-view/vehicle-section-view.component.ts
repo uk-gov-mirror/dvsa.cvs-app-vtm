@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { VehicleTypes } from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
+import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { techRecord } from '@store/technical-records';
 
 @Component({
@@ -10,29 +11,8 @@ import { techRecord } from '@store/technical-records';
 })
 export class VehicleSectionViewComponent {
 	store = inject(Store);
+	technicalRecordService = inject(TechnicalRecordService);
 
 	techRecord = this.store.selectSignal(techRecord);
 	protected readonly VehicleTypes = VehicleTypes;
-
-	get speedLimiterExemptDisplayValue() {
-		const techRecord = this.techRecord();
-		if (
-			techRecord?.techRecord_vehicleType === VehicleTypes.HGV ||
-			techRecord?.techRecord_vehicleType === VehicleTypes.PSV
-		) {
-			let value;
-			switch (techRecord?.techRecord_speedLimiterMrk) {
-				case true:
-					value = 'Exempt';
-					break;
-				case false:
-					value = 'Not Exempt';
-					break;
-				default:
-					value = '-';
-			}
-			return value;
-		}
-		return '';
-	}
 }
