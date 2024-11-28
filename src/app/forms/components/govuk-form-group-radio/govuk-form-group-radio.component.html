@@ -1,0 +1,32 @@
+<div class="govuk-form-group-radio">
+  <fieldset>
+    <ng-container *ngIf="controlLabel">
+      <legend>
+        <h1 tag>
+          {{ controlLabel }}
+          <ng-container *ngIf="tags?.length">
+            <div>
+              <app-tag *ngFor="let tag of tags" [type]="tag.colour">{{ tag.label }}</app-tag>
+            </div>
+          </ng-container>
+        </h1>
+      </legend>
+    </ng-container>
+    <div data-module="govuk-radios">
+      <div *ngFor="let option of options">
+        <input
+          govukRadio
+          type="radio"
+          id="techRecord_roadFriendly-{{ option.value }}-radio"
+          formControlName="techRecord_roadFriendly"
+          [value]="option.value"
+        />
+        <label
+          for="techRecord_roadFriendly-{{ option.value }}-radio'"
+        >
+          {{ option.label }}
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
