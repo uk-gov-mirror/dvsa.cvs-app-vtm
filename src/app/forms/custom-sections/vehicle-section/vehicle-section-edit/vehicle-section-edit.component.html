@@ -129,34 +129,41 @@
 
   <div class="flex-row">
     <!-- Speed limiter exempt -->
-    <div *ngIf="shouldDisplayFormControl('techRecord_speedLimiterMrk')" class="govuk-form-group-radio">
-      <fieldset>
-        <legend>
-          <h1 tag>
-            Speed limiter exempt
-            <div>
-              <app-tag [type]="TagType.PURPLE">{{ TagTypeLabels.PLATES }}</app-tag>
-            </div>
-          </h1>
-        </legend>
-        <div data-module="govuk-radios">
-          <div *ngFor="let option of ExemptOrNotOptions">
-            <input
-              id="techRecord_speedLimiterMrk-{{ option.value }}-radio"
-              govukRadio
-              type="radio"
-              formControlName="techRecord_speedLimiterMrk"
-              [value]="option.value"
-            />
-            <label
-             for="techRecord_speedLimiterMrk-{{ option.value }}-radio"
-            >
-              {{ option.label }}
-            </label>
-          </div>
-        </div>
-      </fieldset>
-    </div>
+    <govuk-form-group-radio
+      *ngIf="shouldDisplayFormControl('techRecord_speedLimiterMrk')"
+      [options]="ExemptOrNotOptions"
+      label="Speed limiter exempt"
+      formControlName="techRecord_speedLimiterMrk"
+      [tags]="[{ label: TagTypeLabels.REQUIRED, colour: TagType.RED }]"
+    ></govuk-form-group-radio>
+<!--    <div *ngIf="shouldDisplayFormControl('techRecord_speedLimiterMrk')" class="govuk-form-group-radio">-->
+<!--      <fieldset>-->
+<!--        <legend>-->
+<!--          <h1 tag>-->
+<!--            Speed limiter exempt-->
+<!--            <div>-->
+<!--              <app-tag [type]="TagType.PURPLE">{{ TagTypeLabels.PLATES }}</app-tag>-->
+<!--            </div>-->
+<!--          </h1>-->
+<!--        </legend>-->
+<!--        <div data-module="govuk-radios">-->
+<!--          <div *ngFor="let option of ExemptOrNotOptions">-->
+<!--            <input-->
+<!--              id="techRecord_speedLimiterMrk-{{ option.value }}-radio"-->
+<!--              govukRadio-->
+<!--              type="radio"-->
+<!--              formControlName="techRecord_speedLimiterMrk"-->
+<!--              [value]="option.value"-->
+<!--            />-->
+<!--            <label-->
+<!--             for="techRecord_speedLimiterMrk-{{ option.value }}-radio"-->
+<!--            >-->
+<!--              {{ option.label }}-->
+<!--            </label>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </fieldset>-->
+<!--    </div>-->
 
     <!-- Tacho exempt -->
     <div *ngIf="shouldDisplayFormControl('techRecord_tachoExemptMrk')" class="govuk-form-group-radio">

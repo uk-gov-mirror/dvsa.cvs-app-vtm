@@ -1,6 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, forwardRef, inject } from '@angular/core';
-import { ControlContainer, ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+	ControlContainer,
+	ControlValueAccessor,
+	FormsModule,
+	NG_VALUE_ACCESSOR,
+	ReactiveFormsModule,
+} from '@angular/forms';
 import { MultiOption } from '@models/options.model';
 import { CustomTag } from '@services/dynamic-forms/dynamic-form.types';
 import { SharedModule } from '@shared/shared.module';
@@ -8,7 +14,7 @@ import { SharedModule } from '@shared/shared.module';
 @Component({
 	selector: 'govuk-form-group-radio',
 	standalone: true,
-	imports: [CommonModule, FormsModule, SharedModule],
+	imports: [CommonModule, FormsModule, SharedModule, ReactiveFormsModule],
 	templateUrl: './govuk-form-group-radio.component.html',
 	styleUrls: ['./govuk-form-group-radio.component.scss'],
 	providers: [
@@ -24,7 +30,7 @@ export class GovukFormGroupRadioComponent implements ControlValueAccessor {
 	@Output() focus = new EventEmitter<FocusEvent>();
 
 	@Input()
-	value: unknown[] | null = null;
+	value: string | boolean | number = '';
 
 	@Input()
 	disabled = false;
@@ -38,10 +44,10 @@ export class GovukFormGroupRadioComponent implements ControlValueAccessor {
 	@Input({ alias: 'hint' })
 	controlHint = '';
 
-	@Input({ alias: 'formControlName' })
+	@Input({ alias: 'formControlName', required: true })
 	controlName = '';
 
-	@Input({ alias: 'label' })
+	@Input({ alias: 'label', required: true })
 	controlLabel = '';
 
 	@Input({ alias: 'id' })

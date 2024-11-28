@@ -17,7 +17,7 @@ import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/
 import { getOptionsFromEnum } from '@forms/utils/enum-map';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
 import { CouplingTypeOptions } from '@models/coupling-type-enum';
-import { MultiOptions } from '@models/options.model';
+import { MultiOption, MultiOptions } from '@models/options.model';
 import { EmissionStandard } from '@models/test-types/emissions.enum';
 import {
 	HgvPsvVehicleConfiguration,
@@ -74,7 +74,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 		{ validators: [] }
 	);
 
-	ExemptOrNotOptions = [
+	ExemptOrNotOptions: MultiOption[] = [
 		{ value: true, label: 'Exempt' },
 		{ value: false, label: 'Not exempt' },
 	];
