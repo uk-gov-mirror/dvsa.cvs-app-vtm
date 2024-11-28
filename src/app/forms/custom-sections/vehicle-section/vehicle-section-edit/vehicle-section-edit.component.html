@@ -73,6 +73,36 @@
   </div>
 
   <!--  Date of first use (TRL only) -->
+  <app-date-controls *ngIf="shouldDisplayFormControl('techRecord_firstUseDate')" formControlName="techRecord_firstUseDate" #firstUseDate>
+    <div class="govuk-form-group-date" [formGroup]="firstUseDate.form">
+      <fieldset role="group">
+        <legend>
+          Date of first use
+        </legend>
+        <app-control-errors elementId="techRecord_firstUseDate-error" [control]="$any(form.get('techRecord_firstUseDate'))" />
+        <div id="techRecord_firstUseDate">
+          <div>
+            <div>
+              <label id="techRecord_firstUseDate-day-label">Day</label>
+              <input class="govuk-input--width-2" govukDateInput="techRecord_firstUseDate" formControlName="day" />
+            </div>
+          </div>
+          <div>
+            <div>
+              <label id="techRecord_firstUseDate-month-label">Month</label>
+              <input class="govuk-input--width-2" govukDateInput="techRecord_firstUseDate" formControlName="month" />
+            </div>
+          </div>
+          <div>
+            <div>
+              <label id="techRecord_firstUseDate-year-label">Year</label>
+              <input class="govuk-input--width-4" govukDateInput="techRecord_firstUseDate" formControlName="year" />
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </app-date-controls>
 
   <!--  Number of axles -->
   <div *ngIf="shouldDisplayFormControl('techRecord_noOfAxles')" class="govuk-form-group-input">
@@ -215,6 +245,15 @@
   </div>
 
   <!--  Suspension type (TRL Only) -->
+  <div class="govuk-form-group-select" *ngIf="shouldDisplayFormControl('techRecord_suspensionType')">
+    <label>
+      Suspension type (optional)
+    </label>
+    <app-control-errors elementId="techRecord_suspensionType" [control]="$any(form.get('techRecord_suspensionType'))" />
+    <select govukSelect formControlName="techRecord_suspensionType">
+      <option [value]="option.value" *ngFor="let option of suspensionTypeOptions">{{ option.label }}</option>
+    </select>
+  </div>
 
   <!-- Fuel / propulsion system -->
   <div *ngIf="shouldDisplayFormControl('techRecord_fuelPropulsionSystem')" class="govuk-form-group-select">
@@ -258,7 +297,34 @@
   </ng-container>
 
   <!--  Coupling type (TRL Only) -->
+  <div class="govuk-form-group-select" *ngIf="shouldDisplayFormControl('techRecord_couplingType')">
+    <label>
+      Coupling type (optional)
+    </label>
+    <app-control-errors elementId="techRecord_couplingType" [control]="$any(form.get('techRecord_couplingType'))" />
+    <select govukSelect formControlName="techRecord_couplingType">
+      <option [value]="option.value" *ngFor="let option of CouplingTypeOptions">{{ option.label }}</option>
+    </select>
+  </div>
+
   <!--  Max load on coupling (TRL Only) -->
+  <div *ngIf="shouldDisplayFormControl('techRecord_maxLoadOnCoupling')" class="govuk-form-group-input">
+    <h1>
+      <label id="techRecord_maxLoadOnCoupling-label">
+        Max load on coupling (optional)
+        <div>
+          <app-tag [type]="TagType.PURPLE">{{ TagTypeLabels.PLATES }}</app-tag>
+        </div>
+      </label>
+    </h1>
+    <input
+      appNumberOnly
+      inputmode="numeric"
+      type="number"
+      [width]="FormNodeWidth.XS"
+      govukInput
+      formControlName="techRecord_maxLoadOnCoupling" />
+  </div>
 
 
   <!--  Vehicle configuration-->
@@ -304,6 +370,17 @@
         </div>
       </div>
     </fieldset>
+  </div>
+
+  <!-- Frame description (TRL Only) -->
+  <div *ngIf="shouldDisplayFormControl('techRecord_frameDescription')" class="govuk-form-group-select">
+    <label tag>
+      Frame description (optional)
+    </label>
+    <app-control-errors elementId="techRecord_frameDescription" [control]="$any(form.get('techRecord_frameDescription'))" />
+    <select govukSelect formControlName="techRecord_frameDescription">
+      <option [value]="option.value" *ngFor="let option of frameDescriptionOptions">{{ option.label }}</option>
+    </select>
   </div>
 
   <!-- EU Category -->
@@ -456,8 +533,6 @@
       </div>
     </app-date-controls>
   </div>
-
-  <!-- Frame description (TRL Only) -->
 
   <!-- Departmental vehicle marker -->
   <div *ngIf="shouldDisplayFormControl('techRecord_departmentalVehicleMarker')" class="govuk-form-group-radio">

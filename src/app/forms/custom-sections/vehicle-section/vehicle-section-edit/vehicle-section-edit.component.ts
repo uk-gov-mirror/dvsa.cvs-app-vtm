@@ -16,6 +16,7 @@ import { FuelPropulsionSystem } from '@dvsa/cvs-type-definitions/types/v3/tech-r
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { getOptionsFromEnum } from '@forms/utils/enum-map';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
+import { CouplingTypeOptions } from '@models/coupling-type-enum';
 import { MultiOptions } from '@models/options.model';
 import { EmissionStandard } from '@models/test-types/emissions.enum';
 import {
@@ -24,7 +25,13 @@ import {
 	VehicleConfiguration,
 } from '@models/vehicle-configuration.enum';
 import { VehicleSize } from '@models/vehicle-size.enum';
-import { FuelTypes, V3TechRecordModel, VehicleSubclass, VehicleTypes } from '@models/vehicle-tech-record.model';
+import {
+	FrameDescriptions,
+	FuelTypes,
+	V3TechRecordModel,
+	VehicleSubclass,
+	VehicleTypes,
+} from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
 import { FormNodeWidth, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
@@ -38,6 +45,7 @@ type VehicleSectionForm = Partial<Record<keyof TechRecordType<'hgv' | 'car' | 'p
 	styleUrls: ['./vehicle-section-edit.component.scss'],
 })
 export class VehicleSectionEditComponent implements OnInit, OnDestroy {
+	protected readonly CouplingTypeOptions = CouplingTypeOptions;
 	protected readonly FormNodeWidth = FormNodeWidth;
 	protected readonly TagType = TagType;
 	protected readonly TagTypeLabels = TagTypeLabels;
@@ -347,12 +355,26 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 		];
 	}
 
-	get subClassOptions() {
+	get suspensionTypeOptions(): MultiOptions {
+		return [
+			{ value: 'S', label: 'Steel' },
+			{ value: 'R', label: 'Rubber' },
+			{ value: 'A', label: 'Air' },
+			{ value: 'H', label: 'Hydraulic' },
+			{ value: 'O', label: 'Other' },
+		];
+	}
+
+	get subClassOptions(): MultiOptions {
 		return getOptionsFromEnum(VehicleSubclass);
 	}
 
-	get vehicleSizeOptions() {
+	get vehicleSizeOptions(): MultiOptions {
 		return getOptionsFromEnum(VehicleSize);
+	}
+
+	get frameDescriptionOptions(): MultiOptions {
+		return getOptionsFromEnum(FrameDescriptions);
 	}
 
 	get controlsBasedOffVehicleType() {
@@ -386,7 +408,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 		return !!this.form.get(formControlName);
 	}
 
-	getVehicleType() {
+	getVehicleType(): VehicleTypes {
 		return this.technicalRecordService.getVehicleTypeWithSmallTrl(this.techRecord());
 	}
 
