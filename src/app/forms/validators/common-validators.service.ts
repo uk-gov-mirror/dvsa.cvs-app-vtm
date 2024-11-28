@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ValidatorFn } from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { CustomFormControl } from '@services/dynamic-forms/dynamic-form.types';
 import validateDate from 'validate-govuk-date';
 
 @Injectable({ providedIn: 'root' })
@@ -145,6 +146,18 @@ export class CommonValidatorsService {
 				return { required: message };
 			}
 
+			return null;
+		};
+	}
+
+	xYearsAfterCurrent(xYears: number, message: string): ValidatorFn {
+		return (control: AbstractControl): ValidationErrors | null => {
+			const currentYear = new Date().getFullYear();
+			const inputYear = control.value;
+			const maxYear = currentYear + xYears;
+			if (control instanceof CustomFormControl && inputYear && (inputYear > maxYear || inputYear < 0)) {
+				return { xYearsAfterCurrent: message };
+			}
 			return null;
 		};
 	}

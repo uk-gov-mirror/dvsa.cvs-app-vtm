@@ -43,6 +43,15 @@
   </app-date-controls>
 
   <!--  Month of manufacture (TRL Only) -->
+  <div *ngIf="shouldDisplayFormControl('techRecord_manufactureMonth')" class="govuk-form-group-select">
+    <label>
+      Month of manufacture
+    </label>
+    <app-control-errors elementId="techRecord_manufactureMonth" [control]="$any(form.get('techRecord_manufactureMonth'))" />
+    <select govukSelect formControlName="techRecord_manufactureMonth">
+      <option [value]="option.value" *ngFor="let option of months">{{ option.label }}</option>
+    </select>
+  </div>
 
   <!--  Year of manufacture -->
   <div *ngIf="shouldDisplayFormControl('techRecord_manufactureYear')" class="govuk-form-group-input">
@@ -77,8 +86,8 @@
     <input id="techRecord_noOfAxles" [width]="FormNodeWidth.XXS" govukInput formControlName="techRecord_noOfAxles" />
   </div>
 
-  <!-- Vehicle Subclass (LGV/CAR only) -->
-  <ng-container *ngIf="techRecord().techRecord_vehicleType === VehicleTypes.LGV || techRecord().techRecord_vehicleType === VehicleTypes.CAR">
+  <!-- Vehicle Subclass (LGV/CAR/Small TRL only) -->
+  <ng-container *ngIf="shouldShowSubclass">
     <govuk-checkbox-group
       *ngIf="shouldDisplayFormControl('techRecord_vehicleSubclass')"
       label="Vehicle subclass"
@@ -243,8 +252,8 @@
     </fieldset>
   </div>
 
-  <!--  Vehicle class (HGV/Motorcycle) -->
-  <ng-container *ngIf="techRecord().techRecord_vehicleType === VehicleTypes.HGV || techRecord().techRecord_vehicleType === VehicleTypes.MOTORCYCLE">
+  <!--  Vehicle class (HGV/Motorcycle/Small TRL/TRL Only) -->
+  <ng-container *ngIf="shouldShowClass">
     <ng-container *ngIf="shouldDisplayFormControl('techRecord_vehicleClass_description')" [ngTemplateOutlet]="vehicleClass"></ng-container>
   </ng-container>
 
@@ -307,7 +316,7 @@
   </div>
 
   <!-- Number of wheels (Motorcycle only) -->
-  <ng-container *ngIf="techRecord().techRecord_vehicleType === VehicleTypes.MOTORCYCLE">
+  <ng-container *ngIf="getVehicleType() === VehicleTypes.MOTORCYCLE">
     <div *ngIf="shouldDisplayFormControl('techRecord_numberOfWheelsDriven')" class="govuk-form-group-input">
       <h1>
         <label tag for="techRecord_numberOfWheelsDriven"> Number of wheels <div>
@@ -328,7 +337,7 @@
   </div>
 
   <!-- PSV Only Fields -->
-  <div class="govuk-form-group-split-controls" *ngIf="techRecord()?.techRecord_vehicleType === VehicleTypes.PSV">
+  <div class="govuk-form-group-split-controls" *ngIf="getVehicleType() === VehicleTypes.PSV">
     <h1>
       <label>Seats:</label>
     </h1>
@@ -512,7 +521,7 @@
           <app-tag [type]="TagType.RED">{{ TagTypeLabels.REQUIRED }}</app-tag>
         </div>
       </label>
-      <div *ngIf="techRecord()?.techRecord_vehicleType === VehicleTypes.PSV" class="govuk-hint">
+      <div *ngIf="getVehicleType() === VehicleTypes.PSV" class="govuk-hint">
         The Vehicle Class is calculated automatically based on the number of seats and standing capacity.
         Only change the Class if you need to
       </div>
