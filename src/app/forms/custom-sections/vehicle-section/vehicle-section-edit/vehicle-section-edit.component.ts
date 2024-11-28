@@ -108,7 +108,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 		const parent = this.controlContainer.control;
 		if (parent instanceof FormGroup) {
 			for (const key of Object.keys(this.form.controls)) {
-				parent.removeControl(key);
+				parent.removeControl(key, { emitEvent: false });
 			}
 		}
 
@@ -400,7 +400,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 	addControlsBasedOffVehicleType() {
 		const vehicleControls = this.controlsBasedOffVehicleType;
 		for (const [key, control] of Object.entries(vehicleControls)) {
-			this.form.addControl(key, control);
+			this.form.addControl(key, control, { emitEvent: false });
 		}
 	}
 
