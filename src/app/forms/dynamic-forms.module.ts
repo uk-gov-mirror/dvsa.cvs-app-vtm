@@ -12,7 +12,6 @@ import { DateFocusNextDirective } from '@directives/date-focus-next/date-focus-n
 import { PrefixDirective } from '@directives/prefix/prefix.directive';
 import { SuffixDirective } from '@directives/suffix/suffix.directive';
 import { ApprovalTypeInputComponent } from '@forms/components/approval-type/approval-type.component';
-import { GovukFormGroupRadioComponent } from '@forms/components/govuk-form-group-radio/govuk-form-group-radio.component';
 import { AdrCertificateHistoryComponent } from '@forms/custom-sections/adr-certificate-history/adr-certificate-history.component';
 import { AdrExaminerNotesHistoryEditComponent } from '@forms/custom-sections/adr-examiner-notes-history-edit/adr-examiner-notes-history.component-edit';
 import { AdrPermittedDangerousGoodsComponent } from '@forms/custom-sections/adr-permitted-dangerous-goods/adr-permitted-dangerous-goods.component';
@@ -38,6 +37,7 @@ import { DynamicFormGroupComponent } from './components/dynamic-form-group/dynam
 import { FieldErrorMessageComponent } from './components/field-error-message/field-error-message.component';
 import { FieldWarningMessageComponent } from './components/field-warning-message/field-warning-message.component';
 import { GovukCheckboxGroupComponent } from './components/govuk-checkbox-group/govuk-checkbox-group.component';
+import { GovukFormGroupRadioComponent } from './components/govuk-form-group-radio/govuk-form-group-radio.component';
 import { NumberInputComponent } from './components/number-input/number-input.component';
 import { RadioGroupComponent } from './components/radio-group/radio-group.component';
 import { ReadOnlyComponent } from './components/read-only/read-only.component';

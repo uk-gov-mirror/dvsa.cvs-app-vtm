@@ -14,7 +14,7 @@ import { SharedModule } from '@shared/shared.module';
 @Component({
 	selector: 'govuk-form-group-radio',
 	standalone: true,
-	imports: [CommonModule, FormsModule, SharedModule, ReactiveFormsModule],
+	imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule],
 	templateUrl: './govuk-form-group-radio.component.html',
 	styleUrls: ['./govuk-form-group-radio.component.scss'],
 	providers: [
@@ -30,7 +30,7 @@ export class GovukFormGroupRadioComponent implements ControlValueAccessor {
 	@Output() focus = new EventEmitter<FocusEvent>();
 
 	@Input()
-	value: string | boolean | number = '';
+	value: string | number | boolean | null = null;
 
 	@Input()
 	disabled = false;
