@@ -17,6 +17,7 @@ describe('AdrSectionEditComponent', () => {
 	let component: AdrSectionEditComponent;
 	let fixture: ComponentFixture<AdrSectionEditComponent>;
 	let formGroupDirective: FormGroupDirective;
+	let store: MockStore;
 
 	beforeEach(async () => {
 		formGroupDirective = new FormGroupDirective([], []);
