@@ -134,7 +134,7 @@
       label="Speed limiter exempt"
       formControlName="techRecord_speedLimiterMrk"
       [options]="EXEMPT_OR_NOT_OPTIONS"
-      [tags]="[{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }]"
+      [tags]="[showTagBasedOnVehicleTypes([VehicleTypes.HGV], { colour: TagType.PURPLE, label: TagTypeLabels.PLATES })]"
     ></govuk-form-group-radio>
 
     <!-- Tacho exempt -->
