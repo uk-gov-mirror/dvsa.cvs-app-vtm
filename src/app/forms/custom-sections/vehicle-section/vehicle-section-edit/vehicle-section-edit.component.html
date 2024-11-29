@@ -347,7 +347,11 @@
       formControlName="techRecord_vehicleSize"
       [options]="vehicleSizeOptions"
       [tags]="[{ colour: TagType.RED, label: TagTypeLabels.REQUIRED }]"
-    ></govuk-form-group-radio>
+    >
+      <div class="govuk-hint">
+        The Vehicle Size is calculated automatically based on the number of seats and standing capacity. Only change the Size if you need to
+      </div>
+    </govuk-form-group-radio>
 
     <!--  Number of Seatbelts -->
     <div class="govuk-form-group-input" *ngIf="shouldDisplayFormControl('techRecord_numberOfSeatbelts')">
