@@ -128,99 +128,40 @@
   </ng-container>
 
   <div class="flex-row">
+    <!-- Speed limiter exempt -->
     <govuk-form-group-radio
       *ngIf="shouldDisplayFormControl('techRecord_speedLimiterMrk')"
       label="Speed limiter exempt"
-      formControlName="techRecord_speedLimiterMrk" 
+      formControlName="techRecord_speedLimiterMrk"
       [options]="ExemptOrNotOptions"
       [tags]="[{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }]"
     ></govuk-form-group-radio>
 
     <!-- Tacho exempt -->
-    <div *ngIf="shouldDisplayFormControl('techRecord_tachoExemptMrk')" class="govuk-form-group-radio">
-      <fieldset>
-        <legend>
-          <h1>
-            Tacho exempt
-          </h1>
-        </legend>
-        <div data-module="govuk-radios">
-          <div *ngFor="let option of ExemptOrNotOptions">
-            <input
-              id="techRecord_tachoExemptMrk-{{ option.value }}-radio"
-              formControlName="techRecord_tachoExemptMrk"
-              [value]="option.value"
-              govukRadio
-              type="radio"
-            />
-            <label
-              for="techRecord_tachoExemptMrk-{{ option.value }}-radio'"
-            >
-              {{ option.label }}
-            </label>
-          </div>
-        </div>
-      </fieldset>
-    </div>
+    <govuk-form-group-radio
+      *ngIf="shouldDisplayFormControl('techRecord_tachoExemptMrk')"
+      label="Tacho exempt"
+      formControlName="techRecord_tachoExemptMrk"
+      [options]="ExemptOrNotOptions"
+    ></govuk-form-group-radio>
   </div>
 
   <!-- Euro standard -->
-  <div *ngIf="shouldDisplayFormControl('techRecord_euroStandard')" class="govuk-form-group-radio">
-    <fieldset>
-      <legend>
-        <h1>
-          Euro standard
-        </h1>
-      </legend>
-      <div data-module="govuk-radios">
-        <div *ngFor="let option of euroStandardOptions">
-          <input
-            id="techRecord_euroStandard-{{ option.value }}-radio"
-            formControlName="techRecord_euroStandard"
-            [value]="option.value"
-            govukRadio
-            type="radio"
-          />
-          <label
-            for="techRecord_euroStandard-{{ option.value }}-radio'"
-          >
-            {{ option.label }}
-          </label>
-        </div>
-      </div>
-    </fieldset>
-  </div>
-
+  <govuk-form-group-radio
+    *ngIf="shouldDisplayFormControl('techRecord_euroStandard')"
+    label="Euro standard"
+    formControlName="techRecord_euroStandard"
+    [options]="euroStandardOptions"
+  ></govuk-form-group-radio>
 
   <!-- Road friendly suspension -->
-  <div *ngIf="shouldDisplayFormControl('techRecord_roadFriendly')" class="govuk-form-group-radio">
-    <fieldset>
-      <legend>
-        <h1 tag>
-          Road friendly suspension
-          <div>
-            <app-tag [type]="TagType.PURPLE">{{ TagTypeLabels.PLATES }}</app-tag>
-          </div>
-        </h1>
-      </legend>
-      <div data-module="govuk-radios">
-        <div *ngFor="let option of YesNoOptions">
-          <input
-            govukRadio
-            type="radio"
-            id="techRecord_roadFriendly-{{ option.value }}-radio"
-            formControlName="techRecord_roadFriendly"
-            [value]="option.value"
-          />
-          <label
-            for="techRecord_roadFriendly-{{ option.value }}-radio'"
-          >
-            {{ option.label }}
-          </label>
-        </div>
-      </div>
-    </fieldset>
-  </div>
+  <govuk-form-group-radio
+    *ngIf="shouldDisplayFormControl('techRecord_roadFriendly')"
+    label="Road friendly suspension"
+    formControlName="techRecord_roadFriendly"
+    [options]="YesNoOptions"
+    [tags]="[{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }]"
+  ></govuk-form-group-radio>
 
   <!--  Suspension type (TRL Only) -->
   <div class="govuk-form-group-select" *ngIf="shouldDisplayFormControl('techRecord_suspensionType')">
@@ -243,31 +184,12 @@
   </div>
 
   <!-- Drawbar coupling fitted -->
-  <div *ngIf="shouldDisplayFormControl('techRecord_drawbarCouplingFitted')" class="govuk-form-group-radio">
-    <fieldset>
-      <legend>
-        <h1>
-          Drawbar coupling fitted
-        </h1>
-      </legend>
-      <div data-module="govuk-radios">
-        <div *ngFor="let option of YesNoOptions">
-          <input
-            govukRadio
-            type="radio"
-            id="techRecord_drawbarCouplingFitted-{{ option.value }}-radio"
-            formControlName="techRecord_drawbarCouplingFitted"
-            [value]="option.value"
-          />
-          <label
-            for="techRecord_drawbarCouplingFitted-{{ option.value }}-radio'"
-          >
-            {{ option.label }}
-          </label>
-        </div>
-      </div>
-    </fieldset>
-  </div>
+  <govuk-form-group-radio
+    *ngIf="shouldDisplayFormControl('techRecord_drawbarCouplingFitted')"
+    label="Drawbar coupling fitted"
+    formControlName="techRecord_drawbarCouplingFitted"
+    [options]="YesNoOptions"
+  ></govuk-form-group-radio>
 
   <!--  Vehicle class (HGV/Motorcycle/Small TRL/TRL Only) -->
   <ng-container *ngIf="shouldShowClass">
@@ -323,32 +245,12 @@
   </div>
 
 <!-- Off road vehicle -->
-  <div *ngIf="shouldDisplayFormControl('techRecord_offRoad')" class="govuk-form-group-radio">
-    <fieldset>
-      <legend>
-        <h1>
-          Off road vehicle
-        </h1>
-      </legend>
-      <div data-module="govuk-radios">
-        <div *ngFor="let option of YesNoOptions">
-          <input
-            govukRadio
-            id="techRecord_offRoad-{{ option.value }}-radio"
-            name="techRecord_offRoad-{{ option.value }}-radio"
-            formControlName="techRecord_offRoad"
-            [value]="option.value"
-            type="radio"
-          />
-          <label
-            for="techRecord_offRoad-{{ option.value }}-radio'"
-          >
-            {{ option.label }}
-          </label>
-        </div>
-      </div>
-    </fieldset>
-  </div>
+  <govuk-form-group-radio
+    *ngIf="shouldDisplayFormControl('techRecord_offRoad')"
+    label="Off road vehicle"
+    formControlName="techRecord_offRoad"
+    [options]="YesNoOptions"
+  ></govuk-form-group-radio>
 
   <!-- Frame description (TRL Only) -->
   <div *ngIf="shouldDisplayFormControl('techRecord_frameDescription')" class="govuk-form-group-select">
@@ -439,37 +341,14 @@
     <ng-template [ngTemplateOutlet]="vehicleClass"></ng-template>
 
     <!--  Vehicle Size -->
-    <div *ngIf="shouldDisplayFormControl('techRecord_vehicleSize')" class="govuk-form-group-radio">
-      <fieldset>
-        <legend>
-          <h1>
-            Vehicle size
-            <div>
-              <app-tag [type]="TagType.RED">{{ TagTypeLabels.REQUIRED }}</app-tag>
-            </div>
-          </h1>
-          <div class="govuk-hint">
-            The Vehicle Size is calculated automatically based on the number of seats and standing capacity. Only change the Size if you need to
-          </div>
-        </legend>
-        <div data-module="govuk-radios">
-          <div *ngFor="let option of vehicleSizeOptions">
-            <input
-              govukRadio
-              id="techRecord_vehicleSize-{{ option.value }}-radio"
-              formControlName="techRecord_vehicleSize"
-              [value]="option.value"
-              type="radio"
-            />
-            <label
-              for="techRecord_vehicleSize-{{ option.value }}-radio'"
-            >
-              {{ option.label }}
-            </label>
-          </div>
-        </div>
-      </fieldset>
-    </div>
+    <govuk-form-group-radio
+      *ngIf="shouldDisplayFormControl('techRecord_vehicleSize')"
+      label="Vehicle size"
+      formControlName="techRecord_vehicleSize"
+      [options]="vehicleSizeOptions"
+      [tags]="[{ colour: TagType.RED, label: TagTypeLabels.REQUIRED }]"
+    ></govuk-form-group-radio>
+
     <!--  Number of Seatbelts -->
     <div class="govuk-form-group-input" *ngIf="shouldDisplayFormControl('techRecord_numberOfSeatbelts')">
       <h1>
@@ -513,58 +392,20 @@
   </div>
 
   <!-- Departmental vehicle marker -->
-  <div *ngIf="shouldDisplayFormControl('techRecord_departmentalVehicleMarker')" class="govuk-form-group-radio">
-    <fieldset>
-      <legend>
-        <h1>
-          Departmental vehicle marker
-        </h1>
-      </legend>
-      <div data-module="govuk-radios">
-        <div *ngFor="let option of YesNoOptions">
-          <input
-            govukRadio
-            id="techRecord_departmentalVehicleMarker-{{ option.value }}-radio"
-            formControlName="techRecord_departmentalVehicleMarker"
-            [value]="option.value"
-            type="radio"
-          />
-          <label
-            for="techRecord_departmentalVehicleMarker-{{ option.value }}-radio'"
-          >
-            {{ option.label }}
-          </label>
-        </div>
-      </div>
-    </fieldset>
-  </div>
+  <govuk-form-group-radio
+    *ngIf="shouldDisplayFormControl('techRecord_departmentalVehicleMarker')"
+    label="Departmental vehicle marker"
+    formControlName="techRecord_departmentalVehicleMarker"
+    [options]="YesNoOptions"
+  ></govuk-form-group-radio>
 
   <!-- Alteration marker -->
-  <div *ngIf="shouldDisplayFormControl('techRecord_alterationMarker')" class="govuk-form-group-radio">
-    <fieldset>
-      <legend>
-        <h1>
-          Alteration marker
-        </h1>
-      </legend>
-      <div data-module="govuk-radios">
-        <div *ngFor="let option of YesNoOptions">
-          <input
-            govukRadio
-            id="techRecord_alterationMarker-{{ option.value }}-radio"
-            formControlName="techRecord_alterationMarker"
-            [value]="option.value"
-            type="radio"
-          />
-          <label
-            for="techRecord_alterationMarker-{{ option.value }}-radio'"
-          >
-            {{ option.label }}
-          </label>
-        </div>
-      </div>
-    </fieldset>
-  </div>
+  <govuk-form-group-radio
+    *ngIf="shouldDisplayFormControl('techRecord_alterationMarker')"
+    label="Alteration marker"
+    formControlName="techRecord_alterationMarker"
+    [options]="YesNoOptions"
+  ></govuk-form-group-radio>
 
   <ng-template #vehicleClass>
     <div  class="govuk-form-group-select">
