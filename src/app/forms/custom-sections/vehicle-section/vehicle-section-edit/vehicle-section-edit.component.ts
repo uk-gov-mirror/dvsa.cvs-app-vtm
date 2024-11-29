@@ -37,7 +37,7 @@ import {
 import { VehicleConfiguration } from '@models/vehicle-configuration.enum';
 import { V3TechRecordModel, VehicleSizes, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
-import { CustomTag, FormNodeWidth, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
+import { FormNodeWidth, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { ReplaySubject } from 'rxjs';
 
@@ -409,7 +409,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 		);
 	}
 
-	showTagBasedOnVehicleTypes(vehicleTypes: VehicleTypes[], tagsToDisplay: CustomTag): CustomTag {
-		if (vehicleTypes.includes(this.getVehicleType())) return tagsToDisplay;
-	}
+	// showTagBasedOnVehicleTypes(vehicleTypes: VehicleTypes[], tagsToDisplay: CustomTag): CustomTag {
+	// 	if (vehicleTypes.includes(this.getVehicleType())) return tagsToDisplay;
+	// }
 }
