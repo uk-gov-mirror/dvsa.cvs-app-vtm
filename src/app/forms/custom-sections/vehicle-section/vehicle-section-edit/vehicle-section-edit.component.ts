@@ -80,7 +80,10 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 			techRecord_manufactureYear: this.fb.control<number | null>(null, [
 				this.commonValidators.max(9999, 'Year of manufacture must be less than or equal to 9999'),
 				this.commonValidators.min(1000, 'Year of manufacture must be greater than or equal to 1000'),
-				this.commonValidators.pastYear('Year of manufacture must be the current or a past year'),
+				this.commonValidators.xYearsAfterCurrent(
+					1,
+					`Year of manufacture must be equal to or before ${new Date().getFullYear() + 1}`
+				),
 			]),
 			techRecord_statusCode: this.fb.control<string | null>(null),
 			techRecord_vehicleType: this.fb.control<VehicleTypes | null>({ value: null, disabled: true }),
@@ -134,7 +137,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 			techRecord_vehicleClass_description: this.fb.control<string | null>(null, [
 				this.commonValidators.required('Vehicle class is required'),
 			]),
-			techRecord_regnDate: this.fb.control<string | null>(null),
+			techRecord_regnDate: this.fb.control<string | null>(null, [this.commonValidators.date('Date processed')]),
 			techRecord_noOfAxles: this.fb.control<number | null>({ value: null, disabled: true }),
 		};
 	}
@@ -176,7 +179,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 			techRecord_seatbeltInstallationApprovalDate: this.fb.control<string | null>(null, [
 				this.commonValidators.pastDate('Seatbelt installation approval date / type approved must be in the past'),
 			]),
-			techRecord_regnDate: this.fb.control<string | null>(null),
+			techRecord_regnDate: this.fb.control<string | null>(null, [this.commonValidators.date('Date processed')]),
 			techRecord_noOfAxles: this.fb.control<number | null>({ value: null, disabled: true }),
 		};
 	}
@@ -199,18 +202,9 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 				this.commonValidators.max(99999, 'Max load on coupling (optional) must be less than or equal to 99999'),
 			]),
 			techRecord_frameDescription: this.fb.control<string | null>(null),
-			techRecord_regnDate: this.fb.control<string | null>(null, [
-				this.commonValidators.pastDate('Date of first registration must be the current or a past year'),
-			]),
+			techRecord_regnDate: this.fb.control<string | null>(null, [this.commonValidators.date('Date processed')]),
 			techRecord_noOfAxles: this.fb.control<number | null>({ value: null, disabled: true }),
-			techRecord_manufactureMonth: this.fb.control<string | null>(null, [
-				this.commonValidators.max(9999, 'Year of manufacture must be less than or equal to 9999'),
-				this.commonValidators.min(1000, 'Year of manufacture must be greater than or equal to 1000'),
-				this.commonValidators.xYearsAfterCurrent(
-					1,
-					`Year of manufacture must be equal to or before ${new Date().getFullYear() + 1}`
-				),
-			]),
+			techRecord_manufactureMonth: this.fb.control<string | null>(null),
 		};
 	}
 
@@ -218,14 +212,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 		return {
 			techRecord_vehicleSubclass: this.fb.control<string[] | null>(null),
 			techRecord_vehicleConfiguration: this.fb.control<VehicleConfiguration | null>(null),
-			techRecord_manufactureMonth: this.fb.control<string | null>(null, [
-				this.commonValidators.max(9999, 'Year of manufacture must be less than or equal to 9999'),
-				this.commonValidators.min(1000, 'Year of manufacture must be greater than or equal to 1000'),
-				this.commonValidators.xYearsAfterCurrent(
-					1,
-					`Year of manufacture must be equal to or before ${new Date().getFullYear() + 1}`
-				),
-			]),
+			techRecord_manufactureMonth: this.fb.control<string | null>(null),
 			techRecord_vehicleClass_description: this.fb.control<string | null>(null, [
 				this.commonValidators.required('Vehicle class is required'),
 			]),
@@ -238,7 +225,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 	get lgvAndCarFields(): Partial<Record<keyof TechRecordType<'lgv' | 'car'>, FormControl>> {
 		return {
 			techRecord_vehicleSubclass: this.fb.control<string[] | null>(null),
-			techRecord_regnDate: this.fb.control<string | null>(null),
+			techRecord_regnDate: this.fb.control<string | null>(null, [this.commonValidators.date('Date processed')]),
 			techRecord_vehicleConfiguration: this.fb.control<VehicleConfiguration | null>(null, [
 				this.commonValidators.required('Vehicle configuration is required'),
 			]),
@@ -261,7 +248,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 			techRecord_vehicleConfiguration: this.fb.control<VehicleConfiguration | null>(null, [
 				this.commonValidators.required('Vehicle configuration is required'),
 			]),
-			techRecord_regnDate: this.fb.control<string | null>(null),
+			techRecord_regnDate: this.fb.control<string | null>(null, [this.commonValidators.date('Date processed')]),
 			techRecord_noOfAxles: this.fb.control<number | null>(null, [
 				this.commonValidators.max(99, 'Number of axles must be less than or equal to 99'),
 			]),
