@@ -12,6 +12,7 @@ import { TagType } from '@components/tag/tag.component';
 import { VehicleClassDescription } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/vehicleClassDescription.enum';
 import { FuelPropulsionSystem } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/hgv/complete';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
+import { TechRecordType as TechRecordTypeVerb } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
 import { CouplingTypeOptions } from '@models/coupling-type-enum';
 import {
@@ -39,7 +40,7 @@ import { V3TechRecordModel, VehicleSizes, VehicleTypes } from '@models/vehicle-t
 import { Store } from '@ngrx/store';
 import { FormNodeWidth, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
-import { ReplaySubject } from 'rxjs';
+import { ReplaySubject, takeUntil } from 'rxjs';
 
 type VehicleSectionForm = Partial<Record<keyof TechRecordType<'hgv' | 'car' | 'psv' | 'lgv' | 'trl'>, FormControl>>;
 
@@ -73,23 +74,20 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 
 	destroy$ = new ReplaySubject<boolean>(1);
 
-	form = this.fb.group<VehicleSectionForm>(
-		{
-			// base properties that belong to all vehicle types
-			techRecord_euVehicleCategory: this.fb.control<string | null>(null),
-			techRecord_manufactureYear: this.fb.control<number | null>(null, [
-				this.commonValidators.max(9999, 'Year of manufacture must be less than or equal to 9999'),
-				this.commonValidators.min(1000, 'Year of manufacture must be greater than or equal to 1000'),
-				this.commonValidators.xYearsAfterCurrent(
-					1,
-					`Year of manufacture must be equal to or before ${new Date().getFullYear() + 1}`
-				),
-			]),
-			techRecord_statusCode: this.fb.control<string | null>(null),
-			techRecord_vehicleType: this.fb.control<VehicleTypes | null>({ value: null, disabled: true }),
-		},
-		{ validators: [] }
-	);
+	form = this.fb.group<VehicleSectionForm>({
+		// base properties that belong to all vehicle types
+		techRecord_euVehicleCategory: this.fb.control<string | null>(null),
+		techRecord_manufactureYear: this.fb.control<number | null>(null, [
+			this.commonValidators.max(9999, 'Year of manufacture must be less than or equal to 9999'),
+			this.commonValidators.min(1000, 'Year of manufacture must be greater than or equal to 1000'),
+			this.commonValidators.xYearsAfterCurrent(
+				1,
+				`Year of manufacture must be equal to or before ${new Date().getFullYear() + 1}`
+			),
+		]),
+		techRecord_statusCode: this.fb.control<string | null>(null),
+		techRecord_vehicleType: this.fb.control<VehicleTypes | null>({ value: null, disabled: true }),
+	});
 
 	ngOnInit(): void {
 		this.addControlsBasedOffVehicleType();
@@ -101,7 +99,8 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 				parent.addControl(key, control, { emitEvent: false });
 			}
 		}
-		console.log('this.form', this.form);
+
+		this.handleUpdateFunctionCode();
 	}
 
 	ngOnDestroy(): void {
@@ -123,7 +122,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 			techRecord_alterationMarker: this.fb.control<boolean | null>(null),
 			techRecord_departmentalVehicleMarker: this.fb.control<boolean | null>(null),
 			techRecord_drawbarCouplingFitted: this.fb.control<boolean | null>(null),
-			techRecord_vehicleConfiguration: this.fb.control<VehicleConfiguration | null>(null, [this.updateFunctionCode()]),
+			techRecord_vehicleConfiguration: this.fb.control<VehicleConfiguration | null>(null),
 			techRecord_emissionsLimit: this.fb.control<number | null>(null, [
 				this.commonValidators.max(99, 'Emission limit (m-1) (plate value) must be less than or equal to 99'),
 				this.commonValidators.pattern(/^\d*(\.\d{0,5})?$/, 'Emission limit (m-1) (plate value) Max 5 decimal places'),
@@ -149,7 +148,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 			techRecord_euroStandard: this.fb.control<string | null>(null),
 			techRecord_alterationMarker: this.fb.control<boolean | null>(null),
 			techRecord_departmentalVehicleMarker: this.fb.control<boolean | null>(null),
-			techRecord_vehicleConfiguration: this.fb.control<VehicleConfiguration | null>(null, [this.updateFunctionCode()]),
+			techRecord_vehicleConfiguration: this.fb.control<VehicleConfiguration | null>(null),
 			techRecord_emissionsLimit: this.fb.control<number | null>(null, [
 				this.commonValidators.max(99, 'Emission limit (m-1) (plate value) must be less than or equal to 99'),
 				this.commonValidators.pattern(/^\d*(\.\d{0,5})?$/, 'Emission limit (m-1) (plate value) Max 5 decimal places'),
@@ -194,7 +193,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 			techRecord_roadFriendly: this.fb.control<boolean | null>(null),
 			techRecord_firstUseDate: this.fb.control<string | null>(null),
 			techRecord_suspensionType: this.fb.control<string | null>(null),
-			techRecord_vehicleConfiguration: this.fb.control<VehicleConfiguration | null>(null, [this.updateFunctionCode()]),
+			techRecord_vehicleConfiguration: this.fb.control<VehicleConfiguration | null>(null),
 			techRecord_couplingType: this.fb.control<string | null>(null, [
 				this.commonValidators.maxLength(1, 'Coupling type (optional) must be less than or equal to 1 characters'),
 			]),
@@ -255,21 +254,24 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 		};
 	}
 
-	updateFunctionCode(): ValidatorFn {
-		return (control: AbstractControl): ValidationErrors | null => {
-			const vehicleFunctionCode = control.root.get('techRecord_functionCode');
-			const functionCodes: Record<string, string> = {
-				rigid: 'R',
-				articulated: 'A',
-				'semi-trailer': 'A',
-			};
+	handleUpdateFunctionCode() {
+		this.form.controls.techRecord_vehicleConfiguration?.valueChanges
+			.pipe(takeUntil(this.destroy$))
+			.subscribe((value) => {
+				if (value) {
+					const functionCodes: Record<string, string> = {
+						rigid: 'R',
+						articulated: 'A',
+						'semi-trailer': 'A',
+					};
 
-			if (vehicleFunctionCode && control.dirty) {
-				vehicleFunctionCode.setValue(functionCodes[control.value], { emitEvent: false });
-				control.markAsPristine();
-			}
-			return null;
-		};
+					const functionCode = functionCodes[value];
+
+					this.technicalRecordService.updateEditingTechRecord({
+						techRecord_functionCode: functionCode,
+					} as TechRecordTypeVerb<'put'>);
+				}
+			});
 	}
 
 	handlePsvPassengersChange(): ValidatorFn {
