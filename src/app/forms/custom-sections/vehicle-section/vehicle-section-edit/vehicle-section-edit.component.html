@@ -129,13 +129,21 @@
   </ng-container>
 
   <div class="flex-row">
-    <!-- Speed limiter exempt -->
+    <!-- Speed limiter exempt for HGV (required to generate plates) -->
     <govuk-form-group-radio
-      *ngIf="shouldDisplayFormControl('techRecord_speedLimiterMrk')"
+      *ngIf="techRecord().techRecord_vehicleType === VehicleTypes.HGV"
       label="Speed limiter exempt"
       formControlName="techRecord_speedLimiterMrk"
       [options]="EXEMPT_OR_NOT_OPTIONS"
       [tags]="[{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }]"
+    ></govuk-form-group-radio>
+
+    <!-- Speed limiter exempt for PSV -->
+    <govuk-form-group-radio
+      *ngIf="techRecord().techRecord_vehicleType === VehicleTypes.PSV"
+      label="Speed limiter exempt"
+      formControlName="techRecord_speedLimiterMrk"
+      [options]="EXEMPT_OR_NOT_OPTIONS"
     ></govuk-form-group-radio>
 
     <!-- Tacho exempt -->
