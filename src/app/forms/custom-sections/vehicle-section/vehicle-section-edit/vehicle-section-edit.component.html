@@ -232,12 +232,8 @@
   <div *ngIf="shouldDisplayFormControl('techRecord_vehicleConfiguration')" class="govuk-form-group-select">
     <label tag>
       Vehicle configuration
-      <div>
-        <app-tag [type]="TagType.RED">{{ TagTypeLabels.REQUIRED }}</app-tag>
-      </div>
-      <div>
-        <app-tag [type]="TagType.PURPLE">{{ TagTypeLabels.PLATES }}</app-tag>
-      </div>
+      <app-tag [type]="TagType.RED">{{ TagTypeLabels.REQUIRED }}</app-tag>
+      <app-tag [type]="TagType.PURPLE">{{ TagTypeLabels.PLATES }}</app-tag>
     </label>
     <app-control-errors elementId="techRecord_vehicleConfiguration" [control]="$any(form.get('techRecord_vehicleConfiguration'))" />
     <select govukSelect formControlName="techRecord_vehicleConfiguration">
@@ -414,9 +410,7 @@
     <div  class="govuk-form-group-select">
       <label tag>
         Vehicle class
-        <div>
-          <app-tag [type]="TagType.RED">{{ TagTypeLabels.REQUIRED }}</app-tag>
-        </div>
+        <app-tag [type]="TagType.RED">{{ TagTypeLabels.REQUIRED }}</app-tag>
       </label>
       <div *ngIf="getVehicleType() === VehicleTypes.PSV" class="govuk-hint">
         The Vehicle Class is calculated automatically based on the number of seats and standing capacity.
