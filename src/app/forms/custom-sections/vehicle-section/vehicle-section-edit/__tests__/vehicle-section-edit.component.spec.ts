@@ -2,8 +2,18 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ControlContainer, FormGroup, FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+	AbstractControl,
+	ControlContainer,
+	FormControl,
+	FormGroup,
+	FormGroupDirective,
+	FormsModule,
+	ReactiveFormsModule,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { VehicleClassDescription } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/vehicleClassDescription.enum.js';
+import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { VehicleSectionEditComponent } from '@forms/custom-sections/vehicle-section/vehicle-section-edit/vehicle-section-edit.component';
 import { DynamicFormsModule } from '@forms/dynamic-forms.module';
 import { mockVehicleTechnicalRecord } from '@mocks/mock-vehicle-technical-record.mock';
@@ -12,7 +22,7 @@ import {
 	PSV_EU_VEHICLE_CATEGORY_OPTIONS,
 	TRL_VEHICLE_CONFIGURATION_OPTIONS,
 } from '@models/options.model';
-import { V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
+import { V3TechRecordModel, VehicleSizes, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { initialAppState } from '@store/index';
@@ -29,7 +39,9 @@ describe('VehicleSectionEditComponent', () => {
 
 	beforeEach(async () => {
 		formGroupDirective = new FormGroupDirective([], []);
-		formGroupDirective.form = new FormGroup({});
+		formGroupDirective.form = new FormGroup<
+			Partial<Record<keyof TechRecordType<'hgv' | 'car' | 'psv' | 'lgv' | 'trl'>, FormControl>>
+		>({});
 		const mockTechRecord = mockVehicleTechnicalRecord('hgv');
 
 		await TestBed.configureTestingModule({
@@ -172,7 +184,15 @@ describe('VehicleSectionEditComponent', () => {
 	});
 
 	describe('addControlsBasedOffVehicleType', () => {
-		it('should ', () => {});
+		it('should add vehicle specific controls to the form', () => {
+			jest.spyOn(component, 'controlsBasedOffVehicleType', 'get').mockReturnValue(component.motorcycleFields);
+			const mockTechRecord = { techRecord_vehicleType: VehicleTypes.MOTORCYCLE } as V3TechRecordModel;
+			componentRef.setInput('techRecord', mockTechRecord);
+			expect(component.form.controls).not.toHaveProperty('techRecord_numberOfWheelsDriven');
+			component.addControlsBasedOffVehicleType();
+			expect(component.controlsBasedOffVehicleType).toHaveBeenCalled();
+			expect(component.form.controls).toHaveProperty('techRecord_numberOfWheelsDriven');
+		});
 	});
 
 	describe('handleUpdateFunctionCode', () => {
@@ -180,6 +200,47 @@ describe('VehicleSectionEditComponent', () => {
 	});
 
 	describe('handlePsvPassengersChange', () => {
-		it('should ', () => {});
+		it('should set vehicle size to SMALL and class to SmallPsvIeLessThanOrEqualTo22Seats when total passengers are less than or equal to 22', () => {
+			const control = new FormControl(10);
+			component.form.patchValue({
+				techRecord_seatsUpperDeck: 5,
+				techRecord_seatsLowerDeck: 10,
+				techRecord_standingCapacity: 5,
+			});
+			const validatorFn = component.handlePsvPassengersChange();
+			validatorFn(control);
+			expect(component.form.get('techRecord_vehicleSize')?.value).toBe(VehicleSizes.SMALL);
+			expect(component.form.get('techRecord_vehicleClass_description')?.value).toBe(
+				VehicleClassDescription.SmallPsvIeLessThanOrEqualTo22Seats
+			);
+		});
+
+		it('should set vehicle size to LARGE and class to LargePsvIeGreaterThan23Seats when total passengers are greater than 22', () => {
+			const control = new FormControl(30) as AbstractControl;
+			component.form.patchValue({
+				techRecord_seatsUpperDeck: 10,
+				techRecord_seatsLowerDeck: 10,
+				techRecord_standingCapacity: 10,
+			});
+			const validatorFn = component.handlePsvPassengersChange();
+			validatorFn(control);
+			expect(component.form.get('techRecord_vehicleSize')?.value).toBe(VehicleSizes.LARGE);
+			expect(component.form.get('techRecord_vehicleClass_description')?.value).toBe(
+				VehicleClassDescription.LargePsvIeGreaterThan23Seats
+			);
+		});
+
+		it('should mark control as pristine after validation', () => {
+			const control = new FormControl(10);
+			control.markAsDirty();
+			component.form.patchValue({
+				techRecord_seatsUpperDeck: 5,
+				techRecord_seatsLowerDeck: 10,
+				techRecord_standingCapacity: 5,
+			});
+			const validatorFn = component.handlePsvPassengersChange();
+			validatorFn(control);
+			expect(control.pristine).toBe(true);
+		});
 	});
 });

@@ -315,7 +315,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 	}
 
 	get EUCategoryOptions() {
-		switch (this.techRecord()?.techRecord_vehicleType.toLowerCase()) {
+		switch (this.getVehicleType()) {
 			case VehicleTypes.HGV:
 				return HGV_EU_VEHICLE_CATEGORY_OPTIONS;
 			case VehicleTypes.PSV:
@@ -326,7 +326,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 	}
 
 	get vehicleClassDescriptionOptions() {
-		switch (this.technicalRecordService.getVehicleTypeWithSmallTrl(this.techRecord())) {
+		switch (this.getVehicleType()) {
 			case VehicleTypes.HGV:
 				return HGV_VEHICLE_CLASS_DESCRIPTION_OPTIONS;
 			case VehicleTypes.PSV:
@@ -345,7 +345,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 	}
 
 	get vehicleConfigurationOptions() {
-		switch (this.techRecord()?.techRecord_vehicleType.toLowerCase()) {
+		switch (this.getVehicleType()) {
 			case VehicleTypes.HGV:
 			case VehicleTypes.PSV:
 				return HGV_PSV_VEHICLE_CONFIGURATION_OPTIONS;
@@ -358,7 +358,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 	}
 
 	get controlsBasedOffVehicleType() {
-		switch (this.technicalRecordService.getVehicleTypeWithSmallTrl(this.techRecord())) {
+		switch (this.getVehicleType()) {
 			case VehicleTypes.HGV:
 				return this.hgvFields;
 			case VehicleTypes.PSV:
@@ -416,8 +416,4 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 			this.getVehicleType() === VehicleTypes.MOTORCYCLE
 		);
 	}
-
-	// showTagBasedOnVehicleTypes(vehicleTypes: VehicleTypes[], tagsToDisplay: CustomTag): CustomTag {
-	// 	if (vehicleTypes.includes(this.getVehicleType())) return tagsToDisplay;
-	// }
 }
