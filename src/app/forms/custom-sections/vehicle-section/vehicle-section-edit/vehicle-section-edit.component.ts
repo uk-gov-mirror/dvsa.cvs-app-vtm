@@ -17,6 +17,7 @@ import { CommonValidatorsService } from '@forms/validators/common-validators.ser
 import { CouplingTypeOptions } from '@models/coupling-type-enum';
 import {
 	ALL_EU_VEHICLE_CATEGORY_OPTIONS,
+	ALL_VEHICLE_CLASS_DESCRIPTION_OPTIONS,
 	ALL_VEHICLE_CONFIGURATION_OPTIONS,
 	EMISSION_STANDARD_OPTIONS,
 	EXEMPT_OR_NOT_OPTIONS,
@@ -26,10 +27,10 @@ import {
 	HGV_PSV_VEHICLE_CONFIGURATION_OPTIONS,
 	HGV_VEHICLE_CLASS_DESCRIPTION_OPTIONS,
 	MONTHS,
-	MOTORCYCLE_VEHICLE_CLASS_DESCRIPTION_OPTIONS,
 	PSV_EU_VEHICLE_CATEGORY_OPTIONS,
 	PSV_VEHICLE_CLASS_DESCRIPTION_OPTIONS,
 	SUSPENSION_TYRE_OPTIONS,
+	TRL_VEHICLE_CLASS_DESCRIPTION_OPTIONS,
 	TRL_VEHICLE_CONFIGURATION_OPTIONS,
 	VEHICLE_SIZE_OPTIONS,
 	VEHICLE_SUBCLASS_OPTIONS,
@@ -325,18 +326,19 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 	}
 
 	get vehicleClassDescriptionOptions() {
-		switch (this.techRecord()?.techRecord_vehicleType.toLowerCase()) {
+		switch (this.technicalRecordService.getVehicleTypeWithSmallTrl(this.techRecord())) {
 			case VehicleTypes.HGV:
 				return HGV_VEHICLE_CLASS_DESCRIPTION_OPTIONS;
 			case VehicleTypes.PSV:
 				return PSV_VEHICLE_CLASS_DESCRIPTION_OPTIONS;
 			case VehicleTypes.TRL:
-			case VehicleTypes.SMALL_TRL:
+				return TRL_VEHICLE_CLASS_DESCRIPTION_OPTIONS;
 			case VehicleTypes.LGV:
 			case VehicleTypes.CAR:
 				return null;
+			case VehicleTypes.SMALL_TRL:
 			case VehicleTypes.MOTORCYCLE:
-				return MOTORCYCLE_VEHICLE_CLASS_DESCRIPTION_OPTIONS;
+				return ALL_VEHICLE_CLASS_DESCRIPTION_OPTIONS;
 			default:
 				return null;
 		}

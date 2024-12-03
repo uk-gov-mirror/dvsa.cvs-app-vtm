@@ -174,11 +174,11 @@
 
   <!--  Suspension type (TRL Only) -->
   <div class="govuk-form-group-select" *ngIf="shouldDisplayFormControl('techRecord_suspensionType')">
-    <label for="techRecord_manufactureMonth">
+    <label for="techRecord_suspensionType">
       Suspension type (optional)
     </label>
     <app-control-errors elementId="techRecord_suspensionType-error" [control]="$any(form.get('techRecord_suspensionType'))" />
-    <select govukSelect formControlName="techRecord_manufactureMonth">
+    <select govukSelect formControlName="techRecord_suspensionType">
       <option [value]="option.value" *ngFor="let option of SUSPENSION_TYRE_OPTIONS">{{ option.label }}</option>
     </select>
   </div>
