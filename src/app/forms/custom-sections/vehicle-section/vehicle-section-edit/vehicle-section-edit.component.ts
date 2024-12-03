@@ -288,29 +288,22 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 	handlePsvPassengersChange(): ValidatorFn {
 		return (control: AbstractControl): ValidationErrors | null => {
 			if (control.dirty) {
-				const seatsUpper: number = this.form.get('techRecord_seatsUpperDeck')?.getRawValue();
-				const seatsLower: number = this.form.get('techRecord_seatsLowerDeck')?.getRawValue();
-				const standingCapacity: number = this.form.get('techRecord_standingCapacity')?.getRawValue();
-				console.log(seatsUpper);
-				console.log(seatsLower);
-				console.log(standingCapacity);
-
+				const seatsUpper: number = control.parent?.get('techRecord_seatsUpperDeck')?.getRawValue();
+				const seatsLower: number = control.parent?.get('techRecord_seatsLowerDeck')?.getRawValue();
+				const standingCapacity: number = control.parent?.get('techRecord_standingCapacity')?.getRawValue();
 				const totalPassengers = seatsUpper + seatsLower + standingCapacity;
-				if (totalPassengers <= 22) {
-					this.setPassengerValue(false, control);
-				} else {
-					this.setPassengerValue(true, control);
-				}
+				this.setPassengerValue(totalPassengers <= 22, control);
 				control.markAsPristine();
 			}
+
 			return null;
 		};
 	}
 
-	setPassengerValue(largePsv: boolean, control: AbstractControl) {
+	setPassengerValue(smallPsv: boolean, control: AbstractControl) {
 		const classControl = control.parent?.get('techRecord_vehicleClass_description');
 		const sizeControl = control.parent?.get('techRecord_vehicleSize');
-		if (!largePsv) {
+		if (smallPsv) {
 			sizeControl?.setValue(VehicleSizes.SMALL, { emitEvent: false });
 			classControl?.setValue(VehicleClassDescription.SmallPsvIeLessThanOrEqualTo22Seats, { emitEvent: false });
 		} else {

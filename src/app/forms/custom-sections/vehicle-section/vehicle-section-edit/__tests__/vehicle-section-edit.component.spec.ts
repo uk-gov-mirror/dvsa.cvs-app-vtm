@@ -11,6 +11,7 @@ import {
 	ReactiveFormsModule,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { VehicleClassDescription } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/vehicleClassDescriptionPSV.enum.js';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { VehicleSectionEditComponent } from '@forms/custom-sections/vehicle-section/vehicle-section-edit/vehicle-section-edit.component';
 import { DynamicFormsModule } from '@forms/dynamic-forms.module';
@@ -20,7 +21,7 @@ import {
 	PSV_EU_VEHICLE_CATEGORY_OPTIONS,
 	TRL_VEHICLE_CONFIGURATION_OPTIONS,
 } from '@models/options.model';
-import { V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
+import { V3TechRecordModel, VehicleSizes, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { initialAppState } from '@store/index';
@@ -189,71 +190,46 @@ describe('VehicleSectionEditComponent', () => {
 	});
 
 	describe('handlePsvPassengersChange', () => {
+		let form: FormGroup;
+
 		beforeEach(() => {
-			const mockTechRecord = { techRecord_vehicleType: VehicleTypes.PSV } as V3TechRecordModel;
-			componentRef.setInput('techRecord', mockTechRecord);
-			component.ngOnInit();
+			form = new FormGroup({
+				techRecord_seatsUpperDeck: new FormControl(0),
+				techRecord_seatsLowerDeck: new FormControl(0),
+				techRecord_standingCapacity: new FormControl(0),
+				techRecord_vehicleClass_description: new FormControl(''),
+				techRecord_vehicleSize: new FormControl(''),
+			});
 		});
+
 		it('should set vehicle size to SMALL and class to SmallPsvIeLessThanOrEqualTo22Seats when total passengers are less than or equal to 22', () => {
-			const seatsUpperDeckControl = component.form.get('techRecord_seatsUpperDeck');
-			const seatsLowerDeckControl = component.form.get('techRecord_seatsLowerDeck');
-			const seatsStandingCapacityControl = component.form.get('techRecord_standingCapacity');
-			if (seatsUpperDeckControl && seatsLowerDeckControl && seatsStandingCapacityControl) {
-				jest.spyOn(seatsUpperDeckControl, 'markAsPristine');
-				jest.spyOn(seatsLowerDeckControl, 'markAsPristine');
-				jest.spyOn(seatsStandingCapacityControl, 'markAsPristine');
-				jest.spyOn(component, 'setPassengerValue');
-				seatsUpperDeckControl.markAsDirty();
-				seatsLowerDeckControl.markAsDirty();
-				seatsStandingCapacityControl.markAsDirty();
-				component.form.patchValue({
-					techRecord_seatsUpperDeck: 5,
-					techRecord_seatsLowerDeck: 10,
-					techRecord_standingCapacity: 5,
-					techRecord_vehicleClass_description: null,
-					techRecord_vehicleSize: null,
-				} as any);
-				fixture.detectChanges();
-				const validatorFn = component.handlePsvPassengersChange();
-				validatorFn(seatsLowerDeckControl);
-				validatorFn(seatsUpperDeckControl);
-				validatorFn(seatsStandingCapacityControl);
-				expect(seatsLowerDeckControl.markAsPristine).toHaveBeenCalled();
-				expect(seatsUpperDeckControl.markAsPristine).toHaveBeenCalled();
-				expect(seatsStandingCapacityControl.markAsPristine).toHaveBeenCalled();
-				expect(component.setPassengerValue).toHaveBeenCalledWith(true, seatsStandingCapacityControl);
-			}
+			form.patchValue({
+				techRecord_seatsUpperDeck: 5,
+				techRecord_seatsLowerDeck: 10,
+				techRecord_standingCapacity: 5,
+			});
+
+			const control = form.get('techRecord_standingCapacity') as FormControl;
+			control.markAsDirty();
+			const validator = component.handlePsvPassengersChange()(control);
+			expect(validator).toBe(null);
+			expect(form.getRawValue().techRecord_vehicleSize).toBe(VehicleSizes.SMALL);
+			expect(form.getRawValue().techRecord_vehicleClass_description).toBe(VehicleClassDescription.SMALL_PSV);
 		});
 
 		it('should set vehicle size to LARGE and class to LargePsvIeGreaterThan23Seats when total passengers are greater than 22', () => {
-			const seatsUpperDeckControl = component.form.get('techRecord_seatsUpperDeck');
-			const seatsLowerDeckControl = component.form.get('techRecord_seatsLowerDeck');
-			const seatsStandingCapacityControl = component.form.get('techRecord_standingCapacity');
-			if (seatsUpperDeckControl && seatsLowerDeckControl && seatsStandingCapacityControl) {
-				jest.spyOn(seatsUpperDeckControl, 'markAsPristine');
-				jest.spyOn(seatsLowerDeckControl, 'markAsPristine');
-				jest.spyOn(seatsStandingCapacityControl, 'markAsPristine');
-				jest.spyOn(component, 'setPassengerValue');
-				seatsUpperDeckControl.markAsDirty();
-				seatsLowerDeckControl.markAsDirty();
-				seatsStandingCapacityControl.markAsDirty();
-				component.form.patchValue({
-					techRecord_seatsUpperDeck: 10,
-					techRecord_seatsLowerDeck: 10,
-					techRecord_standingCapacity: 10,
-					techRecord_vehicleClass_description: null,
-					techRecord_vehicleSize: null,
-				} as any);
-				fixture.detectChanges();
-				const validatorFn = component.handlePsvPassengersChange();
-				validatorFn(seatsLowerDeckControl);
-				validatorFn(seatsUpperDeckControl);
-				validatorFn(seatsStandingCapacityControl);
-				expect(seatsLowerDeckControl.markAsPristine).toHaveBeenCalled();
-				expect(seatsUpperDeckControl.markAsPristine).toHaveBeenCalled();
-				expect(seatsStandingCapacityControl.markAsPristine).toHaveBeenCalled();
-				expect(component.setPassengerValue).toHaveBeenCalledWith(true, seatsStandingCapacityControl);
-			}
+			form.patchValue({
+				techRecord_seatsUpperDeck: 5,
+				techRecord_seatsLowerDeck: 20,
+				techRecord_standingCapacity: 5,
+			});
+
+			const control = form.get('techRecord_standingCapacity') as FormControl;
+			control.markAsDirty();
+			const validator = component.handlePsvPassengersChange()(control);
+			expect(validator).toBe(null);
+			expect(form.getRawValue().techRecord_vehicleSize).toBe(VehicleSizes.LARGE);
+			expect(form.getRawValue().techRecord_vehicleClass_description).toBe(VehicleClassDescription.LARGE_PSV);
 		});
 	});
 });
