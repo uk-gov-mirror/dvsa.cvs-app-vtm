@@ -3,6 +3,7 @@
   <govuk-form-group-input
     *ngIf="shouldDisplayFormControl('techRecord_vehicleType')"
     label="Vehicle type"
+    [width]="FormNodeWidth.XS"
     [tags]="[{ label: TagTypeLabels.REQUIRED, colour: TagType.RED }]"
     formControlName="techRecord_vehicleType"
   ></govuk-form-group-input>
@@ -105,8 +106,11 @@
 
   <!--  Number of axles -->
   <govuk-form-group-input
+    type="number"
     label="Number of axles"
+    [width]="FormNodeWidth.XXS"
     [tags]="[{ label: TagTypeLabels.REQUIRED, colour: TagType.RED }]"
+    [value]="techRecord().techRecord_noOfAxles"
     formControlName="techRecord_noOfAxles"
   ></govuk-form-group-input>
 
@@ -213,6 +217,7 @@
     label="Max load on coupling (optional)"
     formControlName="techRecord_maxLoadOnCoupling"
     type="number"
+    [width]="FormNodeWidth.M"
     [tags]="[{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }]"
   ></govuk-form-group-input>
 
@@ -264,6 +269,7 @@
     label="Emission limit (m-1) (plate value)"
     formControlName="techRecord_emissionsLimit"
     type="number"
+    [width]="FormNodeWidth.XXS"
   ></govuk-form-group-input>
 
   <!-- PSV Only Fields -->
@@ -271,10 +277,12 @@
     <h1>
       <label>Seats:</label>
     </h1>
+
     <div class="flex-row">
       <!-- Upper Deck -->
       <govuk-form-group-input
         label="Upper deck"
+        [width]="FormNodeWidth.M"
         [tags]="[{ label: TagTypeLabels.REQUIRED, colour: TagType.RED }]"
         formControlName="techRecord_seatsUpperDeck"
         type="number"
@@ -283,6 +291,7 @@
       <!-- Lower Deck -->
       <govuk-form-group-input
         label="Lower deck"
+        [width]="FormNodeWidth.M"
         [tags]="[{ label: TagTypeLabels.REQUIRED, colour: TagType.RED }]"
         formControlName="techRecord_seatsLowerDeck"
         type="number"

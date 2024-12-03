@@ -34,6 +34,8 @@
       (ngModelChange)="onChange($event)"
       type="text"
       (blur)="onTouched()"
+      [class]="style"
+      [disabled]="control?.disabled || false"
     />
   </ng-container>
   <ng-container *ngIf="controlType === 'number'">
@@ -52,6 +54,8 @@
       appNumberOnly
       inputmode="numeric"
       (blur)="onTouched()"
+      [class]="style"
+      [disabled]="control?.disabled || false"
     />
   </ng-container>
   <ng-container *ngIf="controlType === 'decimal'">

@@ -30,7 +30,7 @@ export class GovukFormGroupInputComponent implements ControlValueAccessor {
 	@Output() focus = new EventEmitter<FocusEvent>();
 
 	@Input()
-	value: string | number | boolean | null = null;
+	value: string | number | boolean | null | undefined = null;
 
 	@Input()
 	disabled = false;
@@ -52,6 +52,9 @@ export class GovukFormGroupInputComponent implements ControlValueAccessor {
 
 	@Input({ alias: 'type' })
 	controlType = 'text';
+
+	@Input()
+	width?: FormNodeWidth;
 
 	controlContainer = inject(ControlContainer);
 
@@ -77,6 +80,10 @@ export class GovukFormGroupInputComponent implements ControlValueAccessor {
 
 	get hasError() {
 		return this.control?.invalid && this.control?.touched && this.control?.errors;
+	}
+
+	get style(): string {
+		return `govuk-input ${this.width ? `govuk-input--width-${this.width}` : ''}`;
 	}
 
 	onChange = (_: any) => {};
