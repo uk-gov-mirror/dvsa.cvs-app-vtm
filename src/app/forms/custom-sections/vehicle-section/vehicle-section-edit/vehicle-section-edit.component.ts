@@ -291,6 +291,9 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 				const seatsUpper: number = this.form.get('techRecord_seatsUpperDeck')?.getRawValue();
 				const seatsLower: number = this.form.get('techRecord_seatsLowerDeck')?.getRawValue();
 				const standingCapacity: number = this.form.get('techRecord_standingCapacity')?.getRawValue();
+				console.log(seatsUpper);
+				console.log(seatsLower);
+				console.log(standingCapacity);
 
 				const classControl = control.parent?.get('techRecord_vehicleClass_description');
 				const sizeControl = control.parent?.get('techRecord_vehicleSize');
