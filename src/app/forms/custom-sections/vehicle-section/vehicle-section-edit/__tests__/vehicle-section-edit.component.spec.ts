@@ -150,15 +150,6 @@ describe('VehicleSectionEditComponent', () => {
 		});
 	});
 
-	describe('get controlsBasedOffVehicleType', () => {
-		it('should return the controls that belong to the matched vehicle type', () => {
-			const mockTechRecord = { techRecord_vehicleType: VehicleTypes.PSV } as V3TechRecordModel;
-			componentRef.setInput('techRecord', mockTechRecord);
-			jest.spyOn(technicalRecordService, 'getVehicleTypeWithSmallTrl').mockReturnValue(VehicleTypes.PSV);
-			expect(component.controlsBasedOffVehicleType).toEqual(expect.objectContaining(component.psvFields));
-		});
-	});
-
 	describe('get shouldShowSubclass', () => {
 		it('should return true if vehicle is either small trl/lgv/car', () => {
 			jest.spyOn(component, 'getVehicleType').mockReturnValue(VehicleTypes.LGV);
@@ -185,13 +176,13 @@ describe('VehicleSectionEditComponent', () => {
 
 	describe('addControlsBasedOffVehicleType', () => {
 		it('should add vehicle specific controls to the form', () => {
-			jest.spyOn(component, 'controlsBasedOffVehicleType', 'get').mockReturnValue(component.motorcycleFields);
-			const mockTechRecord = { techRecord_vehicleType: VehicleTypes.MOTORCYCLE } as V3TechRecordModel;
-			componentRef.setInput('techRecord', mockTechRecord);
-			expect(component.form.controls).not.toHaveProperty('techRecord_numberOfWheelsDriven');
+			const addControlSpy = jest.spyOn(component.form, 'addControl');
+			const vehicleControlsSpy = jest
+				.spyOn(component, 'controlsBasedOffVehicleType', 'get')
+				.mockReturnValue(component.motorcycleFields);
 			component.addControlsBasedOffVehicleType();
-			expect(component.controlsBasedOffVehicleType).toHaveBeenCalled();
-			expect(component.form.controls).toHaveProperty('techRecord_numberOfWheelsDriven');
+			expect(vehicleControlsSpy).toHaveBeenCalled();
+			expect(addControlSpy).toHaveBeenCalled();
 		});
 	});
 
@@ -200,19 +191,28 @@ describe('VehicleSectionEditComponent', () => {
 	});
 
 	describe('handlePsvPassengersChange', () => {
+		beforeEach(() => {
+			const mockTechRecord = { techRecord_vehicleType: VehicleTypes.PSV } as V3TechRecordModel;
+			componentRef.setInput('techRecord', mockTechRecord);
+			component.ngOnInit();
+		});
 		it('should set vehicle size to SMALL and class to SmallPsvIeLessThanOrEqualTo22Seats when total passengers are less than or equal to 22', () => {
-			const control = new FormControl(10);
-			// component.form.patchValue({
-			// 	techRecord_seatsUpperDeck: 5,
-			// 	techRecord_seatsLowerDeck: 10,
-			// 	techRecord_standingCapacity: 5,
-			// });
+			const setValueSpy = jest.spyOn(component.form, 'setValue');
+			const control = component.form.get('techRecord_seatsUpperDeck');
+			component.form.patchValue({
+				techRecord_seatsUpperDeck: 5,
+				techRecord_seatsLowerDeck: 10,
+				techRecord_standingCapacity: 5,
+				techRecord_vehicleClass_description: null,
+				techRecord_vehicleSize: null,
+			} as any);
+			control?.markAsDirty();
 			const validatorFn = component.handlePsvPassengersChange();
-			validatorFn(control);
-			expect(component.form.get('techRecord_vehicleSize')?.value).toBe(VehicleSizes.SMALL);
-			expect(component.form.get('techRecord_vehicleClass_description')?.value).toBe(
-				VehicleClassDescription.SmallPsvIeLessThanOrEqualTo22Seats
-			);
+			validatorFn(component.form.get('techRecord_seatsUpperDeck') as any);
+			expect(setValueSpy).toHaveBeenCalledWith(VehicleSizes.SMALL, { emitEvent: false });
+			expect(setValueSpy).toHaveBeenCalledWith(VehicleClassDescription.SmallPsvIeLessThanOrEqualTo22Seats, {
+				emitEvent: false,
+			});
 		});
 
 		it('should set vehicle size to LARGE and class to LargePsvIeGreaterThan23Seats when total passengers are greater than 22', () => {

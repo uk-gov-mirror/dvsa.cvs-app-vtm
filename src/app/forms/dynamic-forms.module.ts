@@ -230,6 +230,10 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		VehicleSectionSummaryComponent,
 		VehicleSectionViewComponent,
 		VehicleSectionEditComponent,
+		GovukCheckboxGroupComponent,
+		GovukFormGroupRadioComponent,
+		GovukFormGroupSelectComponent,
+		GovukFormGroupInputComponent,
 	],
 })
 export class DynamicFormsModule {}
