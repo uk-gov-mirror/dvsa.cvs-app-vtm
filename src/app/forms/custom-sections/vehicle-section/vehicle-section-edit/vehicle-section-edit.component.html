@@ -9,37 +9,12 @@
   ></govuk-form-group-input>
 
   <!--  Date of First Registration -->
-  <app-date-controls *ngIf="shouldDisplayFormControl('techRecord_regnDate')" formControlName="techRecord_regnDate" #dateFirstReg>
-    <div class="govuk-form-group-date" [formGroup]="dateFirstReg.form">
-      <fieldset role="group">
-        <legend>
-          Date of first registration
-          <app-tag *ngIf="shouldShowPlatesHgv" [type]="TagType.PURPLE">{{ TagTypeLabels.PLATES }}</app-tag>
-        </legend>
-        <app-control-errors elementId="techRecord_regnDate-error" [control]="$any(form.controls.techRecord_regnDate)" />
-        <div id="techRecord_regnDate">
-          <div>
-            <div>
-              <label id="techRecord_regnDate-day-label" for="techRecord_regnDate-day">Day</label>
-              <input class="govuk-input--width-2" govukDateInput="techRecord_regnDate" formControlName="day" />
-            </div>
-          </div>
-          <div>
-            <div>
-              <label id="techRecord_regnDate-month-label" for="techRecord_regnDate-month">Month</label>
-              <input class="govuk-input--width-2" govukDateInput="techRecord_regnDate" formControlName="month" />
-            </div>
-          </div>
-          <div>
-            <div>
-              <label id="techRecord_regnDate-year-label" for="techRecord_regnDate-year">Year</label>
-              <input class="govuk-input--width-4" govukDateInput="techRecord_regnDate" formControlName="year" />
-            </div>
-          </div>
-        </div>
-      </fieldset>
-    </div>
-  </app-date-controls>
+  <govuk-form-group-date
+    *ngIf="shouldDisplayFormControl('techRecord_regnDate')"
+    label="Date of first registration"
+    [tags]="shouldShowPlatesHgv ? [{ label: TagTypeLabels.REQUIRED, colour: TagType.RED }] : []"
+    formControlName="techRecord_regnDate"
+  ></govuk-form-group-date>
 
   <!--  Month of manufacture (TRL Only) -->
   <div *ngIf="shouldDisplayFormControl('techRecord_manufactureMonth')" class="govuk-form-group-select">

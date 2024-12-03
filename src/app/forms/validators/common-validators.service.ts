@@ -122,7 +122,6 @@ export class CommonValidatorsService {
 	date(label: string): ValidatorFn {
 		return (control) => {
 			if (!control.value) return null;
-
 			const [d] = (control.value as string).split('T');
 			const [year, month, day] = d.split('-');
 			const { error, errors } = validateDate(day || '', month || '', year || '', label);

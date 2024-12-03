@@ -2,6 +2,7 @@
   <label>
     {{ controlLabel }}
   </label>
+  
   <ng-container *ngIf="controlHint">
     <div class="govuk-hint" id="{{ hintId }}"> {{ controlHint }} </div>
   </ng-container>
@@ -12,6 +13,7 @@
       <span>{{ (control?.errors | keyvalue)?.[0]?.value }}</span>
     </p>
   </ng-container>
+
   <select
     id="{{ id }}"
     name="{{ id }}"

@@ -39,6 +39,7 @@ import { DynamicFormGroupComponent } from './components/dynamic-form-group/dynam
 import { FieldErrorMessageComponent } from './components/field-error-message/field-error-message.component';
 import { FieldWarningMessageComponent } from './components/field-warning-message/field-warning-message.component';
 import { GovukCheckboxGroupComponent } from './components/govuk-checkbox-group/govuk-checkbox-group.component';
+import { GovukFormGroupDateComponent } from './components/govuk-form-group-date/govuk-form-group-date.component';
 import { GovukFormGroupRadioComponent } from './components/govuk-form-group-radio/govuk-form-group-radio.component';
 import { NumberInputComponent } from './components/number-input/number-input.component';
 import { RadioGroupComponent } from './components/radio-group/radio-group.component';
@@ -170,6 +171,7 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		GovukFormGroupRadioComponent,
 		GovukFormGroupSelectComponent,
 		GovukFormGroupInputComponent,
+		GovukFormGroupDateComponent,
 	],
 	exports: [
 		TextInputComponent,
@@ -234,6 +236,7 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		GovukFormGroupRadioComponent,
 		GovukFormGroupSelectComponent,
 		GovukFormGroupInputComponent,
+		GovukFormGroupDateComponent,
 	],
 })
 export class DynamicFormsModule {}
