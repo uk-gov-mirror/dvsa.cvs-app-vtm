@@ -390,6 +390,14 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 		return this.technicalRecordService.getVehicleTypeWithSmallTrl(this.techRecord());
 	}
 
+	get shouldShowPlatesHgv(): boolean {
+		return this.getVehicleType() === VehicleTypes.HGV;
+	}
+
+	get shouldShowPlatesTrl(): boolean {
+		return this.getVehicleType() === VehicleTypes.TRL;
+	}
+
 	get shouldShowSubclass(): boolean {
 		return (
 			this.getVehicleType() === VehicleTypes.SMALL_TRL ||
