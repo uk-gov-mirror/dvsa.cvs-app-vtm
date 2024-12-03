@@ -195,11 +195,17 @@ describe('VehicleSectionEditComponent', () => {
 			component.ngOnInit();
 		});
 		it('should set vehicle size to SMALL and class to SmallPsvIeLessThanOrEqualTo22Seats when total passengers are less than or equal to 22', () => {
-			const control = component.form.get('techRecord_seatsUpperDeck');
-			if (control) {
-				jest.spyOn(control, 'markAsPristine');
-				// jest.spyOn(component, 'setPassengerValue');
-				control.markAsDirty();
+			const seatsUpperDeckControl = component.form.get('techRecord_seatsUpperDeck');
+			const seatsLowerDeckControl = component.form.get('techRecord_seatsLowerDeck');
+			const seatsStandingCapacityControl = component.form.get('techRecord_standingCapacity');
+			if (seatsUpperDeckControl && seatsLowerDeckControl && seatsStandingCapacityControl) {
+				jest.spyOn(seatsUpperDeckControl, 'markAsPristine');
+				jest.spyOn(seatsLowerDeckControl, 'markAsPristine');
+				jest.spyOn(seatsStandingCapacityControl, 'markAsPristine');
+				jest.spyOn(component, 'setPassengerValue');
+				seatsUpperDeckControl.markAsDirty();
+				seatsLowerDeckControl.markAsDirty();
+				seatsStandingCapacityControl.markAsDirty();
 				component.form.patchValue({
 					techRecord_seatsUpperDeck: 5,
 					techRecord_seatsLowerDeck: 10,
@@ -207,19 +213,30 @@ describe('VehicleSectionEditComponent', () => {
 					techRecord_vehicleClass_description: null,
 					techRecord_vehicleSize: null,
 				} as any);
+				fixture.detectChanges();
 				const validatorFn = component.handlePsvPassengersChange();
-				validatorFn(control);
-				expect(control.markAsPristine).toHaveBeenCalled();
-				// expect(component.setPassengerValue).toHaveBeenCalledWith(true);
+				validatorFn(seatsLowerDeckControl);
+				validatorFn(seatsUpperDeckControl);
+				validatorFn(seatsStandingCapacityControl);
+				expect(seatsLowerDeckControl.markAsPristine).toHaveBeenCalled();
+				expect(seatsUpperDeckControl.markAsPristine).toHaveBeenCalled();
+				expect(seatsStandingCapacityControl.markAsPristine).toHaveBeenCalled();
+				expect(component.setPassengerValue).toHaveBeenCalledWith(true, seatsStandingCapacityControl);
 			}
 		});
 
 		it('should set vehicle size to LARGE and class to LargePsvIeGreaterThan23Seats when total passengers are greater than 22', () => {
-			const control = component.form.get('techRecord_seatsUpperDeck');
-			if (control) {
-				jest.spyOn(control, 'markAsPristine');
-				// jest.spyOn(component, 'setPassengerValue');
-				control.markAsDirty();
+			const seatsUpperDeckControl = component.form.get('techRecord_seatsUpperDeck');
+			const seatsLowerDeckControl = component.form.get('techRecord_seatsLowerDeck');
+			const seatsStandingCapacityControl = component.form.get('techRecord_standingCapacity');
+			if (seatsUpperDeckControl && seatsLowerDeckControl && seatsStandingCapacityControl) {
+				jest.spyOn(seatsUpperDeckControl, 'markAsPristine');
+				jest.spyOn(seatsLowerDeckControl, 'markAsPristine');
+				jest.spyOn(seatsStandingCapacityControl, 'markAsPristine');
+				jest.spyOn(component, 'setPassengerValue');
+				seatsUpperDeckControl.markAsDirty();
+				seatsLowerDeckControl.markAsDirty();
+				seatsStandingCapacityControl.markAsDirty();
 				component.form.patchValue({
 					techRecord_seatsUpperDeck: 10,
 					techRecord_seatsLowerDeck: 10,
@@ -227,10 +244,15 @@ describe('VehicleSectionEditComponent', () => {
 					techRecord_vehicleClass_description: null,
 					techRecord_vehicleSize: null,
 				} as any);
+				fixture.detectChanges();
 				const validatorFn = component.handlePsvPassengersChange();
-				validatorFn(control);
-				expect(control.markAsPristine).toHaveBeenCalled();
-				// expect(component.setPassengerValue).toHaveBeenCalledWith(false);
+				validatorFn(seatsLowerDeckControl);
+				validatorFn(seatsUpperDeckControl);
+				validatorFn(seatsStandingCapacityControl);
+				expect(seatsLowerDeckControl.markAsPristine).toHaveBeenCalled();
+				expect(seatsUpperDeckControl.markAsPristine).toHaveBeenCalled();
+				expect(seatsStandingCapacityControl.markAsPristine).toHaveBeenCalled();
+				expect(component.setPassengerValue).toHaveBeenCalledWith(true, seatsStandingCapacityControl);
 			}
 		});
 	});

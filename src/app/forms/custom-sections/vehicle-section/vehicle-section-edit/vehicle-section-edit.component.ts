@@ -295,26 +295,28 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 				console.log(seatsLower);
 				console.log(standingCapacity);
 
-				const classControl = control.parent?.get('techRecord_vehicleClass_description');
-				const sizeControl = control.parent?.get('techRecord_vehicleSize');
-
 				const totalPassengers = seatsUpper + seatsLower + standingCapacity;
-
-				switch (true) {
-					case totalPassengers <= 22: {
-						sizeControl?.setValue(VehicleSizes.SMALL, { emitEvent: false });
-						classControl?.setValue(VehicleClassDescription.SmallPsvIeLessThanOrEqualTo22Seats, { emitEvent: false });
-						break;
-					}
-					default: {
-						sizeControl?.setValue(VehicleSizes.LARGE, { emitEvent: false });
-						classControl?.setValue(VehicleClassDescription.LargePsvIeGreaterThan23Seats, { emitEvent: false });
-					}
+				if (totalPassengers <= 22) {
+					this.setPassengerValue(false, control);
+				} else {
+					this.setPassengerValue(true, control);
 				}
 				control.markAsPristine();
 			}
 			return null;
 		};
+	}
+
+	setPassengerValue(largePsv: boolean, control: AbstractControl) {
+		const classControl = control.parent?.get('techRecord_vehicleClass_description');
+		const sizeControl = control.parent?.get('techRecord_vehicleSize');
+		if (!largePsv) {
+			sizeControl?.setValue(VehicleSizes.SMALL, { emitEvent: false });
+			classControl?.setValue(VehicleClassDescription.SmallPsvIeLessThanOrEqualTo22Seats, { emitEvent: false });
+		} else {
+			sizeControl?.setValue(VehicleSizes.LARGE, { emitEvent: false });
+			classControl?.setValue(VehicleClassDescription.LargePsvIeGreaterThan23Seats, { emitEvent: false });
+		}
 	}
 
 	get EUCategoryOptions() {
