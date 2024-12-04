@@ -1,6 +1,11 @@
 <div class="govuk-form-group-select">
-  <label for="{{ id }}" [id]="labelId">
+  <label tag for="{{ id }}" [id]="labelId">
     {{ controlLabel }}
+    <ng-container *ngIf="tags?.length">
+      <div>
+        <app-tag *ngFor="let tag of tags" [type]="tag.colour">{{ tag.label }}</app-tag>
+      </div>
+    </ng-container>
   </label>
   
   <ng-container *ngIf="controlHint">
