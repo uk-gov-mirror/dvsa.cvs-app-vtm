@@ -174,7 +174,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 			]),
 			techRecord_vehicleSize: this.fb.control<string | null>(null),
 			techRecord_numberOfSeatbelts: this.fb.control<number | null>(null, [
-				this.commonValidators.max(99, 'Number of seatbelts must be less than or equal to 99'),
+				this.commonValidators.max(99, 'Number of seat belts must be less than or equal to 99'),
 			]),
 			techRecord_seatbeltInstallationApprovalDate: this.fb.control<string | null>(null, [
 				this.commonValidators.pastDate('Seatbelt installation approval date / type approved must be in the past'),
@@ -194,7 +194,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 			techRecord_alterationMarker: this.fb.control<boolean | null>(null),
 			techRecord_departmentalVehicleMarker: this.fb.control<boolean | null>(null),
 			techRecord_roadFriendly: this.fb.control<boolean | null>(null),
-			techRecord_firstUseDate: this.fb.control<string | null>(null),
+			techRecord_firstUseDate: this.fb.control<string | null>(null, [this.commonValidators.date('Date of first use')]),
 			techRecord_suspensionType: this.fb.control<string | null>(null),
 			techRecord_vehicleConfiguration: this.fb.control<VehicleConfiguration | null>(null),
 			techRecord_couplingType: this.fb.control<string | null>(null, [
