@@ -233,6 +233,7 @@
   <govuk-form-group-input
     *ngIf="getVehicleType() === VehicleTypes.MOTORCYCLE &&
     shouldDisplayFormControl('techRecord_numberOfWheelsDriven')"
+    type="number"
     label="Number of wheels"
     [tags]="[{ label: TagTypeLabels.REQUIRED, colour: TagType.RED }]"
     formControlName="techRecord_numberOfWheelsDriven"

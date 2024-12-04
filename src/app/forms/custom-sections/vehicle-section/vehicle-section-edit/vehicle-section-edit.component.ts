@@ -216,7 +216,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 
 	get smallTrlFields(): Partial<Record<any, FormControl>> {
 		return {
-			techRecord_vehicleSubclass: this.fb.control<string[] | null>(null),
+			techRecord_vehicleSubclass: this.fb.control<string[] | null>([]),
 			techRecord_vehicleConfiguration: this.fb.control<VehicleConfiguration | null>(null),
 			techRecord_manufactureMonth: this.fb.control<string | null>(null),
 			techRecord_vehicleClass_description: this.fb.control<string | null>(null, [
@@ -230,7 +230,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 
 	get lgvAndCarFields(): Partial<Record<keyof TechRecordType<'lgv' | 'car'>, FormControl>> {
 		return {
-			techRecord_vehicleSubclass: this.fb.control<string[] | null>(null),
+			techRecord_vehicleSubclass: this.fb.control<string[] | null>([]),
 			techRecord_regnDate: this.fb.control<string | null>(null, [
 				this.commonValidators.date('Date of first registration'),
 			]),
