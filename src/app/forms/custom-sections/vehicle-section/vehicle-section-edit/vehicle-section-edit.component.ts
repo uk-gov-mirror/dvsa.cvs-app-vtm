@@ -228,7 +228,8 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 
 	get lgvAndCarFields(): Partial<Record<keyof TechRecordType<'lgv' | 'car'>, FormControl>> {
 		return {
-			techRecord_vehicleSubclass: this.fb.control<string[] | null>([]),
+			// default subclass to undefined as null is not allowed and an emtpy array creates a complete record instead of skeleton
+			techRecord_vehicleSubclass: this.fb.control<string[] | undefined>({ value: undefined, disabled: false }),
 			techRecord_regnDate: this.fb.control<string | null>(null, [
 				this.commonValidators.date('Date of first registration'),
 			]),
