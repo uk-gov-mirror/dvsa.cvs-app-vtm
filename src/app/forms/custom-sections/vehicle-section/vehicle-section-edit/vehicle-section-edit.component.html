@@ -28,24 +28,14 @@
   </div>
 
   <!--  Year of manufacture -->
-  <div *ngIf="shouldDisplayFormControl('techRecord_manufactureYear')" class="govuk-form-group-input">
-    <h1>
-      <label tag id="techRecord_manufactureYear-label">
-        Year of manufacture
-        <div>
-          <app-tag *ngIf="shouldShowPlatesHgv || shouldShowPlatesTrl" [type]="TagType.PURPLE">{{ TagTypeLabels.PLATES }}</app-tag>
-        </div>
-      </label>
-    </h1>
-    <app-control-errors elementId="techRecord_manufactureYear-error" [control]="$any(form.get('techRecord_manufactureYear'))" />
-    <input
-      appNumberOnly
-      inputmode="numeric"
-      type="number"
-      [width]="FormNodeWidth.XS"
-      govukInput
-      formControlName="techRecord_manufactureYear" />
-  </div>
+  <govuk-form-group-input
+    *ngIf="shouldDisplayFormControl('techRecord_manufactureYear')"
+    label="Year of manufacture"
+    formControlName="techRecord_manufactureYear"
+    [width]="FormNodeWidth.XS"
+    type="number"
+    [tags]="shouldShowPlatesHgv || shouldShowPlatesTrl ? [{ label: TagTypeLabels.PLATES, colour: TagType.PURPLE }] : []"
+  ></govuk-form-group-input>
 
   <!--  Date of first use (TRL only) -->
   <app-date-controls *ngIf="shouldDisplayFormControl('techRecord_firstUseDate')" formControlName="techRecord_firstUseDate" #firstUseDate>
@@ -275,13 +265,12 @@
     </div>
 
     <!-- Standing Capacity -->
-    <div class="govuk-form-group-input">
-      <h1>
-        <label tag for="techRecord_standingCapacity">Standing capacity</label>
-      </h1>
-      <app-control-errors elementId="techRecord_standingCapacity-error" [control]="$any(form.get('techRecord_standingCapacity'))" />
-      <input type="number" spellcheck="false" id="techRecord_standingCapacity" [width]="FormNodeWidth.XXS" govukInput formControlName="techRecord_standingCapacity" />
-    </div>
+    <govuk-form-group-input
+      label="Standing capacity"
+      formControlName = 'techRecord_standingCapacity'
+      type="number"
+      [width]="FormNodeWidth.XXS"
+    ></govuk-form-group-input>
 
     <!-- Vehicle Class (PSV) -->
     <ng-template [ngTemplateOutlet]="vehicleClass"></ng-template>
