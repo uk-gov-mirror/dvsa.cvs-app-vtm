@@ -12,7 +12,7 @@
   <govuk-form-group-date
     *ngIf="shouldDisplayFormControl('techRecord_regnDate')"
     label="Date of first registration"
-    [tags]="shouldShowPlatesHgv ? [{ label: TagTypeLabels.REQUIRED, colour: TagType.RED }] : []"
+    [tags]="shouldShowPlatesHgv ? [{ label: TagTypeLabels.PLATES, colour: TagType.PURPLE }] : []"
     formControlName="techRecord_regnDate"
   ></govuk-form-group-date>
 
