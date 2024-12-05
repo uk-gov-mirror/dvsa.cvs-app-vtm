@@ -3,7 +3,7 @@
   <govuk-form-group-input
     *ngIf="shouldDisplayFormControl('techRecord_vehicleType')"
     label="Vehicle type"
-    [width]="FormNodeWidth.XS"
+    [width]="FormNodeWidth.M"
     [tags]="[{ label: TagTypeLabels.REQUIRED, colour: TagType.RED }]"
     formControlName="techRecord_vehicleType"
   ></govuk-form-group-input>
@@ -17,15 +17,12 @@
   ></govuk-form-group-date>
 
   <!--  Month of manufacture (TRL Only) -->
-  <div *ngIf="shouldDisplayFormControl('techRecord_manufactureMonth')" class="govuk-form-group-select">
-    <label for="techRecord_manufactureMonth">
-      Month of manufacture
-    </label>
-    <app-control-errors elementId="techRecord_manufactureMonth-error" [control]="$any(form.get('techRecord_manufactureMonth'))" />
-    <select govukSelect formControlName="techRecord_manufactureMonth">
-      <option [value]="option.value" *ngFor="let option of MONTHS">{{ option.label }}</option>
-    </select>
-  </div>
+  <govuk-form-group-select
+    *ngIf="shouldDisplayFormControl('techRecord_manufactureMonth')"
+    label="Month of manufacture"
+    formControlName="techRecord_manufactureMonth"
+    [options]="MONTHS"
+  ></govuk-form-group-select>
 
   <!--  Year of manufacture -->
   <govuk-form-group-input
