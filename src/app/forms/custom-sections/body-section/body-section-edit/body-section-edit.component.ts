@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
 import { ControlContainer, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { TagType } from '@components/tag/tag.component';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
 import { V3TechRecordModel } from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
+import { FormNodeWidth, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { ReplaySubject } from 'rxjs';
 
@@ -73,4 +75,8 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 	get motorcycleFields(): Partial<Record<string, FormControl>> {
 		return {};
 	}
+
+	protected readonly FormNodeWidth = FormNodeWidth;
+	protected readonly TagTypeLabels = TagTypeLabels;
+	protected readonly TagType = TagType;
 }
