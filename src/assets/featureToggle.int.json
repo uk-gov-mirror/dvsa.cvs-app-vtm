@@ -3,5 +3,6 @@
   "adrCertToggle": true,
   "requiredStandards": true,
   "FsAdr": true,
-  "FsVehicleSummary": true
+  "FsVehicleSummary": true,
+  "FsBody": true
 }

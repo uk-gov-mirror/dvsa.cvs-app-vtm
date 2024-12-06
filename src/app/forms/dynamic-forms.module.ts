@@ -66,6 +66,10 @@ import { AdrTankDetailsSubsequentInspectionsViewComponent } from './custom-secti
 import { AdrTankStatementUnNumberEditComponent } from './custom-sections/adr-tank-statement-un-number-edit/adr-tank-statement-un-number-edit.component';
 import { AdrTankStatementUnNumberViewComponent } from './custom-sections/adr-tank-statement-un-number-view/adr-tank-statement-un-number-view.component';
 import { AdrComponent } from './custom-sections/adr/adr.component';
+import { BodySectionEditComponent } from './custom-sections/body-section/body-section-edit/body-section-edit.component';
+import { BodySectionSummaryComponent } from './custom-sections/body-section/body-section-summary/body-section-summary.component';
+import { BodySectionViewComponent } from './custom-sections/body-section/body-section-view/body-section-view.component';
+import { BodySectionComponent } from './custom-sections/body-section/body-section.component';
 import { BodyComponent } from './custom-sections/body/body.component';
 import { CustomDefectComponent } from './custom-sections/custom-defect/custom-defect.component';
 import { CustomDefectsComponent } from './custom-sections/custom-defects/custom-defects.component';
@@ -158,6 +162,10 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		VehicleSectionViewComponent,
 		VehicleSectionEditComponent,
 		AdrPermittedDangerousGoodsComponent,
+		BodySectionComponent,
+		BodySectionEditComponent,
+		BodySectionViewComponent,
+		BodySectionSummaryComponent,
 	],
 	imports: [
 		CommonModule,
@@ -237,6 +245,10 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		GovukFormGroupSelectComponent,
 		GovukFormGroupInputComponent,
 		GovukFormGroupDateComponent,
+		BodySectionComponent,
+		BodySectionEditComponent,
+		BodySectionViewComponent,
+		BodySectionSummaryComponent,
 	],
 })
 export class DynamicFormsModule {}

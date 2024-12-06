@@ -31,7 +31,17 @@
 
       </ng-container>
 
-      <app-body *ngSwitchCase="'bodySection'" [techRecord]="techRecordEdited" [disableLoadOptions]="true"></app-body>
+      <ng-container *ngSwitchCase="'bodySection'">
+        <!-- New Body section -->
+        <ng-container *ngIf="featureToggleService.isFeatureEnabled('FsBody')">
+          <app-body-section [techRecord]="techRecordEdited" mode="summary" />
+        </ng-container>
+
+        <!-- Old Body section -->
+        <ng-template #oldBodySection>
+          <app-body [techRecord]="techRecordEdited" [disableLoadOptions]="true"></app-body>
+        </ng-template>
+      </ng-container>
 
       <ng-container *ngSwitchCase="'dimensionsSection'">
         <app-dimensions
