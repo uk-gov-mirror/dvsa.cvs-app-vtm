@@ -2,7 +2,7 @@
   <label tag for="{{ id }}" [id]="labelId">
     {{ controlLabel }}
     <ng-container *ngIf="tags?.length">
-      <div>
+      <div class="flex gap-2">
         <app-tag *ngFor="let tag of tags" [type]="tag.colour">{{ tag.label }}</app-tag>
       </div>
     </ng-container>

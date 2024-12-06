@@ -78,6 +78,18 @@ export class GovukFormGroupDateComponent implements ControlValueAccessor, OnInit
 
 	writeValue(obj: any): void {
 		this.value = obj;
+
+		if (obj && typeof obj === 'string') {
+			const date = new Date(obj);
+			this.form.patchValue({
+				year: date.getFullYear(),
+				month: date.getMonth() + 1,
+				day: date.getDate(),
+				hours: date.getHours(),
+				minutes: date.getMinutes(),
+			});
+		}
+
 		this.onChange(obj);
 	}
 
