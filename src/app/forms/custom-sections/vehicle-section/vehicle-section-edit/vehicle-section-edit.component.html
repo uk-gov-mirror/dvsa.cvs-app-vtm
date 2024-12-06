@@ -3,7 +3,7 @@
   <govuk-form-group-input
     *ngIf="shouldDisplayFormControl('techRecord_vehicleType')"
     label="Vehicle type"
-    [width]="FormNodeWidth.M"
+    [width]="getVehicleType() === VehicleTypes.MOTORCYCLE ? FormNodeWidth.M : FormNodeWidth.XS"
     [tags]="[{ label: TagTypeLabels.REQUIRED, colour: TagType.RED }]"
     formControlName="techRecord_vehicleType"
   ></govuk-form-group-input>
@@ -50,15 +50,6 @@
     [value]="techRecord().techRecord_noOfAxles"
     formControlName="techRecord_noOfAxles"
   ></govuk-form-group-input>
-
-  <!-- Vehicle Subclass (LGV/CAR/Small TRL only) -->
-  <govuk-checkbox-group
-    *ngIf="shouldShowSubclass && shouldDisplayFormControl('techRecord_vehicleSubclass')"
-    label="Vehicle subclass"
-    formControlName="techRecord_vehicleSubclass"
-    [options]="VEHICLE_SUBCLASS_OPTIONS"
-    [tags]="[{ label: TagTypeLabels.REQUIRED, colour: TagType.RED }]"
-  ></govuk-checkbox-group>
 
   <div class="flex-row">
     <!-- Speed limiter exempt for HGV (required to generate plates) -->
@@ -128,10 +119,21 @@
     [options]="YES_NO_OPTIONS"
   ></govuk-form-group-radio>
 
+  <ng-container *ngIf="getVehicleType() !== VehicleTypes.PSV" [ngTemplateOutlet]="euVehicleCategory"></ng-container>
+
   <!--  Vehicle class (HGV/Motorcycle/Small TRL/TRL Only) -->
   <ng-container *ngIf="shouldShowClass">
     <ng-container *ngIf="shouldDisplayFormControl('techRecord_vehicleClass_description')" [ngTemplateOutlet]="vehicleClass"></ng-container>
   </ng-container>
+
+  <!-- Vehicle Subclass (LGV/CAR/Small TRL only) -->
+  <govuk-checkbox-group
+    *ngIf="shouldShowSubclass && shouldDisplayFormControl('techRecord_vehicleSubclass')"
+    label="Vehicle subclass"
+    formControlName="techRecord_vehicleSubclass"
+    [options]="VEHICLE_SUBCLASS_OPTIONS"
+    [tags]="[{ label: TagTypeLabels.REQUIRED, colour: TagType.RED }]"
+  ></govuk-checkbox-group>
 
   <!--  Coupling type (TRL Only) -->
   <govuk-form-group-select
@@ -207,12 +209,12 @@
   ></govuk-form-group-input>
 
   <!-- PSV Only Fields -->
-  <div class="govuk-form-group-split-controls" *ngIf="getVehicleType() === VehicleTypes.PSV">
+  <div *ngIf="getVehicleType() === VehicleTypes.PSV">
     <h1>
-      <label>Seats:</label>
+      <label class="govuk-label govuk-label--m">Seats:</label>
     </h1>
 
-    <div class="flex-row">
+    <div class="flex-row govuk-form-group-split-controls">
       <!-- Upper Deck -->
       <govuk-form-group-input
         label="Upper deck"
@@ -240,7 +242,10 @@
       [width]="FormNodeWidth.XXS"
     ></govuk-form-group-input>
 
+
     <!-- Vehicle Class (PSV) -->
+    <ng-container *ngIf="getVehicleType() === VehicleTypes.PSV" [ngTemplateOutlet]="euVehicleCategory"></ng-container>
+
     <ng-template [ngTemplateOutlet]="vehicleClass"></ng-template>
 
     <!--  Vehicle Size -->
@@ -278,15 +283,6 @@
     [options]="YES_NO_OPTIONS"
   ></govuk-form-group-radio>
 
-  <!-- EU Category -->
-  <govuk-form-group-select
-    *ngIf="shouldDisplayFormControl('techRecord_euVehicleCategory')"
-    label="EU vehicle category"
-    formControlName="techRecord_euVehicleCategory"
-    [width]="FormNodeWidth.S"
-    [options]="EUCategoryOptions"
-  ></govuk-form-group-select>
-
   <!-- Alteration marker -->
   <govuk-form-group-radio
     *ngIf="shouldDisplayFormControl('techRecord_alterationMarker')"
@@ -294,6 +290,17 @@
     formControlName="techRecord_alterationMarker"
     [options]="YES_NO_OPTIONS"
   ></govuk-form-group-radio>
+
+  <ng-template #euVehicleCategory>
+    <!-- EU Category -->
+    <govuk-form-group-select
+      *ngIf="shouldDisplayFormControl('techRecord_euVehicleCategory')"
+      label="EU vehicle category"
+      formControlName="techRecord_euVehicleCategory"
+      [width]="FormNodeWidth.S"
+      [options]="EUCategoryOptions"
+    ></govuk-form-group-select>
+  </ng-template>
 
   <ng-template #vehicleClass>
     <govuk-form-group-select

@@ -253,7 +253,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 			techRecord_vehicleClass_description: this.fb.control<string | null>(null, [
 				this.commonValidators.required('Vehicle class is required'),
 			]),
-			techRecord_vehicleConfiguration: this.fb.control<VehicleConfiguration | null>(null, [
+			techRecord_vehicleConfiguration: this.fb.control<VehicleConfiguration | null>(VehicleConfiguration.OTHER, [
 				this.commonValidators.required('Vehicle configuration is required'),
 			]),
 			techRecord_regnDate: this.fb.control<string | null>(null, [
