@@ -41,6 +41,7 @@ import { FieldWarningMessageComponent } from './components/field-warning-message
 import { GovukCheckboxGroupComponent } from './components/govuk-checkbox-group/govuk-checkbox-group.component';
 import { GovukFormGroupDateComponent } from './components/govuk-form-group-date/govuk-form-group-date.component';
 import { GovukFormGroupRadioComponent } from './components/govuk-form-group-radio/govuk-form-group-radio.component';
+import { GovukFormGroupTextareaComponent } from './components/govuk-form-group-textarea/govuk-form-group-textarea.component';
 import { NumberInputComponent } from './components/number-input/number-input.component';
 import { RadioGroupComponent } from './components/radio-group/radio-group.component';
 import { ReadOnlyComponent } from './components/read-only/read-only.component';
@@ -79,6 +80,10 @@ import { DefectsComponent } from './custom-sections/defects/defects.component';
 import { DimensionsComponent } from './custom-sections/dimensions/dimensions.component';
 import { LettersComponent } from './custom-sections/letters/letters.component';
 import { ModifiedWeightsComponent } from './custom-sections/modified-weights/modified-weights.component';
+import { NotesSectionEditComponent } from './custom-sections/notes-section/notes-section-edit/notes-section-edit.component';
+import { NotesSectionSummaryComponent } from './custom-sections/notes-section/notes-section-summary/notes-section-summary.component';
+import { NotesSectionViewComponent } from './custom-sections/notes-section/notes-section-view/notes-section-view.component';
+import { NotesSectionComponent } from './custom-sections/notes-section/notes-section.component';
 import { PlatesComponent } from './custom-sections/plates/plates.component';
 import { PsvBrakesComponent } from './custom-sections/psv-brakes/psv-brakes.component';
 import { RequiredStandardComponent } from './custom-sections/required-standard/required-standard.component';
@@ -166,6 +171,10 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		BodySectionEditComponent,
 		BodySectionViewComponent,
 		BodySectionSummaryComponent,
+		NotesSectionComponent,
+		NotesSectionEditComponent,
+		NotesSectionViewComponent,
+		NotesSectionSummaryComponent,
 	],
 	imports: [
 		CommonModule,
@@ -180,6 +189,7 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		GovukFormGroupSelectComponent,
 		GovukFormGroupInputComponent,
 		GovukFormGroupDateComponent,
+		GovukFormGroupTextareaComponent,
 	],
 	exports: [
 		TextInputComponent,
@@ -245,10 +255,15 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		GovukFormGroupSelectComponent,
 		GovukFormGroupInputComponent,
 		GovukFormGroupDateComponent,
+		GovukFormGroupTextareaComponent,
 		BodySectionComponent,
 		BodySectionEditComponent,
 		BodySectionViewComponent,
 		BodySectionSummaryComponent,
+		NotesSectionComponent,
+		NotesSectionEditComponent,
+		NotesSectionViewComponent,
+		NotesSectionSummaryComponent,
 	],
 })
 export class DynamicFormsModule {}

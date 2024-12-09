@@ -4,5 +4,6 @@
   "requiredStandards": true,
   "FsAdr": true,
   "FsVehicleSummary": true,
-  "FsBody": true
+  "FsBody": true,
+  "FsNotes": true
 }
