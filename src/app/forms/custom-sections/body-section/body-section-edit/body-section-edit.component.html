@@ -1,8 +1,59 @@
 <div [formGroup]="form">
-  <govuk-form-group-input
-    type="text"
-    formControlName="techRecord_chassisMake"
-    label="Chassis make"
-    [width]="FormNodeWidth.L">
-  </govuk-form-group-input>
+  <ng-container *ngIf="techRecord().techRecord_vehicleType === VehicleTypes.PSV">
+    <govuk-form-group-autocomplete
+      formControlName="techRecord_brakes_dtpNumber"
+      label="DTp Number"
+      [options$]="dtpNumbers$"
+      [width]="FormNodeWidth.L"
+    ></govuk-form-group-autocomplete>
+    <div class="node-row">
+      <govuk-form-group-input
+        type="text"
+        formControlName="techRecord_chassisMake"
+        label="Chassis make"
+        [width]="FormNodeWidth.L"
+      >
+      </govuk-form-group-input>
+      <govuk-form-group-input
+        type="text"
+        formControlName="techRecord_chassisModel"
+        label="Chassis model"
+        [width]="FormNodeWidth.L"
+      >
+      </govuk-form-group-input>
+    </div>
+    <div class="node-row">
+      <govuk-form-group-input
+        type="text"
+        formControlName="techRecord_bodyMake"
+        label="Body make"
+        [width]="FormNodeWidth.L"
+      >
+      </govuk-form-group-input>
+      <govuk-form-group-input
+        type="text"
+        formControlName="techRecord_bodyModel"
+        label="Body model"
+        [width]="FormNodeWidth.L"
+      >
+      </govuk-form-group-input>
+    </div>
+
+    <div class="node-row">
+      <govuk-form-group-input
+        type="text"
+        formControlName="techRecord_bodyType_description"
+        label="Body type"
+        [width]="FormNodeWidth.L"
+      >
+      </govuk-form-group-input>
+      <govuk-form-group-input
+        type="text"
+        formControlName="techRecord_modelLiteral"
+        label="Model literal"
+        [width]="FormNodeWidth.L"
+      >
+      </govuk-form-group-input>
+    </div>
+  </ng-container>
 </div>
