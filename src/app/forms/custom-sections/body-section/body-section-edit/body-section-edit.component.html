@@ -1,10 +1,19 @@
 <div [formGroup]="form">
+  <ng-container *ngIf="
+  techRecord().techRecord_vehicleType === VehicleTypes.HGV ||
+  techRecord().techRecord_vehicleType === VehicleTypes.TRL">
+    <govuk-form-group-input
+      type="text"
+      formControlName="techRecord_brakes_dtpNumber"
+      label="DTp number"
+      [width]="FormNodeWidth.L"
+    ></govuk-form-group-input>
+  </ng-container>
   <ng-container *ngIf="techRecord().techRecord_vehicleType === VehicleTypes.PSV">
     <govuk-form-group-autocomplete
       formControlName="techRecord_brakes_dtpNumber"
       label="DTp Number"
       [options$]="dtpNumbers$"
-      [width]="FormNodeWidth.L"
     ></govuk-form-group-autocomplete>
     <div class="node-row">
       <govuk-form-group-input
@@ -56,4 +65,15 @@
       </govuk-form-group-input>
     </div>
   </ng-container>
+  <govuk-form-group-select
+    formControlName="techRecord_functionCode"
+    label="Function code"
+    [options]="FUNCTION_CODE_OPTIONS"
+  ></govuk-form-group-select>
+  <govuk-form-group-input
+    formControlName="techRecord_conversionRefNo"
+    label="Conversion reference number"
+    type="text"
+    [width]="FormNodeWidth.L"
+  ></govuk-form-group-input>
 </div>

@@ -3,6 +3,7 @@ import { ControlContainer, FormBuilder, FormControl, FormGroup } from '@angular/
 import { TagType } from '@components/tag/tag.component';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
+import { FUNCTION_CODE_OPTIONS } from '@models/options.model';
 import { ReferenceDataResourceType } from '@models/reference-data.model';
 import { V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
@@ -136,6 +137,10 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 			techRecord_brakes_dtpNumber: this.fb.control<string | null>(null, [
 				this.commonValidators.required('DTp Number is required'),
 			]),
+			techRecord_functionCode: this.fb.control<string | null>(null, [
+				this.commonValidators.maxLength(1, 'Function code must be less than or equal to 1'),
+			]),
+			techRecord_conversionRefNo: this.fb.control<string | null>(null, []),
 		};
 	}
 
@@ -143,4 +148,5 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 	protected readonly TagTypeLabels = TagTypeLabels;
 	protected readonly TagType = TagType;
 	protected readonly VehicleTypes = VehicleTypes;
+	protected readonly FUNCTION_CODE_OPTIONS = FUNCTION_CODE_OPTIONS;
 }
