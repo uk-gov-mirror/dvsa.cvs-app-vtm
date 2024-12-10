@@ -12,7 +12,6 @@ import { TagType } from '@components/tag/tag.component';
 import { VehicleClassDescription } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/vehicleClassDescription.enum.js';
 import { FuelPropulsionSystem } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/hgv/complete';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
-import { TechRecordType as TechRecordTypeVerb } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
 import { CouplingTypeOptions } from '@models/coupling-type-enum';
 import {
@@ -41,8 +40,7 @@ import { V3TechRecordModel, VehicleSizes, VehicleTypes } from '@models/vehicle-t
 import { Store } from '@ngrx/store';
 import { FormNodeWidth, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
-import { updateEditingTechRecord } from '@store/technical-records';
-import { ReplaySubject, takeUntil } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 
 type VehicleSectionForm = Partial<Record<keyof TechRecordType<'hgv' | 'car' | 'psv' | 'lgv' | 'trl'>, FormControl>>;
 
@@ -93,20 +91,6 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.addControlsBasedOffVehicleType();
-		const formControl = this.form.get('techRecord_vehicleConfiguration');
-		formControl?.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((value) => {
-			if (value === 'articulated') {
-				this.store.dispatch(
-					updateEditingTechRecord({
-						vehicleTechRecord: {
-							...this.techRecord(),
-							techRecord_bodyType_description: 'articulated',
-							techRecord_bodyType_code: 'a',
-						} as TechRecordTypeVerb<'put'>,
-					})
-				);
-			}
-		});
 
 		// Attach all form controls to parent
 		const parent = this.controlContainer.control;
@@ -280,25 +264,7 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 		};
 	}
 
-	handleUpdateFunctionCode() {
-		this.form.controls.techRecord_vehicleConfiguration?.valueChanges
-			.pipe(takeUntil(this.destroy$))
-			.subscribe((value) => {
-				if (value) {
-					const functionCodes: Record<string, string> = {
-						rigid: 'R',
-						articulated: 'A',
-						'semi-trailer': 'A',
-					};
-
-					const functionCode = functionCodes[value];
-
-					this.technicalRecordService.updateEditingTechRecord({
-						techRecord_functionCode: functionCode,
-					} as TechRecordTypeVerb<'put'>);
-				}
-			});
-	}
+	handleUpdateFunctionCode() {}
 
 	handlePsvPassengersChange(): ValidatorFn {
 		return (control: AbstractControl): ValidationErrors | null => {
