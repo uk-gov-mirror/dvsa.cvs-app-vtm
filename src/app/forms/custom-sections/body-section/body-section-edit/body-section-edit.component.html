@@ -11,15 +11,15 @@
     ></govuk-form-group-input>
 
     <div class="node-row">
-<!--      <govuk-form-group-select-->
-<!--        type="text"-->
-<!--        formControlName="techRecord_make"-->
-<!--        label="Body make"-->
-<!--        [options]="bodyMakes()"-->
-<!--        [tags]="[{ label: TagTypeLabels.PLATES, colour: TagType.PURPLE }]"-->
-<!--        [width]="FormNodeWidth.L"-->
-<!--      >-->
-<!--      </govuk-form-group-select>-->
+      <govuk-form-group-select
+        type="text"
+        formControlName="techRecord_make"
+        label="Body make"
+        [options]="$any(bodyMakes$ | async) ?? []"
+        [tags]="[{ label: TagTypeLabels.PLATES, colour: TagType.PURPLE }]"
+        [width]="FormNodeWidth.L"
+      >
+      </govuk-form-group-select>
       <govuk-form-group-input
         type="text"
         formControlName="techRecord_model"

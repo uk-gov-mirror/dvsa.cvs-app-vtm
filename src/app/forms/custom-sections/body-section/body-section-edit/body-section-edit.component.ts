@@ -1,8 +1,10 @@
-import { Component, OnDestroy, OnInit, inject, input, Signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
 import { ControlContainer, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { TagType } from '@components/tag/tag.component';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
+import { getOptionsFromEnum } from '@forms/utils/enum-map';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
+import { vehicleBodyTypeCodeMap } from '@models/body-type-enum';
 import { FUNCTION_CODE_OPTIONS, MultiOptions } from '@models/options.model';
 import { ReferenceDataResourceType } from '@models/reference-data.model';
 import { V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
@@ -12,9 +14,6 @@ import { MultiOptionsService } from '@services/multi-options/multi-options.servi
 import { ReferenceDataService } from '@services/reference-data/reference-data.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { Observable, ReplaySubject, combineLatest, map, skipWhile, take } from 'rxjs';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { vehicleBodyTypeCodeMap } from '@models/body-type-enum';
-import { getOptionsFromEnum } from '@forms/utils/enum-map';
 
 @Component({
 	selector: 'app-body-section-edit',
@@ -103,48 +102,48 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 	}
 
 	get hgvAndTrailerFields(): Partial<Record<keyof TechRecordType<'hgv'>, FormControl>> {
-    return {
-      techRecord_make: this.fb.control<string | null>({ value: null, disabled: true }, [
-        this.commonValidators.maxLength(20, 'Body make must be less than or equal to 20'),
-      ]),
-      techRecord_model: this.fb.control<string | null>(null, [
-        this.commonValidators.maxLength(20, 'Body model must be less than or equal to 20'),
-      ]),
-      techRecord_bodyType_description: this.fb.control<string | null>({ value: null, disabled: true }, [
-        this.commonValidators.required('Body type is required'),
-      ]),
-      techRecord_brakes_dtpNumber: this.fb.control<string | null>(null, [
-        this.commonValidators.required('DTp Number is required'),
-      ]),
-      techRecord_functionCode: this.fb.control<string | null>(null, [
-        this.commonValidators.maxLength(1, 'Function code must be less than or equal to 1'),
-      ]),
-      techRecord_conversionRefNo: this.fb.control<string | null>(null, []),
-      }
+		return {
+			techRecord_make: this.fb.control<string | null>({ value: null, disabled: true }, [
+				this.commonValidators.maxLength(20, 'Body make must be less than or equal to 20'),
+			]),
+			techRecord_model: this.fb.control<string | null>(null, [
+				this.commonValidators.maxLength(20, 'Body model must be less than or equal to 20'),
+			]),
+			techRecord_bodyType_description: this.fb.control<string | null>({ value: null, disabled: true }, [
+				this.commonValidators.required('Body type is required'),
+			]),
+			techRecord_brakes_dtpNumber: this.fb.control<string | null>(null, [
+				this.commonValidators.required('DTp Number is required'),
+			]),
+			techRecord_functionCode: this.fb.control<string | null>(null, [
+				this.commonValidators.maxLength(1, 'Function code must be less than or equal to 1'),
+			]),
+			techRecord_conversionRefNo: this.fb.control<string | null>(null, []),
+		};
 	}
 
-  get bodyMakes() {
-    if (this.techRecord().techRecord_vehicleType === VehicleTypes.HGV) {
-      return toSignal(this.optionsService.getOptions(ReferenceDataResourceType.HgvMake)) as Signal<MultiOptions>;
-    }
-    if (this.techRecord().techRecord_vehicleType === VehicleTypes.PSV) {
-      return toSignal(this.optionsService.getOptions(ReferenceDataResourceType.PsvMake)) as Signal<MultiOptions>;
-    }
-    return toSignal(this.optionsService.getOptions(ReferenceDataResourceType.TrlMake)) as Signal<MultiOptions>;
-  }
+	get bodyMakes$() {
+		if (this.techRecord().techRecord_vehicleType === VehicleTypes.HGV) {
+			return this.optionsService.getOptions(ReferenceDataResourceType.HgvMake);
+		}
+		if (this.techRecord().techRecord_vehicleType === VehicleTypes.PSV) {
+			return this.optionsService.getOptions(ReferenceDataResourceType.PsvMake);
+		}
+		return this.optionsService.getOptions(ReferenceDataResourceType.TrlMake);
+	}
 
-  get bodyTypes(): MultiOptions {
-    const vehicleType: string = this.techRecord().techRecord_vehicleType;
+	get bodyTypes(): MultiOptions {
+		const vehicleType: string = this.techRecord().techRecord_vehicleType;
 
-    // TODO replicate this somewhere else
-    // if (this.techRecord.techRecord_vehicleType === 'hgv') {
-    //   vehicleType = `${this.techRecord.techRecord_vehicleConfiguration}Hgv`;
-    //   this.updateHgvVehicleBodyType(this.techRecord);
-    // }
-    const optionsMap = vehicleBodyTypeCodeMap.get(vehicleType) ?? [];
-    const values = [...optionsMap.values()];
-    return getOptionsFromEnum(values.sort());
-  }
+		// TODO replicate this somewhere else
+		// if (this.techRecord.techRecord_vehicleType === 'hgv') {
+		//   vehicleType = `${this.techRecord.techRecord_vehicleConfiguration}Hgv`;
+		//   this.updateHgvVehicleBodyType(this.techRecord);
+		// }
+		const optionsMap = vehicleBodyTypeCodeMap.get(vehicleType) ?? [];
+		const values = [...optionsMap.values()];
+		return getOptionsFromEnum(values.sort());
+	}
 
 	get psvFields(): Partial<Record<keyof TechRecordType<'psv'>, FormControl>> {
 		return {
