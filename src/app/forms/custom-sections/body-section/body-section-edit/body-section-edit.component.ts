@@ -4,16 +4,17 @@ import { TagType } from '@components/tag/tag.component';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { getOptionsFromEnum } from '@forms/utils/enum-map';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
-import { vehicleBodyTypeCodeMap } from '@models/body-type-enum';
+import { BodyTypeCode, vehicleBodyTypeCodeMap } from '@models/body-type-enum';
 import { FUNCTION_CODE_OPTIONS, MultiOptions } from '@models/options.model';
-import { ReferenceDataResourceType } from '@models/reference-data.model';
+import { PsvMake, ReferenceDataResourceType } from '@models/reference-data.model';
 import { V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
 import { FormNodeWidth, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
 import { MultiOptionsService } from '@services/multi-options/multi-options.service';
 import { ReferenceDataService } from '@services/reference-data/reference-data.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
-import { Observable, ReplaySubject, combineLatest, map, skipWhile, take } from 'rxjs';
+import { Observable, ReplaySubject, combineLatest, map, skipWhile, take, takeUntil, switchMap, tap } from 'rxjs';
+import { selectReferenceDataByResourceKey } from '@store/reference-data';
 
 @Component({
 	selector: 'app-body-section-edit',
@@ -44,6 +45,31 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 			}
 		}
 		this.loadOptions();
+    if (this.techRecord().techRecord_vehicleType === VehicleTypes.PSV) {
+      console.log(0);
+      this.form.get('techRecord_brakes_dtpNumber')?.valueChanges
+        .pipe(takeUntil(this.destroy$), tap(() => {}), switchMap((value) => {
+          return this.store.select(selectReferenceDataByResourceKey(ReferenceDataResourceType.PsvMake, value as string));
+        })).subscribe((value) => {
+        console.log(1);
+        const modelBase = value as PsvMake;
+        if (
+          modelBase?.dtpNumber &&
+          modelBase?.dtpNumber.length >= 4 &&
+          value
+        ) {
+          console.log(2);
+          const code = modelBase.psvBodyType.toLowerCase() as BodyTypeCode;
+          this.form.patchValue({
+            techRecord_bodyType_code: code,
+            techRecord_bodyType_description: vehicleBodyTypeCodeMap.get(VehicleTypes.PSV)?.get(code),
+            techRecord_bodyMake: modelBase.psvBodyMake,
+            techRecord_chassisMake: modelBase.psvChassisMake,
+            techRecord_chassisModel: modelBase.psvChassisModel
+          })
+        }
+      });
+    }
 	}
 
 	ngOnDestroy(): void {
