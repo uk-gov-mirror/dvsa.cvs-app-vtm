@@ -133,13 +133,11 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 	}
 
 	get bodyTypes(): MultiOptions {
-		const vehicleType: string = this.techRecord().techRecord_vehicleType;
+		let vehicleType: string = this.techRecord().techRecord_vehicleType;
 
-		// TODO replicate this somewhere else
-		// if (this.techRecord.techRecord_vehicleType === 'hgv') {
-		//   vehicleType = `${this.techRecord.techRecord_vehicleConfiguration}Hgv`;
-		//   this.updateHgvVehicleBodyType(this.techRecord);
-		// }
+		if (this.techRecord().techRecord_vehicleType === 'hgv') {
+			vehicleType = `${this.techRecord().techRecord_vehicleConfiguration}Hgv`;
+		}
 		const optionsMap = vehicleBodyTypeCodeMap.get(vehicleType) ?? [];
 		const values = [...optionsMap.values()];
 		return getOptionsFromEnum(values.sort());

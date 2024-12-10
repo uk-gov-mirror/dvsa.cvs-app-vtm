@@ -41,6 +41,7 @@ import { V3TechRecordModel, VehicleSizes, VehicleTypes } from '@models/vehicle-t
 import { Store } from '@ngrx/store';
 import { FormNodeWidth, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
+import { updateEditingTechRecord } from '@store/technical-records';
 import { ReplaySubject, takeUntil } from 'rxjs';
 
 type VehicleSectionForm = Partial<Record<keyof TechRecordType<'hgv' | 'car' | 'psv' | 'lgv' | 'trl'>, FormControl>>;
@@ -92,6 +93,20 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.addControlsBasedOffVehicleType();
+		const formControl = this.form.get('techRecord_vehicleConfiguration');
+		formControl?.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((value) => {
+			if (value === 'articulated') {
+				this.store.dispatch(
+					updateEditingTechRecord({
+						vehicleTechRecord: {
+							...this.techRecord(),
+							techRecord_bodyType_description: 'articulated',
+							techRecord_bodyType_code: 'a',
+						} as TechRecordTypeVerb<'put'>,
+					})
+				);
+			}
+		});
 
 		// Attach all form controls to parent
 		const parent = this.controlContainer.control;
