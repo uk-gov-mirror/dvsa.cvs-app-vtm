@@ -7,7 +7,7 @@ import {
 	NG_VALUE_ACCESSOR,
 	ReactiveFormsModule,
 } from '@angular/forms';
-import { MultiOption, MultiOptions } from '@models/options.model';
+import { MultiOptions } from '@models/options.model';
 import { CustomTag, FormNodeWidth } from '@services/dynamic-forms/dynamic-form.types';
 import { SharedModule } from '@shared/shared.module';
 

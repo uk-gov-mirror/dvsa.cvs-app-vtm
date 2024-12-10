@@ -11,15 +11,15 @@
     ></govuk-form-group-input>
 
     <div class="node-row">
-      <govuk-form-group-select
-        type="text"
-        formControlName="techRecord_make"
-        label="Body make"
-        [options]="bodyMakes"
-        [tags]="[{ label: TagTypeLabels.PLATES, colour: TagType.PURPLE }]"
-        [width]="FormNodeWidth.L"
-      >
-      </govuk-form-group-select>
+<!--      <govuk-form-group-select-->
+<!--        type="text"-->
+<!--        formControlName="techRecord_make"-->
+<!--        label="Body make"-->
+<!--        [options]="bodyMakes()"-->
+<!--        [tags]="[{ label: TagTypeLabels.PLATES, colour: TagType.PURPLE }]"-->
+<!--        [width]="FormNodeWidth.L"-->
+<!--      >-->
+<!--      </govuk-form-group-select>-->
       <govuk-form-group-input
         type="text"
         formControlName="techRecord_model"
@@ -34,6 +34,7 @@
         label="Body type"
         [width]="FormNodeWidth.L"
         [tags]="[{ label: TagTypeLabels.REQUIRED, colour: TagType.RED }]"
+        [options]="bodyTypes"
       >
       </govuk-form-group-select>
     </div>

@@ -13,6 +13,8 @@ import { ReferenceDataService } from '@services/reference-data/reference-data.se
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { Observable, ReplaySubject, combineLatest, map, skipWhile, take } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { vehicleBodyTypeCodeMap } from '@models/body-type-enum';
+import { getOptionsFromEnum } from '@forms/utils/enum-map';
 
 @Component({
 	selector: 'app-body-section-edit',
@@ -100,16 +102,6 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 		}
 	}
 
-  get bodyMakes(): Signal<MultiOptions> {
-    if (this.techRecord().techRecord_vehicleType === VehicleTypes.HGV) {
-      return toSignal(this.optionsService.getOptions(ReferenceDataResourceType.HgvMake) as Observable<MultiOptions>);
-    }
-    if (this.techRecord().techRecord_vehicleType === VehicleTypes.PSV) {
-      return this.optionsService.getOptions(ReferenceDataResourceType.PsvMake);
-    }
-    return this.optionsService.getOptions(ReferenceDataResourceType.TrlMake);
-  }
-
 	get hgvAndTrailerFields(): Partial<Record<keyof TechRecordType<'hgv'>, FormControl>> {
     return {
       techRecord_make: this.fb.control<string | null>({ value: null, disabled: true }, [
@@ -130,6 +122,29 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
       techRecord_conversionRefNo: this.fb.control<string | null>(null, []),
       }
 	}
+
+  get bodyMakes() {
+    if (this.techRecord().techRecord_vehicleType === VehicleTypes.HGV) {
+      return toSignal(this.optionsService.getOptions(ReferenceDataResourceType.HgvMake)) as Signal<MultiOptions>;
+    }
+    if (this.techRecord().techRecord_vehicleType === VehicleTypes.PSV) {
+      return toSignal(this.optionsService.getOptions(ReferenceDataResourceType.PsvMake)) as Signal<MultiOptions>;
+    }
+    return toSignal(this.optionsService.getOptions(ReferenceDataResourceType.TrlMake)) as Signal<MultiOptions>;
+  }
+
+  get bodyTypes(): MultiOptions {
+    const vehicleType: string = this.techRecord().techRecord_vehicleType;
+
+    // TODO replicate this somewhere else
+    // if (this.techRecord.techRecord_vehicleType === 'hgv') {
+    //   vehicleType = `${this.techRecord.techRecord_vehicleConfiguration}Hgv`;
+    //   this.updateHgvVehicleBodyType(this.techRecord);
+    // }
+    const optionsMap = vehicleBodyTypeCodeMap.get(vehicleType) ?? [];
+    const values = [...optionsMap.values()];
+    return getOptionsFromEnum(values.sort());
+  }
 
 	get psvFields(): Partial<Record<keyof TechRecordType<'psv'>, FormControl>> {
 		return {
