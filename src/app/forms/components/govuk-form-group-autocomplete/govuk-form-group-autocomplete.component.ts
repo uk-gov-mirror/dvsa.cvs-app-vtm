@@ -103,7 +103,7 @@ export class GovukFormGroupAutocompleteComponent
 					id: this.labelId,
 					selectElement: this.document.querySelector(`#${this.id}`),
 					autoselect: false,
-					defaultValue: '',
+					defaultValue: this.value?.toString() ?? '',
 					showAllValues: true,
 					confirmOnBlur: false,
 					source: this.options,
