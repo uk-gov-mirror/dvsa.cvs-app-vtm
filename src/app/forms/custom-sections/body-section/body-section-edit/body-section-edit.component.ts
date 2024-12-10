@@ -1,17 +1,18 @@
-import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, input, Signal } from '@angular/core';
 import { ControlContainer, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { TagType } from '@components/tag/tag.component';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
-import { FUNCTION_CODE_OPTIONS } from '@models/options.model';
+import { FUNCTION_CODE_OPTIONS, MultiOptions } from '@models/options.model';
 import { ReferenceDataResourceType } from '@models/reference-data.model';
 import { V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
-import { CustomTag, FormNodeWidth, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
+import { FormNodeWidth, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
 import { MultiOptionsService } from '@services/multi-options/multi-options.service';
 import { ReferenceDataService } from '@services/reference-data/reference-data.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { Observable, ReplaySubject, combineLatest, map, skipWhile, take } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
 	selector: 'app-body-section-edit',
@@ -99,19 +100,35 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	getTags(formControlName: string): CustomTag[] {
-		switch (true) {
-			// case this.techRecord().techRecord_vehicleType === 'hgv' && formControlName === 'techRecord_chassisMake':
-			// 	return [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }];
-			// case this.techRecord().techRecord_vehicleType === 'trl' && formControlName === 'techRecord_chassisMake':
-			// 	return [{ colour: TagType.PURPLE, label: TagTypeLabels.PLATES }];
-			default:
-				return [];
-		}
-	}
+  get bodyMakes(): Signal<MultiOptions> {
+    if (this.techRecord().techRecord_vehicleType === VehicleTypes.HGV) {
+      return toSignal(this.optionsService.getOptions(ReferenceDataResourceType.HgvMake) as Observable<MultiOptions>);
+    }
+    if (this.techRecord().techRecord_vehicleType === VehicleTypes.PSV) {
+      return this.optionsService.getOptions(ReferenceDataResourceType.PsvMake);
+    }
+    return this.optionsService.getOptions(ReferenceDataResourceType.TrlMake);
+  }
 
 	get hgvAndTrailerFields(): Partial<Record<keyof TechRecordType<'hgv'>, FormControl>> {
-		return {};
+    return {
+      techRecord_make: this.fb.control<string | null>({ value: null, disabled: true }, [
+        this.commonValidators.maxLength(20, 'Body make must be less than or equal to 20'),
+      ]),
+      techRecord_model: this.fb.control<string | null>(null, [
+        this.commonValidators.maxLength(20, 'Body model must be less than or equal to 20'),
+      ]),
+      techRecord_bodyType_description: this.fb.control<string | null>({ value: null, disabled: true }, [
+        this.commonValidators.required('Body type is required'),
+      ]),
+      techRecord_brakes_dtpNumber: this.fb.control<string | null>(null, [
+        this.commonValidators.required('DTp Number is required'),
+      ]),
+      techRecord_functionCode: this.fb.control<string | null>(null, [
+        this.commonValidators.maxLength(1, 'Function code must be less than or equal to 1'),
+      ]),
+      techRecord_conversionRefNo: this.fb.control<string | null>(null, []),
+      }
 	}
 
 	get psvFields(): Partial<Record<keyof TechRecordType<'psv'>, FormControl>> {

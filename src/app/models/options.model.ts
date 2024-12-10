@@ -41,9 +41,11 @@ export const HGV_VEHICLE_CLASS_DESCRIPTION_OPTIONS: MultiOptions = [
 ];
 
 export const FUNCTION_CODE_OPTIONS: MultiOptions = [
-	{ value: 'r', label: 'R' },
-	{ value: 'a', label: 'A' },
+	{ label: 'R', value: 'R' },
+	{ label: 'A', value: 'A', },
 ];
+
+export const BODY_TYPE_OPTIONS: MultiOptions = [];
 
 export const PSV_VEHICLE_CLASS_DESCRIPTION_OPTIONS: MultiOptions = [
 	{

@@ -7,7 +7,7 @@ import {
 	NG_VALUE_ACCESSOR,
 	ReactiveFormsModule,
 } from '@angular/forms';
-import { MultiOption } from '@models/options.model';
+import { MultiOption, MultiOptions } from '@models/options.model';
 import { CustomTag, FormNodeWidth } from '@services/dynamic-forms/dynamic-form.types';
 import { SharedModule } from '@shared/shared.module';
 
@@ -39,7 +39,7 @@ export class GovukFormGroupSelectComponent implements ControlValueAccessor {
 	tags: CustomTag[] = [];
 
 	@Input({ required: true })
-	options!: MultiOption[];
+	options!: MultiOptions;
 
 	@Input({ alias: 'hint' })
 	controlHint = '';
