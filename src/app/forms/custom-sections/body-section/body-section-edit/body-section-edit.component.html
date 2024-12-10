@@ -44,6 +44,8 @@
       formControlName="techRecord_brakes_dtpNumber"
       label="DTp Number"
       [options$]="dtpNumbers$"
+      [tags]="[{ label: TagTypeLabels.REQUIRED, colour: TagType.RED }]"
+      [width]="FormNodeWidth.L"
     ></govuk-form-group-autocomplete>
     <div class="node-row">
       <govuk-form-group-input
