@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, inject, input } from '@angular/core';
 import { ControlContainer, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { TagType } from '@components/tag/tag.component';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
@@ -14,7 +14,7 @@ import { MultiOptionsService } from '@services/multi-options/multi-options.servi
 import { ReferenceDataService } from '@services/reference-data/reference-data.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { selectReferenceDataByResourceKey } from '@store/reference-data';
-import { Observable, ReplaySubject, combineLatest, map, skipWhile, switchMap, take, takeUntil, tap } from 'rxjs';
+import { Observable, ReplaySubject, combineLatest, map, skipWhile, switchMap, take, takeUntil } from 'rxjs';
 
 @Component({
 	selector: 'app-body-section-edit',
@@ -29,6 +29,7 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 	technicalRecordService = inject(TechnicalRecordService);
 	referenceDataService = inject(ReferenceDataService);
 	optionsService = inject(MultiOptionsService);
+	cdr = inject(ChangeDetectorRef);
 	techRecord = input.required<V3TechRecordModel>();
 
 	destroy$ = new ReplaySubject<boolean>(1);
@@ -46,14 +47,10 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 		}
 		this.loadOptions();
 		if (this.techRecord().techRecord_vehicleType === VehicleTypes.PSV) {
-			console.log(0);
 			this.form
 				.get('techRecord_brakes_dtpNumber')
 				?.valueChanges.pipe(
 					takeUntil(this.destroy$),
-					tap(() => {
-						console.log(0.5);
-					}),
 					switchMap((value) => {
 						return this.store.select(
 							selectReferenceDataByResourceKey(ReferenceDataResourceType.PsvMake, value as string)
@@ -61,11 +58,8 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 					})
 				)
 				.subscribe((value) => {
-					console.log(1);
 					const modelBase = value as PsvMake;
 					if (modelBase?.dtpNumber && modelBase?.dtpNumber.length >= 4 && value) {
-						console.log(2);
-						console.log(modelBase);
 						const code = modelBase.psvBodyType.toLowerCase() as BodyTypeCode;
 						this.form.patchValue({
 							techRecord_bodyType_code: code,
@@ -74,8 +68,7 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 							techRecord_chassisMake: modelBase.psvChassisMake,
 							techRecord_chassisModel: modelBase.psvChassisModel,
 						});
-						this.form.get('techRecord_chassisMake')?.updateValueAndValidity();
-						console.log(this.form.getRawValue());
+						this.cdr.detectChanges();
 					}
 				});
 		}
