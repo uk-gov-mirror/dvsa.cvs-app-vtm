@@ -4,5 +4,9 @@
   "requiredStandards": true,
   "FsAdr": true,
   "FsVehicleSummary": true,
-  "FsBody": true
+  "FsBody": true,
+  "FsDimensions": false,
+  "FsTyres": false,
+  "FsWeights": false,
+  "FsApprovalType": false
 }

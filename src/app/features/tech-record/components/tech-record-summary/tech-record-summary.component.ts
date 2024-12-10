@@ -71,7 +71,7 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 	isEditing = false;
 	scrollPosition: [number, number] = [0, 0];
 	isADRCertGenEnabled = false;
-	isDFSEnabled = false;
+	isADREnabled = false;
 
 	private axlesService = inject(AxlesService);
 	private errorService = inject(GlobalErrorService);
@@ -94,7 +94,7 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 
 	ngOnInit(): void {
 		this.isADRCertGenEnabled = this.featureToggleService.isFeatureEnabled('adrCertToggle');
-		this.isDFSEnabled = this.featureToggleService.isFeatureEnabled('FsAdr');
+		this.isADREnabled = this.featureToggleService.isFeatureEnabled('FsAdr');
 
 		this.technicalRecordService.techRecord$
 			.pipe(
@@ -234,28 +234,50 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 	}
 
 	get customSectionForms(): Array<CustomFormGroup | CustomFormArray> {
-		const commonCustomSections = [
-			this.body?.form,
-			this.dimensions?.form,
-			this.tyres?.form,
-			this.weights?.form,
-			this.approvalType?.form,
-		];
+		// const commonCustomSections = [
+		// 	this.body?.form,
+		// 	this.dimensions?.form,
+		// 	this.tyres?.form,
+		// 	this.weights?.form,
+		// 	this.approvalType?.form,
+		// ];
+
+		const commonCustomSections = this.addCustomSectionsBasedOffFlag();
 
 		switch (this.vehicleType) {
 			case VehicleTypes.PSV:
 				return [...commonCustomSections, this.psvBrakes.form];
 			case VehicleTypes.HGV:
-				return !this.isDFSEnabled ? [...commonCustomSections, this.adr.form] : commonCustomSections;
+				return !this.isADREnabled ? [...commonCustomSections, this.adr.form] : commonCustomSections;
 			case VehicleTypes.TRL:
-				return !this.isDFSEnabled
+				return !this.isADREnabled
 					? [...commonCustomSections, this.trlBrakes.form, this.letters.form, this.adr.form]
 					: [...commonCustomSections, this.trlBrakes.form, this.letters.form];
 			case VehicleTypes.LGV:
-				return !this.isDFSEnabled ? [this.adr.form] : [];
+				return !this.isADREnabled ? [this.adr.form] : [];
 			default:
 				return [];
 		}
+	}
+
+	addCustomSectionsBasedOffFlag(): CustomFormGroup[] {
+		const sections = [];
+		if (!this.featureToggleService.isFeatureEnabled('FsBody')) {
+			sections.push(this.body.form);
+		}
+		if (!this.featureToggleService.isFeatureEnabled('FsDimensions')) {
+			sections.push(this.dimensions.form);
+		}
+		if (!this.featureToggleService.isFeatureEnabled('FsTyres')) {
+			sections.push(this.tyres.form);
+		}
+		if (!this.featureToggleService.isFeatureEnabled('FsWeights')) {
+			sections.push(this.weights.form);
+		}
+		if (!this.featureToggleService.isFeatureEnabled('FsApprovalType')) {
+			sections.push(this.approvalType.form);
+		}
+		return sections;
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
