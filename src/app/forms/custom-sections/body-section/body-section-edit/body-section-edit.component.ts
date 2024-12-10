@@ -13,8 +13,8 @@ import { FormNodeWidth, TagTypeLabels } from '@services/dynamic-forms/dynamic-fo
 import { MultiOptionsService } from '@services/multi-options/multi-options.service';
 import { ReferenceDataService } from '@services/reference-data/reference-data.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
-import { Observable, ReplaySubject, combineLatest, map, skipWhile, take, takeUntil, switchMap, tap } from 'rxjs';
 import { selectReferenceDataByResourceKey } from '@store/reference-data';
+import { Observable, ReplaySubject, combineLatest, map, skipWhile, switchMap, take, takeUntil, tap } from 'rxjs';
 
 @Component({
 	selector: 'app-body-section-edit',
@@ -45,31 +45,40 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 			}
 		}
 		this.loadOptions();
-    if (this.techRecord().techRecord_vehicleType === VehicleTypes.PSV) {
-      console.log(0);
-      this.form.get('techRecord_brakes_dtpNumber')?.valueChanges
-        .pipe(takeUntil(this.destroy$), tap(() => {}), switchMap((value) => {
-          return this.store.select(selectReferenceDataByResourceKey(ReferenceDataResourceType.PsvMake, value as string));
-        })).subscribe((value) => {
-        console.log(1);
-        const modelBase = value as PsvMake;
-        if (
-          modelBase?.dtpNumber &&
-          modelBase?.dtpNumber.length >= 4 &&
-          value
-        ) {
-          console.log(2);
-          const code = modelBase.psvBodyType.toLowerCase() as BodyTypeCode;
-          this.form.patchValue({
-            techRecord_bodyType_code: code,
-            techRecord_bodyType_description: vehicleBodyTypeCodeMap.get(VehicleTypes.PSV)?.get(code),
-            techRecord_bodyMake: modelBase.psvBodyMake,
-            techRecord_chassisMake: modelBase.psvChassisMake,
-            techRecord_chassisModel: modelBase.psvChassisModel
-          })
-        }
-      });
-    }
+		if (this.techRecord().techRecord_vehicleType === VehicleTypes.PSV) {
+			console.log(0);
+			this.form
+				.get('techRecord_brakes_dtpNumber')
+				?.valueChanges.pipe(
+					takeUntil(this.destroy$),
+					tap(() => {
+						console.log(0.5);
+					}),
+					switchMap((value) => {
+						return this.store.select(
+							selectReferenceDataByResourceKey(ReferenceDataResourceType.PsvMake, value as string)
+						);
+					})
+				)
+				.subscribe((value) => {
+					console.log(1);
+					const modelBase = value as PsvMake;
+					if (modelBase?.dtpNumber && modelBase?.dtpNumber.length >= 4 && value) {
+						console.log(2);
+						console.log(modelBase);
+						const code = modelBase.psvBodyType.toLowerCase() as BodyTypeCode;
+						this.form.patchValue({
+							techRecord_bodyType_code: code,
+							techRecord_bodyType_description: vehicleBodyTypeCodeMap.get(VehicleTypes.PSV)?.get(code),
+							techRecord_bodyMake: modelBase.psvBodyMake,
+							techRecord_chassisMake: modelBase.psvChassisMake,
+							techRecord_chassisModel: modelBase.psvChassisModel,
+						});
+						this.form.get('techRecord_chassisMake')?.updateValueAndValidity();
+						console.log(this.form.getRawValue());
+					}
+				});
+		}
 	}
 
 	ngOnDestroy(): void {

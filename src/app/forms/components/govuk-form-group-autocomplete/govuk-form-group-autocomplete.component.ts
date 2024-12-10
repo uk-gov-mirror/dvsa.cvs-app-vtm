@@ -99,11 +99,12 @@ export class GovukFormGroupAutocompleteComponent
 				this.options = options;
 				this.cdr.detectChanges();
 
+				//TODO revisit defaultValue for empty string
 				enhanceSelectElement({
 					id: this.labelId,
 					selectElement: this.document.querySelector(`#${this.id}`),
 					autoselect: false,
-					defaultValue: this.value?.toString() ?? '',
+					defaultValue: this.value?.toString(),
 					showAllValues: true,
 					confirmOnBlur: false,
 					source: this.options,
