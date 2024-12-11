@@ -6,7 +6,7 @@ import { getOptionsFromEnum } from '@forms/utils/enum-map';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
 import { BodyTypeCode, vehicleBodyTypeCodeMap } from '@models/body-type-enum';
 import { FUNCTION_CODE_OPTIONS, MultiOptions } from '@models/options.model';
-import { PsvMake, ReferenceDataResourceType } from '@models/reference-data.model';
+import { PsvMake, ReferenceDataModelBase, ReferenceDataResourceType } from '@models/reference-data.model';
 import { V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
 import { FormNodeWidth, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
@@ -58,19 +58,25 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 					})
 				)
 				.subscribe((value) => {
-					const modelBase = value as PsvMake;
-					if (modelBase?.dtpNumber && modelBase?.dtpNumber.length >= 4 && value) {
-						const code = modelBase.psvBodyType.toLowerCase() as BodyTypeCode;
-						this.form.patchValue({
-							techRecord_bodyType_code: code,
-							techRecord_bodyType_description: vehicleBodyTypeCodeMap.get(VehicleTypes.PSV)?.get(code),
-							techRecord_bodyMake: modelBase.psvBodyMake,
-							techRecord_chassisMake: modelBase.psvChassisMake,
-							techRecord_chassisModel: modelBase.psvChassisModel,
-						});
-						this.cdr.detectChanges();
+					if (value) {
+						this.handleDTpNumberChange(value);
 					}
 				});
+		}
+	}
+
+	handleDTpNumberChange(refData: ReferenceDataModelBase) {
+		const modelBase = refData as PsvMake;
+		if (modelBase?.dtpNumber && modelBase?.dtpNumber.length >= 4 && refData) {
+			const code = modelBase.psvBodyType.toLowerCase() as BodyTypeCode;
+			this.form.patchValue({
+				techRecord_bodyType_code: code,
+				techRecord_bodyType_description: vehicleBodyTypeCodeMap.get(VehicleTypes.PSV)?.get(code),
+				techRecord_bodyMake: modelBase.psvBodyMake,
+				techRecord_chassisMake: modelBase.psvChassisMake,
+				techRecord_chassisModel: modelBase.psvChassisModel,
+			});
+			this.cdr.detectChanges();
 		}
 	}
 

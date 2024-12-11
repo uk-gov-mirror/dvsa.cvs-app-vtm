@@ -14,12 +14,14 @@ import { ActivatedRoute } from '@angular/router';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { DynamicFormsModule } from '@forms/dynamic-forms.module';
 import { mockVehicleTechnicalRecord } from '@mocks/mock-vehicle-technical-record.mock';
+import { ReferenceDataModelBase, ReferenceDataResourceType } from '@models/reference-data.model';
 import { VehicleTypes } from '@models/vehicle-tech-record.model';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { MultiOptionsService } from '@services/multi-options/multi-options.service';
 import { ReferenceDataService } from '@services/reference-data/reference-data.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { initialAppState } from '@store/index';
+import { selectReferenceDataByResourceKey } from '@store/reference-data';
 import { of } from 'rxjs';
 import { BodySectionEditComponent } from '../body-section-edit.component';
 
@@ -99,21 +101,34 @@ describe('BodySectionEditComponent', () => {
 			const form = new FormGroup({
 				techRecord_brakes_dtpNumber: new FormControl(''),
 			});
+			jest.spyOn(component, 'handleDTpNumberChange');
 			const mockTechRecord = mockVehicleTechnicalRecord('hgv');
 			mockTechRecord.techRecord_vehicleType = VehicleTypes.HGV;
 			componentRef.setInput('techRecord', mockTechRecord);
-			const cdrSpy = jest.spyOn(component.cdr, 'detectChanges');
-			const formSpy = jest.spyOn(component.form, 'patchValue');
-
 			component.form = form;
 			component.ngOnInit();
 
 			form.patchValue({
 				techRecord_brakes_dtpNumber: '1234',
 			});
+			form.updateValueAndValidity({ onlySelf: false, emitEvent: true });
+			expect(component.handleDTpNumberChange).toHaveBeenCalled();
+		});
+	});
 
-			expect(formSpy).toHaveBeenCalled();
-			expect(cdrSpy).toHaveBeenCalled();
+	describe('handleDTpNumberChange', () => {
+		it('should patch the form and call cdr.detectChanges', () => {
+			let psvMake: ReferenceDataModelBase;
+			store
+				.select(selectReferenceDataByResourceKey(ReferenceDataResourceType.PsvMake, '1234'))
+				.subscribe((value: ReferenceDataModelBase) => {
+					const cdrSpy = jest.spyOn(component.cdr, 'detectChanges');
+					const formSpy = jest.spyOn(component.form, 'patchValue');
+					psvMake = value;
+					component.handleDTpNumberChange(psvMake);
+					expect(cdrSpy).toHaveBeenCalled();
+					expect(formSpy).toHaveBeenCalled();
+				});
 		});
 	});
 
