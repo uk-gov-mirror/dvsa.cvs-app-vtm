@@ -31,6 +31,7 @@
     formControlName="techRecord_manufactureYear"
     [width]="FormNodeWidth.XS"
     type="number"
+    [tags]="shouldShowPlatesHgv || shouldShowPlatesTrl ? [{ label: TagTypeLabels.PLATES, colour: TagType.PURPLE }] : []"
   ></govuk-form-group-input>
 
   <!--  Date of first use (TRL only) -->
