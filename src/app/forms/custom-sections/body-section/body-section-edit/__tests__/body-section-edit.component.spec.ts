@@ -101,6 +101,7 @@ describe('BodySectionEditComponent', () => {
 			const form = new FormGroup({
 				techRecord_brakes_dtpNumber: new FormControl(''),
 			});
+			const spy = jest.spyOn(form.get('techRecord_brakes_dtpNumber')!.valueChanges, 'subscribe');
 			jest.spyOn(component, 'handleDTpNumberChange');
 			const mockTechRecord = mockVehicleTechnicalRecord('psv');
 			mockTechRecord.techRecord_vehicleType = VehicleTypes.PSV;
@@ -111,7 +112,8 @@ describe('BodySectionEditComponent', () => {
 			form.patchValue({
 				techRecord_brakes_dtpNumber: '1234',
 			});
-			form.updateValueAndValidity({ onlySelf: false, emitEvent: true });
+			// form.updateValueAndValidity({ onlySelf: false, emitEvent: true });
+			expect(spy).toHaveBeenCalled();
 			expect(component.handleDTpNumberChange).toHaveBeenCalled();
 		});
 	});
