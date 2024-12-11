@@ -99,8 +99,6 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 				parent.addControl(key, control, { emitEvent: false });
 			}
 		}
-
-		this.handleUpdateFunctionCode();
 	}
 
 	ngOnDestroy(): void {
@@ -263,8 +261,6 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 			]),
 		};
 	}
-
-	handleUpdateFunctionCode() {}
 
 	handlePsvPassengersChange(): ValidatorFn {
 		return (control: AbstractControl): ValidationErrors | null => {
