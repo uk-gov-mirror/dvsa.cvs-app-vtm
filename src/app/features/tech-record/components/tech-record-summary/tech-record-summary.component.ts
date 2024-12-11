@@ -90,7 +90,7 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 
 	private destroy$ = new Subject<void>();
 
-	form = this.fb.group({});
+	form: FormGroup = this.fb.group({});
 
 	ngOnInit(): void {
 		this.isADRCertGenEnabled = this.featureToggleService.isFeatureEnabled('adrCertToggle');
@@ -176,27 +176,32 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 				if (this.isEditing && techRecord) this.form.patchValue({ ...techRecord });
 			});
 
+		this.handleVehicleConfigurationChanges();
+	}
+
+	handleVehicleConfigurationChanges() {
 		// TODO clean this up in the future
 		const formControl = this.form.get('techRecord_vehicleConfiguration');
 		formControl?.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((value) => {
+			if (!value) {
+				return;
+			}
 			if (value === 'articulated') {
 				this.form.patchValue({
 					techRecord_bodyType_description: 'articulated',
 					techRecord_bodyType_code: 'a',
 				});
 			}
-			if (value) {
-				const functionCodes: Record<string, string> = {
-					rigid: 'R',
-					articulated: 'A',
-					'semi-trailer': 'A',
-				};
+			const functionCodes: Record<string, string> = {
+				rigid: 'R',
+				articulated: 'A',
+				'semi-trailer': 'A',
+			};
 
-				const functionCode = functionCodes[value];
-				this.form.patchValue({
-					techRecord_functionCode: functionCode,
-				});
-			}
+			const functionCode = functionCodes[value];
+			this.form.patchValue({
+				techRecord_functionCode: functionCode,
+			});
 		});
 	}
 
