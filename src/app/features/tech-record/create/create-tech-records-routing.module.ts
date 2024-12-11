@@ -31,7 +31,6 @@ const routes: Routes = [
 							roles: Roles.TechRecordCreate,
 							isCustomLayout: true,
 							isEditing: true,
-							isCreating: true,
 						},
 					},
 					{

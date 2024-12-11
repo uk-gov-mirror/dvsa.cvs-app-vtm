@@ -31,7 +31,7 @@ const routes: Routes = [
 			{
 				path: TechRecordCreateBatchRoutes.RECORD,
 				component: RouterOutletComponent,
-				data: { title: 'Batch Record', roles: Roles.TechRecordCreate, isCustomLayout: true, isCreating: true },
+				data: { title: 'Batch Record', roles: Roles.TechRecordCreate, isCustomLayout: true },
 				children: [
 					{
 						path: '',

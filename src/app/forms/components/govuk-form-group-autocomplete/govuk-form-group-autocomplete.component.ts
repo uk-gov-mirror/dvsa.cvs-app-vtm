@@ -20,7 +20,10 @@ import {
 } from '@angular/forms';
 import { CustomTag, FormNodeWidth } from '@services/dynamic-forms/dynamic-form.types';
 import { SharedModule } from '@shared/shared.module';
-import { enhanceSelectElement } from 'accessible-autocomplete/dist/accessible-autocomplete.min';
+import {
+	AutocompleteEnhanceParams,
+	enhanceSelectElement,
+} from 'accessible-autocomplete/dist/accessible-autocomplete.min';
 import {
 	BehaviorSubject,
 	Observable,
@@ -28,11 +31,7 @@ import {
 	combineLatest,
 	debounceTime,
 	distinctUntilChanged,
-	filter,
 	fromEvent,
-	lastValueFrom,
-	of,
-	take,
 	takeUntil,
 	takeWhile,
 } from 'rxjs';
@@ -84,29 +83,21 @@ export class GovukFormGroupAutocompleteComponent
 	commonValidators = inject(CommonValidatorsService);
 
 	options: (string | number)[] = [];
+
 	destroy = new ReplaySubject<boolean>(1);
-	latestValue = new BehaviorSubject(this.value);
+	valueSub = new BehaviorSubject<unknown>(null);
 
 	ngAfterViewInit(): void {
-		lastValueFrom(
-			combineLatest([
-				this.options$.pipe(takeWhile((options) => !options || options.length === 0, true)),
-				this.isCreateMode
-					? of(null)
-					: this.latestValue.pipe(
-							filter((value) => value !== null),
-							take(1)
-						),
-			])
-		)
-			.then(([options, latest]) => {
+		combineLatest([this.options$.pipe(takeWhile((options) => !options || options.length === 0, true)), this.valueSub])
+			.pipe(takeUntil(this.destroy))
+			.subscribe(([options, latest]) => {
 				this.options = options;
-				this.cdr.detectChanges();
-				enhanceSelectElement({
+
+				const enhanceParams: AutocompleteEnhanceParams = {
 					id: this.labelId,
+					defaultValue: '',
 					selectElement: this.document.querySelector(`#${this.id}`),
 					autoselect: false,
-					defaultValue: latest?.toString() ?? '',
 					showAllValues: true,
 					confirmOnBlur: false,
 					source: this.options,
@@ -118,13 +109,18 @@ export class GovukFormGroupAutocompleteComponent
 					onConfirm: (selected) => {
 						this.handleChangeForOption(selected);
 					},
-				});
+				};
+
+				if (latest) {
+					enhanceParams.defaultValue = latest.toString();
+				}
+
+				enhanceSelectElement(enhanceParams);
 
 				fromEvent(this.document.querySelector(`#${this.id}`)!, 'change')
 					.pipe(takeUntil(this.destroy), distinctUntilChanged(), debounceTime(500))
 					.subscribe((event) => this.handleChange(event));
-			})
-			.catch(() => {});
+			});
 	}
 
 	ngAfterContentInit(): void {
@@ -172,8 +168,8 @@ export class GovukFormGroupAutocompleteComponent
 	onTouched = () => {};
 
 	writeValue(obj: any): void {
-		this.latestValue.next(obj);
 		this.value = obj;
+		this.valueSub.next(obj);
 		this.onChange(obj);
 	}
 
