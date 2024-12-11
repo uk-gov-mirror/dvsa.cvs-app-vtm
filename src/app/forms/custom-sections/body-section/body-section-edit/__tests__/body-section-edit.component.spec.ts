@@ -95,4 +95,25 @@ describe('BodySectionEditComponent', () => {
 			expect(loadOptionsSpy).toHaveBeenCalled();
 		});
 	});
+
+	describe('ngOnDestroy', () => {
+		it('should detach all form controls from parent', () => {
+			const parent = controlContainer.control as FormGroup;
+			component.ngOnDestroy();
+			expect(Object.keys(parent.controls)).toEqual([]);
+		});
+
+		it('should complete destroy$ subject', () => {
+			const completeSpy = jest.spyOn(component.destroy$, 'complete');
+			component.ngOnDestroy();
+			expect(completeSpy).toHaveBeenCalled();
+		});
+
+		it('should emit true to destroy$ subject', () => {
+			let emittedValue: boolean | undefined;
+			component.destroy$.subscribe((value) => (emittedValue = value));
+			component.ngOnDestroy();
+			expect(emittedValue).toBe(true);
+		});
+	});
 });
