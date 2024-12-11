@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { DynamicFormsModule } from '@forms/dynamic-forms.module';
 import { mockVehicleTechnicalRecord } from '@mocks/mock-vehicle-technical-record.mock';
+import { V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { MultiOptionsService } from '@services/multi-options/multi-options.service';
 import { ReferenceDataService } from '@services/reference-data/reference-data.service';
@@ -93,6 +94,21 @@ describe('BodySectionEditComponent', () => {
 			const loadOptionsSpy = jest.spyOn(component, 'loadOptions');
 			component.ngOnInit();
 			expect(loadOptionsSpy).toHaveBeenCalled();
+		});
+		xit('should patch the form when dtpNumber changes', () => {
+			const form = new FormGroup({
+				techRecord_brakes_dtpNumber: new FormControl(''),
+			});
+			const mockTechRecord = { techRecord_vehicleType: VehicleTypes.HGV } as V3TechRecordModel;
+			const cdrSpy = jest.spyOn(component.cdr, 'detectChanges');
+			const formSpy = jest.spyOn(component.form, 'patchValue');
+			component.form = form;
+			component.ngOnInit();
+			form.patchValue({
+				techRecord_brakes_dtpNumber: '1234',
+			});
+			expect(formSpy).toHaveBeenCalled();
+			expect(cdrSpy).toHaveBeenCalled();
 		});
 	});
 

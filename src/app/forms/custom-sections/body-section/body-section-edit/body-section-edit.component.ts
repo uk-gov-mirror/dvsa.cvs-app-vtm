@@ -34,7 +34,7 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 
 	destroy$ = new ReplaySubject<boolean>(1);
 
-	form = this.fb.group({});
+	form: FormGroup = this.fb.group({});
 
 	ngOnInit(): void {
 		this.addControlsBasedOffVehicleType();
