@@ -84,7 +84,7 @@ export class GovukFormGroupAutocompleteComponent
 				this.options = options;
 
 				const enhanceParams: AutocompleteEnhanceParams = {
-					id: this.labelId,
+					id: this.id,
 					defaultValue: '',
 					selectElement: this.document.querySelector(`#${this.id}`),
 					autoselect: false,
