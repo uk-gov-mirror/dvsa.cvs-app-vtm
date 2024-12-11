@@ -227,11 +227,17 @@
           {{ vm.techRecord_departmentalVehicleMarker | defaultNullOrEmpty }}
         </dd>
       </div>
+      <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_alterationMarker')">
+        <dt class="govuk-summary-list__key">Alteration marker</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_alterationMarker">
+          {{ vm.techRecord_alterationMarker | defaultNullOrEmpty }}
+        </dd>
+      </div>
     </ng-container>
 
   </dl>
     <dl *ngIf="vm.techRecord_vehicleType === VehicleTypes.PSV" class="govuk-summary-list">
-      <div class="govuk-summary-list__row">
+      <div class="govuk-summary-list__row" *ngIf="displaySeatsHeading">
         <h3>
           Seats:
         </h3>
@@ -282,6 +288,12 @@
         <dt class="govuk-summary-list__key">Departmental vehicle marker</dt>
         <dd class="govuk-summary-list__value" id="test-techRecord_departmentalVehicleMarker-psv">
           {{ vm.techRecord_departmentalVehicleMarker | defaultNullOrEmpty }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_alterationMarker')">
+        <dt class="govuk-summary-list__key">Alteration marker</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_alterationMarker-psv">
+          {{ vm.techRecord_alterationMarker | defaultNullOrEmpty }}
         </dd>
       </div>
     </dl>

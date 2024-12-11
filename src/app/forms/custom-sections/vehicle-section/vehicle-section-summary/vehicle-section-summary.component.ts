@@ -30,6 +30,14 @@ export class VehicleSectionSummaryComponent {
 	currentTechRecord = this.store.selectSignal(techRecord);
 	amendedTechRecord = this.store.selectSignal(editingTechRecord);
 
+	get displaySeatsHeading(): boolean {
+		return (
+			this.hasChanged('techRecord_seatsUpperDeck') ||
+			this.hasChanged('techRecord_seatsLowerDeck') ||
+			this.hasChanged('techRecord_standingCapacity')
+		);
+	}
+
 	hasChanged(property: string) {
 		const current = this.currentTechRecord();
 		const amended = this.amendedTechRecord();
