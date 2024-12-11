@@ -146,9 +146,7 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 				this.commonValidators.required('Body type is required'),
 			]),
 			techRecord_bodyType_code: this.fb.control<string | null>({ value: null, disabled: true }, []),
-			techRecord_brakes_dtpNumber: this.fb.control<string | null>(null, [
-				this.commonValidators.required('DTp Number is required'),
-			]),
+			techRecord_brakes_dtpNumber: this.fb.control<string | null>(null),
 			techRecord_functionCode: this.fb.control<string | null>(null, [
 				this.commonValidators.maxLength(1, 'Function code must be less than or equal to 1'),
 			]),
