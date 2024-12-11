@@ -1,13 +1,20 @@
-import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, inject, input } from '@angular/core';
 import { ControlContainer, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { TagType } from '@components/tag/tag.component';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
+import { getOptionsFromEnum } from '@forms/utils/enum-map';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
-import { V3TechRecordModel } from '@models/vehicle-tech-record.model';
+import { BodyTypeCode, vehicleBodyTypeCodeMap } from '@models/body-type-enum';
+import { FUNCTION_CODE_OPTIONS, MultiOptions } from '@models/options.model';
+import { PsvMake, ReferenceDataModelBase, ReferenceDataResourceType } from '@models/reference-data.model';
+import { V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
 import { FormNodeWidth, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
+import { MultiOptionsService } from '@services/multi-options/multi-options.service';
+import { ReferenceDataService } from '@services/reference-data/reference-data.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
-import { ReplaySubject } from 'rxjs';
+import { selectReferenceDataByResourceKey } from '@store/reference-data';
+import { Observable, ReplaySubject, combineLatest, map, skipWhile, switchMap, take, takeUntil } from 'rxjs';
 
 @Component({
 	selector: 'app-body-section-edit',
@@ -20,19 +27,56 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 	controlContainer = inject(ControlContainer);
 	commonValidators = inject(CommonValidatorsService);
 	technicalRecordService = inject(TechnicalRecordService);
+	referenceDataService = inject(ReferenceDataService);
+	optionsService = inject(MultiOptionsService);
+	cdr = inject(ChangeDetectorRef);
 	techRecord = input.required<V3TechRecordModel>();
 
 	destroy$ = new ReplaySubject<boolean>(1);
 
-	form = this.fb.group({});
+	form: FormGroup = this.fb.group({});
 
 	ngOnInit(): void {
+		this.addControlsBasedOffVehicleType();
 		// Attach all form controls to parent
 		const parent = this.controlContainer.control;
 		if (parent instanceof FormGroup) {
 			for (const [key, control] of Object.entries(this.form.controls)) {
 				parent.addControl(key, control, { emitEvent: false });
 			}
+		}
+		this.loadOptions();
+		if (this.techRecord().techRecord_vehicleType === VehicleTypes.PSV) {
+			this.form
+				.get('techRecord_brakes_dtpNumber')
+				?.valueChanges.pipe(
+					takeUntil(this.destroy$),
+					switchMap((value) => {
+						return this.store.select(
+							selectReferenceDataByResourceKey(ReferenceDataResourceType.PsvMake, value as string)
+						);
+					})
+				)
+				.subscribe((value) => {
+					if (value) {
+						this.handleDTpNumberChange(value);
+					}
+				});
+		}
+	}
+
+	handleDTpNumberChange(refData: ReferenceDataModelBase) {
+		const modelBase = refData as PsvMake;
+		if (modelBase?.dtpNumber && modelBase?.dtpNumber.length >= 4 && refData) {
+			const code = modelBase.psvBodyType.toLowerCase() as BodyTypeCode;
+			this.form.patchValue({
+				techRecord_bodyType_code: code,
+				techRecord_bodyType_description: vehicleBodyTypeCodeMap.get(VehicleTypes.PSV)?.get(code),
+				techRecord_bodyMake: modelBase.psvBodyMake,
+				techRecord_chassisMake: modelBase.psvChassisMake,
+				techRecord_chassisModel: modelBase.psvChassisModel,
+			});
+			this.cdr.detectChanges();
 		}
 	}
 
@@ -50,33 +94,123 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 		this.destroy$.complete();
 	}
 
-	get hgvFields(): Partial<Record<keyof TechRecordType<'hgv'>, FormControl>> {
-		return {};
+	get dtpNumbers$(): Observable<(string | number)[]> {
+		return combineLatest([
+			this.referenceDataService.getAll$(ReferenceDataResourceType.PsvMake),
+			this.referenceDataService.getReferencePsvMakeDataLoading$(),
+		]).pipe(
+			skipWhile(([, loading]) => loading),
+			take(1),
+			map(([data]) => data?.map((option) => option.resourceKey) ?? [])
+		);
+	}
+
+	addControlsBasedOffVehicleType() {
+		const vehicleControls = this.controlsBasedOffVehicleType;
+		for (const [key, control] of Object.entries(vehicleControls)) {
+			this.form.addControl(key, control, { emitEvent: false });
+		}
+	}
+
+	loadOptions(): void {
+		if (this.techRecord().techRecord_vehicleType === VehicleTypes.HGV) {
+			this.optionsService.loadOptions(ReferenceDataResourceType.HgvMake);
+		} else if (this.techRecord().techRecord_vehicleType === VehicleTypes.PSV) {
+			this.optionsService.loadOptions(ReferenceDataResourceType.PsvMake);
+		} else {
+			this.optionsService.loadOptions(ReferenceDataResourceType.TrlMake);
+		}
+	}
+
+	get controlsBasedOffVehicleType() {
+		switch (this.techRecord().techRecord_vehicleType) {
+			case 'hgv':
+			case 'trl':
+				return this.hgvAndTrailerFields;
+			case 'psv':
+				return this.psvFields;
+			default:
+				return {};
+		}
+	}
+
+	get hgvAndTrailerFields(): Partial<Record<keyof TechRecordType<'hgv'>, FormControl>> {
+		return {
+			techRecord_make: this.fb.control<string | null>({ value: null, disabled: true }, [
+				this.commonValidators.maxLength(20, 'Body make must be less than or equal to 20'),
+			]),
+			techRecord_model: this.fb.control<string | null>(null, [
+				this.commonValidators.maxLength(20, 'Body model must be less than or equal to 20'),
+			]),
+			techRecord_bodyType_description: this.fb.control<string | null>({ value: null, disabled: true }, [
+				this.commonValidators.required('Body type is required'),
+			]),
+			techRecord_bodyType_code: this.fb.control<string | null>({ value: null, disabled: true }, []),
+			techRecord_brakes_dtpNumber: this.fb.control<string | null>(null, [
+				this.commonValidators.required('DTp Number is required'),
+			]),
+			techRecord_functionCode: this.fb.control<string | null>(null, [
+				this.commonValidators.maxLength(1, 'Function code must be less than or equal to 1'),
+			]),
+			techRecord_conversionRefNo: this.fb.control<string | null>(null, []),
+		};
+	}
+
+	get bodyMakes$() {
+		if (this.techRecord().techRecord_vehicleType === VehicleTypes.HGV) {
+			return this.optionsService.getOptions(ReferenceDataResourceType.HgvMake);
+		}
+		if (this.techRecord().techRecord_vehicleType === VehicleTypes.PSV) {
+			return this.optionsService.getOptions(ReferenceDataResourceType.PsvMake);
+		}
+		return this.optionsService.getOptions(ReferenceDataResourceType.TrlMake);
+	}
+
+	get bodyTypes(): MultiOptions {
+		let vehicleType: string = this.techRecord().techRecord_vehicleType;
+
+		if (this.techRecord().techRecord_vehicleType === 'hgv') {
+			vehicleType = `${this.techRecord().techRecord_vehicleConfiguration}Hgv`;
+		}
+		const optionsMap = vehicleBodyTypeCodeMap.get(vehicleType) ?? [];
+		const values = [...optionsMap.values()];
+		return getOptionsFromEnum(values.sort());
 	}
 
 	get psvFields(): Partial<Record<keyof TechRecordType<'psv'>, FormControl>> {
-		return {};
-	}
-
-	get trlFields(): Partial<Record<keyof TechRecordType<'trl'>, FormControl>> {
-		return {};
-	}
-
-	get smallTrlFields(): Partial<Record<any, FormControl>> {
-		return {};
-	}
-
-	get lgvAndCarFields(): Partial<Record<keyof TechRecordType<'lgv' | 'car'>, FormControl>> {
-		return {};
-	}
-
-	// currently typed as string due to wrong typing of motorcycle, as it has a skeleton car in its place
-	// get motorcycleFields(): Partial<Record<keyof TechRecordType<'motorcycle'>, FormControl>> {
-	get motorcycleFields(): Partial<Record<string, FormControl>> {
-		return {};
+		return {
+			techRecord_chassisMake: this.fb.control<string | null>({ value: null, disabled: true }, [
+				this.commonValidators.maxLength(30, 'Chassis make must be less than or equal to 30'),
+			]),
+			techRecord_chassisModel: this.fb.control<string | null>({ value: null, disabled: true }, [
+				this.commonValidators.maxLength(20, 'Chassis model must be less than or equal to 20'),
+			]),
+			techRecord_bodyMake: this.fb.control<string | null>({ value: null, disabled: true }, [
+				this.commonValidators.maxLength(20, 'Body make must be less than or equal to 20'),
+			]),
+			techRecord_bodyModel: this.fb.control<string | null>(null, [
+				this.commonValidators.maxLength(20, 'Body model must be less than or equal to 20'),
+			]),
+			techRecord_bodyType_code: this.fb.control<string | null>({ value: null, disabled: true }, []),
+			techRecord_bodyType_description: this.fb.control<string | null>({ value: null, disabled: true }, [
+				this.commonValidators.required('Body type is required'),
+			]),
+			techRecord_modelLiteral: this.fb.control<string | null>(null, [
+				this.commonValidators.maxLength(30, 'Model literal must be less than or equal to 30'),
+			]),
+			techRecord_brakes_dtpNumber: this.fb.control<string | null>(null, [
+				this.commonValidators.required('DTp Number is required'),
+			]),
+			techRecord_functionCode: this.fb.control<string | null>(null, [
+				this.commonValidators.maxLength(1, 'Function code must be less than or equal to 1'),
+			]),
+			techRecord_conversionRefNo: this.fb.control<string | null>(null, []),
+		};
 	}
 
 	protected readonly FormNodeWidth = FormNodeWidth;
 	protected readonly TagTypeLabels = TagTypeLabels;
 	protected readonly TagType = TagType;
+	protected readonly VehicleTypes = VehicleTypes;
+	protected readonly FUNCTION_CODE_OPTIONS = FUNCTION_CODE_OPTIONS;
 }

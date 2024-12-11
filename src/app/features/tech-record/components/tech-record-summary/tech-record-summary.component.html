@@ -59,10 +59,10 @@
 
         <ng-container *ngSwitchCase="'bodySection'">
           <!-- New Body section -->
-          <ng-container *ngIf="featureToggleService.isFeatureEnabled('FsBody')">
+          <ng-container *ngIf="featureToggleService.isFeatureEnabled('FsBody'); else oldBodySection">
             <app-body-section [techRecord]="techRecordCalculated" [mode]="(isEditing$ | async) ? 'edit' : 'view'" />
           </ng-container>
-  
+
           <!-- Old Body section -->
           <ng-template #oldBodySection>
             <app-body
