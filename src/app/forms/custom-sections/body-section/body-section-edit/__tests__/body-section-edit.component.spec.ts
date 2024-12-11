@@ -101,20 +101,28 @@ describe('BodySectionEditComponent', () => {
 			const form = new FormGroup({
 				techRecord_brakes_dtpNumber: new FormControl(''),
 			});
-			const spy = jest.spyOn(form.get('techRecord_brakes_dtpNumber')!.valueChanges, 'subscribe');
-			jest.spyOn(component, 'handleDTpNumberChange');
+			const refData: ReferenceDataModelBase = {
+				resourceType: ReferenceDataResourceType.PsvMake,
+				resourceKey: '1234',
+			};
 			const mockTechRecord = mockVehicleTechnicalRecord('psv');
 			mockTechRecord.techRecord_vehicleType = VehicleTypes.PSV;
 			componentRef.setInput('techRecord', mockTechRecord);
+
+			store.overrideSelector(selectReferenceDataByResourceKey(ReferenceDataResourceType.PsvMake, '1234'), refData);
+			const control = form.get('techRecord_brakes_dtpNumber');
+			const pipeSpy = jest.spyOn(control!.valueChanges, 'pipe').mockReturnValue(of(refData));
+			const dtpSpy = jest.spyOn(component, 'handleDTpNumberChange');
+
 			component.form = form;
 			component.ngOnInit();
 
 			form.patchValue({
 				techRecord_brakes_dtpNumber: '1234',
 			});
-			// form.updateValueAndValidity({ onlySelf: false, emitEvent: true });
-			expect(spy).toHaveBeenCalled();
-			expect(component.handleDTpNumberChange).toHaveBeenCalled();
+
+			expect(pipeSpy).toHaveBeenCalled();
+			expect(dtpSpy).toHaveBeenCalled();
 		});
 	});
 
