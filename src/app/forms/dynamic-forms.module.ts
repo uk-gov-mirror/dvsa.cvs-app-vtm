@@ -12,6 +12,7 @@ import { DateFocusNextDirective } from '@directives/date-focus-next/date-focus-n
 import { PrefixDirective } from '@directives/prefix/prefix.directive';
 import { SuffixDirective } from '@directives/suffix/suffix.directive';
 import { ApprovalTypeInputComponent } from '@forms/components/approval-type/approval-type.component';
+import { GovukFormGroupAutocompleteComponent } from '@forms/components/govuk-form-group-autocomplete/govuk-form-group-autocomplete.component';
 import { GovukFormGroupInputComponent } from '@forms/components/govuk-form-group-input/govuk-form-group-input.component';
 import { GovukFormGroupSelectComponent } from '@forms/components/govuk-form-group-select/govuk-form-group-select.component';
 import { AdrCertificateHistoryComponent } from '@forms/custom-sections/adr-certificate-history/adr-certificate-history.component';
@@ -66,6 +67,10 @@ import { AdrTankDetailsSubsequentInspectionsViewComponent } from './custom-secti
 import { AdrTankStatementUnNumberEditComponent } from './custom-sections/adr-tank-statement-un-number-edit/adr-tank-statement-un-number-edit.component';
 import { AdrTankStatementUnNumberViewComponent } from './custom-sections/adr-tank-statement-un-number-view/adr-tank-statement-un-number-view.component';
 import { AdrComponent } from './custom-sections/adr/adr.component';
+import { BodySectionEditComponent } from './custom-sections/body-section/body-section-edit/body-section-edit.component';
+import { BodySectionSummaryComponent } from './custom-sections/body-section/body-section-summary/body-section-summary.component';
+import { BodySectionViewComponent } from './custom-sections/body-section/body-section-view/body-section-view.component';
+import { BodySectionComponent } from './custom-sections/body-section/body-section.component';
 import { BodyComponent } from './custom-sections/body/body.component';
 import { CustomDefectComponent } from './custom-sections/custom-defect/custom-defect.component';
 import { CustomDefectsComponent } from './custom-sections/custom-defects/custom-defects.component';
@@ -158,6 +163,10 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		VehicleSectionViewComponent,
 		VehicleSectionEditComponent,
 		AdrPermittedDangerousGoodsComponent,
+		BodySectionComponent,
+		BodySectionEditComponent,
+		BodySectionViewComponent,
+		BodySectionSummaryComponent,
 	],
 	imports: [
 		CommonModule,
@@ -172,6 +181,7 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		GovukFormGroupSelectComponent,
 		GovukFormGroupInputComponent,
 		GovukFormGroupDateComponent,
+		GovukFormGroupAutocompleteComponent,
 	],
 	exports: [
 		TextInputComponent,
@@ -237,6 +247,10 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		GovukFormGroupSelectComponent,
 		GovukFormGroupInputComponent,
 		GovukFormGroupDateComponent,
+		BodySectionComponent,
+		BodySectionEditComponent,
+		BodySectionViewComponent,
+		BodySectionSummaryComponent,
 	],
 })
 export class DynamicFormsModule {}

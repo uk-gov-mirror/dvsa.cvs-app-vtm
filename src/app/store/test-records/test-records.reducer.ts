@@ -16,6 +16,7 @@ import { createFeatureSelector, createReducer, on } from '@ngrx/store';
 import { FormNode } from '@services/dynamic-forms/dynamic-form.types';
 import cloneDeep from 'lodash.clonedeep';
 import merge from 'lodash.merge';
+import { VehicleTypes } from '../../models/vehicle-tech-record.model';
 import {
 	cancelEditingTestResult,
 	cleanTestResult,
@@ -33,6 +34,7 @@ import {
 	fetchTestResultsBySystemNumberSuccess,
 	fetchTestResultsSuccess,
 	initialContingencyTest,
+	patchEditingTestResult,
 	removeDefect,
 	removeRequiredStandard,
 	setResultOfTest,
@@ -109,6 +111,11 @@ export const testResultsReducer = createReducer(
 		editingTestResult: setTestResult(state.editingTestResult, action.result),
 	})),
 
+	on(patchEditingTestResult, (state, action) => ({
+		...state,
+		editingTestResult: merge({}, state.editingTestResult, action.testResult),
+	})),
+
 	on(updateEditingTestResult, (state, action) => ({ ...state, editingTestResult: merge({}, action.testResult) })),
 	on(cancelEditingTestResult, (state) => ({ ...state, editingTestResult: undefined, sectionTemplates: undefined })),
 
@@ -179,6 +186,12 @@ function createNewRequiredStandard(
 function cleanTestResultPayload(testResult: TestResultModel | undefined) {
 	if (!testResult || !testResult.testTypes) {
 		return testResult;
+	}
+
+	// Remove recalls from non HGV/PSV/TRL tests
+	const vehicleType = testResult.vehicleType;
+	if (!(vehicleType === VehicleTypes.HGV || vehicleType === VehicleTypes.PSV || vehicleType === VehicleTypes.TRL)) {
+		delete testResult.recalls;
 	}
 
 	const testTypes = testResult.testTypes.map((testType, index) => {

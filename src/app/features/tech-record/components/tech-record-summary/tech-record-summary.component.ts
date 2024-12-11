@@ -71,7 +71,7 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 	isEditing = false;
 	scrollPosition: [number, number] = [0, 0];
 	isADRCertGenEnabled = false;
-	isDFSEnabled = false;
+	isADREnabled = false;
 
 	private axlesService = inject(AxlesService);
 	private errorService = inject(GlobalErrorService);
@@ -90,11 +90,11 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 
 	private destroy$ = new Subject<void>();
 
-	form = this.fb.group({});
+	form: FormGroup = this.fb.group({});
 
 	ngOnInit(): void {
 		this.isADRCertGenEnabled = this.featureToggleService.isFeatureEnabled('adrCertToggle');
-		this.isDFSEnabled = this.featureToggleService.isFeatureEnabled('FsAdr');
+		this.isADREnabled = this.featureToggleService.isFeatureEnabled('FsAdr');
 
 		this.technicalRecordService.techRecord$
 			.pipe(
@@ -175,6 +175,34 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 			.subscribe((techRecord) => {
 				if (this.isEditing && techRecord) this.form.patchValue({ ...techRecord });
 			});
+
+		this.handleVehicleConfigurationChanges();
+	}
+
+	handleVehicleConfigurationChanges() {
+		// TODO clean this up in the future
+		const formControl = this.form.get('techRecord_vehicleConfiguration');
+		formControl?.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((value) => {
+			if (!value) {
+				return;
+			}
+			if (value === 'articulated') {
+				this.form.patchValue({
+					techRecord_bodyType_description: 'articulated',
+					techRecord_bodyType_code: 'a',
+				});
+			}
+			const functionCodes: Record<string, string> = {
+				rigid: 'R',
+				articulated: 'A',
+				'semi-trailer': 'A',
+			};
+
+			const functionCode = functionCodes[value];
+			this.form.patchValue({
+				techRecord_functionCode: functionCode,
+			});
+		});
 	}
 
 	get vehicleType() {
@@ -211,28 +239,42 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 	}
 
 	get customSectionForms(): Array<CustomFormGroup | CustomFormArray> {
-		const commonCustomSections = [
-			this.body?.form,
-			this.dimensions?.form,
-			this.tyres?.form,
-			this.weights?.form,
-			this.approvalType?.form,
-		];
+		const commonCustomSections = this.addCustomSectionsBasedOffFlag();
 
 		switch (this.vehicleType) {
 			case VehicleTypes.PSV:
 				return [...commonCustomSections, this.psvBrakes.form];
 			case VehicleTypes.HGV:
-				return !this.isDFSEnabled ? [...commonCustomSections, this.adr.form] : commonCustomSections;
+				return !this.isADREnabled ? [...commonCustomSections, this.adr.form] : commonCustomSections;
 			case VehicleTypes.TRL:
-				return !this.isDFSEnabled
+				return !this.isADREnabled
 					? [...commonCustomSections, this.trlBrakes.form, this.letters.form, this.adr.form]
 					: [...commonCustomSections, this.trlBrakes.form, this.letters.form];
 			case VehicleTypes.LGV:
-				return !this.isDFSEnabled ? [this.adr.form] : [];
+				return !this.isADREnabled ? [this.adr.form] : [];
 			default:
 				return [];
 		}
+	}
+
+	addCustomSectionsBasedOffFlag(): CustomFormGroup[] {
+		const sections = [];
+		if (!this.featureToggleService.isFeatureEnabled('FsBody')) {
+			sections.push(this.body.form);
+		}
+		if (!this.featureToggleService.isFeatureEnabled('FsDimensions')) {
+			sections.push(this.dimensions.form);
+		}
+		if (!this.featureToggleService.isFeatureEnabled('FsTyres')) {
+			sections.push(this.tyres.form);
+		}
+		if (!this.featureToggleService.isFeatureEnabled('FsWeights')) {
+			sections.push(this.weights.form);
+		}
+		if (!this.featureToggleService.isFeatureEnabled('FsApprovalType')) {
+			sections.push(this.approvalType.form);
+		}
+		return sections;
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

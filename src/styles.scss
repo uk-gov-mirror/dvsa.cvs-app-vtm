@@ -13,7 +13,7 @@
 }
 
 .flex {
-  display: flex;
+  display: flex !important;
 
   &--wrap {
     flex-wrap: wrap;
@@ -66,4 +66,9 @@
 
 .width-2 {
   max-width: 2.75em;
+}
+
+.govuk-warning-text {
+  display: flex;
+  align-items: center;
 }
