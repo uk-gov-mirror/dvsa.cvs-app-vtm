@@ -102,8 +102,8 @@ describe('BodySectionEditComponent', () => {
 				techRecord_brakes_dtpNumber: new FormControl(''),
 			});
 			jest.spyOn(component, 'handleDTpNumberChange');
-			const mockTechRecord = mockVehicleTechnicalRecord('hgv');
-			mockTechRecord.techRecord_vehicleType = VehicleTypes.HGV;
+			const mockTechRecord = mockVehicleTechnicalRecord('psv');
+			mockTechRecord.techRecord_vehicleType = VehicleTypes.PSV;
 			componentRef.setInput('techRecord', mockTechRecord);
 			component.form = form;
 			component.ngOnInit();
