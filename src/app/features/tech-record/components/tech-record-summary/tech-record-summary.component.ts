@@ -239,14 +239,6 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 	}
 
 	get customSectionForms(): Array<CustomFormGroup | CustomFormArray> {
-		// const commonCustomSections = [
-		// 	this.body?.form,
-		// 	this.dimensions?.form,
-		// 	this.tyres?.form,
-		// 	this.weights?.form,
-		// 	this.approvalType?.form,
-		// ];
-
 		const commonCustomSections = this.addCustomSectionsBasedOffFlag();
 
 		switch (this.vehicleType) {
