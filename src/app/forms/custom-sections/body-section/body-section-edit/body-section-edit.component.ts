@@ -1,3 +1,4 @@
+import { RouterService } from '@/src/app/services/router/router.service';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, inject, input } from '@angular/core';
 import { ControlContainer, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { TagType } from '@components/tag/tag.component';
@@ -31,6 +32,7 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 	optionsService = inject(MultiOptionsService);
 	cdr = inject(ChangeDetectorRef);
 	techRecord = input.required<V3TechRecordModel>();
+	isCreating = inject(RouterService).getRouteDataProperty$('isCreating');
 
 	destroy$ = new ReplaySubject<boolean>(1);
 
