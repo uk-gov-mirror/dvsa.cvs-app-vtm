@@ -41,8 +41,8 @@ describe('BodySectionEditComponent', () => {
 	let componentRef: ComponentRef<BodySectionEditComponent>;
 	let fixture: ComponentFixture<BodySectionEditComponent>;
 	let formGroupDirective: FormGroupDirective;
-	let technicalRecordService: TechnicalRecordService;
 	let store: MockStore;
+	let optionsService: MultiOptionsService;
 
 	beforeEach(async () => {
 		formGroupDirective = new FormGroupDirective([], []);
@@ -63,13 +63,13 @@ describe('BodySectionEditComponent', () => {
 				TechnicalRecordService,
 				{ provide: ReferenceDataService, useValue: mockReferenceDataService },
 				ChangeDetectorRef,
-				MultiOptionsService,
+				{ provide: MultiOptionsService, useValue: { getOptions: jest.fn(), loadOptions: jest.fn() } },
 			],
 		}).compileComponents();
 
 		store = TestBed.inject(MockStore);
 		controlContainer = TestBed.inject(ControlContainer);
-		technicalRecordService = TestBed.inject(TechnicalRecordService);
+		optionsService = TestBed.inject(MultiOptionsService);
 
 		fixture = TestBed.createComponent(BodySectionEditComponent);
 		component = fixture.componentInstance;
@@ -160,6 +160,44 @@ describe('BodySectionEditComponent', () => {
 			component.destroy$.subscribe((value) => (emittedValue = value));
 			component.ngOnDestroy();
 			expect(emittedValue).toBe(true);
+		});
+	});
+
+	describe('addControlsBasedOffVehicleType', () => {
+		it('should add vehicle specific controls to the form', () => {
+			const addControlSpy = jest.spyOn(component.form, 'addControl');
+			const vehicleControlsSpy = jest
+				.spyOn(component, 'controlsBasedOffVehicleType', 'get')
+				.mockReturnValue(component.psvFields);
+			component.addControlsBasedOffVehicleType();
+			expect(vehicleControlsSpy).toHaveBeenCalled();
+			expect(addControlSpy).toHaveBeenCalled();
+		});
+	});
+
+	describe('loadOptions', () => {
+		it('should load the options based off the vehicle type (PSV)', () => {
+			const optionServSpy = jest.spyOn(optionsService, 'loadOptions');
+			const mockTechRecord = mockVehicleTechnicalRecord('psv');
+			componentRef.setInput('techRecord', mockTechRecord);
+			component.loadOptions();
+			expect(optionServSpy).toHaveBeenCalledWith(ReferenceDataResourceType.PsvMake);
+		});
+
+		it('should load the options based off the vehicle type (HGV)', () => {
+			const optionServSpy = jest.spyOn(optionsService, 'loadOptions');
+			const mockTechRecord = mockVehicleTechnicalRecord('hgv');
+			componentRef.setInput('techRecord', mockTechRecord);
+			component.loadOptions();
+			expect(optionServSpy).toHaveBeenCalledWith(ReferenceDataResourceType.HgvMake);
+		});
+
+		it('should load the options based off the vehicle type (TRL)', () => {
+			const optionServSpy = jest.spyOn(optionsService, 'loadOptions');
+			const mockTechRecord = mockVehicleTechnicalRecord('trl');
+			componentRef.setInput('techRecord', mockTechRecord);
+			component.loadOptions();
+			expect(optionServSpy).toHaveBeenCalledWith(ReferenceDataResourceType.TrlMake);
 		});
 	});
 });

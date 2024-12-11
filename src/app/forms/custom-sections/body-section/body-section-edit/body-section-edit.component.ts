@@ -125,11 +125,10 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 	get controlsBasedOffVehicleType() {
 		switch (this.techRecord().techRecord_vehicleType) {
 			case 'hgv':
+			case 'trl':
 				return this.hgvAndTrailerFields;
 			case 'psv':
 				return this.psvFields;
-			case 'trl':
-				return this.hgvAndTrailerFields;
 			default:
 				return {};
 		}
