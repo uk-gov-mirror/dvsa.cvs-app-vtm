@@ -259,19 +259,19 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 
 	addCustomSectionsBasedOffFlag(): CustomFormGroup[] {
 		const sections = [];
-		if (!this.featureToggleService.isFeatureEnabled('FsBody')) {
+		if (!this.featureToggleService.isFeatureEnabled('FsBody') && this.body?.form) {
 			sections.push(this.body.form);
 		}
-		if (!this.featureToggleService.isFeatureEnabled('FsDimensions')) {
+		if (!this.featureToggleService.isFeatureEnabled('FsDimensions') && this.dimensions?.form) {
 			sections.push(this.dimensions.form);
 		}
-		if (!this.featureToggleService.isFeatureEnabled('FsTyres')) {
+		if (!this.featureToggleService.isFeatureEnabled('FsTyres') && this.tyres?.form) {
 			sections.push(this.tyres.form);
 		}
-		if (!this.featureToggleService.isFeatureEnabled('FsWeights')) {
+		if (!this.featureToggleService.isFeatureEnabled('FsWeights') && this.weights?.form) {
 			sections.push(this.weights.form);
 		}
-		if (!this.featureToggleService.isFeatureEnabled('FsApprovalType')) {
+		if (!this.featureToggleService.isFeatureEnabled('FsApprovalType') && this.approvalType?.form) {
 			sections.push(this.approvalType.form);
 		}
 		return sections;
