@@ -186,7 +186,7 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 			if (!value) {
 				return;
 			}
-			if (value === 'articulated') {
+			if (this.techRecordCalculated?.techRecord_vehicleType === VehicleTypes.HGV && value === 'articulated') {
 				this.form.patchValue({
 					techRecord_bodyType_description: 'articulated',
 					techRecord_bodyType_code: 'a',
