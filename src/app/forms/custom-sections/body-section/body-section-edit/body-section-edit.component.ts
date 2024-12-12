@@ -76,6 +76,7 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 				techRecord_chassisMake: modelBase.psvChassisMake,
 				techRecord_chassisModel: modelBase.psvChassisModel,
 			});
+			this.technicalRecordService.updateEditingTechRecord({ ...this.techRecord(), ...this.form.getRawValue() });
 			this.cdr.detectChanges();
 		}
 	}
