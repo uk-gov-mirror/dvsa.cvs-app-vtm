@@ -4,7 +4,12 @@ import { TagType } from '@components/tag/tag.component';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { getOptionsFromEnum } from '@forms/utils/enum-map';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
-import { BodyTypeCode, vehicleBodyTypeCodeMap } from '@models/body-type-enum';
+import {
+	BodyTypeCode,
+	BodyTypeDescription,
+	vehicleBodyTypeCodeMap,
+	vehicleBodyTypeDescriptionMap,
+} from '@models/body-type-enum';
 import { FUNCTION_CODE_OPTIONS, MultiOptions } from '@models/options.model';
 import { PsvMake, ReferenceDataModelBase, ReferenceDataResourceType } from '@models/reference-data.model';
 import { V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
@@ -63,6 +68,28 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 					}
 				});
 		}
+		this.form
+			.get('techRecord_bodyType_description')
+			?.valueChanges.pipe(takeUntil(this.destroy$))
+			.subscribe((value) => {
+				if (value) {
+					this.handleBodyTypeDescriptionChange(value);
+				}
+			});
+	}
+
+	handleBodyTypeDescriptionChange(value: string) {
+		const vehicleType = this.techRecord().techRecord_vehicleType;
+		const bodyConfig = vehicleType === 'hgv' ? `${this.techRecord().techRecord_vehicleConfiguration}Hgv` : vehicleType;
+		const bodyTypes = vehicleBodyTypeDescriptionMap.get(bodyConfig as VehicleTypes) as Map<
+			BodyTypeDescription,
+			BodyTypeCode
+		>;
+		this.form.patchValue({
+			techRecord_bodyType_code: bodyTypes.get(value as BodyTypeDescription),
+		});
+		this.technicalRecordService.updateEditingTechRecord({ ...this.techRecord(), ...this.form.getRawValue() });
+		this.cdr.detectChanges();
 	}
 
 	handleDTpNumberChange(refData: ReferenceDataModelBase) {
