@@ -51,7 +51,7 @@
     formControlName="techRecord_noOfAxles"
   ></govuk-form-group-input>
 
-  <div class="flex-row">
+  <div class="flex-row" *ngIf="getVehicleType() === VehicleTypes.HGV || getVehicleType() === VehicleTypes.PSV">
     <!-- Speed limiter exempt for HGV (required to generate plates) -->
     <govuk-form-group-radio
       *ngIf="techRecord().techRecord_vehicleType === VehicleTypes.HGV"
