@@ -165,10 +165,10 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 	get hgvAndTrailerFields(): Partial<Record<keyof TechRecordType<'hgv'>, FormControl>> {
 		return {
 			techRecord_make: this.fb.control<string | null>(null, [
-				this.commonValidators.maxLength(20, 'Body make must be less than or equal to 20'),
+				this.commonValidators.maxLength(50, 'Body make must be less than or equal to 50 characters'),
 			]),
 			techRecord_model: this.fb.control<string | null>(null, [
-				this.commonValidators.maxLength(20, 'Body model must be less than or equal to 20'),
+				this.commonValidators.maxLength(30, 'Body model must be less than or equal to 30 characters'),
 			]),
 			techRecord_bodyType_description: this.fb.control<string | null>(null, [
 				this.commonValidators.required('Body type is required'),
@@ -178,9 +178,14 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 				this.commonValidators.maxLength(6, 'DTp Number must be less than or equal to 6 characters'),
 			]),
 			techRecord_functionCode: this.fb.control<string | null>(null, [
-				this.commonValidators.maxLength(1, 'Function code must be less than or equal to 1'),
+				this.commonValidators.maxLength(1, 'Function code must be less than or equal to 1 characters'),
 			]),
-			techRecord_conversionRefNo: this.fb.control<string | null>(null, []),
+			techRecord_conversionRefNo: this.fb.control<string | null>(null, [
+				this.commonValidators.pattern(
+					'^[A-Z0-9 ]{0,10}$',
+					'Conversion reference number max length 10 uppercase letters or numbers'
+				),
+			]),
 		};
 	}
 
@@ -208,31 +213,36 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 	get psvFields(): Partial<Record<keyof TechRecordType<'psv'>, FormControl>> {
 		return {
 			techRecord_chassisMake: this.fb.control<string | null>({ value: null, disabled: true }, [
-				this.commonValidators.maxLength(30, 'Chassis make must be less than or equal to 30'),
+				this.commonValidators.maxLength(30, 'Chassis make must be less than or equal to 30 characters'),
 			]),
 			techRecord_chassisModel: this.fb.control<string | null>({ value: null, disabled: true }, [
-				this.commonValidators.maxLength(20, 'Chassis model must be less than or equal to 20'),
+				this.commonValidators.maxLength(20, 'Chassis model must be less than or equal to 20 characters'),
 			]),
 			techRecord_bodyMake: this.fb.control<string | null>({ value: null, disabled: true }, [
-				this.commonValidators.maxLength(20, 'Body make must be less than or equal to 20'),
+				this.commonValidators.maxLength(20, 'Body make must be less than or equal to 20 characters'),
 			]),
 			techRecord_bodyModel: this.fb.control<string | null>(null, [
-				this.commonValidators.maxLength(20, 'Body model must be less than or equal to 20'),
+				this.commonValidators.maxLength(20, 'Body model must be less than or equal to 20 characters'),
 			]),
 			techRecord_bodyType_code: this.fb.control<string | null>(null, []),
 			techRecord_bodyType_description: this.fb.control<string | null>(null, [
 				this.commonValidators.required('Body type is required'),
 			]),
 			techRecord_modelLiteral: this.fb.control<string | null>(null, [
-				this.commonValidators.maxLength(30, 'Model literal must be less than or equal to 30'),
+				this.commonValidators.maxLength(30, 'Model literal must be less than or equal to 30 characters'),
 			]),
 			techRecord_brakes_dtpNumber: this.fb.control<string | null>(null, [
 				this.commonValidators.required('DTp Number is required'),
 			]),
 			techRecord_functionCode: this.fb.control<string | null>(null, [
-				this.commonValidators.maxLength(1, 'Function code must be less than or equal to 1'),
+				this.commonValidators.maxLength(1, 'Function code must be less than or equal to 1 characters'),
 			]),
-			techRecord_conversionRefNo: this.fb.control<string | null>(null, []),
+			techRecord_conversionRefNo: this.fb.control<string | null>(null, [
+				this.commonValidators.pattern(
+					'^[A-Z0-9 ]{0,10}$',
+					'Conversion reference number max length 10 uppercase letters or numbers'
+				),
+			]),
 		};
 	}
 
