@@ -28,6 +28,14 @@
         {{ vm.techRecord_manufactureYear | defaultNullOrEmpty }}
       </dd>
     </div>
+    <ng-container *ngIf="vm.techRecord_vehicleType === VehicleTypes.TRL">
+      <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_firstUseDate')">
+        <dt class="govuk-summary-list__key">Date of first use</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_firstUseDate">
+          {{ vm.techRecord_firstUseDate | date: 'dd/MM/yyyy' | defaultNullOrEmpty }}
+        </dd>
+      </div>
+    </ng-container>
     <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_noOfAxles')">
       <dt class="govuk-summary-list__key">Number of axles</dt>
       <dd class="govuk-summary-list__value" id="test-techRecord_noOfAxles">
@@ -92,7 +100,7 @@
       <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_suspensionType')">
         <dt class="govuk-summary-list__key">Suspension type (optional)</dt>
         <dd class="govuk-summary-list__value" id="test-techRecord_suspensionType">
-          {{ vm.techRecord_suspensionType | defaultNullOrEmpty }}
+          {{ vm.techRecord_suspensionType | defaultNullOrEmpty | multiOption : SUSPENSION_TYRE_OPTIONS }}
         </dd>
       </div>
     </ng-container>
@@ -115,7 +123,7 @@
         </dd>
       </div>
   </ng-container>
-  <ng-container *ngIf="vm.techRecord_vehicleType === VehicleTypes.HGV || vm.techRecord_vehicleType === VehicleTypes.TRL">
+  <ng-container *ngIf="vm.techRecord_vehicleType === VehicleTypes.HGV">
     <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_vehicleClass')">
       <dt class="govuk-summary-list__key">Vehicle class</dt>
       <dd class="govuk-summary-list__value" id="test-techRecord_vehicleClass">
@@ -123,7 +131,7 @@
       </dd>
     </div>
   </ng-container>
-  <ng-container *ngIf="vm.techRecord_vehicleType === VehicleTypes.TRL">
+  <ng-container *ngIf="vm.techRecord_vehicleType === VehicleTypes.TRL  && technicalRecordService.getVehicleTypeWithSmallTrl(vm) !== VehicleTypes.SMALL_TRL">
     <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_vehicleClass_motorcycle')">
       <dt class="govuk-summary-list__key">Vehicle class</dt>
       <dd class="govuk-summary-list__value" id="test-techRecord_vehicleClass_motorcycle">
@@ -146,7 +154,7 @@
       <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_couplingType')">
         <dt class="govuk-summary-list__key">Coupling type (optional)</dt>
         <dd class="govuk-summary-list__value" id="test-techRecord_couplingType">
-          {{ vm.techRecord_couplingType | defaultNullOrEmpty }}
+          {{ vm.techRecord_couplingType | defaultNullOrEmpty | multiOption : COUPLING_TYPE_OPTIONS }}
         </dd>
       </div>
     </ng-container>
@@ -227,11 +235,17 @@
           {{ vm.techRecord_departmentalVehicleMarker | defaultNullOrEmpty }}
         </dd>
       </div>
+      <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_alterationMarker')">
+        <dt class="govuk-summary-list__key">Alteration marker</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_alterationMarker">
+          {{ vm.techRecord_alterationMarker | defaultNullOrEmpty }}
+        </dd>
+      </div>
     </ng-container>
 
   </dl>
     <dl *ngIf="vm.techRecord_vehicleType === VehicleTypes.PSV" class="govuk-summary-list">
-      <div class="govuk-summary-list__row">
+      <div class="govuk-summary-list__row" *ngIf="displaySeatsHeading">
         <h3>
           Seats:
         </h3>
@@ -282,6 +296,12 @@
         <dt class="govuk-summary-list__key">Departmental vehicle marker</dt>
         <dd class="govuk-summary-list__value" id="test-techRecord_departmentalVehicleMarker-psv">
           {{ vm.techRecord_departmentalVehicleMarker | defaultNullOrEmpty }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_alterationMarker')">
+        <dt class="govuk-summary-list__key">Alteration marker</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_alterationMarker-psv">
+          {{ vm.techRecord_alterationMarker | defaultNullOrEmpty }}
         </dd>
       </div>
     </dl>
