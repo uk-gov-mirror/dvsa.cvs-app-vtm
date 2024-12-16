@@ -19,6 +19,10 @@ import { AdrCertificateHistoryComponent } from '@forms/custom-sections/adr-certi
 import { AdrExaminerNotesHistoryEditComponent } from '@forms/custom-sections/adr-examiner-notes-history-edit/adr-examiner-notes-history.component-edit';
 import { AdrPermittedDangerousGoodsComponent } from '@forms/custom-sections/adr-permitted-dangerous-goods/adr-permitted-dangerous-goods.component';
 import { ApprovalTypeComponent } from '@forms/custom-sections/approval-type/approval-type.component';
+import { TypeApprovalSectionEditComponent } from '@forms/custom-sections/type-approval-section/type-approval-section-edit/type-approval-section-edit.component';
+import { TypeApprovalSectionSummaryComponent } from '@forms/custom-sections/type-approval-section/type-approval-section-summary/type-approval-section-summary.component';
+import { TypeApprovalSectionViewComponent } from '@forms/custom-sections/type-approval-section/type-approval-section-view/type-approval-section-view.component';
+import { TypeApprovalSectionComponent } from '@forms/custom-sections/type-approval-section/type-approval-section.component';
 import { VehicleSectionEditComponent } from '@forms/custom-sections/vehicle-section/vehicle-section-edit/vehicle-section-edit.component';
 import { VehicleSectionSummaryComponent } from '@forms/custom-sections/vehicle-section/vehicle-section-summary/vehicle-section-summary.component';
 import { VehicleSectionViewComponent } from '@forms/custom-sections/vehicle-section/vehicle-section-view/vehicle-section-view.component';
@@ -168,14 +172,21 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		VehicleSectionViewComponent,
 		VehicleSectionEditComponent,
 		AdrPermittedDangerousGoodsComponent,
+
 		BodySectionComponent,
 		BodySectionEditComponent,
 		BodySectionViewComponent,
 		BodySectionSummaryComponent,
+
 		NotesSectionComponent,
 		NotesSectionEditComponent,
 		NotesSectionViewComponent,
 		NotesSectionSummaryComponent,
+
+		TypeApprovalSectionComponent,
+		TypeApprovalSectionEditComponent,
+		TypeApprovalSectionViewComponent,
+		TypeApprovalSectionSummaryComponent,
 	],
 	imports: [
 		CommonModule,
@@ -258,14 +269,21 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		GovukFormGroupInputComponent,
 		GovukFormGroupDateComponent,
 		GovukFormGroupTextareaComponent,
+
 		BodySectionComponent,
 		BodySectionEditComponent,
 		BodySectionViewComponent,
 		BodySectionSummaryComponent,
+
 		NotesSectionComponent,
 		NotesSectionEditComponent,
 		NotesSectionViewComponent,
 		NotesSectionSummaryComponent,
+
+		TypeApprovalSectionComponent,
+		TypeApprovalSectionEditComponent,
+		TypeApprovalSectionViewComponent,
+		TypeApprovalSectionSummaryComponent,
 	],
 })
 export class DynamicFormsModule {}
