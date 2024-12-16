@@ -181,6 +181,7 @@ export class GovukFormGroupAutocompleteComponent
 	handleChangeForOption(value: string) {
 		const optionValue = this.findOptionValue(value);
 		this.onChange(optionValue ?? '[INVALID_OPTION]');
+		this.onTouched();
 	}
 
 	findOptionValue(label: string) {
