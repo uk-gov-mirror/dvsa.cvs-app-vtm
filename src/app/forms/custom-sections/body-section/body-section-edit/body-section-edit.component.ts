@@ -86,7 +86,7 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 			BodyTypeCode
 		>;
 		this.form.patchValue({
-			techRecord_bodyType_code: bodyTypes.get(value as BodyTypeDescription),
+			techRecord_bodyType_code: bodyTypes?.get(value as BodyTypeDescription),
 		});
 		this.technicalRecordService.updateEditingTechRecord({ ...this.techRecord(), ...this.form.getRawValue() });
 		this.cdr.detectChanges();
@@ -229,7 +229,7 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 				this.commonValidators.required('Body type is required'),
 			]),
 			techRecord_modelLiteral: this.fb.control<string | null>(null, [
-				this.commonValidators.maxLength(30, 'Model literal must be less than or equal to 30 characters'),
+				this.commonValidators.maxLength(30, 'Model Literal must be less than or equal to 30 characters'),
 			]),
 			techRecord_brakes_dtpNumber: this.fb.control<string | null>(null, [
 				this.commonValidators.required('DTp Number is required'),
