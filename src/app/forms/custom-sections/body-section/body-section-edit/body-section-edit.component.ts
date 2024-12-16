@@ -86,7 +86,7 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 			BodyTypeCode
 		>;
 		this.form.patchValue({
-			techRecord_bodyType_code: bodyTypes.get(value as BodyTypeDescription),
+			techRecord_bodyType_code: bodyTypes?.get(value as BodyTypeDescription),
 		});
 		this.technicalRecordService.updateEditingTechRecord({ ...this.techRecord(), ...this.form.getRawValue() });
 		this.cdr.detectChanges();
