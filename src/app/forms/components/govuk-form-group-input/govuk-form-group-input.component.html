@@ -36,8 +36,8 @@
       [disabled]="control?.disabled || false"
     />
   </ng-container>
-  <ng-container *ngIf="controlType === 'number'">
 
+  <ng-container *ngIf="controlType === 'number'">
     <input
       id="{{ id }}"
       name="{{ id }}"
@@ -55,6 +55,7 @@
       [disabled]="control?.disabled || false"
     />
   </ng-container>
+
   <ng-container *ngIf="controlType === 'decimal'">
 
   </ng-container>
