@@ -118,16 +118,25 @@
         </ng-container>
 
         <ng-container *ngSwitchCase="'tyreSection'">
-          <app-tyres
-            *ngIf="
-              techRecordCalculated.techRecord_vehicleType === 'trl' ||
-              techRecordCalculated.techRecord_vehicleType === 'hgv' ||
-              techRecordCalculated.techRecord_vehicleType === 'psv'
-            "
-            [vehicleTechRecord]="techRecordCalculated"
-            [isEditing]="(isEditing$ | async) ?? false"
-            (formChange)="handleFormState($event)"
-          ></app-tyres>
+          <ng-container *ngIf="
+            techRecordCalculated.techRecord_vehicleType === 'trl' ||
+            techRecordCalculated.techRecord_vehicleType === 'hgv' ||
+            techRecordCalculated.techRecord_vehicleType === 'psv'
+          ">
+            <!-- New Tyres section -->
+            <ng-container *ngIf="featureToggleService.isFeatureEnabled('FsTyres'); else oldTyresSection">
+              <app-tyres-section [techRecord]="techRecordCalculated" [mode]="(isEditing$ | async) ? 'edit' : 'view'" />
+            </ng-container>
+
+            <!-- Old Tyres section -->
+            <ng-template #oldTyresSection>
+              <app-tyres
+                [vehicleTechRecord]="techRecordCalculated"
+                [isEditing]="(isEditing$ | async) ?? false"
+                (formChange)="handleFormState($event)"
+              ></app-tyres>
+            </ng-template>
+          </ng-container>
         </ng-container>
 
         <ng-container *ngSwitchCase="'weightsSection'">

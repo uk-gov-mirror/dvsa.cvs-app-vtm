@@ -90,6 +90,10 @@ import { PsvBrakesComponent } from './custom-sections/psv-brakes/psv-brakes.comp
 import { RequiredStandardComponent } from './custom-sections/required-standard/required-standard.component';
 import { RequiredStandardsComponent } from './custom-sections/required-standards/required-standards.component';
 import { TrlBrakesComponent } from './custom-sections/trl-brakes/trl-brakes.component';
+import { TyresSectionEditComponent } from './custom-sections/tyres-section/tyres-section-edit/tyres-section-edit.component';
+import { TyresSectionSummaryComponent } from './custom-sections/tyres-section/tyres-section-summary/tyres-section-summary.component';
+import { TyresSectionViewComponent } from './custom-sections/tyres-section/tyres-section-view/tyres-section-view.component';
+import { TyresSectionComponent } from './custom-sections/tyres-section/tyres-section.component';
 import { TyresComponent } from './custom-sections/tyres/tyres.component';
 import { WeightsComponent } from './custom-sections/weights/weights.component';
 
@@ -176,6 +180,10 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		NotesSectionEditComponent,
 		NotesSectionViewComponent,
 		NotesSectionSummaryComponent,
+		TyresSectionComponent,
+		TyresSectionEditComponent,
+		TyresSectionViewComponent,
+		TyresSectionSummaryComponent,
 	],
 	imports: [
 		CommonModule,
@@ -266,6 +274,10 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		NotesSectionEditComponent,
 		NotesSectionViewComponent,
 		NotesSectionSummaryComponent,
+		TyresSectionComponent,
+		TyresSectionEditComponent,
+		TyresSectionViewComponent,
+		TyresSectionSummaryComponent,
 	],
 })
 export class DynamicFormsModule {}

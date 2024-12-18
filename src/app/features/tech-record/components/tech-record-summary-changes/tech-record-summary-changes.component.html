@@ -156,7 +156,15 @@
             techRecordEdited.techRecord_vehicleType === 'trl'
           "
         >
-          <app-tyres [vehicleTechRecord]="techRecordEdited"></app-tyres>
+          <!-- New Tyres section -->
+          <ng-container *ngIf="featureToggleService.isFeatureEnabled('FsTyres'); else oldTyresSection">
+            <app-tyres-section [techRecord]="techRecordEdited" [mode]="'summary'"></app-tyres-section>
+          </ng-container>
+
+          <!-- Old Tyres section -->
+          <ng-template #oldTyresSection>
+            <app-tyres [vehicleTechRecord]="techRecordEdited"></app-tyres>
+          </ng-template>
         </ng-container>
       </ng-container>
 
