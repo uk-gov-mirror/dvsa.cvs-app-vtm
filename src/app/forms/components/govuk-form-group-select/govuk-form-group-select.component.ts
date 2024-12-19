@@ -47,7 +47,7 @@ export class GovukFormGroupSelectComponent implements ControlValueAccessor {
 	@Input({ alias: 'formControlName', required: true })
 	controlName = '';
 
-	@Input({ alias: 'label', required: true })
+	@Input({ alias: 'label' })
 	controlLabel = '';
 
 	@Input({ alias: 'id' })

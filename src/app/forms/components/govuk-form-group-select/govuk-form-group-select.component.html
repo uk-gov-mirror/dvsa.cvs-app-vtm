@@ -1,5 +1,5 @@
 <div class="govuk-form-group-select">
-  <label tag for="{{ id }}" [id]="labelId">
+  <label tag for="{{ id }}" [id]="labelId" *ngIf="controlLabel">
     {{ controlLabel }}
     <ng-container *ngIf="tags?.length">
       <div class="flex gap-2">
