@@ -1,2 +1,71 @@
-<div [formGroup]="form">
+<div [formGroup]="form" *ngIf="techRecord() as tr">
+
+  <ng-container *ngIf="tr.techRecord_vehicleType === VehicleTypes.PSV">
+    <govuk-form-group-input 
+      type="number"
+      label="Speed Restriction"
+      formControlName="techRecord_speedRestriction"
+      [width]="FormNodeWidth.XS"
+      suffix="mph"
+    ></govuk-form-group-input>
+  </ng-container>
+
+  <table class="govuk-table">
+    <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header"></th>
+        <th scope="col" class="govuk-table__header">Code</th>
+        <th scope="col" class="govuk-table__header">Size</th>
+        <th scope="col" class="govuk-table__header">Ply</th>
+        <th scope="col" class="govuk-table__header tyre-table-ld-index__header">Load Index</th>
+        <th scope="col" class="govuk-table__header" *ngIf="tr.techRecord_vehicleType === VehicleTypes.PSV">SR</th>
+        <th scope="col" class="govuk-table__header">S/D</th>
+      </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+      <tr *ngFor="let axle of techRecordAxles.controls; let i = index" class="govuk-table__row" formArrayName="techRecord_axles">
+        <th scope="row" class="govuk-table__header">T{{ axle.value.axleNumber }}</th>
+
+        <!-- Tyre Code -->
+        <td class="govuk-table__cell">        
+          <govuk-form-group-input
+            formControlName="tyres_tyreCode"
+            [width]="FormNodeWidth.XS"
+          ></govuk-form-group-input>
+        </td>
+
+        <!-- Tyre Size -->
+        <td class="govuk-table__cell">
+          <govuk-form-group-input
+            formControlName="tyres_tyreSize"
+            [width]="FormNodeWidth.XXXL"
+          ></govuk-form-group-input>
+        </td>
+
+        <!-- Ply Rating -->
+        <td class="govuk-table__cell">
+          <govuk-form-group-input
+            formControlName="tyres_plyRating"
+            [width]="FormNodeWidth.XXS"
+          ></govuk-form-group-input>
+        </td>
+
+        <!-- Fitment Code -->
+        <td class="govuk-table__cell">
+          <govuk-form-group-input
+            formControlName="tyres_fitmentCode"
+            [width]="FormNodeWidth.XS"
+          ></govuk-form-group-input>
+        </td>
+
+        <!-- Load Index -->
+        <td class="govuk-table__cell">
+          <govuk-form-group-input
+            formControlName="tyres_dataTrAxles"
+            [width]="FormNodeWidth.XXS"
+          ></govuk-form-group-input>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
