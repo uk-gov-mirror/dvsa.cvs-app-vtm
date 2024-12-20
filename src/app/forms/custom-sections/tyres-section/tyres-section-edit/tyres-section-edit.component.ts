@@ -86,15 +86,33 @@ export class TyresSectionEditComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
+		// TODO: find a better way of adding axles from tech record
 		if (
 			this.techRecordAxles &&
-			changes['techRecord']?.currentValue?.techRecord_axles?.length !==
+			changes['techRecord']?.currentValue?.techRecord_axles?.length >
 				changes['techRecord']?.previousValue?.techRecord_axles?.length
 		) {
 			changes['techRecord'].currentValue.techRecord_axles.forEach((axle: any, index: number) => {
 				const control = this.getAxleForm();
 				control.patchValue(axle);
 				this.techRecordAxles.setControl(index, control);
+			});
+		}
+
+		// TODO: find a better way of removing axles from tech record
+		if (
+			this.techRecordAxles &&
+			changes['techRecord']?.currentValue?.techRecord_axles?.length <
+				changes['techRecord']?.previousValue?.techRecord_axles?.length
+		) {
+			while (this.techRecordAxles.length !== 0) {
+				this.techRecordAxles.removeAt(0);
+			}
+
+			changes['techRecord'].currentValue.techRecord_axles.forEach((axle: any, index: number) => {
+				const control = this.getAxleForm();
+				control.patchValue(axle);
+				this.techRecordAxles.push(control);
 			});
 		}
 	}
@@ -255,7 +273,7 @@ export class TyresSectionEditComponent implements OnInit, OnDestroy {
 			const refData = this.tyresReferenceData.find((tyre) => tyre.code === String(lastAxle.tyres_tyreCode));
 
 			if (!refData) {
-				// handle no axle info
+				this.techRecordAxles.setErrors({ noAxleData: `Cannot find data of this tyre on axle ${axleNumber}` });
 				return;
 			}
 
