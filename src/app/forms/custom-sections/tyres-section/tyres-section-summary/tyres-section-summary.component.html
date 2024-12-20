@@ -1,5 +1,4 @@
-<!--<ng-container *ngIf="amendedTechRecord() as vm">-->
-<ng-container *ngIf="currentTechRecord() as vm">
+<ng-container *ngIf="amendedTechRecord() as vm">
   <dl class="govuk-summary-list" *ngIf="vm.techRecord_vehicleType === VehicleTypes.PSV || vm.techRecord_vehicleType === VehicleTypes.HGV || vm.techRecord_vehicleType === VehicleTypes.TRL">
     <!-- Speed Restriction (PSV Only) -->
     <ng-container *ngIf="vm.techRecord_vehicleType === VehicleTypes.PSV">
