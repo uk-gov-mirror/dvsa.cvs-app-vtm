@@ -11,9 +11,9 @@ import {
 } from '@/src/app/models/reference-data.model';
 import { FormNodeWidth } from '@/src/app/services/dynamic-forms/dynamic-form.types';
 import { ReferenceDataService } from '@/src/app/services/reference-data/reference-data.service';
-import { addAxle, updateScrollPosition } from '@/src/app/store/technical-records';
+import { addAxle, removeAxle, updateScrollPosition } from '@/src/app/store/technical-records';
 import { ViewportScroller } from '@angular/common';
-import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
+import { Component, OnDestroy, OnInit, SimpleChanges, inject, input } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
@@ -83,6 +83,20 @@ export class TyresSectionEditComponent implements OnInit, OnDestroy {
 		// Clear subscriptions
 		this.destroy$.next(true);
 		this.destroy$.complete();
+	}
+
+	ngOnChanges(changes: SimpleChanges): void {
+		if (
+			this.techRecordAxles &&
+			changes['techRecord']?.currentValue?.techRecord_axles?.length !==
+				changes['techRecord']?.previousValue?.techRecord_axles?.length
+		) {
+			changes['techRecord'].currentValue.techRecord_axles.forEach((axle: any, index: number) => {
+				const control = this.getAxleForm();
+				control.patchValue(axle);
+				this.techRecordAxles.setControl(index, control);
+			});
+		}
 	}
 
 	addControlsBasedOffVehicleType() {
@@ -272,7 +286,6 @@ export class TyresSectionEditComponent implements OnInit, OnDestroy {
 		const techRecord = this.techRecord();
 		if (!techRecord.techRecord_axles || techRecord.techRecord_axles.length < 10) {
 			this.techRecordAxles.setErrors(null);
-			this.techRecordAxles.push(this.getAxleForm());
 			this.store.dispatch(addAxle());
 			return;
 		}
@@ -280,7 +293,18 @@ export class TyresSectionEditComponent implements OnInit, OnDestroy {
 		this.techRecordAxles.setErrors({ length: 'Cannot have more than 10 axles' });
 	}
 
-	removeAxle(index: number) {}
+	removeAxle(index: number) {
+		const techRecord = this.techRecord();
+		const minLength = techRecord.techRecord_vehicleType === VehicleTypes.TRL ? 1 : 2;
+
+		if (techRecord.techRecord_axles && techRecord.techRecord_axles.length > minLength) {
+			this.techRecordAxles.setErrors(null);
+			this.store.dispatch(removeAxle({ index }));
+			return;
+		}
+
+		this.techRecordAxles.setErrors({ length: `Cannot have less than ${minLength} axles` });
+	}
 
 	addTyre(tyre: Tyre, axleNumber: number) {
 		const techRecord = this.techRecord();
@@ -301,5 +325,6 @@ export class TyresSectionEditComponent implements OnInit, OnDestroy {
 		axle.tyres_dataTrAxles = tyre.dataTrAxles;
 
 		this.techRecordAxles.patchValue(axlesClone);
+		this.technicalRecordService.updateEditingTechRecord({ ...this.form.getRawValue() });
 	}
 }
