@@ -50,6 +50,7 @@ export class TyresSectionEditComponent implements OnInit, OnDestroy {
 
 	destroy$ = new ReplaySubject<boolean>(1);
 	editingReason = ReasonForEditing.CORRECTING_AN_ERROR;
+	invalidAxles: Array<number> = [];
 	tyresReferenceData: ReferenceDataTyre[] = [];
 	tyreLoadIndexReferenceData: ReferenceDataTyreLoadIndex[] = [];
 
@@ -86,35 +87,10 @@ export class TyresSectionEditComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
-		// TODO: find a better way of adding axles from tech record
-		if (
-			this.techRecordAxles &&
-			changes['techRecord']?.currentValue?.techRecord_axles?.length >
-				changes['techRecord']?.previousValue?.techRecord_axles?.length
-		) {
-			changes['techRecord'].currentValue.techRecord_axles.forEach((axle: any, index: number) => {
-				const control = this.getAxleForm();
-				control.patchValue(axle);
-				this.techRecordAxles.setControl(index, control);
-			});
-		}
-
-		// TODO: find a better way of removing axles from tech record
-		if (
-			this.techRecordAxles &&
-			changes['techRecord']?.currentValue?.techRecord_axles?.length <
-				changes['techRecord']?.previousValue?.techRecord_axles?.length
-		) {
-			while (this.techRecordAxles.length !== 0) {
-				this.techRecordAxles.removeAt(0);
-			}
-
-			changes['techRecord'].currentValue.techRecord_axles.forEach((axle: any, index: number) => {
-				const control = this.getAxleForm();
-				control.patchValue(axle);
-				this.techRecordAxles.push(control);
-			});
-		}
+		this.checkAxleAdded(changes);
+		this.checkAxleRemoved(changes);
+		this.checkFitmentCodeHasChanged(changes);
+		this.checkAxleWeights(changes);
 	}
 
 	addControlsBasedOffVehicleType() {
@@ -344,5 +320,73 @@ export class TyresSectionEditComponent implements OnInit, OnDestroy {
 
 		this.techRecordAxles.patchValue(axlesClone);
 		this.technicalRecordService.updateEditingTechRecord({ ...this.form.getRawValue() });
+	}
+
+	checkAxleAdded(changes: SimpleChanges) {
+		const current = changes['techRecord']?.currentValue?.techRecord_axles;
+		const previous = changes['techRecord']?.previousValue?.techRecord_axles;
+
+		if (this.techRecordAxles && current?.length > previous?.length) {
+			const control = this.getAxleForm();
+			control.patchValue(current[current.length - 1]);
+			this.techRecordAxles.push(control, { emitEvent: false });
+		}
+	}
+
+	checkAxleRemoved(changes: SimpleChanges) {
+		const current = changes['techRecord']?.currentValue?.techRecord_axles;
+		const previous = changes['techRecord']?.previousValue?.techRecord_axles;
+
+		if (this.techRecordAxles && current < previous) {
+			this.techRecordAxles.removeAt(0);
+			this.techRecordAxles.patchValue(current, { emitEvent: false });
+		}
+	}
+
+	checkFitmentCodeHasChanged(changes: SimpleChanges) {
+		if (changes['techRecord']?.firstChange) {
+			const currentAxles = changes['techRecord']?.currentValue?.techRecord_axles;
+			const previousAxles = changes['techRecord']?.previousValue?.techRecord_axles;
+
+			if (!currentAxles) return false;
+			if (!previousAxles) return false;
+
+			for (const [index, axle] of currentAxles.entries()) {
+				if (
+					axle?.tyres_fitmentCode !== undefined &&
+					previousAxles[index]?.tyres_fitmentCode !== undefined &&
+					axle.tyres_fitmentCode !== previousAxles[index].tyres_fitmentCode &&
+					axle.tyres_tyreCode === previousAxles[index].tyres_tyreCode
+				) {
+					return this.getTyresRefData(axle.axleNumber);
+				}
+			}
+		}
+	}
+
+	checkAxleWeights(changes: SimpleChanges) {
+		this.invalidAxles = [];
+
+		if (
+			!changes['techRecord']?.currentValue?.techRecord_axles ||
+			(changes['techRecord']?.previousValue?.techRecord_axles &&
+				changes['techRecord']?.currentValue?.techRecord_axles ===
+					changes['techRecord']?.previousValue?.techRecord_axles)
+		) {
+			return;
+		}
+
+		changes['techRecord'].currentValue.techRecord_axles.forEach((axle: any) => {
+			if (axle?.weights_gbWeight === null || axle?.weights_designWeight === null) {
+				const weightValue = this.technicalRecordService.getAxleFittingWeightValueFromLoadIndex(
+					axle.tyres_dataTrAxles?.toString(),
+					axle.tyres_fitmentCode,
+					this.tyreLoadIndexReferenceData
+				);
+				if (weightValue && axle.weights_gbWeight > weightValue) {
+					this.invalidAxles.push(axle.axleNumber);
+				}
+			}
+		});
 	}
 }
