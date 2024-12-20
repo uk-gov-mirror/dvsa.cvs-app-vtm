@@ -92,6 +92,11 @@ export class GovukFormGroupSelectComponent implements ControlValueAccessor {
 	onChange = (_: any) => {};
 	onTouched = () => {};
 
+	onBlur(event: FocusEvent) {
+		this.onTouched();
+		this.blur.emit(event);
+	}
+
 	writeValue(obj: any): void {
 		this.value = obj;
 		this.onChange(obj);

@@ -36,7 +36,7 @@
     </thead>
     <tbody class="govuk-table__body" formArrayName="techRecord_axles">
       <ng-container *ngFor="let axle of techRecordAxles.controls; let i = index">
-        <tr class="govuk-table__row" formGroupName="{{ i}}">
+        <tr class="govuk-table__row" formGroupName="{{ i }}">
           <th class="govuk-table__header" scope="row">T{{ axle.value.axleNumber }}</th>
   
           <!-- Tyre Code -->
@@ -45,6 +45,7 @@
               type="number"
               formControlName="tyres_tyreCode"
               [width]="FormNodeWidth.XS"
+              (blur)="getTyresRefData(i + 1)"
             ></govuk-form-group-input>
           </td>
   
@@ -53,6 +54,7 @@
             <govuk-form-group-input
               formControlName="tyres_tyreSize"
               [width]="FormNodeWidth.XXXL"
+              (blur)="getTyresRefData(i + 1)"
             ></govuk-form-group-input>
           </td>
   
@@ -61,6 +63,7 @@
             <govuk-form-group-input
               formControlName="tyres_plyRating"
               [width]="FormNodeWidth.XXS"
+              (blur)="getTyresRefData(i + 1)"
             ></govuk-form-group-input>
           </td>
   
@@ -70,6 +73,7 @@
               type="number"
               formControlName="tyres_dataTrAxles"
               [width]="FormNodeWidth.XXS"
+              (blur)="getTyresRefData(i + 1)"
             ></govuk-form-group-input>
           </td>
   
@@ -79,6 +83,7 @@
               formControlName="tyres_speedCategorySymbol"
               [width]="FormNodeWidth.UNSET"
               [options]="SPEED_CATEGORY_SYMBOL_OPTIONS"
+              (blur)="getTyresRefData(i + 1)"
             ></govuk-form-group-select>
           </td>
   
@@ -88,6 +93,7 @@
               formControlName="tyres_fitmentCode"
               [width]="FormNodeWidth.XS"
               [options]="FITMENT_CODE_OPTIONS"
+              (blur)="getTyresRefData(i + 1)"
             ></govuk-form-group-select>
           </td>
   
