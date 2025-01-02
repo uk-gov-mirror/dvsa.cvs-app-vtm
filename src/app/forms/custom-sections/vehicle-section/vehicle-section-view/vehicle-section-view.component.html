@@ -229,6 +229,7 @@
         </dd>
       </div>
     </ng-container>
+
     <ng-container *ngIf="
       vm.techRecord_vehicleType === VehicleTypes.HGV ||
       (vm.techRecord_vehicleType === VehicleTypes.TRL &&
@@ -247,8 +248,7 @@
       </div>
     </ng-container>
 
-  </dl>
-    <dl *ngIf="vm.techRecord_vehicleType === VehicleTypes.PSV" class="govuk-summary-list">
+    <ng-container *ngIf="vm.techRecord_vehicleType === VehicleTypes.PSV" class="govuk-summary-list">
       <div class="govuk-summary-list__row">
         <h3>
           Seats:
@@ -308,5 +308,6 @@
           {{ vm.techRecord_alterationMarker | defaultNullOrEmpty }}
         </dd>
       </div>
-    </dl>
+    </ng-container>
+  </dl>
 </ng-container>
