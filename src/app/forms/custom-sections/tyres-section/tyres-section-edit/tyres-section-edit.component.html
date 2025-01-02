@@ -51,6 +51,7 @@
           <!-- Tyre Code -->
           <td class="govuk-table__cell">      
             <govuk-form-group-input
+              id="tyres_tyreCode-{{ i + 1 }}"
               type="number"
               formControlName="tyres_tyreCode"
               [width]="FormNodeWidth.XS"
@@ -61,6 +62,7 @@
           <!-- Tyre Size -->
           <td class="govuk-table__cell">
             <govuk-form-group-input
+              id="tyres_tyreSize-{{ i + 1 }}"
               formControlName="tyres_tyreSize"
               [width]="FormNodeWidth.XXXL"
               (blur)="getTyresRefData(i + 1)"
@@ -70,6 +72,7 @@
           <!-- Ply Rating -->
           <td class="govuk-table__cell">
             <govuk-form-group-input
+              id="tyres_plyRating-{{ i + 1 }}"
               formControlName="tyres_plyRating"
               [width]="FormNodeWidth.XXS"
               (blur)="getTyresRefData(i + 1)"
@@ -79,6 +82,7 @@
           <!-- Data Tr Axles -->
           <td class="govuk-table__cell">
             <govuk-form-group-input
+              id="tyres_dataTrAxles-{{ i + 1 }}"
               type="number"
               formControlName="tyres_dataTrAxles"
               [width]="FormNodeWidth.XXS"
@@ -89,6 +93,7 @@
           <!-- Speed Category Symbol (PSV Only)-->
           <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType === VehicleTypes.PSV">
             <govuk-form-group-select
+              id="tyres_speedCategorySymbol-{{ i + 1 }}"
               formControlName="tyres_speedCategorySymbol"
               [width]="FormNodeWidth.UNSET"
               [options]="SPEED_CATEGORY_SYMBOL_OPTIONS"
@@ -99,6 +104,7 @@
           <!-- Fitment Code -->
           <td class="govuk-table__cell">
             <govuk-form-group-select
+              id="tyres_fitmentCode-{{ i + 1 }}"
               formControlName="tyres_fitmentCode"
               [width]="FormNodeWidth.XS"
               [options]="FITMENT_CODE_OPTIONS"
@@ -107,12 +113,11 @@
           </td>
   
           <td class="govuk-table__cell">
-            <a href="javascript:void(0)" (click)="getTyreSearchPage(axle.value.axleNumber)">Search</a>
-
+            <a id="tyres_search-{{ i + 1 }}" href="javascript:void(0)" (click)="getTyreSearchPage(axle.value.axleNumber)">Search</a>
           </td>
   
           <td class="govuk-table__cell">
-            <a href="javascript:void(0)" (click)="removeAxle(i)">Remove</a>
+            <a id="tyres_remove-{{ i + 1 }}" href="javascript:void(0)" (click)="removeAxle(i)">Remove</a>
           </td>
         </tr>
       </ng-container>
