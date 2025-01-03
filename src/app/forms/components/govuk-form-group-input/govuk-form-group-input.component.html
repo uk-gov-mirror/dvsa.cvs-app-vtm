@@ -1,6 +1,6 @@
 <div class="govuk-form-group-input">
   <h1 *ngIf="controlLabel">
-    <label tag>
+    <label id="{{ labelId }}" for="{{ id }}" tag>
       {{ controlLabel }}
       <ng-container *ngIf="tags?.length">
         <div>
