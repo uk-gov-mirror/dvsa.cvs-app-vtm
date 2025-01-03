@@ -113,11 +113,13 @@
           </td>
   
           <td class="govuk-table__cell">
-            <a id="tyres_search-{{ i + 1 }}" href="javascript:void(0)" (click)="getTyreSearchPage(axle.value.axleNumber)">Search</a>
+            <a class="axleButton" id="tyres_search-{{ i + 1 }}" href="javascript:void(0)" (click)="getTyreSearchPage(axle.value.axleNumber)">
+              Search
+            </a>
           </td>
   
           <td class="govuk-table__cell">
-            <a id="tyres_remove-{{ i + 1 }}" href="javascript:void(0)" (click)="removeAxle(i)">Remove</a>
+            <a class="axleButton" id="tyres_remove-{{ i + 1 }}" href="javascript:void(0)" (click)="removeAxle(i)">Remove</a>
           </td>
         </tr>
       </ng-container>
@@ -126,7 +128,7 @@
    <tfoot>
       <tr>
         <td colspan="100%">
-          <a href="javascript:void(0)" role="button" id="tyresAddAxle" (click)="addAxle()">Add Axle</a>
+          <a class="axleButton" href="javascript:void(0)" role="button" id="tyresAddAxle" (click)="addAxle()">Add Axle</a>
         </td>
       </tr>
       <tr>
