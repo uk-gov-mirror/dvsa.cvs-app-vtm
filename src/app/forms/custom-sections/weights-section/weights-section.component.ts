@@ -1,5 +1,5 @@
-import { V3TechRecordModel } from '@/src/app/models/vehicle-tech-record.model';
 import { Component, input } from '@angular/core';
+import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 
 @Component({
 	selector: 'app-weights-section',
@@ -8,7 +8,7 @@ import { Component, input } from '@angular/core';
 })
 export class WeightsSectionComponent {
 	mode = input<Mode>('edit');
-	techRecord = input.required<V3TechRecordModel>();
+	techRecord = input.required<TechRecordType<'hgv' | 'trl' | 'psv'>>();
 }
 
 type Mode = 'view' | 'edit' | 'summary';
