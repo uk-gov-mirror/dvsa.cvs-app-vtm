@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
 import { ControlContainer, FormBuilder, FormGroup } from '@angular/forms';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
-import { V3TechRecordModel } from '@models/vehicle-tech-record.model';
+import { FITMENR_CODE_OPTIONS, SPEED_CATEGORY_SYMBOL_OPTIONS } from '@models/options.model';
+import { V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
+import { FormNodeWidth } from '@services/dynamic-forms/dynamic-form.types';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { ReplaySubject } from 'rxjs';
 
@@ -62,4 +64,13 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy {
 				return {};
 		}
 	}
+
+	protected readonly VehicleTypes = VehicleTypes;
+	protected readonly FITMENT_CODE_OPTIONS = FITMENR_CODE_OPTIONS;
+	protected readonly SPEED_CATEGORY_SYMBOL_OPTIONS = SPEED_CATEGORY_SYMBOL_OPTIONS;
+	protected readonly FormNodeWidth = FormNodeWidth;
+
+	removeAxle(i: number) {}
+
+	addAxle() {}
 }

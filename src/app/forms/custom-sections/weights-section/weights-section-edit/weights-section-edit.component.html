@@ -1,3 +1,119 @@
-<div [formGroup]="form">
+<div [formGroup]="form" *ngIf="techRecord() as tr">
+  <table class="govuk-table">
+    <!-- Title -->
+    <caption class="govuk-table__caption govuk-table__caption--m">
+      Axle weights (kg) <app-tag type="purple" *ngIf="tr.techRecord_vehicleType !== VehicleTypes.PSV">plates</app-tag>
+    </caption>
 
+    <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header"></th>
+      <th scope="col" class="govuk-table__header" id="weights-table-gb-header" *ngIf="tr.techRecord_vehicleType !== VehicleTypes.PSV">GB</th>
+      <th scope="col" class="govuk-table__header" id="weights-table-eec-header" *ngIf="tr.techRecord_vehicleType !== VehicleTypes.PSV">EEC</th>
+      <th scope="col" class="govuk-table__header" id="weights-table-load-index-header" *ngIf="tr.techRecord_vehicleType === VehicleTypes.PSV">Kerb</th>
+      <th scope="col" class="govuk-table__header" id="weights-table-sr-header" *ngIf="tr.techRecord_vehicleType === VehicleTypes.PSV">Laden</th>
+      <th scope="col" class="govuk-table__header" id="weights-table-sd-header" *ngIf="tr.techRecord_vehicleType === VehicleTypes.PSV">GB max</th>
+      <th scope="col" class="govuk-table__header" id="weights-table-design-header">Design</th>
+      <th scope="col" class="govuk-table__header" id="weights-table-remove-header"></th>
+    </tr>
+    </thead>
+    <tbody class="govuk-table__body" formArrayName="techRecord_axles">
+    <ng-container *ngFor="let axle of techRecordAxles.controls; let i = index">
+      <tr class="govuk-table__row" formGroupName="{{ i }}">
+        <th class="govuk-table__header" scope="row">Axle {{ i }}</th>
+
+        <!-- GB (HGV/TRL only) -->
+        <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType !== VehicleTypes.PSV">
+          <govuk-form-group-input
+            id="weights_grossGbWeight-{{ i + 1 }}"
+            type="number"
+            formControlName="techRecord_grossGbWeight"
+            [width]="FormNodeWidth.XS"
+          ></govuk-form-group-input>
+        </td>
+
+        <!-- EEC (HGV/TRL only) -->
+        <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType !== VehicleTypes.PSV">
+          <govuk-form-group-input
+            id="weights_grossEecWeight-{{ i + 1 }}"
+            type="number"
+            formControlName="techRecord_grossEecWeight"
+            [width]="FormNodeWidth.XS"
+          ></govuk-form-group-input>
+        </td>
+
+        <!-- Kerb (PSV only) -->
+        <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType === VehicleTypes.PSV">
+          <govuk-form-group-input
+            id="weights_grossKerbWeight-{{ i + 1 }}"
+            type="number"
+            formControlName="techRecord_grossKerbWeight"
+            [width]="FormNodeWidth.XS"
+          ></govuk-form-group-input>
+        </td>
+
+        <!-- Laden (PSV only) -->
+        <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType === VehicleTypes.PSV">
+          <govuk-form-group-input
+            id="weights_grossLadenWeight-{{ i + 1 }}"
+            type="number"
+            formControlName="techRecord_grossLadenWeight"
+            [width]="FormNodeWidth.XS"
+          ></govuk-form-group-input>
+        </td>
+
+        <!-- GB max (PSV only) -->
+        <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType === VehicleTypes.PSV">
+          <govuk-form-group-input
+            id="weights_maxTrainGbWeight-{{ i + 1 }}"
+            type="number"
+            formControlName="techRecord_maxTrainGbWeight"
+            [width]="FormNodeWidth.XS"
+          ></govuk-form-group-input>
+        </td>
+
+        <!-- Design -->
+        <td class="govuk-table__cell">
+          <govuk-form-group-input
+            id="weights_grossDesignWeight-{{ i + 1 }}"
+            type="number"
+            formControlName="techRecord_grossDesignWeight"
+            [width]="FormNodeWidth.XS"
+          ></govuk-form-group-input>
+        </td>
+
+        <td class="govuk-table__cell">
+          <a class="axleButton" id="weights_remove-{{ i + 1 }}" href="javascript:void(0)" (click)="removeAxle(i)">Remove</a>
+        </td>
+      </tr>
+    </ng-container>
+    </tbody>
+
+    <tfoot>
+    <tr>
+      <td colspan="100%">
+        <a class="axleButton" href="javascript:void(0)" role="button" id="weightsAddAxle" (click)="addAxle()">Add Axle</a>
+      </td>
+    </tr>
+<!--    <tr>-->
+<!--      <td colspan="100%">-->
+<!--        <p class="govuk-error-message" id="techRecord_axles-error">-->
+<!--          <span class="govuk-visually-hidden">Error: </span>-->
+<!--          <span>{{ (techRecordAxles.errors | keyvalue)?.[0]?.value }}</span>-->
+<!--        </p>-->
+<!--      </td>-->
+<!--    </tr>-->
+    </tfoot>
+  </table>
+
+  <ng-container *ngIf="tr.techRecord_vehicleType === VehicleTypes.PSV">
+    <govuk-form-group-input
+      class="govuk-!-margin-bottom-7"
+      type="number"
+      label="Unladen Weight"
+      formControlName="techRecord_unladenWeight"
+      [width]="FormNodeWidth.XXS"
+      suffix="kg"
+    ></govuk-form-group-input>
+  </ng-container>
 </div>
