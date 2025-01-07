@@ -1,5 +1,5 @@
 import { addAxle, removeAxle } from '@/src/app/store/technical-records';
-import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
+import { Component, OnDestroy, OnInit, SimpleChanges, inject, input } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
@@ -53,6 +53,12 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy {
 		// Clear subscriptions
 		this.destroy$.next(true);
 		this.destroy$.complete();
+	}
+
+	ngOnChanges(changes: SimpleChanges): void {
+		this.checkAxleAdded(changes);
+		this.checkAxleRemoved(changes);
+		this.handleVehicleTechRecordChange(changes);
 	}
 
 	get techRecordAxles() {
@@ -165,5 +171,64 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy {
 		}
 
 		this.techRecordAxles.setErrors({ length: `Cannot have less than ${minLength} axles` });
+	}
+
+	checkAxleAdded(changes: SimpleChanges) {
+		const current = changes['techRecord']?.currentValue?.techRecord_axles;
+		const previous = changes['techRecord']?.previousValue?.techRecord_axles;
+
+		if (this.techRecordAxles && current?.length > previous?.length) {
+			const control = this.getAxleForm();
+			control.patchValue(current[current.length - 1]);
+			this.techRecordAxles.push(control, { emitEvent: false });
+		}
+	}
+
+	checkAxleRemoved(changes: SimpleChanges) {
+		const current = changes['techRecord']?.currentValue?.techRecord_axles;
+		const previous = changes['techRecord']?.previousValue?.techRecord_axles;
+
+		if (this.techRecordAxles && current < previous) {
+			this.techRecordAxles.removeAt(0);
+			this.techRecordAxles.patchValue(current, { emitEvent: false });
+		}
+	}
+
+	private handleVehicleTechRecordChange(changes: SimpleChanges): void {
+		const { vehicleTechRecord } = changes;
+		if (this.form && vehicleTechRecord) {
+			const { currentValue, previousValue } = vehicleTechRecord;
+
+			const fieldsChanged = [
+				'techRecord_seatsUpperDeck',
+				'techRecord_seatsLowerDeck',
+				'techRecord_manufactureYear',
+				'techRecord_grossKerbWeight',
+				'techRecord_standingCapacity',
+			].some((field) => currentValue[`${field}`] !== previousValue[`${field}`]);
+
+			if (
+				fieldsChanged &&
+				currentValue.techRecord_manufactureYear &&
+				this.techRecord().techRecord_vehicleType === 'psv'
+			) {
+				(this.techRecord() as TechRecordType<'psv'>).techRecord_grossLadenWeight = this.calculateGrossLadenWeight();
+			}
+
+			this.form.patchValue(this.techRecord(), { emitEvent: false });
+		}
+	}
+
+	calculateGrossLadenWeight(): number {
+		const psvRecord = this.techRecord() as TechRecordType<'psv'>;
+		const techRecord_seatsUpperDeck = psvRecord?.techRecord_seatsUpperDeck ?? 0;
+		const techRecord_seatsLowerDeck = psvRecord?.techRecord_seatsLowerDeck ?? 0;
+		const techRecord_manufactureYear = psvRecord?.techRecord_manufactureYear ?? 0;
+		const techRecord_grossKerbWeight = psvRecord?.techRecord_grossKerbWeight ?? 0;
+		const techRecord_standingCapacity = psvRecord?.techRecord_standingCapacity ?? 0;
+		const kgAllowedPerPerson = techRecord_manufactureYear >= 1988 ? 65 : 63.5;
+
+		const totalPassengers = techRecord_seatsUpperDeck + techRecord_seatsLowerDeck + techRecord_standingCapacity + 1; // Add 1 for the driver
+		return Math.ceil(totalPassengers * kgAllowedPerPerson + techRecord_grossKerbWeight);
 	}
 }
