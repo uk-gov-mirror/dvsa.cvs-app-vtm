@@ -81,7 +81,9 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy {
 			weights_gbWeight: this.fb.control<number | null>(null, [
 				this.commonValidators.max(99999, 'This field must be less than or equal to 99999'),
 			]),
-			weights_eecWeight: this.fb.control<number | null>(null),
+			weights_eecWeight: this.fb.control<number | null>(null, [
+				this.commonValidators.max(99999, 'This field must be less than or equal to 99999'),
+			]),
 			weights_designWeight: this.fb.control<number | null>(null, [
 				this.commonValidators.max(99999, 'This field must be less than or equal to 99999'),
 			]),
@@ -131,20 +133,30 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy {
 			techRecord_grossGbWeight: this.fb.control<number | null>(null, [
 				this.commonValidators.max(99999, 'This field must be less than or equal to 99999'),
 			]),
-			techRecord_grossEecWeight: this.fb.control<number | null>(null),
+			techRecord_grossEecWeight: this.fb.control<number | null>(null, [
+				this.commonValidators.max(99999, 'This field must be less than or equal to 99999'),
+			]),
 			techRecord_grossDesignWeight: this.fb.control<number | null>(null, [
 				this.commonValidators.max(99999, 'This field must be less than or equal to 99999'),
 			]),
 			techRecord_trainGbWeight: this.fb.control<number | null>(null, [
 				this.commonValidators.max(99999, 'This field must be less than or equal to 99999'),
 			]),
-			techRecord_trainEecWeight: this.fb.control<number | null>(null),
-			techRecord_trainDesignWeight: this.fb.control<number | null>(null),
+			techRecord_trainEecWeight: this.fb.control<number | null>(null, [
+				this.commonValidators.max(99999, 'This field must be less than or equal to 99999'),
+			]),
+			techRecord_trainDesignWeight: this.fb.control<number | null>(null, [
+				this.commonValidators.max(99999, 'This field must be less than or equal to 99999'),
+			]),
 			techRecord_maxTrainGbWeight: this.fb.control<number | null>(null, [
 				this.commonValidators.max(99999, 'This field must be less than or equal to 99999'),
 			]),
-			techRecord_maxTrainEecWeight: this.fb.control<number | null>(null),
-			techRecord_maxTrainDesignWeight: this.fb.control<number | null>(null),
+			techRecord_maxTrainEecWeight: this.fb.control<number | null>(null, [
+				this.commonValidators.max(99999, 'This field must be less than or equal to 99999'),
+			]),
+			techRecord_maxTrainDesignWeight: this.fb.control<number | null>(null, [
+				this.commonValidators.max(99999, 'This field must be less than or equal to 99999'),
+			]),
 		};
 	}
 
@@ -154,7 +166,9 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy {
 			techRecord_grossGbWeight: this.fb.control<number | null>(null, [
 				this.commonValidators.max(99999, 'This field must be less than or equal to 99999'),
 			]),
-			techRecord_grossEecWeight: this.fb.control<number | null>(null),
+			techRecord_grossEecWeight: this.fb.control<number | null>(null, [
+				this.commonValidators.max(99999, 'This field must be less than or equal to 99999'),
+			]),
 			techRecord_grossDesignWeight: this.fb.control<number | null>(null, [
 				this.commonValidators.max(99999, 'This field must be less than or equal to 99999'),
 			]),
@@ -179,8 +193,12 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy {
 			techRecord_grossDesignWeight: this.fb.control<number | null>(null, [
 				this.commonValidators.max(99999, 'This field must be less than or equal to 99999'),
 			]),
-			techRecord_maxTrainGbWeight: this.fb.control<number | null>(null),
-			techRecord_trainDesignWeight: this.fb.control<number | null>(null),
+			techRecord_maxTrainGbWeight: this.fb.control<number | null>(null, [
+				this.commonValidators.max(99999, 'This field must be less than or equal to 99999'),
+			]),
+			techRecord_trainDesignWeight: this.fb.control<number | null>(null, [
+				this.commonValidators.max(99999, 'This field must be less than or equal to 99999'),
+			]),
 		};
 	}
 
