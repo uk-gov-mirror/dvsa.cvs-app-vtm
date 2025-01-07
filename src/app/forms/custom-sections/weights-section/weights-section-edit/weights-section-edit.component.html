@@ -17,76 +17,228 @@
       <th scope="col" class="govuk-table__header" id="weights-table-remove-header"></th>
     </tr>
     </thead>
-    <tbody class="govuk-table__body" formArrayName="techRecord_axles">
-    <ng-container *ngFor="let axle of techRecordAxles.controls; let i = index">
-      <tr class="govuk-table__row" formGroupName="{{ i }}">
-        <th class="govuk-table__header" scope="row">Axle {{ i + 1 }}</th>
+    <tbody class="govuk-table__body">
+    <ng-container formArrayName="techRecord_axles">
+      <ng-container *ngFor="let axle of techRecordAxles.controls; let i = index">
+        <tr class="govuk-table__row" formGroupName="{{ i }}">
+          <th class="govuk-table__header" scope="row">Axle {{ i + 1 }}</th>
 
-        <!-- GB (HGV/TRL only) -->
-        <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType !== VehicleTypes.PSV">
-          <govuk-form-group-input
-            id="weights_gbWeight-{{ i + 1 }}"
-            type="number"
-            formControlName="weights_gbWeight"
-            [width]="FormNodeWidth.XS"
-          ></govuk-form-group-input>
-        </td>
+          <!-- GB (HGV/TRL only) -->
+          <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType !== VehicleTypes.PSV">
+            <govuk-form-group-input
+              id="weights_gbWeight-{{ i + 1 }}"
+              type="number"
+              formControlName="weights_gbWeight"
+              [width]="FormNodeWidth.XS"
+            ></govuk-form-group-input>
+          </td>
 
-        <!-- EEC (HGV/TRL only) -->
-        <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType !== VehicleTypes.PSV">
-          <govuk-form-group-input
-            id="weights_eecWeight-{{ i + 1 }}"
-            type="number"
-            formControlName="weights_eecWeight"
-            [width]="FormNodeWidth.XS"
-          ></govuk-form-group-input>
-        </td>
+          <!-- EEC (HGV/TRL only) -->
+          <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType !== VehicleTypes.PSV">
+            <govuk-form-group-input
+              id="weights_eecWeight-{{ i + 1 }}"
+              type="number"
+              formControlName="weights_eecWeight"
+              [width]="FormNodeWidth.XS"
+            ></govuk-form-group-input>
+          </td>
 
-        <!-- Kerb (PSV only) -->
-        <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType === VehicleTypes.PSV">
-          <govuk-form-group-input
-            id="weights_kerbWeight-{{ i + 1 }}"
-            type="number"
-            formControlName="weights_kerbWeight"
-            [width]="FormNodeWidth.XS"
-          ></govuk-form-group-input>
-        </td>
+          <!-- Kerb (PSV only) -->
+          <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType === VehicleTypes.PSV">
+            <govuk-form-group-input
+              id="weights_kerbWeight-{{ i + 1 }}"
+              type="number"
+              formControlName="weights_kerbWeight"
+              [width]="FormNodeWidth.XS"
+            ></govuk-form-group-input>
+          </td>
 
-        <!-- Laden (PSV only) -->
-        <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType === VehicleTypes.PSV">
-          <govuk-form-group-input
-            id="weights_ladenWeight-{{ i + 1 }}"
-            type="number"
-            formControlName="weights_ladenWeight"
-            [width]="FormNodeWidth.XS"
-          ></govuk-form-group-input>
-        </td>
+          <!-- Laden (PSV only) -->
+          <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType === VehicleTypes.PSV">
+            <govuk-form-group-input
+              id="weights_ladenWeight-{{ i + 1 }}"
+              type="number"
+              formControlName="weights_ladenWeight"
+              [width]="FormNodeWidth.XS"
+            ></govuk-form-group-input>
+          </td>
 
-        <!-- GB max (PSV only) -->
-        <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType === VehicleTypes.PSV">
-          <govuk-form-group-input
-            id="weights_gbWeight-{{ i + 1 }}"
-            type="number"
-            formControlName="weights_gbWeight"
-            [width]="FormNodeWidth.XS"
-          ></govuk-form-group-input>
-        </td>
+          <!-- GB max (PSV only) -->
+          <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType === VehicleTypes.PSV">
+            <govuk-form-group-input
+              id="weights_gbWeight-{{ i + 1 }}"
+              type="number"
+              formControlName="weights_gbWeight"
+              [width]="FormNodeWidth.XS"
+            ></govuk-form-group-input>
+          </td>
 
-        <!-- Design -->
-        <td class="govuk-table__cell">
-          <govuk-form-group-input
-            id="weights_designWeight-{{ i + 1 }}"
-            type="number"
-            formControlName="weights_designWeight"
-            [width]="FormNodeWidth.XS"
-          ></govuk-form-group-input>
-        </td>
+          <!-- Design -->
+          <td class="govuk-table__cell">
+            <govuk-form-group-input
+              id="weights_designWeight-{{ i + 1 }}"
+              type="number"
+              formControlName="weights_designWeight"
+              [width]="FormNodeWidth.XS"
+            ></govuk-form-group-input>
+          </td>
 
-        <td class="govuk-table__cell">
-          <a class="axleButton" id="weights_remove-{{ i + 1 }}" href="javascript:void(0)" (click)="removeAxle(i)">Remove</a>
-        </td>
-      </tr>
+          <td class="govuk-table__cell">
+            <a class="axleButton" id="weights_remove-{{ i + 1 }}" href="javascript:void(0)" (click)="removeAxle(i)">Remove</a>
+          </td>
+        </tr>
+      </ng-container>
     </ng-container>
+    <!-- Gross -->
+    <tr class="govuk-table__row">
+      <th class="govuk-table__header" scope="row">Gross</th>
+      <!-- Gross GB (HGV/TRL only) -->
+      <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType !== VehicleTypes.PSV">
+        <govuk-form-group-input
+          id="techRecord_grossGbWeight"
+          type="number"
+          formControlName="techRecord_grossGbWeight"
+          [width]="FormNodeWidth.XS"
+        ></govuk-form-group-input>
+      </td>
+
+      <!-- Gross EEC (HGV/TRL only) -->
+      <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType !== VehicleTypes.PSV">
+        <govuk-form-group-input
+          id="techRecord_grossEecWeight"
+          type="number"
+          formControlName="techRecord_grossEecWeight"
+          [width]="FormNodeWidth.XS"
+        ></govuk-form-group-input>
+      </td>
+
+      <!-- Gross Kerb (PSV only) -->
+      <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType === VehicleTypes.PSV">
+        <govuk-form-group-input
+          id="techRecord_grossKerbWeight"
+          type="number"
+          formControlName="techRecord_grossKerbWeight"
+          [width]="FormNodeWidth.XS"
+        ></govuk-form-group-input>
+      </td>
+
+      <!-- Gross Laden (PSV only) -->
+      <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType === VehicleTypes.PSV">
+        <govuk-form-group-input
+          id="techRecord_grossLadenWeight"
+          type="number"
+          formControlName="techRecord_grossLadenWeight"
+          [width]="FormNodeWidth.XS"
+        ></govuk-form-group-input>
+      </td>
+
+      <!-- Gross GB max (PSV only) -->
+      <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType === VehicleTypes.PSV">
+        <govuk-form-group-input
+          id="techRecord_grossGbWeight"
+          type="number"
+          formControlName="techRecord_grossGbWeight"
+          [width]="FormNodeWidth.XS"
+        ></govuk-form-group-input>
+      </td>
+
+      <!-- Gross Design -->
+      <td class="govuk-table__cell">
+        <govuk-form-group-input
+          id="techRecord_grossDesignWeight"
+          type="number"
+          formControlName="techRecord_grossDesignWeight"
+          [width]="FormNodeWidth.XS"
+        ></govuk-form-group-input>
+      </td>
+      <td class="govuk-table__cell"></td>
+    </tr>
+
+    <!-- Train (HGV/PSV only) -->
+    <tr class="govuk-table__row" *ngIf="tr.techRecord_vehicleType === VehicleTypes.HGV || tr.techRecord_vehicleType === VehicleTypes.PSV">
+      <th class="govuk-table__header" scope="row">Train</th>
+      <!-- Train GB (HGV/TRL only) -->
+      <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType !== VehicleTypes.PSV">
+        <govuk-form-group-input
+          id="techRecord_trainGbWeight"
+          type="number"
+          formControlName="techRecord_trainGbWeight"
+          [width]="FormNodeWidth.XS"
+        ></govuk-form-group-input>
+      </td>
+
+      <!-- Train EEC (HGV/TRL only) -->
+      <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType !== VehicleTypes.PSV">
+        <govuk-form-group-input
+          id="techRecord_trainEecWeight"
+          type="number"
+          formControlName="techRecord_trainEecWeight"
+          [width]="FormNodeWidth.XS"
+        ></govuk-form-group-input>
+      </td>
+
+      <!-- Train Kerb (PSV only, empty cell) -->
+      <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType === VehicleTypes.PSV"></td>
+
+      <!-- Train Laden (PSV only, empty cell) -->
+      <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType === VehicleTypes.PSV"></td>
+
+      <!-- Train GB max (PSV only) -->
+      <td class="govuk-table__cell" *ngIf="tr.techRecord_vehicleType === VehicleTypes.PSV">
+        <govuk-form-group-input
+          id="techRecord_maxTrainGbWeight"
+          type="number"
+          formControlName="techRecord_maxTrainGbWeight"
+          [width]="FormNodeWidth.XS"
+        ></govuk-form-group-input>
+      </td>
+
+      <!-- Train Design -->
+      <td class="govuk-table__cell">
+        <govuk-form-group-input
+          id="techRecord_trainDesignWeight"
+          type="number"
+          formControlName="techRecord_trainDesignWeight"
+          [width]="FormNodeWidth.XS"
+        ></govuk-form-group-input>
+      </td>
+      <td class="govuk-table__cell"></td>
+    </tr>
+
+    <!-- Max Train (HGV only) -->
+    <tr class="govuk-table__row" *ngIf="tr.techRecord_vehicleType === VehicleTypes.HGV">
+      <th class="govuk-table__header" scope="row">Max Train</th>
+      <!-- Train GB -->
+      <td class="govuk-table__cell">
+        <govuk-form-group-input
+          id="techRecord_maxTrainGbWeight"
+          type="number"
+          formControlName="techRecord_maxTrainGbWeight"
+          [width]="FormNodeWidth.XS"
+        ></govuk-form-group-input>
+      </td>
+
+      <!-- Train EEC -->
+      <td class="govuk-table__cell">
+        <govuk-form-group-input
+          id="techRecord_maxTrainEecWeight"
+          type="number"
+          formControlName="techRecord_maxTrainEecWeight"
+          [width]="FormNodeWidth.XS"
+        ></govuk-form-group-input>
+      </td>
+
+      <!-- Train Design -->
+      <td class="govuk-table__cell">
+        <govuk-form-group-input
+          id="techRecord_maxTrainDesignWeight"
+          type="number"
+          formControlName="techRecord_maxTrainDesignWeight"
+          [width]="FormNodeWidth.XS"
+        ></govuk-form-group-input>
+      </td>
+      <td class="govuk-table__cell"></td>
+    </tr>
     </tbody>
 
     <tfoot>

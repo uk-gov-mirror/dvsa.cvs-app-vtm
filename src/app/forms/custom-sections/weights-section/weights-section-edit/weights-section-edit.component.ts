@@ -96,8 +96,9 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy {
 	get controlsBasedOffVehicleType() {
 		switch (this.techRecord().techRecord_vehicleType) {
 			case VehicleTypes.HGV:
+				return this.hgvControls;
 			case VehicleTypes.TRL:
-				return this.hgvTrlControls;
+				return this.trlControls;
 			case VehicleTypes.PSV:
 				return this.psvControls;
 			default:
@@ -105,9 +106,27 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	get hgvTrlControls() {
+	get hgvControls() {
 		return {
 			techRecord_axles: this.fb.array([]),
+			techRecord_grossGbWeight: this.fb.control<number | null>(null),
+			techRecord_grossEecWeight: this.fb.control<number | null>(null),
+			techRecord_grossDesignWeight: this.fb.control<number | null>(null),
+			techRecord_trainGbWeight: this.fb.control<number | null>(null),
+			techRecord_trainEecWeight: this.fb.control<number | null>(null),
+			techRecord_trainDesignWeight: this.fb.control<number | null>(null),
+			techRecord_maxTrainGbWeight: this.fb.control<number | null>(null),
+			techRecord_maxTrainEecWeight: this.fb.control<number | null>(null),
+			techRecord_maxTrainDesignWeight: this.fb.control<number | null>(null),
+		};
+	}
+
+	get trlControls() {
+		return {
+			techRecord_axles: this.fb.array([]),
+			techRecord_grossGbWeight: this.fb.control<number | null>(null),
+			techRecord_grossEecWeight: this.fb.control<number | null>(null),
+			techRecord_grossDesignWeight: this.fb.control<number | null>(null),
 		};
 	}
 
@@ -115,6 +134,12 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy {
 		return {
 			techRecord_unladenWeight: this.fb.control<number | null>(null),
 			techRecord_axles: this.fb.array([]),
+			techRecord_grossKerbWeight: this.fb.control<number | null>(null),
+			techRecord_grossLadenWeight: this.fb.control<number | null>(null),
+			techRecord_grossGbWeight: this.fb.control<number | null>(null),
+			techRecord_grossDesignWeight: this.fb.control<number | null>(null),
+			techRecord_maxTrainGbWeight: this.fb.control<number | null>(null),
+			techRecord_trainDesignWeight: this.fb.control<number | null>(null),
 		};
 	}
 
