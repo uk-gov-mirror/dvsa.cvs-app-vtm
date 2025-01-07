@@ -195,10 +195,9 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy {
 	}
 
 	private handleVehicleTechRecordChange(changes: SimpleChanges): void {
-		const { vehicleTechRecord } = changes;
-		if (this.form && vehicleTechRecord) {
-			const { currentValue, previousValue } = vehicleTechRecord;
-
+		const { techRecord } = changes;
+		if (this.form && techRecord) {
+			const { currentValue, previousValue } = techRecord;
 			const fieldsChanged = [
 				'techRecord_seatsUpperDeck',
 				'techRecord_seatsLowerDeck',
@@ -206,7 +205,6 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy {
 				'techRecord_grossKerbWeight',
 				'techRecord_standingCapacity',
 			].some((field) => currentValue[`${field}`] !== previousValue[`${field}`]);
-
 			if (
 				fieldsChanged &&
 				currentValue.techRecord_manufactureYear &&
