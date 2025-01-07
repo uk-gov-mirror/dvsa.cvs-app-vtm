@@ -58,6 +58,7 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy {
 	ngOnChanges(changes: SimpleChanges): void {
 		this.checkAxleAdded(changes);
 		this.checkAxleRemoved(changes);
+		this.checkGrossLadenWeightChanged(changes);
 		this.handleVehicleTechRecordChange(changes);
 	}
 
@@ -228,26 +229,35 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy {
 		}
 	}
 
+	checkGrossLadenWeightChanged(changes: SimpleChanges): void {
+		const techRecord_grossLadenWeight = changes['techRecord']?.currentValue?.techRecord_grossLadenWeight;
+
+		if (techRecord_grossLadenWeight !== this.form.value.techRecord_grossLadenWeight) {
+			this.form.patchValue({ techRecord_grossLadenWeight }, { emitEvent: false });
+		}
+	}
+
 	private handleVehicleTechRecordChange(changes: SimpleChanges): void {
 		const { techRecord } = changes;
 		if (this.form && techRecord) {
 			const { currentValue, previousValue } = techRecord;
-			const fieldsChanged = [
-				'techRecord_seatsUpperDeck',
-				'techRecord_seatsLowerDeck',
-				'techRecord_manufactureYear',
-				'techRecord_grossKerbWeight',
-				'techRecord_standingCapacity',
-			].some((field) => currentValue[`${field}`] !== previousValue[`${field}`]);
-			if (
-				fieldsChanged &&
-				currentValue.techRecord_manufactureYear &&
-				this.techRecord().techRecord_vehicleType === 'psv'
-			) {
-				(this.techRecord() as TechRecordType<'psv'>).techRecord_grossLadenWeight = this.calculateGrossLadenWeight();
-			}
+			if (currentValue?.techRecord_vehicleType === 'psv' && currentValue?.techRecord_manufactureYear) {
+				const fieldsChanged = [
+					'techRecord_seatsUpperDeck',
+					'techRecord_seatsLowerDeck',
+					'techRecord_manufactureYear',
+					'techRecord_grossKerbWeight',
+					'techRecord_standingCapacity',
+				].some((field) => currentValue[`${field}`] !== previousValue?.[`${field}`]);
 
-			this.form.patchValue(this.techRecord(), { emitEvent: false });
+				if (fieldsChanged) {
+					const grossLadenWeight = this.calculateGrossLadenWeight();
+					if (grossLadenWeight !== this.form.value.techRecord_grossLadenWeight) {
+						currentValue.techRecord_grossLadenWeight = grossLadenWeight;
+						this.technicalRecordService.updateEditingTechRecord(currentValue);
+					}
+				}
+			}
 		}
 	}
 
