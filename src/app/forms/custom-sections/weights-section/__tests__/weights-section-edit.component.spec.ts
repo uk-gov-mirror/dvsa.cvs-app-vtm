@@ -4,6 +4,7 @@ import { ComponentRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
 	ControlContainer,
+	FormArray,
 	FormControl,
 	FormGroup,
 	FormGroupDirective,
@@ -33,7 +34,7 @@ describe('weightsSectionEditComponent', () => {
 		formGroupDirective.form = new FormGroup<Partial<Record<keyof TechRecordType<'hgv' | 'psv' | 'trl'>, FormControl>>>(
 			{}
 		);
-		const mockTechRecord = mockVehicleTechnicalRecord('hgv');
+		const mockTechRecord = mockVehicleTechnicalRecord('psv');
 
 		await TestBed.configureTestingModule({
 			declarations: [WeightsSectionEditComponent],
@@ -66,6 +67,12 @@ describe('weightsSectionEditComponent', () => {
 			expect(addControlsBasedOffVehicleTypeSpy).toHaveBeenCalled();
 		});
 
+		it('should call prepopulateAxles', () => {
+			const prepopulateAxlesSpy = jest.spyOn(component, 'prepopulateAxles');
+			component.ngOnInit();
+			expect(prepopulateAxlesSpy).toHaveBeenCalled();
+		});
+
 		it('should attach all form controls to parent', () => {
 			const parent = controlContainer.control as FormGroup;
 			component.ngOnInit();
@@ -77,30 +84,27 @@ describe('weightsSectionEditComponent', () => {
 		it('should detach all form controls from parent', () => {
 			const parent = controlContainer.control as FormGroup;
 			component.ngOnDestroy();
-			expect(Object.keys(parent.controls)).toEqual([]);
+			expect(Object.keys(parent.controls)).toHaveLength(0);
 		});
 
-		it('should complete destroy$ subject', () => {
+		it('should clear all subscriptions', () => {
+			const nextSpy = jest.spyOn(component.destroy$, 'next');
 			const completeSpy = jest.spyOn(component.destroy$, 'complete');
 			component.ngOnDestroy();
+			expect(nextSpy).toHaveBeenCalledWith(true);
 			expect(completeSpy).toHaveBeenCalled();
-		});
-
-		it('should emit true to destroy$ subject', () => {
-			let emittedValue: boolean | undefined;
-			component.destroy$.subscribe((value) => (emittedValue = value));
-			component.ngOnDestroy();
-			expect(emittedValue).toBe(true);
 		});
 	});
 
-	describe('addControlsBasedOffVehicleType', () => {
-		it('should add vehicle specific controls to the form', () => {
-			const addControlSpy = jest.spyOn(component.form, 'addControl');
-			const vehicleControlsSpy = jest.spyOn(component, 'controlsBasedOffVehicleType', 'get');
-			component.addControlsBasedOffVehicleType();
-			expect(vehicleControlsSpy).toHaveBeenCalled();
-			expect(addControlSpy).toHaveBeenCalled();
+	describe('techRecordAxles', () => {
+		it('should return FormArray when techRecord_axles control exists', () => {
+			component.form.addControl('techRecord_axles', new FormArray([]));
+			expect(component.techRecordAxles).toBeInstanceOf(FormArray);
+		});
+
+		it('should return null when techRecord_axles control does not exist', () => {
+			component.form.removeControl('techRecord_axles');
+			expect(component.techRecordAxles).toBeNull();
 		});
 	});
 });
