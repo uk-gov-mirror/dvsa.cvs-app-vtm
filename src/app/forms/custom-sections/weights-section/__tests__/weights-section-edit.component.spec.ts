@@ -97,7 +97,7 @@ describe('weightsSectionEditComponent', () => {
 	});
 
 	describe('ngOnChanges', () => {
-		it('should return FormArray when techRecord_axles control exists', () => {
+		it('should fire required methods when ngOnChanges is run', () => {
 			const axleAddedSpy = jest.spyOn(component, 'checkAxleAdded');
 			const axleRemovedSpy = jest.spyOn(component, 'checkAxleRemoved');
 			const ladenWeightSpy = jest.spyOn(component, 'checkGrossLadenWeightChanged');
