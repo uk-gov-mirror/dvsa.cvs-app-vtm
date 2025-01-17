@@ -18,7 +18,7 @@ import {
 	NG_VALUE_ACCESSOR,
 	ReactiveFormsModule,
 } from '@angular/forms';
-import { ApprovalType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalType.enum';
+import { ApprovalType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalType.enum.js';
 import { FormNodeWidth } from '@services/dynamic-forms/dynamic-form.types';
 import { SharedModule } from '@shared/shared.module';
 import { ReplaySubject, takeUntil } from 'rxjs';

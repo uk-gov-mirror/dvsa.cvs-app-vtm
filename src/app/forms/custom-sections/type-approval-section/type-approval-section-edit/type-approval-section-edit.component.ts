@@ -11,7 +11,7 @@ import {
 	ValidatorFn,
 } from '@angular/forms';
 import { TagType } from '@components/tag/tag.component';
-import { ApprovalType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalType.enum';
+import { ApprovalType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalType.enum.js';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { getOptionsFromEnum } from '@forms/utils/enum-map';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
