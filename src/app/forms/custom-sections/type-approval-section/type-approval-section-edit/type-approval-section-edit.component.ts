@@ -1,14 +1,6 @@
 import { FormNodeWidth, TagTypeLabels } from '@/src/app/services/dynamic-forms/dynamic-form.types';
 import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
-import {
-	AbstractControl,
-	ControlContainer,
-	FormBuilder,
-	FormControl,
-	FormGroup,
-	ValidationErrors,
-	ValidatorFn,
-} from '@angular/forms';
+import { ControlContainer, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { TagType } from '@components/tag/tag.component';
 import { ApprovalType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalType.enum';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
@@ -36,11 +28,11 @@ export class TypeApprovalSectionEditComponent implements OnInit, OnDestroy {
 	destroy$ = new ReplaySubject<boolean>(1);
 
 	form = this.fb.group<TypeApprovalSectionForm>({
-		techRecord_approvalType: this.fb.control<ApprovalType | null>({ value: null, disabled: false }, [
+		techRecord_approvalType: this.fb.nonNullable.control<ApprovalType | null>({ value: null, disabled: false }, [
 			this.commonValidators.isOneOf(ApprovalType, 'Approval type is required'),
 		]),
 		techRecord_approvalTypeNumber: this.fb.control<string | null>({ value: null, disabled: false }, [
-			this.handleApprovalTypeChange(),
+			this.commonValidators.required('Approval type number is required'),
 		]),
 		techRecord_ntaNumber: this.fb.control<string | null>({ value: null, disabled: false }, [
 			this.commonValidators.maxLength(40, 'National type number must be less than or equal to 40 characters'),
@@ -116,18 +108,6 @@ export class TypeApprovalSectionEditComponent implements OnInit, OnDestroy {
 				this.commonValidators.date('COIF Certifier date'),
 				this.commonValidators.pastDate('COIF Certifier date must be in the past'),
 			]),
-		};
-	}
-
-	private handleApprovalTypeChange(): ValidatorFn {
-		return (control: AbstractControl): ValidationErrors | null => {
-			if (control.dirty) {
-				if (this.showApprovalTypeNumber) {
-					return { required: 'Approval type number is required' };
-				}
-			}
-
-			return null;
 		};
 	}
 

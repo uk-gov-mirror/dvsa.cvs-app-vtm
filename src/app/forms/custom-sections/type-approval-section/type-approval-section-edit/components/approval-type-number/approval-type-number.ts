@@ -1,17 +1,38 @@
-import { NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
-import { Component, Input, inject, signal } from '@angular/core';
-import { AbstractControl, ControlContainer, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ApprovalTypeFocusNextDirective } from '@/src/app/directives/approval-type-focus-next/approval-type-focus-next.directive';
+import { CommonValidatorsService } from '@/src/app/forms/validators/common-validators.service';
+import { NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { Component, Input, OnChanges, OnDestroy, SimpleChanges, inject } from '@angular/core';
+import {
+	AbstractControl,
+	ControlContainer,
+	FormBuilder,
+	FormGroup,
+	FormsModule,
+	ReactiveFormsModule,
+} from '@angular/forms';
 import { ApprovalType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalType.enum';
 import { FormNodeWidth } from '@services/dynamic-forms/dynamic-form.types';
 import { SharedModule } from '@shared/shared.module';
+import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'approval-type-number-input',
 	templateUrl: 'approval-type-number.html',
+	styleUrls: ['./approval-type-number.scss'],
 	standalone: true,
-	imports: [FormsModule, NgSwitchCase, SharedModule, NgSwitch, NgSwitchDefault, ReactiveFormsModule],
+	imports: [
+		FormsModule,
+		NgSwitchCase,
+		SharedModule,
+		NgIf,
+		NgSwitch,
+		NgSwitchDefault,
+		ReactiveFormsModule,
+		ReactiveFormsModule,
+		ApprovalTypeFocusNextDirective,
+	],
 })
-export class ApprovalTypeNumber {
+export class ApprovalTypeNumber implements OnChanges, OnDestroy {
 	@Input({ required: true })
 	width!: FormNodeWidth;
 
@@ -25,102 +46,84 @@ export class ApprovalTypeNumber {
 	disabled = false;
 
 	@Input({ required: true })
-	approvalTypeControlName!: string;
+	approvalType!: string;
 
-	private approvalTypeNumber_1 = signal<string | undefined>(undefined);
+	@Input()
+	value: string | null | undefined = null;
 
-	public errors?: {
-		error: boolean;
-		errors?: {
-			error: boolean;
-			reason: string;
-			index: number;
-		}[];
-	};
+	readonly FormNodeWidth = FormNodeWidth;
 
-	private readonly controlContainer = inject(ControlContainer);
+	fb = inject(FormBuilder);
+	controlContainer = inject(ControlContainer);
+	commonValidators = inject(CommonValidatorsService);
+
+	form?: FormGroup;
+	formSub?: Subscription;
 
 	get id() {
 		return this.controlName;
-	}
-
-	get approvalType() {
-		return this.controlContainer.control?.get(this.approvalTypeControlName)?.value;
 	}
 
 	get control() {
 		return this.controlContainer.control?.get(this.controlName) as AbstractControl;
 	}
 
-	protected readonly FormNodeWidth = FormNodeWidth;
+	onChange = (_: any) => {};
+	onTouched = () => {};
 
-	onTechRecord_approvalTypeNumber1_Change(event: string | undefined) {
-		this.approvalTypeNumber_1.set(event);
+	writeValue(obj: string): void {
+		this.value = obj;
+		this.onChange(obj);
 	}
 
-	validate() {
-		const setErrors = () => {
-			this.errors = {
-				error: true,
-				errors: [
-					{
-						error: true,
-						reason: 'Approval type number is required with Approval type',
-						index: 0,
-					},
-				],
-			};
-		};
+	registerOnChange(fn: any): void {
+		this.onChange = fn;
+	}
 
-		const oneRequired = () => !this.approvalTypeNumber_1() && this.approvalType;
-		// const twoRequired = () => oneRequired() || !this.approvalTypeNumber2;
-		// const threeRequired = () => twoRequired() || !this.approvalTypeNumber3;
-		// const fourRequired = () => threeRequired() || !this.approvalTypeNumber4;
+	registerOnTouched(fn: any): void {
+		this.onTouched = fn;
+	}
 
-		const twoRequired = () => oneRequired() || false;
-		const threeRequired = () => twoRequired() || false;
-		const fourRequired = () => threeRequired() || false;
+	ngOnChanges(changes: SimpleChanges): void {
+		if (changes['approvalType']) {
+			this.form = this.onApprovalTypeChange();
+			this.formSub = this.form.valueChanges.subscribe(() => {
+				const approvalTypeNumber1 = this.form?.get('approvalTypeNumber1')?.value;
+				const approvalTypeNumber2 = this.form?.get('approvalTypeNumber2')?.value;
+				const approvalTypeNumber3 = this.form?.get('approvalTypeNumber3')?.value;
+				const approvalTypeNumber4 = this.form?.get('approvalTypeNumber4')?.value;
 
+				const approvalTypeNumber = this.processApprovalTypeNumber(
+					approvalTypeNumber1,
+					approvalTypeNumber2,
+					approvalTypeNumber3,
+					approvalTypeNumber4
+				);
+
+				console.log(approvalTypeNumber);
+				this.onChange(approvalTypeNumber);
+			});
+		}
+	}
+
+	ngOnDestroy(): void {
+		this.formSub?.unsubscribe();
+	}
+
+	onApprovalTypeChange() {
+		// construct form based on approval type
 		switch (this.approvalType) {
-			case ApprovalType.NTA:
-			case ApprovalType.IVA:
-			case ApprovalType.IVA_DVSA_NI:
-				console.log('oneRequired', oneRequired());
-
-				if (oneRequired()) {
-					setErrors();
-				}
-				break;
-
-			case ApprovalType.GB_WVTA:
-			case ApprovalType.EU_WVTA_PRE_23:
-			case ApprovalType.EU_WVTA_23_ON:
-			case ApprovalType.PROV_GB_WVTA:
-			case ApprovalType.QNIG:
 			case ApprovalType.ECTA:
-			case ApprovalType.ECSSTA:
-			case ApprovalType.UKNI_WVTA:
-				if (fourRequired()) {
-					setErrors();
-				}
-				break;
-
-			case ApprovalType.IVA_VCA:
-			case ApprovalType.SMALL_SERIES_NKSXX:
-				if (fourRequired()) {
-					setErrors();
-				}
-				break;
-
-			case ApprovalType.NSSTA:
-			case ApprovalType.SMALL_SERIES_NKS:
-				if (twoRequired()) {
-					setErrors();
-				}
-				break;
-
+				return this.fb.group({
+					approvalTypeNumber1: this.fb.control<string>(''),
+					approvalTypeNumber2: this.fb.control<string>(''),
+					approvalTypeNumber3: this.fb.control<string>(''),
+					approvalTypeNumber4: this.fb.control<string>(''),
+				});
 			default:
-				break;
+				return this.fb.group({
+					approvalTypeNumber1: this.fb.control<string>(''),
+				});
 		}
 	}
 

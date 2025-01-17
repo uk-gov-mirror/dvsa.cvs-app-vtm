@@ -148,7 +148,6 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		CheckboxComponent,
 		ApprovalTypeComponent,
 		ApprovalTypeInputComponent,
-		ApprovalTypeFocusNextDirective,
 		ModifiedWeightsComponent,
 		FieldWarningMessageComponent,
 		AdrComponent,
@@ -205,6 +204,7 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		GovukFormGroupTextareaComponent,
 		GovukFormGroupAutocompleteComponent,
 		ApprovalTypeNumber,
+		ApprovalTypeFocusNextDirective,
 	],
 	exports: [
 		TextInputComponent,

@@ -1,6 +1,6 @@
 <div class="govuk-form-group-input">
-  <h1>
-    <label tag>
+  <h1 *ngIf="controlLabel">
+    <label tag >
       {{ controlLabel }}
       <ng-container *ngIf="tags?.length">
         <div>
@@ -34,6 +34,7 @@
       (blur)="onTouched()"
       [class]="style"
       [disabled]="control?.disabled || false"
+      [maxlength]="maxlength"
     />
   </ng-container>
 

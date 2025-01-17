@@ -12,8 +12,8 @@
           *ngIf="shouldDisplayFormControl('techRecord_approvalTypeNumber') && showApprovalTypeNumber"
           label="Approval type number"
           formControlName="techRecord_approvalTypeNumber"
-          approvalTypeControlName="techRecord_approvalType"
           [width]="FormNodeWidth.XL"
+          [approvalType]="form.getRawValue().techRecord_approvalType"
     ></approval-type-number-input>
 
     <!-- National type number (NTA) -->

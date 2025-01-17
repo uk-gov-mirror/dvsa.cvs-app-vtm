@@ -44,7 +44,7 @@ export class GovukFormGroupInputComponent implements ControlValueAccessor {
 	@Input({ alias: 'formControlName', required: true })
 	controlName = '';
 
-	@Input({ alias: 'label', required: true })
+	@Input({ alias: 'label', required: false })
 	controlLabel = '';
 
 	@Input({ alias: 'id' })
@@ -55,6 +55,9 @@ export class GovukFormGroupInputComponent implements ControlValueAccessor {
 
 	@Input()
 	width?: FormNodeWidth;
+
+	@Input()
+	maxlength: string | number | null = null;
 
 	controlContainer = inject(ControlContainer);
 
