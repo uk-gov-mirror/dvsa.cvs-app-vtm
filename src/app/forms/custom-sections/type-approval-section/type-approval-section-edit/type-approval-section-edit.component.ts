@@ -47,7 +47,6 @@ export class TypeApprovalSectionEditComponent implements OnInit, OnDestroy {
 			this.commonValidators.isOneOf(ApprovalType, 'Approval type is required'),
 		]),
 		techRecord_approvalTypeNumber: this.fb.control<string | null>({ value: null, disabled: false }, [
-			this.commonValidators.required('Approval type number is required with Approval type'),
 			this.isValidApprovalTypeNumber(),
 		]),
 		techRecord_ntaNumber: this.fb.control<string | null>({ value: null, disabled: false }, [
@@ -103,12 +102,16 @@ export class TypeApprovalSectionEditComponent implements OnInit, OnDestroy {
 
 	isValidApprovalTypeNumber(): ValidatorFn {
 		return (control: AbstractControl): ValidationErrors | null => {
-			const approvalType = control.parent?.get('approvalType')?.value;
+			const approvalType = control.parent?.get('techRecord_approvalType')?.value;
 			const approvalTypeNumber = control.value;
 			if (approvalType && approvalTypeNumber) {
 				const regex = APPROVAL_NUMBER_TYPE_REGEX[approvalType];
 				const isValid = regex?.test(approvalTypeNumber);
 				return isValid ? null : { approvalTypeNumber: 'Approval type number is required with Approval type' };
+			}
+
+			if (approvalType && !approvalTypeNumber) {
+				return { required: 'Approval type number is required with Approval type' };
 			}
 
 			return null;
