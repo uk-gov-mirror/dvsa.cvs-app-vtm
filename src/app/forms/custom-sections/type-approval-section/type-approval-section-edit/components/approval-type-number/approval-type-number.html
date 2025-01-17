@@ -1,11 +1,18 @@
 <div class="govuk-form-group" *ngIf="form" [formGroup]="form">
   <label class="govuk-label govuk-label--m">Approval type number</label>
+
+  <ng-container *ngIf="hasError">
+    <p class="govuk-error-message" id="{{ errorId }}">
+      <span class="govuk-visually-hidden">Error: </span>
+      <span>{{ (control.errors | keyvalue)?.[0]?.value }}</span>
+    </p>
+  </ng-container>
   
   <div class="approval-type-number-wrapper" [ngSwitch]="approvalType">
     <!-- NTA Template -->
     <ng-container *ngSwitchCase="'NTA'">
       <input 
-        id="techRecord_approvalTypeNumber1-ecta" 
+        id="techRecord_approvalTypeNumber1-NTA" 
         formControlName="approvalTypeNumber1" 
         class="govuk-input govuk-input--width-20" 
         [maxlength]="25" 
@@ -22,7 +29,7 @@
         [maxlength]="2" 
         [characterLimit]="2"
         [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-ecta'" 
-    />
+      />
       <span>*</span>
       <input
         id="techRecord_approvalTypeNumber2-ecta" 
@@ -50,689 +57,414 @@
         [characterLimit]="6"
         [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-ecta'" 
       />
-      <!--    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>-->
-      <!--    <div class="govuk-date-input" id="{{ name }}">-->
-      <!--      <div class="govuk-date-input__item">-->
-      <!--        <div class="govuk-form-group">-->
-      <!--          <label class="govuk-label govuk-label&#45;&#45;m">-->
-      <!--            Approval type number <app-tag *ngFor="let tag of control?.meta?.customTags" type="{{ tag.colour }}">{{ tag.label }}</app-tag></label-->
-      <!--          >-->
-      <!--          <div class="ecta-template separator">-->
-      <!--            <span class="separator approvalTypeFormatting">e</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-ecta'"-->
-      <!--              [characterLimit]="2"-->
-      <!--              [maxlength]="2"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-2"-->
-      <!--              [id]="getId(name)"-->
-      <!--              name="{{ name }}-approvalTypeNumber1-ECTA"-->
-      <!--              [(ngModel)]="approvalTypeNumber1"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">*</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber3-ecta'"-->
-      <!--              [characterLimit]="4"-->
-      <!--              [maxlength]="4"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4 separator"-->
-      <!--              name="techRecord_approvalTypeNumber2"-->
-      <!--              id="techRecord_approvalTypeNumber2-ecta"-->
-      <!--              [(ngModel)]="approvalTypeNumber2"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber2_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">/</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-ecta'"-->
-      <!--              id="techRecord_approvalTypeNumber3-ecta"-->
-      <!--              [maxlength]="4"-->
-      <!--              [characterLimit]="4"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4 separator"-->
-      <!--              name="techRecord_approvalTypeNumber3"-->
-      <!--              [(ngModel)]="approvalTypeNumber3"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber3_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">*</span>-->
-      <!--            <input-->
-      <!--              id="techRecord_approvalTypeNumber4-ecta"-->
-      <!--              [maxlength]="6"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4 separator"-->
-      <!--              name="techRecord_approvalTypeNumber4"-->
-      <!--              [(ngModel)]="approvalTypeNumber4"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber4_Change($event); validate()"-->
-      <!--            />-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--    </div>-->
     </ng-container>
   
     <!-- IVA Template -->
-    <div *ngSwitchCase="'IVA'">
-      IVA
-      <!--    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>-->
-      <!--    <div class="govuk-date-input" id="{{ name }}">-->
-      <!--      <label class="govuk-label govuk-label&#45;&#45;m">-->
-      <!--        Approval type number <app-tag *ngFor="let tag of control?.meta?.customTags" type="{{ tag.colour }}">{{ tag.label }}</app-tag></label-->
-      <!--      >-->
-      <!--      <input-->
-      <!--        maxlength="25"-->
-      <!--        class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-20"-->
-      <!--        [id]="getId(name)"-->
-      <!--        name="{{ name }}-approvalTypeNumber1-IVA"-->
-      <!--        [(ngModel)]="approvalTypeNumber1"-->
-      <!--        (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"-->
-      <!--      />-->
-      <!--    </div>-->
-    </div>
+    <ng-container *ngSwitchCase="'IVA'">
+      <input 
+        id="techRecord_approvalTypeNumber1-IVA" 
+        formControlName="approvalTypeNumber1" 
+        class="govuk-input govuk-input--width-20" 
+        [maxlength]="25" 
+      />
+    </ng-container>
   
     <!-- NSSTA Template -->
-    <div *ngSwitchCase="'NSSTA'">
-      NSSTA
-      <!--    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>-->
-      <!--    <div class="govuk-date-input" id="{{ name }}">-->
-      <!--      <div class="govuk-date-input__item">-->
-      <!--        <div class="govuk-form-group">-->
-      <!--          <label class="govuk-label govuk-label&#45;&#45;m">-->
-      <!--            Approval type number <app-tag *ngFor="let tag of control?.meta?.customTags" type="{{ tag.colour }}">{{ tag.label }}</app-tag></label-->
-      <!--          >-->
-      <!--          <div class="ecta-template separator">-->
-      <!--            <span class="separator approvalTypeFormatting">e</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-nssta'"-->
-      <!--              [characterLimit]="2"-->
-      <!--              [maxlength]="2"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-2"-->
-      <!--              [id]="getId(name)"-->
-      <!--              name="{{ name }}-approvalTypeNumber1-NSSTA"-->
-      <!--              [(ngModel)]="approvalTypeNumber1"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">*NKS*</span>-->
-      <!--            <input-->
-      <!--              id="techRecord_approvalTypeNumber2-nssta"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-5"-->
-      <!--              name="techRecord_approvalTypeNumber2"-->
-      <!--              [maxlength]="6"-->
-      <!--              [(ngModel)]="approvalTypeNumber2"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber2_Change($event); validate()"-->
-      <!--            />-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--    </div>-->
-    </div>
+    <ng-container *ngSwitchCase="'NSSTA'">
+      <span>e</span>
+      <input 
+        id="techRecord_approvalTypeNumber1-NSSTA" 
+        formControlName="approvalTypeNumber1" 
+        class="govuk-input govuk-input--width-2" 
+        [maxlength]="2" 
+        [characterLimit]="2"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-NSSTA'" 
+      />
+      <span>*NKS*</span>
+      <input
+        id="techRecord_approvalTypeNumber2-NSSTA" 
+        formControlName="approvalTypeNumber2" 
+        class="govuk-input govuk-input--width-6" 
+        [maxlength]="6"
+      />
+    </ng-container>
   
     <!-- ECSSTA Template -->
-    <div *ngSwitchCase="'ECSSTA'">
-      ECSSTA
-      <!--    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>-->
-      <!--    <div class="govuk-date-input" id="{{ name }}">-->
-      <!--      <div class="govuk-date-input__item">-->
-      <!--        <div class="govuk-form-group">-->
-      <!--          <label class="govuk-label govuk-label&#45;&#45;m">-->
-      <!--            Approval type number <app-tag *ngFor="let tag of control?.meta?.customTags" type="{{ tag.colour }}">{{ tag.label }}</app-tag></label-->
-      <!--          >-->
-      <!--          <div class="ecta-template separator">-->
-      <!--            <span class="separator approvalTypeFormatting">e</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-ecssta'"-->
-      <!--              [characterLimit]="2"-->
-      <!--              [maxlength]="2"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-2"-->
-      <!--              [id]="getId(name)"-->
-      <!--              name="{{ name }}-approvalTypeNumber1-ECSSTA"-->
-      <!--              [(ngModel)]="approvalTypeNumber1"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">*KS</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber3-ecssta'"-->
-      <!--              [characterLimit]="2"-->
-      <!--              [maxlength]="2"-->
-      <!--              id="techRecord_approvalTypeNumber2-ecssta"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-2"-->
-      <!--              name="techRecord_approvalTypeNumber2"-->
-      <!--              [(ngModel)]="approvalTypeNumber2"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber2_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">/</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-ecssta'"-->
-      <!--              [characterLimit]="4"-->
-      <!--              [maxlength]="4"-->
-      <!--              id="techRecord_approvalTypeNumber3-ecssta"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4 separator"-->
-      <!--              name="techRecord_approvalTypeNumber3"-->
-      <!--              [(ngModel)]="approvalTypeNumber3"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber3_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">*</span>-->
-      <!--            <input-->
-      <!--              [maxlength]="6"-->
-      <!--              id="techRecord_approvalTypeNumber4-ecssta"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber4"-->
-      <!--              [(ngModel)]="approvalTypeNumber4"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber4_Change($event); validate()"-->
-      <!--            />-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--    </div>-->
-    </div>
+    <ng-container *ngSwitchCase="'ECSSTA'">
+      <span>e</span>
+      <input 
+        id="techRecord_approvalTypeNumber1-ECSSTA" 
+        formControlName="approvalTypeNumber1" 
+        class="govuk-input govuk-input--width-2" 
+        [maxlength]="2" 
+        [characterLimit]="2"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-ECSSTA'" 
+      />
+      <span>*KS</span>
+      <input
+        id="techRecord_approvalTypeNumber2-ECSSTA" 
+        formControlName="approvalTypeNumber2" 
+        class="govuk-input govuk-input--width-4" 
+        [maxlength]="4"
+        [characterLimit]="4"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber3-ECSSTA'" 
+      />
+      <span>/</span>
+      <input
+        id="techRecord_approvalTypeNumber3-ECSSTA" 
+        formControlName="approvalTypeNumber3" 
+        class="govuk-input govuk-input--width-4" 
+        [maxlength]="4"
+        [characterLimit]="4"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-ECSSTA'" 
+      />
+      <span>*</span>
+      <input
+        id="techRecord_approvalTypeNumber4-ECSSTA" 
+        formControlName="approvalTypeNumber4" 
+        class="govuk-input govuk-input--width-6" 
+        [maxlength]="6"
+        [characterLimit]="6"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-ECSSTA'" 
+      />
+    </ng-container>
   
     <!-- GB WVTA Template -->
-    <div *ngSwitchCase="'GB WVTA'">
-      GB WVTA
-      <!--    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>-->
-      <!--    <div class="govuk-date-input" id="{{ name }}">-->
-      <!--      <div class="govuk-date-input__item">-->
-      <!--        <div class="govuk-form-group">-->
-      <!--          <label class="govuk-label govuk-label&#45;&#45;m">-->
-      <!--            Approval type number <app-tag *ngFor="let tag of control?.meta?.customTags" type="{{ tag.colour }}">{{ tag.label }}</app-tag></label-->
-      <!--          >-->
-      <!--          <div class="ecta-template separator">-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-gbwvta'"-->
-      <!--              [characterLimit]="3"-->
-      <!--              [maxlength]="3"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-2"-->
-      <!--              [id]="getId(name)"-->
-      <!--              name="{{ name }}-approvalTypeNumber1-GB WVTA"-->
-      <!--              [(ngModel)]="approvalTypeNumber1"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">*</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber3-gbwvta'"-->
-      <!--              [characterLimit]="4"-->
-      <!--              [maxlength]="4"-->
-      <!--              id="techRecord_approvalTypeNumber2-gbwvta"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber2"-->
-      <!--              [(ngModel)]="approvalTypeNumber2"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber2_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">/</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-gbwvta'"-->
-      <!--              [characterLimit]="4"-->
-      <!--              [maxlength]="4"-->
-      <!--              id="techRecord_approvalTypeNumber3-gbwvta"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber3"-->
-      <!--              [(ngModel)]="approvalTypeNumber3"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber3_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">*</span>-->
-      <!--            <input-->
-      <!--              [maxlength]="7"-->
-      <!--              id="techRecord_approvalTypeNumber4-gbwvta"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-5"-->
-      <!--              name="techRecord_approvalTypeNumber4"-->
-      <!--              [(ngModel)]="approvalTypeNumber4"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber4_Change($event); validate()"-->
-      <!--            />-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--    </div>-->
-    </div>
+    <ng-container *ngSwitchCase="'GB WVTA'">
+      <input 
+        id="techRecord_approvalTypeNumber1-GB WVTA" 
+        formControlName="approvalTypeNumber1" 
+        class="govuk-input govuk-input--width-3" 
+        [maxlength]="3" 
+        [characterLimit]="3"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-GB WVTA'" 
+      />
+      <span>*</span>
+      <input
+        id="techRecord_approvalTypeNumber2-GB WVTA" 
+        formControlName="approvalTypeNumber2" 
+        class="govuk-input govuk-input--width-4" 
+        [maxlength]="4"
+        [characterLimit]="4"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber3-GB WVTA'" 
+      />
+      <span>/</span>
+      <input
+        id="techRecord_approvalTypeNumber3-GB WVTA" 
+        formControlName="approvalTypeNumber3" 
+        class="govuk-input govuk-input--width-4" 
+        [maxlength]="4"
+        [characterLimit]="4"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-GB WVTA'" 
+      />
+      <span>*</span>
+      <input
+        id="techRecord_approvalTypeNumber4-GB WVTA" 
+        formControlName="approvalTypeNumber4" 
+        class="govuk-input govuk-input--width-7" 
+        [maxlength]="7"
+        [characterLimit]="7"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-GB WVTA'" 
+      />
+    </ng-container>
   
     <!-- UKNI WVTA Template -->
-    <div *ngSwitchCase="'UKNI WVTA'">
-      UKNI WVTA
-      <!--    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>-->
-      <!--    <div class="govuk-date-input" id="{{ name }}">-->
-      <!--      <div class="govuk-date-input__item">-->
-      <!--        <div class="govuk-form-group">-->
-      <!--          <label class="govuk-label govuk-label&#45;&#45;m">-->
-      <!--            Approval type number <app-tag *ngFor="let tag of control?.meta?.customTags" type="{{ tag.colour }}">{{ tag.label }}</app-tag></label-->
-      <!--          >-->
-      <!--          <div class="ecta-template separator">-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-ukniwvta'"-->
-      <!--              [characterLimit]="1"-->
-      <!--              [maxlength]="1"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              [id]="getId(name)"-->
-      <!--              name="{{ name }}-approvalTypeNumber1-UKNI WVTA"-->
-      <!--              [(ngModel)]="approvalTypeNumber1"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">11*</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber3-ukniwvta'"-->
-      <!--              [characterLimit]="4"-->
-      <!--              [maxlength]="4"-->
-      <!--              id="techRecord_approvalTypeNumber2-ukniwvta"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber2"-->
-      <!--              [(ngModel)]="approvalTypeNumber2"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber2_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">/</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-ukniwvta'"-->
-      <!--              [characterLimit]="4"-->
-      <!--              [maxlength]="4"-->
-      <!--              id="techRecord_approvalTypeNumber3-ukniwvta"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber3"-->
-      <!--              [(ngModel)]="approvalTypeNumber3"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber3_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">*</span>-->
-      <!--            <input-->
-      <!--              [maxlength]="6"-->
-      <!--              id="techRecord_approvalTypeNumber4-ukniwvta"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber4"-->
-      <!--              [(ngModel)]="approvalTypeNumber4"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber4_Change($event); validate()"-->
-      <!--            />-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--    </div>-->
-    </div>
+    <ng-container *ngSwitchCase="'UKNI WVTA'">
+      <input 
+        id="techRecord_approvalTypeNumber1-UKNI WVTA" 
+        formControlName="approvalTypeNumber1" 
+        class="govuk-input govuk-input--width-1" 
+        [maxlength]="1" 
+        [characterLimit]="1"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-UKNI WVTA'" 
+      />
+      <span>11*</span>
+      <input
+        id="techRecord_approvalTypeNumber2-UKNI WVTA" 
+        formControlName="approvalTypeNumber2" 
+        class="govuk-input govuk-input--width-4" 
+        [maxlength]="4"
+        [characterLimit]="4"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber3-UKNI WVTA'" 
+      />
+      <span>/</span>
+      <input
+        id="techRecord_approvalTypeNumber3-UKNI WVTA" 
+        formControlName="approvalTypeNumber3" 
+        class="govuk-input govuk-input--width-4" 
+        [maxlength]="4"
+        [characterLimit]="4"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-UKNI WVTA'" 
+      />
+      <span>*</span>
+      <input
+        id="techRecord_approvalTypeNumber4-UKNI WVTA" 
+        formControlName="approvalTypeNumber4" 
+        class="govuk-input govuk-input--width-6" 
+        [maxlength]="6"
+        [characterLimit]="6"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-UKNI WVTA'" 
+      />
+    </ng-container>
   
     <!-- EU WVTA Pre 23 Template -->
-    <div *ngSwitchCase="'EU WVTA Pre 23'">
-      EU WVTA Pre 23
-      <!--    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>-->
-      <!--    <div class="govuk-date-input" id="{{ name }}">-->
-      <!--      <div class="govuk-date-input__item">-->
-      <!--        <div class="govuk-form-group">-->
-      <!--          <label class="govuk-label govuk-label&#45;&#45;m">-->
-      <!--            Approval type number <app-tag *ngFor="let tag of control?.meta?.customTags" type="{{ tag.colour }}">{{ tag.label }}</app-tag></label-->
-      <!--          >-->
-      <!--          <div class="ecta-template separator">-->
-      <!--            <span class="separator approvalTypeFormatting">e</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-euwvtapre'"-->
-      <!--              [characterLimit]="2"-->
-      <!--              [maxlength]="2"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-2"-->
-      <!--              [id]="getId(name)"-->
-      <!--              name="{{ name }}-approvalTypeNumber1-EU WVTA Pre 23"-->
-      <!--              [(ngModel)]="approvalTypeNumber1"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">*</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber3-euwvtapre'"-->
-      <!--              [characterLimit]="4"-->
-      <!--              [maxlength]="4"-->
-      <!--              id="techRecord_approvalTypeNumber2-euwvtapre"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber2"-->
-      <!--              [(ngModel)]="approvalTypeNumber2"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber2_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">/</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-euwvtapre'"-->
-      <!--              [characterLimit]="4"-->
-      <!--              [maxlength]="4"-->
-      <!--              id="techRecord_approvalTypeNumber3-euwvtapre"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber3"-->
-      <!--              [(ngModel)]="approvalTypeNumber3"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber3_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">*</span>-->
-      <!--            <input-->
-      <!--              [maxlength]="6"-->
-      <!--              id="techRecord_approvalTypeNumber4-euwvtapre"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber4"-->
-      <!--              [(ngModel)]="approvalTypeNumber4"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber4_Change($event); validate()"-->
-      <!--            />-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--    </div>-->
-    </div>
+    <ng-container *ngSwitchCase="'EU WVTA Pre 23'">
+      <span>e</span>
+      <input 
+        id="techRecord_approvalTypeNumber1-EU WVTA Pre 23" 
+        formControlName="approvalTypeNumber1" 
+        class="govuk-input govuk-input--width-2" 
+        [maxlength]="2" 
+        [characterLimit]="2"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-EU WVTA Pre 23'" 
+      />
+      <span>*</span>
+      <input
+        id="techRecord_approvalTypeNumber2-EU WVTA Pre 23" 
+        formControlName="approvalTypeNumber2" 
+        class="govuk-input govuk-input--width-4" 
+        [maxlength]="4"
+        [characterLimit]="4"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber3-EU WVTA Pre 23'" 
+      />
+      <span>/</span>
+      <input
+        id="techRecord_approvalTypeNumber3-EU WVTA Pre 23" 
+        formControlName="approvalTypeNumber3" 
+        class="govuk-input govuk-input--width-4" 
+        [maxlength]="4"
+        [characterLimit]="4"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-EU WVTA Pre 23'" 
+      />
+      <span>*</span>
+      <input
+        id="techRecord_approvalTypeNumber4-EU WVTA Pre 23" 
+        formControlName="approvalTypeNumber4" 
+        class="govuk-input govuk-input--width-6" 
+        [maxlength]="6"
+        [characterLimit]="6"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-EU WVTA Pre 23'" 
+      />
+    </ng-container>
   
     <!-- EU WVTA 23 on Template -->
-    <div *ngSwitchCase="'EU WVTA 23 on'">
-      EU WVTA 23 on
-      <!--    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>-->
-      <!--    <div class="govuk-date-input" id="{{ name }}">-->
-      <!--      <div class="govuk-date-input__item">-->
-      <!--        <div class="govuk-form-group">-->
-      <!--          <label class="govuk-label govuk-label&#45;&#45;m">-->
-      <!--            Approval type number <app-tag *ngFor="let tag of control?.meta?.customTags" type="{{ tag.colour }}">{{ tag.label }}</app-tag></label-->
-      <!--          >-->
-      <!--          <div class="ecta-template separator">-->
-      <!--            <span class="separator approvalTypeFormatting">e</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-euwvta'"-->
-      <!--              [characterLimit]="2"-->
-      <!--              [maxlength]="2"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-2"-->
-      <!--              [id]="getId(name)"-->
-      <!--              name="{{ name }}-approvalTypeNumber1-EU WVTA 23 on"-->
-      <!--              [(ngModel)]="approvalTypeNumber1"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">*</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber3-euwvta'"-->
-      <!--              [characterLimit]="4"-->
-      <!--              [maxlength]="4"-->
-      <!--              id="techRecord_approvalTypeNumber2-euwvta"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber2"-->
-      <!--              [(ngModel)]="approvalTypeNumber2"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber2_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">/</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-euwvta'"-->
-      <!--              [characterLimit]="4"-->
-      <!--              [maxlength]="4"-->
-      <!--              id="techRecord_approvalTypeNumber3-euwvta"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber3"-->
-      <!--              [(ngModel)]="approvalTypeNumber3"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber3_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">*</span>-->
-      <!--            <input-->
-      <!--              [maxlength]="6"-->
-      <!--              id="techRecord_approvalTypeNumber4-euwvta"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber4"-->
-      <!--              [(ngModel)]="approvalTypeNumber4"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber4_Change($event); validate()"-->
-      <!--            />-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--    </div>-->
-    </div>
+    <ng-container *ngSwitchCase="'EU WVTA 23 on'">
+      <span>e</span>
+      <input 
+        id="techRecord_approvalTypeNumber1-EU WVTA 23 on" 
+        formControlName="approvalTypeNumber1" 
+        class="govuk-input govuk-input--width-2" 
+        [maxlength]="2" 
+        [characterLimit]="2"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-EU WVTA 23 on'" 
+      />
+      <span>*</span>
+      <input
+        id="techRecord_approvalTypeNumber2-EU WVTA 23 on" 
+        formControlName="approvalTypeNumber2" 
+        class="govuk-input govuk-input--width-4" 
+        [maxlength]="4"
+        [characterLimit]="4"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber3-EU WVTA 23 on'" 
+      />
+      <span>/</span>
+      <input
+        id="techRecord_approvalTypeNumber3-EU WVTA 23 on" 
+        formControlName="approvalTypeNumber3" 
+        class="govuk-input govuk-input--width-4" 
+        [maxlength]="4"
+        [characterLimit]="4"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-EU WVTA 23 on'" 
+      />
+      <span>*</span>
+      <input
+        id="techRecord_approvalTypeNumber4-EU WVTA 23 on" 
+        formControlName="approvalTypeNumber4" 
+        class="govuk-input govuk-input--width-6" 
+        [maxlength]="6"
+        [characterLimit]="6"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-EU WVTA 23 on'" 
+      />
+    </ng-container>
     <!-- QNIG Template -->
-    <div *ngSwitchCase="'QNIG'">
-      QNIG
-      <!--    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>-->
-      <!--    <div class="govuk-date-input" id="{{ name }}">-->
-      <!--      <div class="govuk-date-input__item">-->
-      <!--        <div class="govuk-form-group">-->
-      <!--          <label class="govuk-label govuk-label&#45;&#45;m">-->
-      <!--            Approval type number <app-tag *ngFor="let tag of control?.meta?.customTags" type="{{ tag.colour }}">{{ tag.label }}</app-tag></label-->
-      <!--          >-->
-      <!--          <div class="ecta-template separator">-->
-      <!--            <span class="separator approvalTypeFormatting">e</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-qnig'"-->
-      <!--              [characterLimit]="2"-->
-      <!--              [maxlength]="2"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-2"-->
-      <!--              [id]="getId(name)"-->
-      <!--              name="{{ name }}-approvalTypeNumber1-QNIG"-->
-      <!--              [(ngModel)]="approvalTypeNumber1"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">*</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber3-qnig'"-->
-      <!--              [characterLimit]="4"-->
-      <!--              [maxlength]="4"-->
-      <!--              id="techRecord_approvalTypeNumber2-qnig"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber2"-->
-      <!--              [(ngModel)]="approvalTypeNumber2"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber2_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">/</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-qnig'"-->
-      <!--              [characterLimit]="4"-->
-      <!--              [maxlength]="4"-->
-      <!--              id="techRecord_approvalTypeNumber3-qnig"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber3"-->
-      <!--              [(ngModel)]="approvalTypeNumber3"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber3_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">*</span>-->
-      <!--            <input-->
-      <!--              [maxlength]="6"-->
-      <!--              id="techRecord_approvalTypeNumber4-qnig"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber4"-->
-      <!--              [(ngModel)]="approvalTypeNumber4"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber4_Change($event); validate()"-->
-      <!--            />-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--    </div>-->
-    </div>
+    <ng-container *ngSwitchCase="'QNIG'">
+      <span>e</span>
+      <input 
+        id="techRecord_approvalTypeNumber1-QNIG" 
+        formControlName="approvalTypeNumber1" 
+        class="govuk-input govuk-input--width-2" 
+        [maxlength]="2" 
+        [characterLimit]="2"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-QNIG'" 
+      />
+      <span>*</span>
+      <input
+        id="techRecord_approvalTypeNumber2-QNIG" 
+        formControlName="approvalTypeNumber2" 
+        class="govuk-input govuk-input--width-4" 
+        [maxlength]="4"
+        [characterLimit]="4"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber3-QNIG'" 
+      />
+      <span>/</span>
+      <input
+        id="techRecord_approvalTypeNumber3-QNIG" 
+        formControlName="approvalTypeNumber3" 
+        class="govuk-input govuk-input--width-4" 
+        [maxlength]="4"
+        [characterLimit]="4"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-QNIG'" 
+      />
+      <span>*</span>
+      <input
+        id="techRecord_approvalTypeNumber4-QNIG" 
+        formControlName="approvalTypeNumber4" 
+        class="govuk-input govuk-input--width-6" 
+        [maxlength]="6"
+        [characterLimit]="6"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-QNIG'" 
+      />
+    </ng-container>
   
     <!-- Prov.GB WVTA Template -->
-    <div *ngSwitchCase="'Prov.GB WVTA'">
-      Prov.GB WVTA
-      <!--    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>-->
-      <!--    <div class="govuk-date-input" id="{{ name }}">-->
-      <!--      <div class="govuk-date-input__item">-->
-      <!--        <div class="govuk-form-group">-->
-      <!--          <label class="govuk-label govuk-label&#45;&#45;m">-->
-      <!--            Approval type number <app-tag *ngFor="let tag of control?.meta?.customTags" type="{{ tag.colour }}">{{ tag.label }}</app-tag></label-->
-      <!--          >-->
-      <!--          <div class="ecta-template separator">-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-provgbwvta'"-->
-      <!--              [characterLimit]="3"-->
-      <!--              [maxlength]="3"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-2"-->
-      <!--              [id]="getId(name)"-->
-      <!--              name="{{ name }}-approvalTypeNumber1-Prov.GB WVTA"-->
-      <!--              [(ngModel)]="approvalTypeNumber1"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">*</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber3-provgbwvta'"-->
-      <!--              [characterLimit]="4"-->
-      <!--              [maxlength]="4"-->
-      <!--              id="techRecord_approvalTypeNumber2-provgbwvta"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber2"-->
-      <!--              [(ngModel)]="approvalTypeNumber2"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber2_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">/</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-provgbwvta'"-->
-      <!--              [characterLimit]="4"-->
-      <!--              [maxlength]="4"-->
-      <!--              id="techRecord_approvalTypeNumber3-provgbwvta"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber3"-->
-      <!--              [(ngModel)]="approvalTypeNumber3"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber3_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">*</span>-->
-      <!--            <input-->
-      <!--              [maxlength]="6"-->
-      <!--              id="techRecord_approvalTypeNumber4-provgbwvta"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber4"-->
-      <!--              [(ngModel)]="approvalTypeNumber4"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber4_Change($event); validate()"-->
-      <!--            />-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--    </div>-->
-    </div>
+    <ng-container *ngSwitchCase="'Prov.GB WVTA'">
+      <input 
+        id="techRecord_approvalTypeNumber1-Prov.GB WVTA" 
+        formControlName="approvalTypeNumber1" 
+        class="govuk-input govuk-input--width-3" 
+        [maxlength]="3" 
+        [characterLimit]="3"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-Prov.GB WVTA'" 
+      />
+      <span>*</span>
+      <input
+        id="techRecord_approvalTypeNumber2-Prov.GB WVTA" 
+        formControlName="approvalTypeNumber2" 
+        class="govuk-input govuk-input--width-4" 
+        [maxlength]="4"
+        [characterLimit]="4"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber3-Prov.GB WVTA'" 
+      />
+      <span>/</span>
+      <input
+        id="techRecord_approvalTypeNumber3-Prov.GB WVTA" 
+        formControlName="approvalTypeNumber3" 
+        class="govuk-input govuk-input--width-4" 
+        [maxlength]="4"
+        [characterLimit]="4"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-Prov.GB WVTA'" 
+      />
+      <span>*</span>
+      <input
+        id="techRecord_approvalTypeNumber4-Prov.GB WVTA" 
+        formControlName="approvalTypeNumber4" 
+        class="govuk-input govuk-input--width-6" 
+        [maxlength]="6"
+        [characterLimit]="6"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-Prov.GB WVTA'" 
+      />
+    </ng-container>
   
     <!-- Small series NKSXX Template -->
-    <div *ngSwitchCase="'Small series NKSXX'">
-      Small series NKSXX
-      <!--    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>-->
-      <!--    <div class="govuk-date-input" id="{{ name }}">-->
-      <!--      <div class="govuk-date-input__item">-->
-      <!--        <div class="govuk-form-group">-->
-      <!--          <label class="govuk-label govuk-label&#45;&#45;m">-->
-      <!--            Approval type number <app-tag *ngFor="let tag of control?.meta?.customTags" type="{{ tag.colour }}">{{ tag.label }}</app-tag>-->
-      <!--          </label>-->
-      <!--          <div class="ecta-template separator">-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-smallseries-NKSXX'"-->
-      <!--              [characterLimit]="1"-->
-      <!--              [maxlength]="1"-->
-      <!--              [id]="getId(name)"-->
-      <!--              name="{{ name }}-approvalTypeNumber1-Small series NKSXX"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-2"-->
-      <!--              [(ngModel)]="approvalTypeNumber1"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">11*NKS</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber3-smallseries-NKSXX'"-->
-      <!--              [characterLimit]="2"-->
-      <!--              [maxlength]="2"-->
-      <!--              id="techRecord_approvalTypeNumber2-smallseries-NKSXX"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-2"-->
-      <!--              name="techRecord_approvalTypeNumber2"-->
-      <!--              [(ngModel)]="approvalTypeNumber2"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber2_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">/</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-smallseries-NKSXX'"-->
-      <!--              [characterLimit]="4"-->
-      <!--              [maxlength]="4"-->
-      <!--              id="techRecord_approvalTypeNumber3-smallseries-NKSXX"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber3"-->
-      <!--              [(ngModel)]="approvalTypeNumber3"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber3_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">*</span>-->
-      <!--            <input-->
-      <!--              [maxlength]="6"-->
-      <!--              id="techRecord_approvalTypeNumber4-smallseries-NKSXX"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber4"-->
-      <!--              [(ngModel)]="approvalTypeNumber4"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber4_Change($event); validate()"-->
-      <!--            />-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--    </div>-->
-    </div>
+    <ng-container *ngSwitchCase="'Small series NKSXX'">
+      <input 
+        id="techRecord_approvalTypeNumber1-Small series NKSXX" 
+        formControlName="approvalTypeNumber1" 
+        class="govuk-input govuk-input--width-1" 
+        [maxlength]="1" 
+        [characterLimit]="1"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-Small series NKSXX'" 
+      />
+      <span>11*NKS</span>
+      <input
+        id="techRecord_approvalTypeNumber2-Small series NKSXX" 
+        formControlName="approvalTypeNumber2" 
+        class="govuk-input govuk-input--width-2" 
+        [maxlength]="2"
+        [characterLimit]="2"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber3-Small series NKSXX'" 
+      />
+      <span>/</span>
+      <input
+        id="techRecord_approvalTypeNumber3-Small series NKSXX" 
+        formControlName="approvalTypeNumber3" 
+        class="govuk-input govuk-input--width-4" 
+        [maxlength]="4"
+        [characterLimit]="4"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-Small series NKSXX'" 
+      />
+      <span>*</span>
+      <input
+        id="techRecord_approvalTypeNumber4-Small series NKSXX" 
+        formControlName="approvalTypeNumber4" 
+        class="govuk-input govuk-input--width-6" 
+        [maxlength]="6"
+        [characterLimit]="6"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber4-Small series NKSXX'" 
+      />
+    </ng-container>
   
-    <div *ngSwitchCase="'Small series NKS'">
-      Small series NKS
-      <!--    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>-->
-      <!--    <div class="govuk-date-input" id="{{ name }}">-->
-      <!--      <div class="govuk-date-input__item">-->
-      <!--        <div class="govuk-form-group">-->
-      <!--          <label class="govuk-label govuk-label&#45;&#45;m">-->
-      <!--            Approval type number <app-tag *ngFor="let tag of control?.meta?.customTags" type="{{ tag.colour }}">{{ tag.label }}</app-tag>-->
-      <!--          </label>-->
-      <!--          <div class="ecta-template separator">-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-smallseries-NKS'"-->
-      <!--              [characterLimit]="1"-->
-      <!--              [maxlength]="1"-->
-      <!--              [id]="getId(name)"-->
-      <!--              name="{{ name }}-approvalTypeNumber1-Small series NKS"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-2"-->
-      <!--              [(ngModel)]="approvalTypeNumber1"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">11*NKS*</span>-->
-      <!--            <input-->
-      <!--              [maxlength]="6"-->
-      <!--              id="techRecord_approvalTypeNumber2-smallseries-NKS"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber2"-->
-      <!--              [(ngModel)]="approvalTypeNumber2"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber2_Change($event); validate()"-->
-      <!--            />-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--    </div>-->
-    </div>
+    <ng-container *ngSwitchCase="'Small series NKS'">
+      <input 
+        id="techRecord_approvalTypeNumber1-Small series NKS" 
+        formControlName="approvalTypeNumber1" 
+        class="govuk-input govuk-input--width-1" 
+        [maxlength]="1" 
+        [characterLimit]="1"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-Small series NKS'" 
+      />
+      <span>11*NKS</span>
+      <input
+        id="techRecord_approvalTypeNumber2-Small series NKS" 
+        formControlName="approvalTypeNumber2" 
+        class="govuk-input govuk-input--width-6" 
+        [maxlength]="6"
+        [characterLimit]="6"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-Small series NKS'" 
+      />
+    </ng-container>
   
     <!-- IVA – VCA Template -->
-    <div *ngSwitchCase="'IVA - VCA'">
-      IVA - VCA
-      <!--    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>-->
-      <!--    <div class="govuk-date-input" id="{{ name }}">-->
-      <!--      <div class="govuk-date-input__item">-->
-      <!--        <div class="govuk-form-group">-->
-      <!--          <label class="govuk-label govuk-label&#45;&#45;m">-->
-      <!--            Approval type number <app-tag *ngFor="let tag of control?.meta?.customTags" type="{{ tag.colour }}">{{ tag.label }}</app-tag></label-->
-      <!--          >-->
-      <!--          <div class="ecta-template separator">-->
-      <!--            <span class="separator approvalTypeFormatting">n11*NIV</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-ivavca'"-->
-      <!--              [characterLimit]="2"-->
-      <!--              [maxlength]="2"-->
-      <!--              [id]="getId(name)"-->
-      <!--              name="{{ name }}-approvalTypeNumber1-IVA - VCA"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-2"-->
-      <!--              [(ngModel)]="approvalTypeNumber1"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">/</span>-->
-      <!--            <input-->
-      <!--              [appFocusNextApprovalType]="'techRecord_approvalTypeNumber3-ivavca'"-->
-      <!--              [characterLimit]="4"-->
-      <!--              [maxlength]="4"-->
-      <!--              id="techRecord_approvalTypeNumber2-ivavca"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber2"-->
-      <!--              [(ngModel)]="approvalTypeNumber2"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber2_Change($event); validate()"-->
-      <!--            />-->
-      <!--            <span class="separator approvalTypeFormatting">*</span>-->
-      <!--            <input-->
-      <!--              [maxlength]="6"-->
-      <!--              id="techRecord_approvalTypeNumber3-ivavca"-->
-      <!--              class="govuk-input govuk-date-input__input govuk-input&#45;&#45;width-4"-->
-      <!--              name="techRecord_approvalTypeNumber3"-->
-      <!--              [(ngModel)]="approvalTypeNumber3"-->
-      <!--              (ngModelChange)="onTechRecord_approvalTypeNumber3_Change($event); validate()"-->
-      <!--            />-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--    </div>-->
-    </div>
+    <ng-container *ngSwitchCase="'IVA - VCA'">
+      <span>n11*NIV</span>
+      <input 
+        id="techRecord_approvalTypeNumber1-IVA - VCA" 
+        formControlName="approvalTypeNumber1" 
+        class="govuk-input govuk-input--width-2" 
+        [maxlength]="2" 
+        [characterLimit]="2"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-IVA - VCA'" 
+      />
+      <span>/</span>
+      <input
+        id="techRecord_approvalTypeNumber2-IVA - VCA" 
+        formControlName="approvalTypeNumber2" 
+        class="govuk-input govuk-input--width-4" 
+        [maxlength]="4"
+        [characterLimit]="4"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber3-IVA - VCA'" 
+      />
+      <span>*</span>
+      <input
+        id="techRecord_approvalTypeNumber3-IVA - VCA" 
+        formControlName="approvalTypeNumber3" 
+        class="govuk-input govuk-input--width-6" 
+        [maxlength]="6"
+        [characterLimit]="6"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber3-IVA - VCA'" 
+      />
+    </ng-container>
   
     <!-- IVA – DVSA/NI Template -->
-    <div *ngSwitchCase="'IVA - DVSA/NI'">
-      IVA - DVSA/NI
-      <!--    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>-->
-      <!--    <div class="govuk-date-input" id="{{ name }}">-->
-      <!--      <label class="govuk-label govuk-label&#45;&#45;m">-->
-      <!--        Approval type number <app-tag *ngFor="let tag of control?.meta?.customTags" type="{{ tag.colour }}">{{ tag.label }}</app-tag></label-->
-      <!--      >-->
-      <!--      <input-->
-      <!--        maxlength="25"-->
-      <!--        class="govuk-input govuk-input&#45;&#45;width-20"-->
-      <!--        [id]="getId(name)"-->
-      <!--        name="{{ name }}-approvalTypeNumber1-IVA - DVSA/NI"-->
-      <!--        [(ngModel)]="approvalTypeNumber1"-->
-      <!--        (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"-->
-      <!--      />-->
-      <!--    </div>-->
-    </div>
-  
-    <div *ngSwitchDefault>
-      Default
-    </div>
+    <ng-container *ngSwitchCase="'IVA - DVSA/NI'">
+      <input 
+        id="techRecord_approvalTypeNumber1-IVA - DVSA/NI" 
+        formControlName="approvalTypeNumber1" 
+        class="govuk-input govuk-input--width-20" 
+        [maxlength]="25" 
+        [characterLimit]="25"
+        [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-IVA - VCA'" 
+      />
+    </ng-container>
   </div>
 </div>

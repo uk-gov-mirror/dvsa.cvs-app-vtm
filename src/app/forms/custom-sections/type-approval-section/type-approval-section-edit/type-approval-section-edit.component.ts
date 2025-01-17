@@ -1,6 +1,15 @@
+import { APPROVAL_NUMBER_TYPE_REGEX } from '@/src/app/models/approval-type.model';
 import { FormNodeWidth, TagTypeLabels } from '@/src/app/services/dynamic-forms/dynamic-form.types';
 import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
-import { ControlContainer, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {
+	AbstractControl,
+	ControlContainer,
+	FormBuilder,
+	FormControl,
+	FormGroup,
+	ValidationErrors,
+	ValidatorFn,
+} from '@angular/forms';
 import { TagType } from '@components/tag/tag.component';
 import { ApprovalType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalType.enum';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
@@ -23,6 +32,12 @@ export class TypeApprovalSectionEditComponent implements OnInit, OnDestroy {
 	private readonly commonValidators = inject(CommonValidatorsService);
 	private readonly technicalRecordService = inject(TechnicalRecordService);
 
+	protected readonly FormNodeWidth = FormNodeWidth;
+	protected readonly VehicleTypes = VehicleTypes;
+	protected readonly ApprovalTypes = getOptionsFromEnum(ApprovalType);
+	protected readonly TagType = TagType;
+	protected readonly TagTypeLabels = TagTypeLabels;
+
 	techRecord = input.required<V3TechRecordModel>();
 
 	destroy$ = new ReplaySubject<boolean>(1);
@@ -32,7 +47,8 @@ export class TypeApprovalSectionEditComponent implements OnInit, OnDestroy {
 			this.commonValidators.isOneOf(ApprovalType, 'Approval type is required'),
 		]),
 		techRecord_approvalTypeNumber: this.fb.control<string | null>({ value: null, disabled: false }, [
-			this.commonValidators.required('Approval type number is required'),
+			this.commonValidators.required('Approval type number is required with Approval type'),
+			this.isValidApprovalTypeNumber(),
 		]),
 		techRecord_ntaNumber: this.fb.control<string | null>({ value: null, disabled: false }, [
 			this.commonValidators.maxLength(40, 'National type number must be less than or equal to 40 characters'),
@@ -83,6 +99,20 @@ export class TypeApprovalSectionEditComponent implements OnInit, OnDestroy {
 
 	shouldDisplayFormControl(formControlName: string) {
 		return !!this.form.get(formControlName);
+	}
+
+	isValidApprovalTypeNumber(): ValidatorFn {
+		return (control: AbstractControl): ValidationErrors | null => {
+			const approvalType = control.parent?.get('approvalType')?.value;
+			const approvalTypeNumber = control.value;
+			if (approvalType && approvalTypeNumber) {
+				const regex = APPROVAL_NUMBER_TYPE_REGEX[approvalType];
+				const isValid = regex?.test(approvalTypeNumber);
+				return isValid ? null : { approvalTypeNumber: 'Approval type number is required with Approval type' };
+			}
+
+			return null;
+		};
 	}
 
 	get vehicleType(): VehicleTypes {
@@ -152,10 +182,4 @@ export class TypeApprovalSectionEditComponent implements OnInit, OnDestroy {
 			'IVA - DVSA/NI',
 		];
 	}
-
-	protected readonly FormNodeWidth = FormNodeWidth;
-	protected readonly VehicleTypes = VehicleTypes;
-	protected readonly ApprovalTypes = getOptionsFromEnum(ApprovalType);
-	protected readonly TagType = TagType;
-	protected readonly TagTypeLabels = TagTypeLabels;
 }
