@@ -66,6 +66,7 @@ export class ApprovalTypeNumber implements ControlValueAccessor, OnChanges, OnDe
 	@Input()
 	value: string | null | undefined = null;
 
+	readonly ApprovalType = ApprovalType;
 	readonly FormNodeWidth = FormNodeWidth;
 
 	fb = inject(FormBuilder);
@@ -146,26 +147,25 @@ export class ApprovalTypeNumber implements ControlValueAccessor, OnChanges, OnDe
 		if (!approvalTypeNumber || !this.approvalType) return;
 
 		// Handle NTA/IVA/IVA DVSA-NI approval type numbers
-		const group1 = ['NTA', 'IVA', 'IVA - DVSA/NI'];
+		const group1: string[] = [ApprovalType.NTA, ApprovalType.IVA, ApprovalType.IVA_DVSA_NI];
 
 		if (group1.includes(this.approvalType)) {
 			return this.parseGroup1ApprovalTypeNumber(approvalTypeNumber);
 		}
 
 		// Handle other approval type numbers
-		const group2 = [
-			'ECTA',
-			'NSSTA',
-			'ECSSTA',
-			'GB WVTA',
-			'UKNI WVTA',
-			'EU WVTA Pre 23',
-			'EU WVTA 23 on',
-			'QNIG',
-			'Prov.GB WVTA',
-			'IVA - VCA',
-			'Small series NKSXX',
-			'Small series NKS',
+		const group2: string[] = [
+			ApprovalType.ECTA,
+			ApprovalType.NSSTA,
+			ApprovalType.GB_WVTA,
+			ApprovalType.UKNI_WVTA,
+			ApprovalType.EU_WVTA_PRE_23,
+			ApprovalType.EU_WVTA_23_ON,
+			ApprovalType.QNIG,
+			ApprovalType.PROV_GB_WVTA,
+			ApprovalType.IVA_VCA,
+			ApprovalType.SMALL_SERIES_NKSXX,
+			ApprovalType.SMALL_SERIES_NKS,
 		];
 
 		if (group2.includes(this.approvalType)) {

@@ -1,4 +1,3 @@
-import { APPROVAL_NUMBER_TYPE_REGEX } from '@/src/app/models/approval-type.model';
 import { FormNodeWidth, TagTypeLabels } from '@/src/app/services/dynamic-forms/dynamic-form.types';
 import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
 import {
@@ -11,7 +10,8 @@ import {
 	ValidatorFn,
 } from '@angular/forms';
 import { TagType } from '@components/tag/tag.component';
-import { ApprovalType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalType.enum.js';
+import { ApprovalType as TRLApprovalTypes } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalType.enum.js';
+import { ApprovalType as HGVAndPSVApprovalTypes } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalTypeHgvOrPsv.enum.js';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { getOptionsFromEnum } from '@forms/utils/enum-map';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
@@ -34,7 +34,6 @@ export class TypeApprovalSectionEditComponent implements OnInit, OnDestroy {
 
 	protected readonly FormNodeWidth = FormNodeWidth;
 	protected readonly VehicleTypes = VehicleTypes;
-	protected readonly ApprovalTypes = getOptionsFromEnum(ApprovalType);
 	protected readonly TagType = TagType;
 	protected readonly TagTypeLabels = TagTypeLabels;
 
@@ -43,11 +42,9 @@ export class TypeApprovalSectionEditComponent implements OnInit, OnDestroy {
 	destroy$ = new ReplaySubject<boolean>(1);
 
 	form = this.fb.group<TypeApprovalSectionForm>({
-		techRecord_approvalType: this.fb.nonNullable.control<ApprovalType | null>({ value: null, disabled: false }, [
-			this.commonValidators.isOneOf(ApprovalType, 'Approval type is required'),
-		]),
+		techRecord_approvalType: this.fb.nonNullable.control<string | null>({ value: null, disabled: false }),
 		techRecord_approvalTypeNumber: this.fb.control<string | null>({ value: null, disabled: false }, [
-			this.isValidApprovalTypeNumber(),
+			this.requiredWithApprovalType('Approval type number is required with Approval type'),
 		]),
 		techRecord_ntaNumber: this.fb.control<string | null>({ value: null, disabled: false }, [
 			this.commonValidators.maxLength(40, 'National type number must be less than or equal to 40 characters'),
@@ -62,6 +59,11 @@ export class TypeApprovalSectionEditComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.addControlsBasedOffVehicleType();
+
+		// Set validator in ngOnInit, as this required vehicle type from inputs
+		this.form.controls.techRecord_approvalType?.setValidators([
+			this.commonValidators.isOneOf(this.approvalTypeEnum, 'Approval type is required'),
+		]);
 
 		// Attach all form controls to parent
 		const parent = this.controlContainer.control;
@@ -100,18 +102,13 @@ export class TypeApprovalSectionEditComponent implements OnInit, OnDestroy {
 		return !!this.form.get(formControlName);
 	}
 
-	isValidApprovalTypeNumber(): ValidatorFn {
+	requiredWithApprovalType(message: string): ValidatorFn {
 		return (control: AbstractControl): ValidationErrors | null => {
 			const approvalType = control.parent?.get('techRecord_approvalType')?.value;
 			const approvalTypeNumber = control.value;
-			if (approvalType && approvalTypeNumber) {
-				const regex = APPROVAL_NUMBER_TYPE_REGEX[approvalType];
-				const isValid = regex?.test(approvalTypeNumber);
-				return isValid ? null : { approvalTypeNumber: 'Approval type number is required with Approval type' };
-			}
 
 			if (approvalType && !approvalTypeNumber) {
-				return { required: 'Approval type number is required with Approval type' };
+				return { required: message };
 			}
 
 			return null;
@@ -144,45 +141,11 @@ export class TypeApprovalSectionEditComponent implements OnInit, OnDestroy {
 		};
 	}
 
-	get showApprovalTypeNumber(): boolean {
-		return this.approvalTypes.includes(this.form.get('techRecord_approvalType')?.value);
+	get approvalTypeEnum() {
+		return this.vehicleType === VehicleTypes.TRL ? TRLApprovalTypes : HGVAndPSVApprovalTypes;
 	}
 
-	private get approvalTypes() {
-		// We could do a base and then merge the extra from PSV, but they seem to be in slightly different order
-		// so not sure if that's intentional
-		if (this.vehicleType === VehicleTypes.PSV) {
-			return [
-				'NTA',
-				'ECTA',
-				'ECSSTA',
-				'IVA',
-				'NSSTA',
-				'GB WVTA',
-				'UKNI WVTA',
-				'EU WVTA Pre 23',
-				'EU WVTA 23 on',
-				'QNIG',
-				'Prov.GB WVTA',
-				'Small series NKSXX',
-				'Small series NKS',
-				'IVA - VCA',
-				'IVA - DVSA/NI',
-			];
-		}
-
-		return [
-			'NTA',
-			'ECTA',
-			'IVA',
-			'NSSTA',
-			'ECSSTA',
-			'GB WVTA',
-			'Prov.GB WVTA',
-			'Small series NKSXX',
-			'Small series NKS',
-			'IVA - VCA',
-			'IVA - DVSA/NI',
-		];
+	get approvalTypes() {
+		return getOptionsFromEnum(this.approvalTypeEnum);
 	}
 }

@@ -10,7 +10,7 @@
   
   <div class="approval-type-number-wrapper" [ngSwitch]="approvalType">
     <!-- NTA Template -->
-    <ng-container *ngSwitchCase="'NTA'">
+    <ng-container *ngSwitchCase="ApprovalType.NTA">
       <input 
         id="techRecord_approvalTypeNumber1-NTA" 
         formControlName="approvalTypeNumber1" 
@@ -20,7 +20,7 @@
     </ng-container>
   
     <!-- ECTA Template -->
-    <ng-container *ngSwitchCase="'ECTA'">
+    <ng-container *ngSwitchCase="ApprovalType.ECTA">
       <span>e</span>
       <input 
         id="techRecord_approvalTypeNumber1-ecta" 
@@ -60,7 +60,7 @@
     </ng-container>
   
     <!-- IVA Template -->
-    <ng-container *ngSwitchCase="'IVA'">
+    <ng-container *ngSwitchCase="ApprovalType.IVA">
       <input 
         id="techRecord_approvalTypeNumber1-IVA" 
         formControlName="approvalTypeNumber1" 
@@ -70,7 +70,7 @@
     </ng-container>
   
     <!-- NSSTA Template -->
-    <ng-container *ngSwitchCase="'NSSTA'">
+    <ng-container *ngSwitchCase="ApprovalType.NSSTA">
       <span>e</span>
       <input 
         id="techRecord_approvalTypeNumber1-NSSTA" 
@@ -90,7 +90,7 @@
     </ng-container>
   
     <!-- ECSSTA Template -->
-    <ng-container *ngSwitchCase="'ECSSTA'">
+    <ng-container *ngSwitchCase="ApprovalType.ECSSTA">
       <span>e</span>
       <input 
         id="techRecord_approvalTypeNumber1-ECSSTA" 
@@ -130,7 +130,7 @@
     </ng-container>
   
     <!-- GB WVTA Template -->
-    <ng-container *ngSwitchCase="'GB WVTA'">
+    <ng-container *ngSwitchCase="ApprovalType.GB_WVTA">
       <input 
         id="techRecord_approvalTypeNumber1-GB WVTA" 
         formControlName="approvalTypeNumber1" 
@@ -169,7 +169,7 @@
     </ng-container>
   
     <!-- UKNI WVTA Template -->
-    <ng-container *ngSwitchCase="'UKNI WVTA'">
+    <ng-container *ngSwitchCase="ApprovalType.UKNI_WVTA">
       <input 
         id="techRecord_approvalTypeNumber1-UKNI WVTA" 
         formControlName="approvalTypeNumber1" 
@@ -208,7 +208,7 @@
     </ng-container>
   
     <!-- EU WVTA Pre 23 Template -->
-    <ng-container *ngSwitchCase="'EU WVTA Pre 23'">
+    <ng-container *ngSwitchCase="ApprovalType.EU_WVTA_PRE_23">
       <span>e</span>
       <input 
         id="techRecord_approvalTypeNumber1-EU WVTA Pre 23" 
@@ -248,7 +248,7 @@
     </ng-container>
   
     <!-- EU WVTA 23 on Template -->
-    <ng-container *ngSwitchCase="'EU WVTA 23 on'">
+    <ng-container *ngSwitchCase="ApprovalType.EU_WVTA_23_ON">
       <span>e</span>
       <input 
         id="techRecord_approvalTypeNumber1-EU WVTA 23 on" 
@@ -287,7 +287,7 @@
       />
     </ng-container>
     <!-- QNIG Template -->
-    <ng-container *ngSwitchCase="'QNIG'">
+    <ng-container *ngSwitchCase="ApprovalType.QNIG">
       <span>e</span>
       <input 
         id="techRecord_approvalTypeNumber1-QNIG" 
@@ -327,7 +327,7 @@
     </ng-container>
   
     <!-- Prov.GB WVTA Template -->
-    <ng-container *ngSwitchCase="'Prov.GB WVTA'">
+    <ng-container *ngSwitchCase="ApprovalType.PROV_GB_WVTA">
       <input 
         id="techRecord_approvalTypeNumber1-Prov.GB WVTA" 
         formControlName="approvalTypeNumber1" 
@@ -366,7 +366,7 @@
     </ng-container>
   
     <!-- Small series NKSXX Template -->
-    <ng-container *ngSwitchCase="'Small series NKSXX'">
+    <ng-container *ngSwitchCase="ApprovalType.SMALL_SERIES_NKSXX">
       <input 
         id="techRecord_approvalTypeNumber1-Small series NKSXX" 
         formControlName="approvalTypeNumber1" 
@@ -404,7 +404,7 @@
       />
     </ng-container>
   
-    <ng-container *ngSwitchCase="'Small series NKS'">
+    <ng-container *ngSwitchCase="ApprovalType.SMALL_SERIES_NKS">
       <input 
         id="techRecord_approvalTypeNumber1-Small series NKS" 
         formControlName="approvalTypeNumber1" 
@@ -425,7 +425,7 @@
     </ng-container>
   
     <!-- IVA – VCA Template -->
-    <ng-container *ngSwitchCase="'IVA - VCA'">
+    <ng-container *ngSwitchCase="ApprovalType.IVA_VCA">
       <span>n11*NIV</span>
       <input 
         id="techRecord_approvalTypeNumber1-IVA - VCA" 
@@ -456,7 +456,7 @@
     </ng-container>
   
     <!-- IVA – DVSA/NI Template -->
-    <ng-container *ngSwitchCase="'IVA - DVSA/NI'">
+    <ng-container *ngSwitchCase="ApprovalType.IVA_DVSA_NI">
       <input 
         id="techRecord_approvalTypeNumber1-IVA - DVSA/NI" 
         formControlName="approvalTypeNumber1" 
