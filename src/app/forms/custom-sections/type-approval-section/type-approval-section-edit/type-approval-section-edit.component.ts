@@ -58,12 +58,12 @@ export class TypeApprovalSectionEditComponent implements OnInit, OnDestroy {
 	});
 
 	ngOnInit(): void {
-		this.addControlsBasedOffVehicleType();
-
 		// Set validator in ngOnInit, as this required vehicle type from inputs
 		this.form.controls.techRecord_approvalType?.setValidators([
 			this.commonValidators.isOneOf(this.approvalTypeEnum, 'Approval type is required'),
 		]);
+
+		this.addControlsBasedOffVehicleType();
 
 		// Attach all form controls to parent
 		const parent = this.controlContainer.control;

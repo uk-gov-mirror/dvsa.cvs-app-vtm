@@ -61,7 +61,7 @@ export class ApprovalTypeNumber implements ControlValueAccessor, OnChanges, OnDe
 	disabled = false;
 
 	@Input({ required: true })
-	approvalType!: string;
+	approvalType!: string | null;
 
 	@Input()
 	value: string | null | undefined = null;
@@ -174,12 +174,15 @@ export class ApprovalTypeNumber implements ControlValueAccessor, OnChanges, OnDe
 	}
 
 	parseGroup1ApprovalTypeNumber(value: string) {
+		if (!this.approvalType) return;
 		const pattern = APPROVAL_NUMBER_TYPE_REGEX[this.approvalType];
 		const matches = value.match(pattern)?.map((x) => (x.length > 25 ? x.substring(0, 25) : x)) || [];
 		this.patchApprovalTypeNumberFromMatches(matches);
 	}
 
 	parseGroup2ApprovalTypeNumber(value: string) {
+		if (!this.approvalType) return;
+
 		let matches: string[] = [];
 
 		// Step 1: try to match pattern exactly

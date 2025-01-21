@@ -1,4 +1,5 @@
-<div [formGroup]="form">
+<ng-container *ngIf="techRecord() as tr">
+  <div [formGroup]="form" *ngIf="tr.techRecord_vehicleType === VehicleTypes.HGV || tr.techRecord_vehicleType === VehicleTypes.PSV || tr.techRecord_vehicleType === VehicleTypes.TRL">
     <!-- Approval type -->
     <govuk-form-group-select
       *ngIf="shouldDisplayFormControl('techRecord_approvalType')"
@@ -13,7 +14,7 @@
       label="Approval type number"
       formControlName="techRecord_approvalTypeNumber"
       [width]="FormNodeWidth.XL"
-      [approvalType]="form.controls.techRecord_approvalType?.getRawValue()"
+      [approvalType]="tr.techRecord_approvalType || null"
     ></approval-type-number-input>
 
     <!-- National type number (NTA) -->
@@ -67,3 +68,5 @@
       formControlName="techRecord_variantVersionNumber"
     ></govuk-form-group-input>
 </div>
+
+</ng-container>
