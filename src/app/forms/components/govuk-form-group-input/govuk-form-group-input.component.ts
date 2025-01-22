@@ -44,7 +44,7 @@ export class GovukFormGroupInputComponent implements ControlValueAccessor {
 	@Input({ alias: 'formControlName', required: true })
 	controlName = '';
 
-	@Input({ alias: 'label', required: false })
+	@Input({ alias: 'label' })
 	controlLabel = '';
 
 	@Input({ alias: 'id' })
@@ -58,6 +58,9 @@ export class GovukFormGroupInputComponent implements ControlValueAccessor {
 
 	@Input()
 	maxlength: string | number | null = null;
+
+	@Input()
+	suffix?: string;
 
 	controlContainer = inject(ControlContainer);
 
@@ -91,6 +94,11 @@ export class GovukFormGroupInputComponent implements ControlValueAccessor {
 
 	onChange = (_: any) => {};
 	onTouched = () => {};
+
+	onBlur(event: FocusEvent) {
+		this.onTouched();
+		this.blur.emit(event);
+	}
 
 	writeValue(obj: any): void {
 		this.value = obj;

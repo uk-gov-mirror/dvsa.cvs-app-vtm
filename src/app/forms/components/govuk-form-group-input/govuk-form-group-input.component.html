@@ -31,7 +31,7 @@
       [class.govuk-radios__input--error]="hasError"
       [(ngModel)]="value"
       (ngModelChange)="onChange($event)"
-      (blur)="onTouched()"
+      (blur)="onBlur($event)"
       [class]="style"
       [disabled]="control?.disabled || false"
       [maxlength]="maxlength"
@@ -60,6 +60,7 @@
   <ng-container *ngIf="controlType === 'decimal'">
 
   </ng-container>
+
   <ng-container *ngIf="controlType === 'numericString'">
     <input
       id="{{ id }}"
@@ -71,7 +72,7 @@
       [(ngModel)]="value"
       (ngModelChange)="onChange($event)"
       appNumberOnly
-      (blur)="onTouched()"
+      (blur)="onBlur($event)"
       [class]="style"
       [disabled]="control?.disabled || false"
     />
