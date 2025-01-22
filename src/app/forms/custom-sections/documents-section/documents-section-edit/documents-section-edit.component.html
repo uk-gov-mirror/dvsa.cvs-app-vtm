@@ -1,0 +1,20 @@
+<div [formGroup]="form">
+  <!-- Microfilm document type -->
+  <govuk-form-group-autocomplete
+    label="Microfilm document type"
+    formControlName="techRecord_microfilm_microfilmDocumentType"
+    [options$]="DOCUMENT_TYPES"
+  ></govuk-form-group-autocomplete>
+
+  <!-- Microfilm roll number -->
+  <govuk-form-group-input
+    label="Microfilm roll number"
+    formControlName="techRecord_microfilm_microfilmRollNumber"
+  ></govuk-form-group-input>
+
+  <!-- Microfilm serial number -->
+  <govuk-form-group-input
+    label="Microfilm serial number"
+    formControlName="techRecord_microfilm_microfilmSerialNumber"
+  ></govuk-form-group-input>
+</div>

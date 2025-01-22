@@ -79,6 +79,10 @@ import { CustomFormControlComponent } from './custom-sections/custom-form-contro
 import { DefectComponent } from './custom-sections/defect/defect.component';
 import { DefectsComponent } from './custom-sections/defects/defects.component';
 import { DimensionsComponent } from './custom-sections/dimensions/dimensions.component';
+import { DocumentsSectionEditComponent } from './custom-sections/documents-section/documents-section-edit/documents-section-edit.component';
+import { DocumentsSectionSummaryComponent } from './custom-sections/documents-section/documents-section-summary/documents-section-summary.component';
+import { DocumentsSectionViewComponent } from './custom-sections/documents-section/documents-section-view/documents-section-view.component';
+import { DocumentsSectionComponent } from './custom-sections/documents-section/documents-section.component';
 import { LettersComponent } from './custom-sections/letters/letters.component';
 import { ModifiedWeightsComponent } from './custom-sections/modified-weights/modified-weights.component';
 import { NotesSectionEditComponent } from './custom-sections/notes-section/notes-section-edit/notes-section-edit.component';
@@ -176,6 +180,10 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		NotesSectionEditComponent,
 		NotesSectionViewComponent,
 		NotesSectionSummaryComponent,
+		DocumentsSectionComponent,
+		DocumentsSectionEditComponent,
+		DocumentsSectionSummaryComponent,
+		DocumentsSectionViewComponent,
 	],
 	imports: [
 		CommonModule,
@@ -266,6 +274,10 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		NotesSectionEditComponent,
 		NotesSectionViewComponent,
 		NotesSectionSummaryComponent,
+		DocumentsSectionComponent,
+		DocumentsSectionEditComponent,
+		DocumentsSectionSummaryComponent,
+		DocumentsSectionViewComponent,
 	],
 })
 export class DynamicFormsModule {}

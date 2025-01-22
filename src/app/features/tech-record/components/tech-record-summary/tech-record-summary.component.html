@@ -57,6 +57,23 @@
 
         </ng-container>
 
+        <ng-container *ngSwitchCase="'documentsSection'">
+          <!-- New Documents section -->
+          <ng-container *ngIf="featureToggleService.isFeatureEnabled('FsDocuments'); else oldDocumentsSection">
+            <app-documents-section [techRecord]="techRecordCalculated" [mode]="(isEditing$ | async) ? 'edit' : 'view'" />
+          </ng-container>
+
+          <!-- Old Documents section -->
+          <ng-template #oldDocumentsSection>
+            <app-dynamic-form-group
+              [data]="techRecordCalculated"
+              [template]="section"
+              [edit]="(isEditing$ | async) ?? false"
+              (formChange)="handleFormState($event)"
+            ></app-dynamic-form-group>
+          </ng-template>
+        </ng-container>
+
         <ng-container *ngSwitchCase="'bodySection'">
           <!-- New Body section -->
           <ng-container *ngIf="featureToggleService.isFeatureEnabled('FsBody'); else oldBodySection">

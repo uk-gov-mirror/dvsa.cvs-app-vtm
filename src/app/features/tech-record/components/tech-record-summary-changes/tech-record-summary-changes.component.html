@@ -105,6 +105,18 @@
 
       </ng-container>
 
+      <ng-container *ngSwitchCase="'documentsSection'">
+        <!-- New Documents section -->
+        <ng-container *ngIf="featureToggleService.isFeatureEnabled('FsDocuments')">
+          <app-documents-section [techRecord]="techRecordEdited" mode="summary" />
+        </ng-container>
+
+        <!-- Old Documents section -->
+        <ng-template #oldDocumentsSection>
+          <app-dynamic-form-group [data]="techRecordChanges" [template]="section"></app-dynamic-form-group>
+        </ng-template>
+      </ng-container>
+
       <ng-container *ngSwitchCase="'bodySection'">
         <!-- New Body section -->
         <ng-container *ngIf="featureToggleService.isFeatureEnabled('FsBody')">
