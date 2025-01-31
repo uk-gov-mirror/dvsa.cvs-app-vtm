@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="govuk.d.ts">
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
@@ -8,9 +7,8 @@ import { LoadingService } from '@services/loading/loading.service';
 import { UserService } from '@services/user-service/user-service';
 import { startSendingLogs } from '@store/logs/logs.actions';
 import { selectRouteData } from '@store/router/router.selectors';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { initAll } from 'govuk-frontend/govuk/all';
+import { initAll } from 'govuk-frontend/dist/govuk/init.mjs';
 import { Subject, map, take, takeUntil } from 'rxjs';
 import packageInfo from '../../package.json';
 import { environment } from '../environments/environment';
@@ -48,6 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
 		});
 
 		await this.gtmService.addGtmToDom();
+		console.log(initAll);
 		initAll();
 	}
 

@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'node_modules/accessible-autocomplete';
-@import 'node_modules/govuk-frontend/govuk/all';
+@import 'node_modules/govuk-frontend/dist/govuk/index';
 @import './styles';
 
 .vehicle_heading {
@@ -175,7 +175,7 @@
       }
     }
   }
- }
+}
 
 .govuk-form-group-select {
   @extend .govuk-form-group;

@@ -1,4 +1,4 @@
-declare module 'govuk-frontend/govuk/all' {
+declare module 'govuk-frontend/dist/govuk/init.mjs' {
 	export function initAll(): void;
 }
 

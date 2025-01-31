@@ -1,4 +1,4 @@
-@import 'node_modules/govuk-frontend/govuk/all';
+@import 'node_modules/govuk-frontend/dist/govuk/index';
 
 a {
   cursor: pointer;
@@ -159,7 +159,8 @@ a {
 }
 
 .browse__link:focus:hover {
-  box-shadow: 0 -2px govuk-colour('light-grey', $legacy: 'grey-4'), 0 3px govuk-colour('black');
+  box-shadow: 0 -2px govuk-colour('light-grey', $legacy: 'grey-4'),
+    0 3px govuk-colour('black');
   color: govuk-colour('black');
 }
 

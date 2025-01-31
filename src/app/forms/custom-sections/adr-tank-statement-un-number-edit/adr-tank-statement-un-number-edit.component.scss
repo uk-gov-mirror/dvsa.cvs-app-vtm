@@ -1,14 +1,14 @@
-@import 'govuk-frontend/govuk/all';
+@import 'node_modules/govuk-frontend/dist/govuk/index';
 
 .align-middle {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 .link {
-    cursor: pointer;
-    color: $govuk-brand-colour;
+  cursor: pointer;
+  color: $govuk-brand-colour;
 
-    &:hover {
-        color: govuk-colour('dark-blue', $legacy: 'light-blue');
-    }
+  &:hover {
+    color: govuk-colour('dark-blue', $legacy: 'light-blue');
+  }
 }
