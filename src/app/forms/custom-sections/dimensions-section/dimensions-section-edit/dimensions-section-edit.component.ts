@@ -1,0 +1,156 @@
+import { TagType } from '@/src/app/components/tag/tag.component';
+import { VehicleTypes } from '@/src/app/models/vehicle-tech-record.model';
+import { FormNodeWidth, TagTypeLabels } from '@/src/app/services/dynamic-forms/dynamic-form.types';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges, inject, input } from '@angular/core';
+import { ControlContainer, FormBuilder, FormGroup } from '@angular/forms';
+import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
+import { CommonValidatorsService } from '@forms/validators/common-validators.service';
+import { Store } from '@ngrx/store';
+import { ReplaySubject } from 'rxjs';
+
+@Component({
+	selector: 'app-dimensions-section-edit',
+	templateUrl: './dimensions-section-edit.component.html',
+	styleUrls: ['./dimensions-section-edit.component.scss'],
+})
+export class DimensionsSectionEditComponent implements OnInit, OnDestroy, OnChanges {
+	readonly VehicleTypes = VehicleTypes;
+	readonly Widths = FormNodeWidth;
+	readonly TagType = TagType;
+	readonly TagTypeLabels = TagTypeLabels;
+
+	fb = inject(FormBuilder);
+	store = inject(Store);
+	controlContainer = inject(ControlContainer);
+	commonValidators = inject(CommonValidatorsService);
+	techRecord = input.required<TechRecordType<'hgv' | 'trl' | 'psv'>>();
+
+	destroy$ = new ReplaySubject<boolean>(1);
+
+	form: FormGroup = this.fb.group({});
+
+	ngOnInit(): void {
+		this.addControlsBasedOffVehicleType();
+
+		// Attach all form controls to parent
+		const parent = this.controlContainer.control;
+		if (parent instanceof FormGroup) {
+			for (const [key, control] of Object.entries(this.form.controls)) {
+				parent.addControl(key, control, { emitEvent: false });
+			}
+		}
+	}
+
+	ngOnDestroy(): void {
+		// Detach all form controls from parent
+		const parent = this.controlContainer.control;
+		if (parent instanceof FormGroup) {
+			for (const key of Object.keys(this.form.controls)) {
+				parent.removeControl(key, { emitEvent: false });
+			}
+		}
+
+		// Clear subscriptions
+		this.destroy$.next(true);
+		this.destroy$.complete();
+	}
+
+	ngOnChanges(changes: SimpleChanges): void {}
+
+	addControlsBasedOffVehicleType() {
+		const vehicleControls = this.controlsBasedOffVehicleType;
+		for (const [key, control] of Object.entries(vehicleControls)) {
+			this.form.addControl(key, control, { emitEvent: false });
+		}
+	}
+
+	get controlsBasedOffVehicleType() {
+		switch (this.techRecord().techRecord_vehicleType) {
+			case VehicleTypes.PSV:
+				return this.psvControls;
+			case VehicleTypes.HGV:
+				return this.hgvControls;
+			case VehicleTypes.TRL:
+				return this.trlControls;
+			default:
+				return {};
+		}
+	}
+
+	get hgvControls() {
+		return {
+			techRecord_dimensions_length: this.fb.control<string | null>(null, [
+				this.commonValidators.max(99999, 'Dimensions length must be less than 99999 mm'),
+			]),
+			techRecord_dimensions_width: this.fb.control<string | null>(null, [
+				this.commonValidators.max(99999, 'Dimensions width must be less than 99999 mm'),
+			]),
+			techRecord_dimensions_axleSpacing: this.fb.array([]),
+			techRecord_frontAxleToRearAxle: this.fb.control<string | null>(null, [
+				this.commonValidators.max(99999, 'Front axle to rear axle must be less than 99999 mm'),
+			]),
+			techRecord_frontVehicleTo5thWheelCouplingMin: this.fb.control<string | null>(null, [
+				this.commonValidators.max(99999, 'Front vehicle to 5th wheel coupling minimum must be less than 99999 mm'),
+			]),
+			techRecord_frontVehicleTo5thWheelCouplingMax: this.fb.control<string | null>(null, [
+				this.commonValidators.max(99999, 'Front vehicle to 5th wheel coupling maximum must be less than 99999 mm'),
+			]),
+			techRecord_frontAxleTo5thWheelMin: this.fb.control<string | null>(null, [
+				this.commonValidators.max(99999, 'Front axle to 5th wheel minimum must be less than 99999 mm'),
+			]),
+			techRecord_frontAxleTo5thWheelMax: this.fb.control<string | null>(null, [
+				this.commonValidators.max(99999, 'Front axle to 5th wheel maximum must be less than 99999 mm'),
+			]),
+		};
+	}
+
+	get psvControls() {
+		return {
+			techRecord_dimensions_height: this.fb.control<string | null>(null, [
+				this.commonValidators.max(99999, 'Dimensions height must be less than 99999 mm'),
+			]),
+			techRecord_dimensions_length: this.fb.control<string | null>(null, [
+				this.commonValidators.max(99999, 'Dimensions length must be less than 99999 mm'),
+			]),
+			techRecord_dimensions_width: this.fb.control<string | null>(null, [
+				this.commonValidators.max(99999, 'Dimensions width must be less than 99999 mm'),
+			]),
+			techRecord_frontAxleToRearAxle: this.fb.control<string | null>(null, [
+				this.commonValidators.max(99999, 'Front axle to rear axle must be less than 99999 mm'),
+			]),
+		};
+	}
+
+	get trlControls() {
+		return {
+			techRecord_dimensions_length: this.fb.control<string | null>(null, [
+				this.commonValidators.max(99999, 'Dimensions length must be less than 99999 mm'),
+			]),
+			techRecord_dimensions_width: this.fb.control<string | null>(null, [
+				this.commonValidators.max(99999, 'Dimensions width must be less than 99999 mm'),
+			]),
+			techRecord_dimensions_axleSpacing: this.fb.array([]),
+			techRecord_frontAxleToRearAxle: this.fb.control<string | null>(null, [
+				this.commonValidators.max(99999, 'Front axle to rear axle must be less than 99999 mm'),
+			]),
+			techRecord_rearAxleToRearTrl: this.fb.control<string | null>(null, [
+				this.commonValidators.max(99999, 'Rear axle to rear TRL must be less than 99999 mm'),
+			]),
+			techRecord_centreOfReatmostAxleToRearOfTrl: this.fb.control<string | null>(null, [
+				this.commonValidators.max(99999, 'Centre of rearmost axle to rear of TRL must be less than 99999 mm'),
+			]),
+			techRecord_couplingCenterToRearAxleMin: this.fb.control<string | null>(null, [
+				this.commonValidators.max(99999, 'Minimum coupling center to rear axle must be less than 99999 mm'),
+			]),
+			techRecord_couplingCenterToRearAxleMax: this.fb.control<string | null>(null, [
+				this.commonValidators.max(99999, 'Maximum coupling center to rear axle must be less than 99999 mm'),
+			]),
+			techRecord_couplingCenterToRearTrlMin: this.fb.control<string | null>(null, [
+				this.commonValidators.max(99999, 'Minimum coupling center to rear TRL must be less than 99999 mm'),
+			]),
+			techRecord_couplingCenterToRearTrlMax: this.fb.control<string | null>(null, [
+				this.commonValidators.max(99999, 'Maximum coupling center to rear TRL must be less than 99999 mm'),
+			]),
+		};
+	}
+}
