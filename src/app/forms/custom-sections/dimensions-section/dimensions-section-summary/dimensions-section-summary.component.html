@@ -14,12 +14,16 @@
           {{ vm.techRecord_dimensions_width }}
         </dd>
       </div>
-      <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_dimensions_axleSpacing')">
-        <dt class="govuk-summary-list__key">Axle spacing</dt>
-        <dd class="govuk-summary-list__value" id="test-techRecord_dimensions_axleSpacing">
-          {{ vm.techRecord_dimensions_axleSpacing }}
-        </dd>
-      </div>
+      <ng-container *ngFor="let axleSpacing of vm.techRecord_dimensions_axleSpacing; let i = index">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Axle {{ i + 1 }} to axle {{ i + 2 }} (mm)
+          </dt>
+          <dd class="govuk-summary-list__value" id="techRecord_dimensions_axleSpacing-{{ i + 1 }}">
+            {{ axleSpacing?.value | defaultNullOrEmpty }}
+          </dd>
+        </div>
+      </ng-container>
       <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_frontAxleToRearAxle')">
         <dt class="govuk-summary-list__key">Front axle to rear axle</dt>
         <dd class="govuk-summary-list__value" id="test-techRecord_frontAxleToRearAxle">
@@ -107,12 +111,16 @@
           {{ vm.techRecord_dimensions_width }}
         </dd>
       </div>
-      <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_dimensions_axleSpacing')">
-        <dt class="govuk-summary-list__key">Axle spacing</dt>
-        <dd class="govuk-summary-list__value" id="test-techRecord_dimensions_axleSpacing">
-          {{ vm.techRecord_dimensions_axleSpacing }}
-        </dd>
-      </div>
+      <ng-container *ngFor="let axleSpacing of vm.techRecord_dimensions_axleSpacing; let i = index">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Axle {{ i + 1 }} to axle {{ i + 2 }} (mm)
+          </dt>
+          <dd class="govuk-summary-list__value" id="techRecord_dimensions_axleSpacing-{{ i + 1 }}">
+            {{ axleSpacing?.value | defaultNullOrEmpty }}
+          </dd>
+        </div>
+      </ng-container>
       <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_frontAxleToRearAxle')">
         <dt class="govuk-summary-list__key">Front axle to rear axle</dt>
         <dd class="govuk-summary-list__value" id="test-techRecord_frontAxleToRearAxle">

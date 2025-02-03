@@ -236,7 +236,7 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy, OnChanges
 		const current = changes['techRecord']?.currentValue?.techRecord_axles;
 		const previous = changes['techRecord']?.previousValue?.techRecord_axles;
 
-		if (this.techRecordAxles && current?.length > previous?.length) {
+		if (this.techRecordAxles && (current?.length || 0) > (previous?.length || 0)) {
 			const control = this.getAxleForm();
 			control.patchValue(current[current.length - 1]);
 			this.techRecordAxles.push(control, { emitEvent: false });
@@ -247,7 +247,7 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy, OnChanges
 		const current = changes['techRecord']?.currentValue?.techRecord_axles;
 		const previous = changes['techRecord']?.previousValue?.techRecord_axles;
 
-		if (this.techRecordAxles && current < previous) {
+		if (this.techRecordAxles && (current?.length || 0) < (previous?.length || 0)) {
 			this.techRecordAxles.removeAt(0);
 			this.techRecordAxles.patchValue(current, { emitEvent: false });
 		}

@@ -7,7 +7,7 @@
           Length
         </dt>
         <dd class="govuk-summary-list__value" id="techRecord_dimensions_length">
-          {{ tr.techRecord_dimensions_length}}
+          {{ tr.techRecord_dimensions_length | defaultNullOrEmpty }}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -15,23 +15,25 @@
           Width
         </dt>
         <dd class="govuk-summary-list__value" id="techRecord_dimensions_width">
-          {{ tr.techRecord_dimensions_width}}
+          {{ tr.techRecord_dimensions_width | defaultNullOrEmpty}}
         </dd>
       </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Axle spacing
-        </dt>
-        <dd class="govuk-summary-list__value" id="techRecord_dimensions_axleSpacing">
-          
-        </dd>
-      </div>
+      <ng-container *ngFor="let axleSpacing of tr.techRecord_dimensions_axleSpacing; let i = index">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Axle {{ i + 1 }} to axle {{ i + 2 }} (mm)
+          </dt>
+          <dd class="govuk-summary-list__value" id="techRecord_dimensions_axleSpacing-{{ i + 1 }}">
+            {{ axleSpacing?.value | defaultNullOrEmpty }}
+          </dd>
+        </div>
+      </ng-container>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           Front axle to rear axle
         </dt>
         <dd class="govuk-summary-list__value" id="techRecord_frontAxleToRearAxle">
-          {{ tr.techRecord_frontAxleToRearAxle}}
+          {{ tr.techRecord_frontAxleToRearAxle | defaultNullOrEmpty }}
         </dd>
       </div>
     </dl>
@@ -43,7 +45,7 @@
           Minimum
         </dt>
         <dd class="govuk-summary-list__value" id="techRecord_frontVehicleTo5thWheelCoupling">
-          {{ tr.techRecord_frontVehicleTo5thWheelCouplingMin }}
+          {{ tr.techRecord_frontVehicleTo5thWheelCouplingMin | defaultNullOrEmpty }}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -51,7 +53,7 @@
           Maximum
         </dt>
         <dd class="govuk-summary-list__value" id="techRecord_frontVehicleTo5thWheelCoupling">
-          {{ tr.techRecord_frontVehicleTo5thWheelCouplingMax }}
+          {{ tr.techRecord_frontVehicleTo5thWheelCouplingMax | defaultNullOrEmpty }}
         </dd>
       </div>
     </dl>
@@ -63,7 +65,7 @@
           Minimum
         </dt>
         <dd class="govuk-summary-list__value" id="techRecord_frontAxleTo5thWheel">
-          {{ tr.techRecord_frontAxleTo5thWheelMin }}
+          {{ tr.techRecord_frontAxleTo5thWheelMin | defaultNullOrEmpty }}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -71,7 +73,7 @@
           Maximum
         </dt>
         <dd class="govuk-summary-list__value" id="techRecord_frontAxleTo5thWheel">
-          {{ tr.techRecord_frontAxleTo5thWheelMax }}
+          {{ tr.techRecord_frontAxleTo5thWheelMax | defaultNullOrEmpty }}
         </dd>
       </div>
     </dl>
@@ -85,7 +87,7 @@
           Height
         </dt>
         <dd class="govuk-summary-list__value" id="techRecord_dimensions_height">
-          {{ tr.techRecord_dimensions_height}}
+          {{ tr.techRecord_dimensions_height | defaultNullOrEmpty }}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -93,7 +95,7 @@
           Length
         </dt>
         <dd class="govuk-summary-list__value" id="techRecord_dimensions_length">
-          {{ tr.techRecord_dimensions_length }}
+          {{ tr.techRecord_dimensions_length | defaultNullOrEmpty }}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -101,7 +103,7 @@
           Width
         </dt>
         <dd class="govuk-summary-list__value" id="techRecord_dimensions_width">
-          {{ tr.techRecord_dimensions_width }}
+          {{ tr.techRecord_dimensions_width | defaultNullOrEmpty}}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -109,7 +111,7 @@
           Front axle to rear axle
         </dt>
         <dd class="govuk-summary-list__value" id="techRecord_frontAxleToRearAxle">
-          {{ tr.techRecord_frontAxleToRearAxle }}
+          {{ tr.techRecord_frontAxleToRearAxle | defaultNullOrEmpty }}
         </dd>
       </div>
     </dl>
@@ -123,7 +125,7 @@
           Length
         </dt>
         <dd class="govuk-summary-list__value" id="techRecord_dimensions_length">
-          {{ tr.techRecord_dimensions_length }}
+          {{ tr.techRecord_dimensions_length | defaultNullOrEmpty }}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -131,23 +133,25 @@
           Width
         </dt>
         <dd class="govuk-summary-list__value" id="techRecord_dimensions_width">
-          {{ tr.techRecord_dimensions_width }}
+          {{ tr.techRecord_dimensions_width | defaultNullOrEmpty }}
         </dd>
       </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Axle spacing
-        </dt>
-        <dd class="govuk-summary-list__value" id="techRecord_dimensions_axleSpacing">
-          {{ tr.techRecord_dimensions_axleSpacing }}
-        </dd>
-      </div>
+      <ng-container *ngFor="let axleSpacing of tr.techRecord_dimensions_axleSpacing; let i = index">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Axle {{ i + 1 }} to axle {{ i + 2 }} (mm)
+          </dt>
+          <dd class="govuk-summary-list__value" id="techRecord_dimensions_axleSpacing-{{ i + 1 }}">
+            {{ axleSpacing?.value | defaultNullOrEmpty }}
+          </dd>
+        </div>
+      </ng-container>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           Front axle to rear axle
         </dt>
         <dd class="govuk-summary-list__value" id="techRecord_frontAxleToRearAxle">
-          {{ tr.techRecord_frontAxleToRearAxle }}
+          {{ tr.techRecord_frontAxleToRearAxle | defaultNullOrEmpty }}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -155,7 +159,7 @@
           Rear axle to rear trailer
         </dt>
         <dd class="govuk-summary-list__value" id="techRecord_rearAxleToRearTrl">
-          {{ tr.techRecord_rearAxleToRearTrl }}
+          {{ tr.techRecord_rearAxleToRearTrl | defaultNullOrEmpty }}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -163,7 +167,7 @@
           Center of rear axle to rear of trailer
         </dt>
         <dd class="govuk-summary-list__value" id="techRecord_centreOfRearmostAxleToRearOfTrl">
-          {{ tr.techRecord_centreOfRearmostAxleToRearOfTrl }}
+          {{ tr.techRecord_centreOfRearmostAxleToRearOfTrl | defaultNullOrEmpty }}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -171,7 +175,7 @@
           Minimum
         </dt>
         <dd class="govuk-summary-list__value" id="techRecord_couplingCenterToRearAxleMin">
-          {{ tr.techRecord_couplingCenterToRearAxleMin }}
+          {{ tr.techRecord_couplingCenterToRearAxleMin | defaultNullOrEmpty }}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -179,7 +183,7 @@
           Maximum
         </dt>
         <dd class="govuk-summary-list__value" id="techRecord_couplingCenterToRearAxleMax">
-          {{ tr.techRecord_couplingCenterToRearAxleMax }}
+          {{ tr.techRecord_couplingCenterToRearAxleMax | defaultNullOrEmpty }}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -187,7 +191,7 @@
           Minimum
         </dt>
         <dd class="govuk-summary-list__value" id="techRecord_couplingCenterToRearTrlMin">
-          {{ tr.techRecord_couplingCenterToRearTrlMin }}
+          {{ tr.techRecord_couplingCenterToRearTrlMin | defaultNullOrEmpty }}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -195,7 +199,7 @@
           Maximum
         </dt>
         <dd class="govuk-summary-list__value" id="techRecord_couplingCenterToRearTrlMax">
-          {{ tr.techRecord_couplingCenterToRearTrlMax }}
+          {{ tr.techRecord_couplingCenterToRearTrlMax | defaultNullOrEmpty }}
         </dd>
       </div>
     </dl>

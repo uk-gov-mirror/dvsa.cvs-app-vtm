@@ -55,8 +55,16 @@
       ></govuk-form-group-input>
 
       <!-- Axles spacings (HGV and TRL) -->
-      <ng-container *ngIf="tr.techRecord_vehicleType !== VehicleTypes.PSV">
-
+      <ng-container *ngIf="tr.techRecord_vehicleType !== VehicleTypes.PSV" formArrayName="techRecord_dimensions_axleSpacing">
+        <ng-container *ngFor="let axle of axleSpacings?.controls; let i = index" [formGroup]="axle">
+          <govuk-form-group-input
+            formControlName="value"
+            label="Axle {{ i + 1 }} to axle {{ i + 2 }} (mm)"
+            [width]="Widths.XS"
+            suffix="mm"
+            type="number"
+          ></govuk-form-group-input>
+        </ng-container>
       </ng-container>
 
       <!-- TRL only fields -->

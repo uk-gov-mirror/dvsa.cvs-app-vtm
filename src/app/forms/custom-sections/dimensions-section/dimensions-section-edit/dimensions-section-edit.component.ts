@@ -2,7 +2,7 @@ import { TagType } from '@/src/app/components/tag/tag.component';
 import { VehicleTypes } from '@/src/app/models/vehicle-tech-record.model';
 import { FormNodeWidth, TagTypeLabels } from '@/src/app/services/dynamic-forms/dynamic-form.types';
 import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges, inject, input } from '@angular/core';
-import { ControlContainer, FormBuilder, FormGroup } from '@angular/forms';
+import { ControlContainer, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
 import { Store } from '@ngrx/store';
@@ -29,8 +29,13 @@ export class DimensionsSectionEditComponent implements OnInit, OnDestroy, OnChan
 
 	form: FormGroup = this.fb.group({});
 
+	get axleSpacings(): FormArray<FormGroup> | undefined {
+		return this.form.get('techRecord_dimensions_axleSpacing') as FormArray;
+	}
+
 	ngOnInit(): void {
 		this.addControlsBasedOffVehicleType();
+		this.prepopulateAxleSpacings();
 
 		// Attach all form controls to parent
 		const parent = this.controlContainer.control;
@@ -55,13 +60,59 @@ export class DimensionsSectionEditComponent implements OnInit, OnDestroy, OnChan
 		this.destroy$.complete();
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {}
+	ngOnChanges(changes: SimpleChanges): void {
+		this.checkAxleAdded(changes);
+		this.checkAxleRemoved(changes);
+	}
+
+	prepopulateAxleSpacings() {
+		const techRecord = this.techRecord();
+		if (
+			techRecord.techRecord_vehicleType === VehicleTypes.HGV ||
+			techRecord.techRecord_vehicleType === VehicleTypes.TRL
+		) {
+			techRecord.techRecord_dimensions_axleSpacing?.forEach(() => {
+				const form = this.getAxleSpacingForm();
+				this.axleSpacings?.push(form, { emitEvent: false });
+			});
+		}
+	}
+
+	checkAxleAdded(changes: SimpleChanges) {
+		const current = changes['techRecord']?.currentValue?.techRecord_dimensions_axleSpacing;
+		const previous = changes['techRecord']?.previousValue?.techRecord_dimensions_axleSpacing;
+
+		if (this.axleSpacings && (current?.length || 0) > (previous?.length || 0)) {
+			const control = this.getAxleSpacingForm();
+			control.patchValue(current[current.length - 1], { emitEvent: false });
+			this.axleSpacings.push(control, { emitEvent: false });
+		}
+	}
+
+	checkAxleRemoved(changes: SimpleChanges) {
+		const current = changes['techRecord']?.currentValue?.techRecord_dimensions_axleSpacing;
+		const previous = changes['techRecord']?.previousValue?.techRecord_dimensions_axleSpacing;
+
+		if (this.axleSpacings && (current?.length || 0) < (previous?.length || 0)) {
+			this.axleSpacings.removeAt(0);
+			this.axleSpacings.patchValue(current, { emitEvent: false });
+		}
+	}
 
 	addControlsBasedOffVehicleType() {
 		const vehicleControls = this.controlsBasedOffVehicleType;
 		for (const [key, control] of Object.entries(vehicleControls)) {
 			this.form.addControl(key, control, { emitEvent: false });
 		}
+	}
+
+	getAxleSpacingForm() {
+		return this.fb.group({
+			axles: this.fb.control<string | null>(null),
+			value: this.fb.control<number | null>(null, [
+				this.commonValidators.max(99999, 'Axle spacing must be less than 99999 mm'),
+			]),
+		});
 	}
 
 	get controlsBasedOffVehicleType() {
