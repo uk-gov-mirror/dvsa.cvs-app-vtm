@@ -172,12 +172,23 @@
         </ng-container>
 
         <ng-container *ngSwitchCase="'platesSection'">
-          <app-plates
-            *ngIf="techRecordCalculated.techRecord_vehicleType === 'hgv' || techRecordCalculated.techRecord_vehicleType === 'trl'"
-            [techRecord]="techRecordCalculated"
-            [isEditing]="(isEditing$ | async) ?? false"
-            (formChange)="handleFormState($event)"
-          ></app-plates>
+          <ng-container *ngIf="techRecordCalculated.techRecord_vehicleType === 'hgv' || techRecordCalculated.techRecord_vehicleType === 'trl'">
+            <!-- New Weights Section -->
+            <ng-container *ngIf="featureToggleService.isFeatureEnabled('FsPlates'); else oldPlatesSection">
+              <app-weights-section
+                [techRecord]="techRecordCalculated"
+                [mode]="(isEditing$ | async) ? 'edit' : 'view'"/>
+            </ng-container>
+            <!-- Old Weights Section -->
+            <ng-template #oldPlatesSection>
+              <app-plates
+                *ngIf="techRecordCalculated.techRecord_vehicleType === 'hgv' || techRecordCalculated.techRecord_vehicleType === 'trl'"
+                [techRecord]="techRecordCalculated"
+                [isEditing]="(isEditing$ | async) ?? false"
+                (formChange)="handleFormState($event)"
+              ></app-plates>
+            </ng-template>
+          </ng-container>
         </ng-container>
 
         <ng-container *ngSwitchCase="'adrSection'">

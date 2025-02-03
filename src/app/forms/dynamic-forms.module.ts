@@ -19,6 +19,10 @@ import { AdrCertificateHistoryComponent } from '@forms/custom-sections/adr-certi
 import { AdrExaminerNotesHistoryEditComponent } from '@forms/custom-sections/adr-examiner-notes-history-edit/adr-examiner-notes-history.component-edit';
 import { AdrPermittedDangerousGoodsComponent } from '@forms/custom-sections/adr-permitted-dangerous-goods/adr-permitted-dangerous-goods.component';
 import { ApprovalTypeComponent } from '@forms/custom-sections/approval-type/approval-type.component';
+import { PlatesSectionEditComponent } from '@forms/custom-sections/plates-section/plates-section-edit/plates-section-edit.component';
+import { PlatesSectionSummaryComponent } from '@forms/custom-sections/plates-section/plates-section-summary/plates-section-summary.component';
+import { PlatesSectionViewComponent } from '@forms/custom-sections/plates-section/plates-section-view/plates-section-view.component';
+import { PlatesSectionComponent } from '@forms/custom-sections/plates-section/plates-section.component';
 import { VehicleSectionEditComponent } from '@forms/custom-sections/vehicle-section/vehicle-section-edit/vehicle-section-edit.component';
 import { VehicleSectionSummaryComponent } from '@forms/custom-sections/vehicle-section/vehicle-section-summary/vehicle-section-summary.component';
 import { VehicleSectionViewComponent } from '@forms/custom-sections/vehicle-section/vehicle-section-view/vehicle-section-view.component';
@@ -192,6 +196,10 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		WeightsSectionEditComponent,
 		WeightsSectionViewComponent,
 		WeightsSectionSummaryComponent,
+		PlatesSectionComponent,
+		PlatesSectionEditComponent,
+		PlatesSectionSummaryComponent,
+		PlatesSectionViewComponent,
 	],
 	imports: [
 		CommonModule,
@@ -290,6 +298,10 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		WeightsSectionEditComponent,
 		WeightsSectionViewComponent,
 		WeightsSectionSummaryComponent,
+		PlatesSectionComponent,
+		PlatesSectionEditComponent,
+		PlatesSectionSummaryComponent,
+		PlatesSectionViewComponent,
 	],
 })
 export class DynamicFormsModule {}
