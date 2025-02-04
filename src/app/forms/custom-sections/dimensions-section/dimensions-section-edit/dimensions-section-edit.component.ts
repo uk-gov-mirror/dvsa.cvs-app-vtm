@@ -131,26 +131,26 @@ export class DimensionsSectionEditComponent implements OnInit, OnDestroy, OnChan
 	get hgvControls() {
 		return {
 			techRecord_dimensions_length: this.fb.control<string | null>(null, [
-				this.commonValidators.max(99999, 'Dimensions length must be less than 99999 mm'),
+				this.commonValidators.max(99999, 'Length must be less than or equal to 99999'),
 			]),
 			techRecord_dimensions_width: this.fb.control<string | null>(null, [
-				this.commonValidators.max(99999, 'Dimensions width must be less than 99999 mm'),
+				this.commonValidators.max(99999, 'Width must be less than or equal to 99999'),
 			]),
 			techRecord_dimensions_axleSpacing: this.fb.array([]),
 			techRecord_frontAxleToRearAxle: this.fb.control<string | null>(null, [
-				this.commonValidators.max(99999, 'Front axle to rear axle must be less than 99999 mm'),
+				this.commonValidators.max(99999, 'Front axle to rear axle must be less than or equal to 99999'),
 			]),
 			techRecord_frontVehicleTo5thWheelCouplingMin: this.fb.control<string | null>(null, [
-				this.commonValidators.max(99999, 'Front vehicle to 5th wheel coupling minimum must be less than 99999 mm'),
+				this.commonValidators.max(99999, 'Minimum must be less than or equal to 99999'),
 			]),
 			techRecord_frontVehicleTo5thWheelCouplingMax: this.fb.control<string | null>(null, [
-				this.commonValidators.max(99999, 'Front vehicle to 5th wheel coupling maximum must be less than 99999 mm'),
+				this.commonValidators.max(99999, 'Maximum must be less than or equal to 99999'),
 			]),
 			techRecord_frontAxleTo5thWheelMin: this.fb.control<string | null>(null, [
-				this.commonValidators.max(99999, 'Front axle to 5th wheel minimum must be less than 99999 mm'),
+				this.commonValidators.max(99999, 'Minimum must be less than or equal to 99999'),
 			]),
 			techRecord_frontAxleTo5thWheelMax: this.fb.control<string | null>(null, [
-				this.commonValidators.max(99999, 'Front axle to 5th wheel maximum must be less than 99999 mm'),
+				this.commonValidators.max(99999, 'Maximum must be less than or equal to 99999'),
 			]),
 		};
 	}
@@ -158,16 +158,16 @@ export class DimensionsSectionEditComponent implements OnInit, OnDestroy, OnChan
 	get psvControls() {
 		return {
 			techRecord_dimensions_height: this.fb.control<string | null>(null, [
-				this.commonValidators.max(99999, 'Dimensions height must be less than 99999 mm'),
+				this.commonValidators.max(99999, 'Height must be less than or equal to 99999'),
 			]),
 			techRecord_dimensions_length: this.fb.control<string | null>(null, [
-				this.commonValidators.max(99999, 'Dimensions length must be less than 99999 mm'),
+				this.commonValidators.max(99999, 'Length must be less than or equal to 99999'),
 			]),
 			techRecord_dimensions_width: this.fb.control<string | null>(null, [
-				this.commonValidators.max(99999, 'Dimensions width must be less than 99999 mm'),
+				this.commonValidators.max(99999, 'Width must be less than or equal to 99999'),
 			]),
 			techRecord_frontAxleToRearAxle: this.fb.control<string | null>(null, [
-				this.commonValidators.max(99999, 'Front axle to rear axle must be less than 99999 mm'),
+				this.commonValidators.max(99999, 'Front axle to rear axle must be less than or equal to 99999'),
 			]),
 		};
 	}
@@ -175,32 +175,32 @@ export class DimensionsSectionEditComponent implements OnInit, OnDestroy, OnChan
 	get trlControls() {
 		return {
 			techRecord_dimensions_length: this.fb.control<string | null>(null, [
-				this.commonValidators.max(99999, 'Dimensions length must be less than 99999 mm'),
+				this.commonValidators.max(99999, 'Length must be less than or equal to 99999'),
 			]),
 			techRecord_dimensions_width: this.fb.control<string | null>(null, [
-				this.commonValidators.max(99999, 'Dimensions width must be less than 99999 mm'),
+				this.commonValidators.max(99999, 'Width must be less than or equal to 99999'),
 			]),
 			techRecord_dimensions_axleSpacing: this.fb.array([]),
 			techRecord_frontAxleToRearAxle: this.fb.control<string | null>(null, [
-				this.commonValidators.max(99999, 'Front axle to rear axle must be less than 99999 mm'),
+				this.commonValidators.max(99999, 'Front axle to rear axle must be less than or equal to 99999'),
 			]),
 			techRecord_rearAxleToRearTrl: this.fb.control<string | null>(null, [
-				this.commonValidators.max(99999, 'Rear axle to rear TRL must be less than 99999 mm'),
+				this.commonValidators.max(99999, 'Rear axle to rear trailer must be less than or equal to 99999'),
 			]),
-			techRecord_centreOfReatmostAxleToRearOfTrl: this.fb.control<string | null>(null, [
-				this.commonValidators.max(99999, 'Centre of rearmost axle to rear of TRL must be less than 99999 mm'),
+			techRecord_centreOfRearmostAxleToRearOfTrl: this.fb.control<string | null>(null, [
+				this.commonValidators.max(99999, 'Center of rear axle to rear of trailer must be less than or equal to 99999'),
 			]),
 			techRecord_couplingCenterToRearAxleMin: this.fb.control<string | null>(null, [
-				this.commonValidators.max(99999, 'Minimum coupling center to rear axle must be less than 99999 mm'),
+				this.commonValidators.max(99999, 'Minimum must be less than or equal to 99999'),
 			]),
 			techRecord_couplingCenterToRearAxleMax: this.fb.control<string | null>(null, [
-				this.commonValidators.max(99999, 'Maximum coupling center to rear axle must be less than 99999 mm'),
+				this.commonValidators.max(99999, 'Maximum must be less than or equal to 99999'),
 			]),
 			techRecord_couplingCenterToRearTrlMin: this.fb.control<string | null>(null, [
-				this.commonValidators.max(99999, 'Minimum coupling center to rear TRL must be less than 99999 mm'),
+				this.commonValidators.max(99999, 'Minimum must be less than or equal to 99999'),
 			]),
 			techRecord_couplingCenterToRearTrlMax: this.fb.control<string | null>(null, [
-				this.commonValidators.max(99999, 'Maximum coupling center to rear TRL must be less than 99999 mm'),
+				this.commonValidators.max(99999, 'Maximum must be less than or equal to 99999'),
 			]),
 		};
 	}
