@@ -204,4 +204,10 @@ export class DimensionsSectionEditComponent implements OnInit, OnDestroy, OnChan
 			]),
 		};
 	}
+
+	get couplingCenterToRearTrlWarning() {
+		return Number.parseInt(this.form.get('techRecord_couplingCenterToRearTrlMax')?.value, 10) > 12000
+			? 'The coupling center to rear axle maximum field value is greater than 12,000mm. Check your input before proceeding'
+			: '';
+	}
 }
