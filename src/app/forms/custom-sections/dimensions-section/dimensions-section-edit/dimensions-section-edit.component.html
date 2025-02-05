@@ -58,6 +58,7 @@
       <ng-container *ngIf="tr.techRecord_vehicleType !== VehicleTypes.PSV" formArrayName="techRecord_dimensions_axleSpacing">
         <ng-container *ngFor="let axle of axleSpacings?.controls; let i = index" [formGroup]="axle">
           <govuk-form-group-input
+            [id]="'techRecord_dimensions_axleSpacing_' + i + '_value'"
             formControlName="value"
             label="Axle {{ i + 1 }} to axle {{ i + 2 }} (mm)"
             [width]="Widths.XS"
