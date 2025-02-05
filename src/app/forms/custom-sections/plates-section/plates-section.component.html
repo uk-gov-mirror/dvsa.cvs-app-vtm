@@ -1,5 +1,4 @@
 <ng-container [ngSwitch]="mode()">
   <app-plates-section-view *ngSwitchCase="'view'" [techRecord]="techRecord()" />
-  <app-plates-section-edit *ngSwitchCase="'edit'" [techRecord]="techRecord()" />
-  <app-plates-section-summary *ngSwitchCase="'summary'" />
+  <app-plates-section-edit *ngSwitchCase="'edit'"/>
 </ng-container>
