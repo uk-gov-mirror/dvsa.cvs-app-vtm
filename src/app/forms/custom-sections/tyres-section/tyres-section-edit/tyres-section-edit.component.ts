@@ -66,6 +66,7 @@ export class TyresSectionEditComponent implements OnInit, OnDestroy, OnChanges {
 		this.addControlsBasedOffVehicleType();
 		this.prepopulateAxles();
 		this.loadReferenceData();
+		this.checkAxleAdded();
 		this.checkAxleRemoved();
 
 		this.editingReason = this.route.snapshot.data['reason'];
@@ -94,7 +95,6 @@ export class TyresSectionEditComponent implements OnInit, OnDestroy, OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
-		this.checkAxleAdded(changes);
 		this.checkFitmentCodeHasChanged(changes);
 		this.checkAxleWeights(changes);
 	}
@@ -339,15 +339,16 @@ export class TyresSectionEditComponent implements OnInit, OnDestroy, OnChanges {
 		this.technicalRecordService.updateEditingTechRecord({ techRecord_axles: axlesClone } as any);
 	}
 
-	checkAxleAdded(changes: SimpleChanges) {
-		const current = changes['techRecord']?.currentValue?.techRecord_axles;
-		const previous = changes['techRecord']?.previousValue?.techRecord_axles;
-
-		if (this.techRecordAxles && current?.length > previous?.length) {
-			const control = this.getAxleForm();
-			control.patchValue(current[current.length - 1]);
-			this.techRecordAxles.push(control, { emitEvent: false });
-		}
+	checkAxleAdded() {
+		this.actions
+			.pipe(ofType(addAxle), takeUntil(this.destroy$), withLatestFrom(this.technicalRecordService.techRecord$))
+			.subscribe(([_, techRecord]) => {
+				if (techRecord) {
+					const axles = (techRecord as any).techRecord_axles;
+					this.techRecordAxles.push(this.getAxleForm(), { emitEvent: false });
+					this.techRecordAxles.patchValue(axles as any, { emitEvent: false });
+				}
+			});
 	}
 
 	checkAxleRemoved() {

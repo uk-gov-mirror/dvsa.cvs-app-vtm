@@ -2,8 +2,8 @@ import { TagType } from '@/src/app/components/tag/tag.component';
 import { VehicleTypes } from '@/src/app/models/vehicle-tech-record.model';
 import { FormNodeWidth, TagTypeLabels } from '@/src/app/services/dynamic-forms/dynamic-form.types';
 import { TechnicalRecordService } from '@/src/app/services/technical-record/technical-record.service';
-import { removeAxle } from '@/src/app/store/technical-records';
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges, inject, input } from '@angular/core';
+import { addAxle, removeAxle } from '@/src/app/store/technical-records';
+import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
@@ -16,7 +16,7 @@ import { ReplaySubject, takeUntil, withLatestFrom } from 'rxjs';
 	templateUrl: './dimensions-section-edit.component.html',
 	styleUrls: ['./dimensions-section-edit.component.scss'],
 })
-export class DimensionsSectionEditComponent implements OnInit, OnDestroy, OnChanges {
+export class DimensionsSectionEditComponent implements OnInit, OnDestroy {
 	readonly VehicleTypes = VehicleTypes;
 	readonly Widths = FormNodeWidth;
 	readonly TagType = TagType;
@@ -41,6 +41,7 @@ export class DimensionsSectionEditComponent implements OnInit, OnDestroy, OnChan
 	ngOnInit(): void {
 		this.addControlsBasedOffVehicleType();
 		this.prepopulateAxleSpacings();
+		this.checkAxleAdded();
 		this.checkAxleRemoved();
 
 		// Attach all form controls to parent
@@ -66,10 +67,6 @@ export class DimensionsSectionEditComponent implements OnInit, OnDestroy, OnChan
 		this.destroy$.complete();
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {
-		this.checkAxleAdded(changes);
-	}
-
 	prepopulateAxleSpacings() {
 		const techRecord = this.techRecord();
 		if (
@@ -83,15 +80,16 @@ export class DimensionsSectionEditComponent implements OnInit, OnDestroy, OnChan
 		}
 	}
 
-	checkAxleAdded(changes: SimpleChanges) {
-		const current = changes['techRecord']?.currentValue?.techRecord_dimensions_axleSpacing;
-		const previous = changes['techRecord']?.previousValue?.techRecord_dimensions_axleSpacing;
-
-		if (this.axleSpacings && (current?.length || 0) > (previous?.length || 0)) {
-			const control = this.getAxleSpacingForm();
-			control.patchValue(current[current.length - 1], { emitEvent: false });
-			this.axleSpacings.push(control, { emitEvent: false });
-		}
+	checkAxleAdded() {
+		this.actions
+			.pipe(ofType(addAxle), takeUntil(this.destroy$), withLatestFrom(this.technicalRecordService.techRecord$))
+			.subscribe(([_, techRecord]) => {
+				if (techRecord) {
+					const axleSpacings = (techRecord as any).techRecord_dimensions_axleSpacing;
+					this.axleSpacings?.push(this.getAxleSpacingForm(), { emitEvent: false });
+					this.axleSpacings?.patchValue(axleSpacings as any, { emitEvent: false });
+				}
+			});
 	}
 
 	checkAxleRemoved() {

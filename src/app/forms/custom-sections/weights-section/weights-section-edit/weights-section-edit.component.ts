@@ -34,6 +34,7 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy, OnChanges
 	ngOnInit(): void {
 		this.addControlsBasedOffVehicleType();
 		this.prepopulateAxles();
+		this.checkAxleAdded();
 		this.checkAxleRemoved();
 
 		// Attach all form controls to parent
@@ -60,7 +61,6 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy, OnChanges
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
-		this.checkAxleAdded(changes);
 		this.checkGrossLadenWeightChanged(changes);
 		this.handleVehicleTechRecordChange(changes);
 	}
@@ -235,15 +235,16 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy, OnChanges
 		this.techRecordAxles.setErrors({ length: `Cannot have less than ${minLength} axles` });
 	}
 
-	checkAxleAdded(changes: SimpleChanges) {
-		const current = changes['techRecord']?.currentValue?.techRecord_axles;
-		const previous = changes['techRecord']?.previousValue?.techRecord_axles;
-
-		if (this.techRecordAxles && (current?.length || 0) > (previous?.length || 0)) {
-			const control = this.getAxleForm();
-			control.patchValue(current[current.length - 1]);
-			this.techRecordAxles.push(control, { emitEvent: false });
-		}
+	checkAxleAdded() {
+		this.actions
+			.pipe(ofType(addAxle), takeUntil(this.destroy$), withLatestFrom(this.technicalRecordService.techRecord$))
+			.subscribe(([_, techRecord]) => {
+				if (techRecord) {
+					const axles = (techRecord as any).techRecord_axles;
+					this.techRecordAxles.push(this.getAxleForm(), { emitEvent: false });
+					this.techRecordAxles.patchValue(axles as any, { emitEvent: false });
+				}
+			});
 	}
 
 	checkAxleRemoved() {
