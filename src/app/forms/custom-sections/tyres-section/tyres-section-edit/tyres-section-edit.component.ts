@@ -21,10 +21,11 @@ import { PSVAxles } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/ps
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
 import { Axle, FitmentCode, ReasonForEditing, Tyre, VehicleTypes } from '@models/vehicle-tech-record.model';
+import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { cloneDeep } from 'lodash';
-import { ReplaySubject, combineLatest, filter, takeUntil } from 'rxjs';
+import { ReplaySubject, combineLatest, filter, takeUntil, withLatestFrom } from 'rxjs';
 
 @Component({
 	selector: 'app-tyres-section-edit',
@@ -43,6 +44,7 @@ export class TyresSectionEditComponent implements OnInit, OnDestroy, OnChanges {
 
 	fb = inject(FormBuilder);
 	store = inject(Store);
+	actions = inject(Actions);
 	route = inject(ActivatedRoute);
 	router = inject(Router);
 	controlContainer = inject(ControlContainer);
@@ -64,6 +66,7 @@ export class TyresSectionEditComponent implements OnInit, OnDestroy, OnChanges {
 		this.addControlsBasedOffVehicleType();
 		this.prepopulateAxles();
 		this.loadReferenceData();
+		this.checkAxleRemoved();
 
 		this.editingReason = this.route.snapshot.data['reason'];
 
@@ -92,7 +95,6 @@ export class TyresSectionEditComponent implements OnInit, OnDestroy, OnChanges {
 
 	ngOnChanges(changes: SimpleChanges): void {
 		this.checkAxleAdded(changes);
-		this.checkAxleRemoved(changes);
 		this.checkFitmentCodeHasChanged(changes);
 		this.checkAxleWeights(changes);
 	}
@@ -348,14 +350,16 @@ export class TyresSectionEditComponent implements OnInit, OnDestroy, OnChanges {
 		}
 	}
 
-	checkAxleRemoved(changes: SimpleChanges) {
-		const current = changes['techRecord']?.currentValue?.techRecord_axles;
-		const previous = changes['techRecord']?.previousValue?.techRecord_axles;
-
-		if (this.techRecordAxles && current < previous) {
-			this.techRecordAxles.removeAt(0);
-			this.techRecordAxles.patchValue(current, { emitEvent: false });
-		}
+	checkAxleRemoved() {
+		this.actions
+			.pipe(ofType(removeAxle), takeUntil(this.destroy$), withLatestFrom(this.technicalRecordService.techRecord$))
+			.subscribe(([{ index }, techRecord]) => {
+				if (techRecord) {
+					const axles = (techRecord as any).techRecord_axles;
+					this.techRecordAxles.removeAt(index, { emitEvent: false });
+					this.techRecordAxles.patchValue(axles as any, { emitEvent: false });
+				}
+			});
 	}
 
 	checkFitmentCodeHasChanged(changes: SimpleChanges) {

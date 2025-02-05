@@ -4,10 +4,12 @@ import { ControlContainer, FormArray, FormBuilder, FormGroup } from '@angular/fo
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
 import { VehicleTypes } from '@models/vehicle-tech-record.model';
+import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { FormNodeWidth } from '@services/dynamic-forms/dynamic-form.types';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
-import { ReplaySubject } from 'rxjs';
+import { ReplaySubject, takeUntil } from 'rxjs';
+import { withLatestFrom } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-weights-section-edit',
@@ -19,6 +21,7 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy, OnChanges
 	protected readonly FormNodeWidth = FormNodeWidth;
 	fb = inject(FormBuilder);
 	store = inject(Store);
+	actions = inject(Actions);
 	controlContainer = inject(ControlContainer);
 	commonValidators = inject(CommonValidatorsService);
 	technicalRecordService = inject(TechnicalRecordService);
@@ -31,6 +34,7 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy, OnChanges
 	ngOnInit(): void {
 		this.addControlsBasedOffVehicleType();
 		this.prepopulateAxles();
+		this.checkAxleRemoved();
 
 		// Attach all form controls to parent
 		const parent = this.controlContainer.control;
@@ -57,7 +61,6 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy, OnChanges
 
 	ngOnChanges(changes: SimpleChanges): void {
 		this.checkAxleAdded(changes);
-		this.checkAxleRemoved(changes);
 		this.checkGrossLadenWeightChanged(changes);
 		this.handleVehicleTechRecordChange(changes);
 	}
@@ -243,14 +246,16 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy, OnChanges
 		}
 	}
 
-	checkAxleRemoved(changes: SimpleChanges) {
-		const current = changes['techRecord']?.currentValue?.techRecord_axles;
-		const previous = changes['techRecord']?.previousValue?.techRecord_axles;
-
-		if (this.techRecordAxles && (current?.length || 0) < (previous?.length || 0)) {
-			this.techRecordAxles.removeAt(0);
-			this.techRecordAxles.patchValue(current, { emitEvent: false });
-		}
+	checkAxleRemoved() {
+		this.actions
+			.pipe(ofType(removeAxle), takeUntil(this.destroy$), withLatestFrom(this.technicalRecordService.techRecord$))
+			.subscribe(([{ index }, techRecord]) => {
+				if (techRecord) {
+					const axles = (techRecord as any).techRecord_axles;
+					this.techRecordAxles.removeAt(index, { emitEvent: false });
+					this.techRecordAxles.patchValue(axles as any, { emitEvent: false });
+				}
+			});
 	}
 
 	checkGrossLadenWeightChanged(changes: SimpleChanges): void {

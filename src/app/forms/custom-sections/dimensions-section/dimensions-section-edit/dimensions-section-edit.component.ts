@@ -1,12 +1,15 @@
 import { TagType } from '@/src/app/components/tag/tag.component';
 import { VehicleTypes } from '@/src/app/models/vehicle-tech-record.model';
 import { FormNodeWidth, TagTypeLabels } from '@/src/app/services/dynamic-forms/dynamic-form.types';
+import { TechnicalRecordService } from '@/src/app/services/technical-record/technical-record.service';
+import { removeAxle } from '@/src/app/store/technical-records';
 import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges, inject, input } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
+import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { ReplaySubject } from 'rxjs';
+import { ReplaySubject, takeUntil, withLatestFrom } from 'rxjs';
 
 @Component({
 	selector: 'app-dimensions-section-edit',
@@ -21,8 +24,10 @@ export class DimensionsSectionEditComponent implements OnInit, OnDestroy, OnChan
 
 	fb = inject(FormBuilder);
 	store = inject(Store);
+	actions = inject(Actions);
 	controlContainer = inject(ControlContainer);
 	commonValidators = inject(CommonValidatorsService);
+	technicalRecordService = inject(TechnicalRecordService);
 	techRecord = input.required<TechRecordType<'hgv' | 'trl' | 'psv'>>();
 
 	destroy$ = new ReplaySubject<boolean>(1);
@@ -36,6 +41,7 @@ export class DimensionsSectionEditComponent implements OnInit, OnDestroy, OnChan
 	ngOnInit(): void {
 		this.addControlsBasedOffVehicleType();
 		this.prepopulateAxleSpacings();
+		this.checkAxleRemoved();
 
 		// Attach all form controls to parent
 		const parent = this.controlContainer.control;
@@ -62,7 +68,6 @@ export class DimensionsSectionEditComponent implements OnInit, OnDestroy, OnChan
 
 	ngOnChanges(changes: SimpleChanges): void {
 		this.checkAxleAdded(changes);
-		this.checkAxleRemoved(changes);
 	}
 
 	prepopulateAxleSpacings() {
@@ -89,14 +94,16 @@ export class DimensionsSectionEditComponent implements OnInit, OnDestroy, OnChan
 		}
 	}
 
-	checkAxleRemoved(changes: SimpleChanges) {
-		const current = changes['techRecord']?.currentValue?.techRecord_dimensions_axleSpacing;
-		const previous = changes['techRecord']?.previousValue?.techRecord_dimensions_axleSpacing;
-
-		if (this.axleSpacings && (current?.length || 0) < (previous?.length || 0)) {
-			this.axleSpacings.removeAt(0);
-			this.axleSpacings.patchValue(current, { emitEvent: false });
-		}
+	checkAxleRemoved() {
+		this.actions
+			.pipe(ofType(removeAxle), takeUntil(this.destroy$), withLatestFrom(this.technicalRecordService.techRecord$))
+			.subscribe(([{ index }, techRecord]) => {
+				if (techRecord) {
+					const axleSpacings = (techRecord as any).techRecord_dimensions_axleSpacing;
+					this.axleSpacings?.removeAt(index, { emitEvent: false });
+					this.axleSpacings?.patchValue(axleSpacings as any, { emitEvent: false });
+				}
+			});
 	}
 
 	addControlsBasedOffVehicleType() {
