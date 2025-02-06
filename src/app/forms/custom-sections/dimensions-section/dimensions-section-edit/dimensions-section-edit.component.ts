@@ -9,7 +9,7 @@ import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { ReplaySubject, takeUntil, withLatestFrom } from 'rxjs';
+import { ReplaySubject, skip, takeUntil, withLatestFrom } from 'rxjs';
 
 @Component({
 	selector: 'app-dimensions-section-edit',
@@ -82,7 +82,7 @@ export class DimensionsSectionEditComponent implements OnInit, OnDestroy {
 
 	checkAxleAdded() {
 		this.actions
-			.pipe(ofType(addAxle), takeUntil(this.destroy$), withLatestFrom(this.technicalRecordService.techRecord$))
+			.pipe(ofType(addAxle), skip(1), takeUntil(this.destroy$), withLatestFrom(this.technicalRecordService.techRecord$))
 			.subscribe(([_, techRecord]) => {
 				if (techRecord) {
 					const axleSpacings = (techRecord as any).techRecord_dimensions_axleSpacing;
@@ -95,10 +95,10 @@ export class DimensionsSectionEditComponent implements OnInit, OnDestroy {
 	checkAxleRemoved() {
 		this.actions
 			.pipe(ofType(removeAxle), takeUntil(this.destroy$), withLatestFrom(this.technicalRecordService.techRecord$))
-			.subscribe(([{ index }, techRecord]) => {
+			.subscribe(([_, techRecord]) => {
 				if (techRecord) {
 					const axleSpacings = (techRecord as any).techRecord_dimensions_axleSpacing;
-					this.axleSpacings?.removeAt(index, { emitEvent: false });
+					this.axleSpacings?.removeAt(0, { emitEvent: false });
 					this.axleSpacings?.patchValue(axleSpacings as any, { emitEvent: false });
 				}
 			});
@@ -113,7 +113,6 @@ export class DimensionsSectionEditComponent implements OnInit, OnDestroy {
 
 	getAxleSpacingForm() {
 		return this.fb.group({
-			axles: this.fb.control<string | null>(null),
 			value: this.fb.control<number | null>(null, [
 				this.commonValidators.max(99999, 'Axle spacing must be less than 99999 mm'),
 			]),
