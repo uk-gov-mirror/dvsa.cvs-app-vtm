@@ -225,8 +225,9 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy, OnChanges
 	removeAxle(index: number) {
 		const techRecord = this.techRecord();
 		const minLength = techRecord.techRecord_vehicleType === VehicleTypes.TRL ? 1 : 2;
+		const axles = this.techRecordAxles.value;
 
-		if (techRecord.techRecord_axles && techRecord.techRecord_axles.length > minLength) {
+		if (Array.isArray(axles) && axles.length > minLength) {
 			this.techRecordAxles.setErrors(null);
 			this.store.dispatch(removeAxle({ index }));
 			return;
@@ -240,9 +241,11 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy, OnChanges
 			.pipe(ofType(addAxle), takeUntil(this.destroy$), withLatestFrom(this.technicalRecordService.techRecord$))
 			.subscribe(([_, techRecord]) => {
 				if (techRecord) {
-					const axles = (techRecord as any).techRecord_axles;
-					this.techRecordAxles.push(this.getAxleForm(), { emitEvent: false });
-					this.techRecordAxles.patchValue(axles as any, { emitEvent: false });
+					const axles = (techRecord as TechRecordType<'hgv' | 'trl' | 'psv'>).techRecord_axles || [];
+					const form = this.getAxleForm();
+					form.patchValue(axles[axles.length - 1], { emitEvent: false });
+					this.techRecordAxles.push(form, { emitEvent: false });
+					this.techRecordAxles.patchValue(axles, { emitEvent: false });
 				}
 			});
 	}
@@ -250,11 +253,11 @@ export class WeightsSectionEditComponent implements OnInit, OnDestroy, OnChanges
 	checkAxleRemoved() {
 		this.actions
 			.pipe(ofType(removeAxle), takeUntil(this.destroy$), withLatestFrom(this.technicalRecordService.techRecord$))
-			.subscribe(([{ index }, techRecord]) => {
+			.subscribe(([_, techRecord]) => {
 				if (techRecord) {
-					const axles = (techRecord as any).techRecord_axles;
-					this.techRecordAxles.removeAt(index, { emitEvent: false });
-					this.techRecordAxles.patchValue(axles as any, { emitEvent: false });
+					const axles = (techRecord as TechRecordType<'hgv' | 'trl' | 'psv'>).techRecord_axles || [];
+					this.techRecordAxles.removeAt(0, { emitEvent: false });
+					this.techRecordAxles.patchValue(axles, { emitEvent: false });
 				}
 			});
 	}

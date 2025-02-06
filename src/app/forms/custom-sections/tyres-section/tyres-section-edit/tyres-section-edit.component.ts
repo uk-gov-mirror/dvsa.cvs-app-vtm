@@ -267,13 +267,15 @@ export class TyresSectionEditComponent implements OnInit, OnDestroy, OnChanges {
 				lastAxle.tyres_fitmentCode === FitmentCode.SINGLE
 					? Number.parseInt(String(refData.loadIndexSingleLoad), 10)
 					: Number.parseInt(String(refData.loadIndexTwinLoad), 10);
+
 			const tyre = new Tyre({
 				tyreCode: lastAxle.tyres_tyreCode,
 				tyreSize: refData.tyreSize,
 				plyRating: refData.plyRating,
 				dataTrAxles: indexLoad,
-				fitmentCode: lastAxle.tyres_fitmentCode,
+				fitmentCode: lastAxle.tyres_fitmentCode as FitmentCode,
 			});
+
 			if (this.techRecord().techRecord_vehicleType === VehicleTypes.PSV) {
 				tyre.speedCategorySymbol = lastAxle.tyres_speedCategorySymbol;
 			}
@@ -303,8 +305,9 @@ export class TyresSectionEditComponent implements OnInit, OnDestroy, OnChanges {
 	removeAxle(index: number) {
 		const techRecord = this.techRecord();
 		const minLength = techRecord.techRecord_vehicleType === VehicleTypes.TRL ? 1 : 2;
+		const axles = this.techRecordAxles.value;
 
-		if (techRecord.techRecord_axles && techRecord.techRecord_axles.length > minLength) {
+		if (Array.isArray(axles) && axles.length > minLength) {
 			this.techRecordAxles.setErrors(null);
 			this.store.dispatch(removeAxle({ index }));
 			return;
@@ -331,6 +334,7 @@ export class TyresSectionEditComponent implements OnInit, OnDestroy, OnChanges {
 		axle.tyres_plyRating = tyre.plyRating;
 		axle.tyres_dataTrAxles = tyre.dataTrAxles;
 		axle.tyres_fitmentCode = tyre.fitmentCode;
+
 		if (techRecord.techRecord_vehicleType === VehicleTypes.PSV) {
 			(axle as PSVAxles).tyres_speedCategorySymbol = tyre.speedCategorySymbol;
 		}
@@ -344,9 +348,9 @@ export class TyresSectionEditComponent implements OnInit, OnDestroy, OnChanges {
 			.pipe(ofType(addAxle), takeUntil(this.destroy$), withLatestFrom(this.technicalRecordService.techRecord$))
 			.subscribe(([_, techRecord]) => {
 				if (techRecord) {
-					const axles = (techRecord as any).techRecord_axles;
+					const axles = (techRecord as TechRecordType<'hgv' | 'trl' | 'psv'>).techRecord_axles || [];
 					this.techRecordAxles.push(this.getAxleForm(), { emitEvent: false });
-					this.techRecordAxles.patchValue(axles as any, { emitEvent: false });
+					this.techRecordAxles.patchValue(axles, { emitEvent: false });
 				}
 			});
 	}
@@ -354,11 +358,11 @@ export class TyresSectionEditComponent implements OnInit, OnDestroy, OnChanges {
 	checkAxleRemoved() {
 		this.actions
 			.pipe(ofType(removeAxle), takeUntil(this.destroy$), withLatestFrom(this.technicalRecordService.techRecord$))
-			.subscribe(([{ index }, techRecord]) => {
+			.subscribe(([_, techRecord]) => {
 				if (techRecord) {
-					const axles = (techRecord as any).techRecord_axles;
-					this.techRecordAxles.removeAt(index, { emitEvent: false });
-					this.techRecordAxles.patchValue(axles as any, { emitEvent: false });
+					const axles = (techRecord as TechRecordType<'hgv' | 'trl' | 'psv'>).techRecord_axles || [];
+					this.techRecordAxles.removeAt(0, { emitEvent: false });
+					this.techRecordAxles.patchValue(axles, { emitEvent: false });
 				}
 			});
 	}

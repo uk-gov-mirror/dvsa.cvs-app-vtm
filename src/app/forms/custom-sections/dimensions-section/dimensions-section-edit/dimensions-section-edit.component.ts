@@ -85,9 +85,9 @@ export class DimensionsSectionEditComponent implements OnInit, OnDestroy {
 			.pipe(ofType(addAxle), skip(1), takeUntil(this.destroy$), withLatestFrom(this.technicalRecordService.techRecord$))
 			.subscribe(([_, techRecord]) => {
 				if (techRecord) {
-					const axleSpacings = (techRecord as any).techRecord_dimensions_axleSpacing;
+					const axleSpacings = (techRecord as TechRecordType<'hgv' | 'trl'>).techRecord_dimensions_axleSpacing || [];
 					this.axleSpacings?.push(this.getAxleSpacingForm(), { emitEvent: false });
-					this.axleSpacings?.patchValue(axleSpacings as any, { emitEvent: false });
+					this.axleSpacings?.patchValue(axleSpacings, { emitEvent: false });
 				}
 			});
 	}
@@ -97,9 +97,9 @@ export class DimensionsSectionEditComponent implements OnInit, OnDestroy {
 			.pipe(ofType(removeAxle), takeUntil(this.destroy$), withLatestFrom(this.technicalRecordService.techRecord$))
 			.subscribe(([_, techRecord]) => {
 				if (techRecord) {
-					const axleSpacings = (techRecord as any).techRecord_dimensions_axleSpacing;
+					const axleSpacings = (techRecord as TechRecordType<'hgv' | 'trl'>).techRecord_dimensions_axleSpacing || [];
 					this.axleSpacings?.removeAt(0, { emitEvent: false });
-					this.axleSpacings?.patchValue(axleSpacings as any, { emitEvent: false });
+					this.axleSpacings?.patchValue(axleSpacings, { emitEvent: false });
 				}
 			});
 	}
