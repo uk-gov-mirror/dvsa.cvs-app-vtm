@@ -20,7 +20,6 @@ import { AdrExaminerNotesHistoryEditComponent } from '@forms/custom-sections/adr
 import { AdrPermittedDangerousGoodsComponent } from '@forms/custom-sections/adr-permitted-dangerous-goods/adr-permitted-dangerous-goods.component';
 import { ApprovalTypeComponent } from '@forms/custom-sections/approval-type/approval-type.component';
 import { PlatesSectionEditComponent } from '@forms/custom-sections/plates-section/plates-section-edit/plates-section-edit.component';
-import { PlatesSectionSummaryComponent } from '@forms/custom-sections/plates-section/plates-section-summary/plates-section-summary.component';
 import { PlatesSectionViewComponent } from '@forms/custom-sections/plates-section/plates-section-view/plates-section-view.component';
 import { PlatesSectionComponent } from '@forms/custom-sections/plates-section/plates-section.component';
 import { VehicleSectionEditComponent } from '@forms/custom-sections/vehicle-section/vehicle-section-edit/vehicle-section-edit.component';
@@ -198,7 +197,6 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		WeightsSectionSummaryComponent,
 		PlatesSectionComponent,
 		PlatesSectionEditComponent,
-		PlatesSectionSummaryComponent,
 		PlatesSectionViewComponent,
 	],
 	imports: [
@@ -300,7 +298,6 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		WeightsSectionSummaryComponent,
 		PlatesSectionComponent,
 		PlatesSectionEditComponent,
-		PlatesSectionSummaryComponent,
 		PlatesSectionViewComponent,
 	],
 })
