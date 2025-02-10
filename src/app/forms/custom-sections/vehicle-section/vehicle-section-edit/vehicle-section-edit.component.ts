@@ -1,3 +1,4 @@
+import { updateVehicleConfiguration } from '@/src/app/store/technical-records';
 import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
 import {
 	AbstractControl,
@@ -41,7 +42,7 @@ import { V3TechRecordModel, VehicleSizes, VehicleTypes } from '@models/vehicle-t
 import { Store } from '@ngrx/store';
 import { FormNodeWidth, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
-import { ReplaySubject } from 'rxjs';
+import { ReplaySubject, takeUntil } from 'rxjs';
 
 type VehicleSectionForm = Partial<Record<keyof TechRecordType<'hgv' | 'car' | 'psv' | 'lgv' | 'trl'>, FormControl>>;
 
@@ -100,6 +101,8 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 				parent.addControl(key, control, { emitEvent: false });
 			}
 		}
+
+		this.handleUpdateVehicleConfiguration();
 	}
 
 	ngOnDestroy(): void {
@@ -276,6 +279,16 @@ export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 
 			return null;
 		};
+	}
+
+	handleUpdateVehicleConfiguration() {
+		const control = this.form.controls.techRecord_vehicleConfiguration;
+		control?.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((vehicleConfiguration) => {
+			if (vehicleConfiguration && control?.dirty) {
+				this.store.dispatch(updateVehicleConfiguration({ vehicleConfiguration }));
+				control.markAsPristine();
+			}
+		});
 	}
 
 	setPassengerValue(smallPsv: boolean, control: AbstractControl) {

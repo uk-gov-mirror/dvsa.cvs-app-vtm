@@ -1,3 +1,4 @@
+import { updateVehicleConfiguration } from '@/src/app/store/technical-records';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, inject, input } from '@angular/core';
 import { ControlContainer, FormBuilder, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 import { TagType } from '@components/tag/tag.component';
@@ -13,6 +14,7 @@ import {
 import { FUNCTION_CODE_OPTIONS, MultiOptions } from '@models/options.model';
 import { PsvMake, ReferenceDataModelBase, ReferenceDataResourceType } from '@models/reference-data.model';
 import { V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
+import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { FormNodeWidth, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
 import { MultiOptionsService } from '@services/multi-options/multi-options.service';
@@ -29,6 +31,7 @@ import { Observable, ReplaySubject, combineLatest, map, skipWhile, switchMap, ta
 export class BodySectionEditComponent implements OnInit, OnDestroy {
 	fb = inject(FormBuilder);
 	store = inject(Store);
+	actions = inject(Actions);
 	controlContainer = inject(ControlContainer);
 	commonValidators = inject(CommonValidatorsService);
 	technicalRecordService = inject(TechnicalRecordService);
@@ -50,7 +53,9 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 				parent.addControl(key, control, { emitEvent: false });
 			}
 		}
+
 		this.loadOptions();
+
 		if (this.techRecord().techRecord_vehicleType === VehicleTypes.PSV) {
 			this.form
 				.get('techRecord_brakes_dtpNumber')
@@ -68,6 +73,7 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 					}
 				});
 		}
+
 		this.form
 			.get('techRecord_bodyType_description')
 			?.valueChanges.pipe(takeUntil(this.destroy$))
@@ -75,6 +81,34 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 				if (value) {
 					this.handleBodyTypeDescriptionChange(value);
 				}
+			});
+
+		this.handleUpdateVehicleConfiguration();
+	}
+
+	handleUpdateVehicleConfiguration() {
+		this.actions
+			.pipe(ofType(updateVehicleConfiguration))
+			.pipe(takeUntil(this.destroy$))
+			.subscribe(({ vehicleConfiguration }) => {
+				if (this.techRecord()?.techRecord_vehicleType === VehicleTypes.HGV && vehicleConfiguration === 'articulated') {
+					this.form.patchValue({
+						techRecord_bodyType_description: 'articulated',
+						techRecord_bodyType_code: 'a',
+					});
+				}
+
+				const functionCodes: Record<string, string> = {
+					rigid: 'R',
+					articulated: 'A',
+					'semi-trailer': 'A',
+				};
+
+				const functionCode = functionCodes[vehicleConfiguration];
+
+				this.form.patchValue({
+					techRecord_functionCode: functionCode,
+				});
 			});
 	}
 
