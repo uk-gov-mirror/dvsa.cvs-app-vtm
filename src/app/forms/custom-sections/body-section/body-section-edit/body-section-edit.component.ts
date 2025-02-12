@@ -106,11 +106,9 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 
 				const functionCode = functionCodes[vehicleConfiguration];
 
-				if (functionCode) {
-					this.form.patchValue({
-						techRecord_functionCode: functionCode,
-					});
-				}
+				this.form.patchValue({
+					techRecord_functionCode: functionCode,
+				});
 			});
 	}
 
