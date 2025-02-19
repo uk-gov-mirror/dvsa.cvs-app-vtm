@@ -7,10 +7,12 @@ on:
         description: Environment
         type: choice
         options:
-          - nonprod
+          - develop
           - integration
           - preprod
           - prod
+          - VTMDev1
+          - VTMDev2
         default: nonprod
       deploy-environment:
         description: (Re)Deploy Environment
@@ -115,4 +117,9 @@ jobs:
 
       - name: Upload App to S3
         working-directory: dist/
-        run: aws s3 sync . s3://vtm.${{ needs.environment.outputs.environment-type }}.${{ env.CVS_APP_VTM_GHA_DOMAIN }}
+        run: |
+          if [[ "${{ needs.environment.outputs.environment-type }}" =~ ^(develop|integration|preprod|prod)$ ]]; then
+            bucket_name="s3://vtm.${{ needs.environment.outputs.environment-type }}.${{ env.CVS_APP_VTM_GHA_DOMAIN }}"
+          else
+            bucket_name="s3://vtm-${{ needs.environment.outputs.environment-type }}.${{ env.CVS_APP_VTM_GHA_DOMAIN }}"
+          fi
