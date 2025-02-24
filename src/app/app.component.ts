@@ -23,6 +23,7 @@ import { State } from './store';
 })
 export class AppComponent implements OnInit, OnDestroy {
 	private destroy$ = new Subject<void>();
+	protected readonly version = packageInfo.version;
 
 	constructor(
 		public userService: UserService,
@@ -48,6 +49,11 @@ export class AppComponent implements OnInit, OnDestroy {
 		});
 
 		await this.gtmService.addGtmToDom();
+		alert();
+		// @ts-ignore
+		window.dataLayer.push({ AppVersionDataLayer: packageInfo.version });
+		// @ts-ignore
+		console.log(window.dataLayer);
 		initAll();
 	}
 
