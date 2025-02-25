@@ -52,6 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
 		await this.gtmService.addGtmToDom();
 		this.analyticsService.pushToDataLayer({ AppVersionDataLayer: packageInfo.version });
+    await this.analyticsService.setUserId();
 		initAll();
 	}
 

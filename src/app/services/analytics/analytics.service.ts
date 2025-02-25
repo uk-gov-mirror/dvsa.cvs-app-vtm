@@ -1,14 +1,14 @@
 // biome-ignore lint/style/useNodejsImportProtocol: Jasmine error when importing from node protocol
 import { createHash } from 'crypto';
-import { Injectable, OnDestroy, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { environment } from '@environments/environment';
 import { UserService } from '@services/user-service/user-service';
-import { Subject, takeUntil } from 'rxjs';
+import { firstValueFrom, Subject } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root',
 })
-export class AnalyticsService implements OnDestroy {
+export class AnalyticsService {
 	private userService = inject(UserService);
 	destroy$ = new Subject<void>();
 
@@ -17,28 +17,21 @@ export class AnalyticsService implements OnDestroy {
 		window.dataLayer.push(data);
 	}
 
-	setUserId(userId: string): void {
-		const uniqueId = this.createUniqueId(userId);
+	async setUserId(): Promise<void> {
+		const uniqueId = await this.createUniqueId();
+    this.pushToDataLayer({ UserIDDataLayer: uniqueId });
 	}
 
-	createUniqueId(userId: string): string {
+	async createUniqueId(): Promise<string> {
 		if (!environment.production) {
-			let userEmail = '';
-			this.userService.userEmail$.pipe(takeUntil(this.destroy$)).subscribe((email) => {
-				userEmail = email;
-			});
+			const userEmail = await firstValueFrom(this.userService.userEmail$);
 			return createHash('sha256').update(userEmail).digest('hex');
 		}
-
+    const userId = await firstValueFrom(this.userService.id$);
 		if (environment.production && userId) {
 			return createHash('sha256').update(userId).digest('hex');
 		}
 
 		return 'N/A';
-	}
-
-	ngOnDestroy(): void {
-		this.destroy$.next();
-		this.destroy$.complete();
 	}
 }

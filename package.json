@@ -53,6 +53,7 @@
     "@sentry/types": "^8.35.0",
     "accessible-autocomplete": "^2.0.4",
     "angular-google-tag-manager": "^1.10.0",
+    "crypto-browserify": "^3.12.1",
     "deep-object-diff": "^1.1.9",
     "govuk-frontend": "^4.8.0",
     "jwt-decode": "^4.0.0",
