@@ -12,9 +12,17 @@ import { selectUserByResourceKey } from '@store/reference-data';
 import { editingTechRecord } from '@store/technical-records';
 import { testResultInEdit } from '@store/test-records';
 import { getTestStationFromProperty } from '@store/test-stations';
-import { catchError, map, Observable, of, take, tap } from 'rxjs';
+import { catchError, map, Observable, of, skipWhile, take, tap } from 'rxjs';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { VehicleTypes } from '@models/vehicle-tech-record.model';
+import {
+  CAR_EU_VEHICLE_CATEGORY_OPTIONS, HGV_EU_VEHICLE_CATEGORY_OPTIONS,
+  LGV_EU_VEHICLE_CATEGORY_OPTIONS, PSV_EU_VEHICLE_CATEGORY_OPTIONS,
+  SMALL_TRL_EU_VEHICLE_CATEGORY_OPTIONS,
+  TRL_EU_VEHICLE_CATEGORY_OPTIONS,
+} from '@models/options.model';
+import { getOptionsFromEnum } from '@forms/utils/enum-map';
+import { EUVehicleCategory } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/euVehicleCategory.enum';
 
 export class CustomAsyncValidators {
 	static resultDependantOnCustomDefects(store: Store<State>): AsyncValidatorFn {
@@ -193,19 +201,34 @@ export class CustomAsyncValidators {
   static filterEuCategoryOnVehicleType(store: Store<State>, technicalRecordService: TechnicalRecordService): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> =>
       store.pipe(
+        skipWhile((techRecord) => !techRecord),
         take(1),
         select(editingTechRecord),
         map((form) => {
+          console.log('test');
           if (!form) return null;
+          console.log('test 2');
           const vehicleType = technicalRecordService.getVehicleTypeWithSmallTrl(form);
-          if (vehicleType === VehicleTypes.CAR) {
+          console.log('test 3');
+          if (!(control instanceof CustomFormControl)) return null;
+          console.log('test 4');
+          if (vehicleType === VehicleTypes.HGV) {
+            control.meta.options = HGV_EU_VEHICLE_CATEGORY_OPTIONS;
+          } else if (vehicleType === VehicleTypes.PSV) {
+            control.meta.options = PSV_EU_VEHICLE_CATEGORY_OPTIONS;
+          } else if (vehicleType === VehicleTypes.CAR) {
+            control.meta.options = CAR_EU_VEHICLE_CATEGORY_OPTIONS;
           } else if (vehicleType === VehicleTypes.TRL) {
-
+            control.meta.options = TRL_EU_VEHICLE_CATEGORY_OPTIONS;
           } else if (vehicleType === VehicleTypes.LGV) {
-
+            control.meta.options = LGV_EU_VEHICLE_CATEGORY_OPTIONS;
           } else if (vehicleType === VehicleTypes.SMALL_TRL) {
-
+            control.meta.options = SMALL_TRL_EU_VEHICLE_CATEGORY_OPTIONS;
+          } else {
+            control.meta.options = getOptionsFromEnum(EUVehicleCategory)
           }
+          console.log(control.meta);
+          control.meta.changeDetection?.detectChanges();
           return null;
         })
       );
