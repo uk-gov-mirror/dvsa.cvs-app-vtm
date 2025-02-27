@@ -17,6 +17,7 @@ import { ValidatorNames } from '@models/validators.enum';
 import { Store } from '@ngrx/store';
 import { State } from '@store/index';
 import { CustomFormArray, CustomFormControl, CustomFormGroup, FormNode, FormNodeTypes } from './dynamic-form.types';
+import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 
 type CustomFormFields = CustomFormControl | CustomFormArray | CustomFormGroup;
 
@@ -24,7 +25,7 @@ type CustomFormFields = CustomFormControl | CustomFormArray | CustomFormGroup;
 	providedIn: 'root',
 })
 export class DynamicFormService {
-	constructor(private store: Store<State>) {}
+  constructor(private store: Store<State>, private technicalRecordService: TechnicalRecordService) {}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	validatorMap: Record<ValidatorNames, (args: any) => ValidatorFn> = {
@@ -128,6 +129,7 @@ export class DynamicFormService {
 		[AsyncValidatorNames.UpdateTestStationDetails]: () => CustomAsyncValidators.updateTestStationDetails(this.store),
 		[AsyncValidatorNames.RequiredWhenCarryingDangerousGoods]: () =>
 			CustomAsyncValidators.requiredWhenCarryingDangerousGoods(this.store),
+    [AsyncValidatorNames.FilterEuCategoryOnVehicleType]: () => CustomAsyncValidators.filterEuCategoryOnVehicleType(this.store, this.technicalRecordService),
 		[AsyncValidatorNames.Custom]: (...args) => CustomAsyncValidators.custom(this.store, ...args),
 	};
 
@@ -139,7 +141,7 @@ export class DynamicFormService {
 
 		const form: CustomFormGroup | CustomFormArray =
 			formNode.type === FormNodeTypes.ARRAY
-				? new CustomFormArray(formNode, [], this.store)
+				? new CustomFormArray(formNode, [], this.store, this.technicalRecordService)
 				: new CustomFormGroup(formNode, {});
 
 		data = data ?? (formNode.type === FormNodeTypes.ARRAY ? [] : {});
