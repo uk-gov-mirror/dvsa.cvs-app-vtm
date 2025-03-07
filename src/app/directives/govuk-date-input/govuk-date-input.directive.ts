@@ -6,7 +6,6 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 
 @Directive({
 	selector: '[govukDateInput]',
-	standalone: true,
 	hostDirectives: [DateFocusNextDirective, NumberOnlyDirective],
 })
 export class GovukDateInputDirective implements OnInit, OnDestroy {

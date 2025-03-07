@@ -2,7 +2,6 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
 	selector: '[appFocusNext]',
-	standalone: true,
 })
 export class DateFocusNextDirective {
 	@Input() displayTime = false;
