@@ -34,8 +34,8 @@ describe('SelectComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [BaseControlComponent, FieldErrorMessageComponent, HostComponent, SelectComponent],
-			imports: [FormsModule, ReactiveFormsModule],
+			declarations: [BaseControlComponent, FieldErrorMessageComponent, SelectComponent],
+			imports: [FormsModule, ReactiveFormsModule, HostComponent],
 		}).compileComponents();
 	});
 

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { NumberOnlyDirective } from '../app-number-only.directive';
 
 @Component({
 	template: ' <input type="number" appNumberOnly />',
+	imports: [NumberOnlyDirective],
 })
 class TestComponent {}
 
@@ -14,12 +14,11 @@ describe('NumberOnlyDirective', () => {
 
 	beforeEach(() => {
 		fixture = TestBed.configureTestingModule({
-			imports: [NumberOnlyDirective],
-			declarations: [TestComponent],
+			imports: [TestComponent],
 		}).createComponent(TestComponent);
 		fixture.detectChanges();
 
-		input = fixture.debugElement.query(By.directive(NumberOnlyDirective)).nativeElement;
+		input = fixture.nativeElement.querySelector('input');
 	});
 	it('should create an instance', () => {
 		expect(input).toBeTruthy();

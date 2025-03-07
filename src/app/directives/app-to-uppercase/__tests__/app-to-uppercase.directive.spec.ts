@@ -20,8 +20,8 @@ describe('ToUppercaseDirective', () => {
 
 	beforeEach(() => {
 		fixture = TestBed.configureTestingModule({
-			imports: [FormsModule, ReactiveFormsModule],
-			declarations: [ToUppercaseDirective, TestComponent],
+			imports: [FormsModule, ReactiveFormsModule, TestComponent],
+			declarations: [ToUppercaseDirective],
 		}).createComponent(TestComponent);
 		fixture.detectChanges();
 

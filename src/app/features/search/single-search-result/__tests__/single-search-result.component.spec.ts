@@ -1,3 +1,5 @@
+import { TagComponent } from '@/src/app/components/tag/tag.component';
+import { SharedModule } from '@/src/app/shared/shared.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -18,8 +20,8 @@ describe('SingleSearchResultComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [SingleSearchResultComponent, RoleRequiredDirective],
-			imports: [DynamicFormsModule, HttpClientTestingModule, RouterTestingModule],
+			declarations: [SingleSearchResultComponent, RoleRequiredDirective, TagComponent],
+			imports: [DynamicFormsModule, SharedModule, HttpClientTestingModule, RouterTestingModule],
 			providers: [
 				provideMockStore({ initialState: initialAppState }),
 				provideMockActions(() => actions$),

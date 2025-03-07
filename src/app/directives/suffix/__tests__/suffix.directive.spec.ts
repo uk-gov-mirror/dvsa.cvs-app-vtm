@@ -13,7 +13,8 @@ describe('SuffixDirective', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [SuffixDirective, TestComponent],
+			imports: [TestComponent],
+			declarations: [SuffixDirective],
 			providers: [TemplateRef],
 		}).compileComponents();
 

@@ -20,7 +20,8 @@ describe('AccordionControlComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [AccordionControlComponent, HostComponent, AccordionComponent],
+			imports: [HostComponent],
+			declarations: [AccordionControlComponent, AccordionComponent],
 			providers: [provideMockStore({ initialState: initialAppState })],
 		}).compileComponents();
 	});

@@ -25,8 +25,8 @@ describe('ReadOnlyComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [BaseControlComponent, HostComponent, ReadOnlyComponent],
-			imports: [FormsModule, ReactiveFormsModule, SharedModule],
+			declarations: [BaseControlComponent, ReadOnlyComponent],
+			imports: [FormsModule, ReactiveFormsModule, SharedModule, HostComponent],
 		}).compileComponents();
 	});
 

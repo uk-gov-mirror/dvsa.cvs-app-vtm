@@ -5,8 +5,13 @@ import { By } from '@angular/platform-browser';
 import { NoSpaceDirective } from '../app-no-space.directive';
 
 @Component({
-	template: ` <form [formGroup]="form"><input id="bar" appNoSpace formControlName="foo" /></form>
-    <input id="baz" appNoSpace />`,
+	template: `
+    <form [formGroup]="form">
+      <input id="bar" appNoSpace formControlName="foo" />
+    </form>
+    <input id="baz" appNoSpace />
+  `,
+	imports: [NoSpaceDirective],
 })
 class TestComponent {
 	form = new FormGroup({
@@ -22,8 +27,8 @@ describe('NoSpaceDirective', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [FormsModule, ReactiveFormsModule],
-			declarations: [NoSpaceDirective, TestComponent],
+			imports: [FormsModule, ReactiveFormsModule, TestComponent],
+			declarations: [NoSpaceDirective],
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(TestComponent);

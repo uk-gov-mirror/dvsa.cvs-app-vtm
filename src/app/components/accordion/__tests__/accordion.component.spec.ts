@@ -18,7 +18,8 @@ describe('AccordionComponent', () => {
 	let store: MockStore<State>;
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [AccordionComponent, HostComponent],
+			imports: [HostComponent],
+			declarations: [AccordionComponent],
 			providers: [provideMockStore({ initialState: initialAppState })],
 		}).compileComponents();
 		store = TestBed.inject(MockStore);

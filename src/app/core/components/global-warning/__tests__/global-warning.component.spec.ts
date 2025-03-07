@@ -19,8 +19,8 @@ describe('GlobalWarningComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [GlobalWarningComponent, MockComponent],
-			imports: [],
+			declarations: [GlobalWarningComponent],
+			imports: [MockComponent],
 			providers: [GlobalWarningService, provideMockStore({ initialState: initialAppState })],
 		}).compileComponents();
 	});

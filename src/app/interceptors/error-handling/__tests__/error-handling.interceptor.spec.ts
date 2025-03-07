@@ -19,8 +19,8 @@ describe('ErrorInterceptor', () => {
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			declarations: [DummyComponent],
 			imports: [
+				DummyComponent,
 				HttpClientTestingModule,
 				RouterTestingModule.withRoutes([
 					{

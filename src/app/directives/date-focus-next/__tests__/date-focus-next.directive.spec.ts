@@ -26,8 +26,7 @@ describe('FocusNextDirective', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [DateFocusNextDirective],
-			declarations: [TestComponent],
+			imports: [DateFocusNextDirective, TestComponent],
 		}).compileComponents();
 	});
 

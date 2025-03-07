@@ -19,8 +19,8 @@ describe('GlobalErrorComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [GlobalErrorComponent, MockComponent],
-			imports: [],
+			declarations: [GlobalErrorComponent],
+			imports: [MockComponent],
 			providers: [GlobalErrorService, provideMockStore({ initialState: initialAppState })],
 		}).compileComponents();
 	});

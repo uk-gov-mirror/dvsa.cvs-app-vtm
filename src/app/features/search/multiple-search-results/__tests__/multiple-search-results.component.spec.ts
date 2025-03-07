@@ -1,3 +1,4 @@
+import { NumberPlateComponent } from '@/src/app/components/number-plate/number-plate.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -31,6 +32,7 @@ describe('MultipleSearchResultsComponent', () => {
 				RoleRequiredDirective,
 				DefaultNullOrEmpty,
 				FormatVehicleTypePipe,
+				NumberPlateComponent,
 			],
 			imports: [DynamicFormsModule, HttpClientTestingModule, RouterTestingModule],
 			providers: [

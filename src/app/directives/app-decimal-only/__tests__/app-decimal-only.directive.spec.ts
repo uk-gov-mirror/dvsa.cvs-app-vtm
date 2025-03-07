@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { DecimalOnlyDirective } from '../app-decimal-only.directive';
 
 @Component({
 	template: ' <input type="number" appDecimalOnly />',
+	imports: [DecimalOnlyDirective],
 })
 class TestComponent {}
 
@@ -14,11 +14,11 @@ describe('DecimalOnlyDirective', () => {
 
 	beforeEach(() => {
 		fixture = TestBed.configureTestingModule({
-			declarations: [DecimalOnlyDirective, TestComponent],
+			imports: [TestComponent],
 		}).createComponent(TestComponent);
 		fixture.detectChanges();
 
-		input = fixture.debugElement.query(By.directive(DecimalOnlyDirective)).nativeElement;
+		input = fixture.nativeElement.querySelector('input');
 	});
 	it('should create an instance', () => {
 		expect(input).toBeTruthy();

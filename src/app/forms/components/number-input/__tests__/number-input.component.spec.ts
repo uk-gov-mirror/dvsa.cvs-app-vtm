@@ -27,13 +27,12 @@ describe('NumberInputComponent', () => {
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			declarations: [
-				HostComponent,
 				NumberInputComponent,
 				BaseControlComponent,
 				FieldErrorMessageComponent,
 				FieldWarningMessageComponent,
 			],
-			imports: [FormsModule, ReactiveFormsModule],
+			imports: [FormsModule, ReactiveFormsModule, HostComponent],
 		}).compileComponents();
 	});
 

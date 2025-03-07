@@ -43,15 +43,15 @@ describe('ApprovalTypeComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [BaseControlComponent, ApprovalTypeInputComponent, FieldErrorMessageComponent, HostComponent],
-			imports: [FormsModule, ReactiveFormsModule, DateFocusNextDirective],
+			declarations: [BaseControlComponent, ApprovalTypeInputComponent, FieldErrorMessageComponent],
+			imports: [FormsModule, ReactiveFormsModule, DateFocusNextDirective, HostComponent],
 			providers: [GlobalErrorService, provideMockStore({ initialState: initialAppState })],
 		}).compileComponents();
 	});
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(HostComponent);
-		component = fixture.componentInstance;
+		component = fixture.componentRef.instance;
 	});
 
 	it('should create', () => {

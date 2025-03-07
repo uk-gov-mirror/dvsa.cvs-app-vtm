@@ -36,8 +36,8 @@ describe('AutocompleteComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [AutocompleteComponent, HostComponent, FieldErrorMessageComponent],
-			imports: [FormsModule, ReactiveFormsModule],
+			declarations: [AutocompleteComponent, FieldErrorMessageComponent],
+			imports: [FormsModule, ReactiveFormsModule, HostComponent],
 		}).compileComponents();
 	});
 

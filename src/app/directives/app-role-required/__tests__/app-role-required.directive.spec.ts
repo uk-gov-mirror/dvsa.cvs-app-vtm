@@ -67,7 +67,8 @@ describe('RoleRequiredDirective with multiple optional roles', () => {
 		'should show the element when either role is present',
 		(user) => {
 			const fixture: ComponentFixture<TestComponent> = TestBed.configureTestingModule({
-				declarations: [RoleRequiredDirective, TestComponent],
+				declarations: [RoleRequiredDirective],
+				imports: [TestComponent],
 				providers: [
 					provideMockStore({ initialState: initialAppState }),
 					{ provide: UserService, useValue: { roles$: of(user) } },
@@ -85,7 +86,8 @@ describe('RoleRequiredDirective with multiple optional roles', () => {
 describe('RoleRequiredDirective without roles', () => {
 	it('should hide the element when no roles are available', () => {
 		const fixture: ComponentFixture<TestComponent> = TestBed.configureTestingModule({
-			declarations: [RoleRequiredDirective, TestComponent],
+			imports: [TestComponent],
+			declarations: [RoleRequiredDirective],
 			providers: [
 				provideMockStore({ initialState: initialAppState }),
 				{ provide: UserService, useValue: { roles$: of(null) } },

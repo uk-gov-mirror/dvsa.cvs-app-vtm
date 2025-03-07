@@ -17,7 +17,8 @@ describe('PreventDoubleClickDirective', () => {
 
 	beforeEach(waitForAsync(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [HostComponent, PreventDoubleClickDirective],
+			imports: [HostComponent],
+			declarations: [PreventDoubleClickDirective],
 		}).compileComponents();
 	}));
 

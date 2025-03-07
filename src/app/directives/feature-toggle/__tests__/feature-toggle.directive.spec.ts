@@ -29,7 +29,8 @@ describe('FeatureToggleDirective', () => {
 
 	beforeEach(() => {
 		fixture = TestBed.configureTestingModule({
-			declarations: [FeatureToggleDirective, TestComponent],
+			imports: [TestComponent],
+			declarations: [FeatureToggleDirective],
 			providers: [FeatureToggleService, HttpClient, HttpHandler],
 		}).createComponent(TestComponent);
 

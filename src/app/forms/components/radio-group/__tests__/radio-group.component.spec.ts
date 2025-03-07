@@ -34,8 +34,8 @@ describe('RadioGroupComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [HostComponent, RadioGroupComponent, BaseControlComponent, FieldErrorMessageComponent],
-			imports: [FormsModule, ReactiveFormsModule],
+			declarations: [RadioGroupComponent, BaseControlComponent, FieldErrorMessageComponent],
+			imports: [FormsModule, ReactiveFormsModule, HostComponent],
 			providers: [ReferenceDataService, provideMockStore({ initialState: initialAppState })],
 		}).compileComponents();
 	});

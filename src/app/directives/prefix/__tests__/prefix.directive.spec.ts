@@ -13,7 +13,8 @@ describe('PrefixDirective', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [PrefixDirective, TestComponent],
+			imports: [TestComponent],
+			declarations: [PrefixDirective],
 			providers: [TemplateRef],
 		}).compileComponents();
 

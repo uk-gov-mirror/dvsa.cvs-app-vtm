@@ -1,6 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { QueryList } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EUVehicleCategory } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/euVehicleCategoryTrl.enum.js';
@@ -34,7 +35,14 @@ describe('TechRecordSummaryComponent', () => {
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			declarations: [TechRecordSummaryComponent],
-			imports: [DynamicFormsModule, HttpClientTestingModule, RouterTestingModule, SharedModule],
+			imports: [
+				DynamicFormsModule,
+				FormsModule,
+				ReactiveFormsModule,
+				HttpClientTestingModule,
+				RouterTestingModule,
+				SharedModule,
+			],
 			providers: [
 				MultiOptionsService,
 				provideMockStore({ initialState: initialAppState }),

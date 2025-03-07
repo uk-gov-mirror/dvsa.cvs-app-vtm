@@ -32,8 +32,8 @@ describe('SuggestiveInputComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [HostComponent, SuggestiveInputComponent, FieldErrorMessageComponent],
-			imports: [FormsModule, ReactiveFormsModule],
+			declarations: [SuggestiveInputComponent, FieldErrorMessageComponent],
+			imports: [FormsModule, ReactiveFormsModule, HostComponent],
 		}).compileComponents();
 	});
 
