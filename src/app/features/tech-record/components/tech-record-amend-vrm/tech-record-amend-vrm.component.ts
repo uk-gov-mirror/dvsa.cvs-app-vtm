@@ -1,5 +1,6 @@
+import { NgIf, UpperCasePipe } from '@angular/common';
 import { Component, EventEmitter, OnDestroy, OnInit, Output, QueryList, ViewChildren, inject } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
@@ -15,12 +16,35 @@ import { TechnicalRecordService } from '@services/technical-record/technical-rec
 import { amendVrm, amendVrmSuccess } from '@store/technical-records';
 import { TechnicalRecordServiceState } from '@store/technical-records/technical-record-service.reducer';
 import { Subject, take, takeUntil } from 'rxjs';
+import { ButtonGroupComponent } from '../../../../components/button-group/button-group.component';
+import { ButtonComponent } from '../../../../components/button/button.component';
+import { NumberPlateComponent } from '../../../../components/number-plate/number-plate.component';
+import { NoSpaceDirective } from '../../../../directives/app-no-space/app-no-space.directive';
+import { ToUppercaseDirective } from '../../../../directives/app-to-uppercase/app-to-uppercase.directive';
+import { TrimWhitespaceDirective } from '../../../../directives/app-trim-whitespace/app-trim-whitespace.directive';
+import { FieldWarningMessageComponent } from '../../../../forms/components/field-warning-message/field-warning-message.component';
+import { TextInputComponent } from '../../../../forms/components/text-input/text-input.component';
+import { DefaultNullOrEmpty } from '../../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
 
 @Component({
 	selector: 'app-change-amend-vrm',
 	templateUrl: './tech-record-amend-vrm.component.html',
 	styleUrls: ['./tech-record-amend-vrm.component.scss'],
-	standalone: false,
+	imports: [
+		NgIf,
+		FieldWarningMessageComponent,
+		NumberPlateComponent,
+		FormsModule,
+		ReactiveFormsModule,
+		TextInputComponent,
+		ToUppercaseDirective,
+		NoSpaceDirective,
+		TrimWhitespaceDirective,
+		ButtonGroupComponent,
+		ButtonComponent,
+		UpperCasePipe,
+		DefaultNullOrEmpty,
+	],
 })
 export class AmendVrmComponent implements OnDestroy, OnInit {
 	techRecord?: VehiclesOtherThan<'trl'>;

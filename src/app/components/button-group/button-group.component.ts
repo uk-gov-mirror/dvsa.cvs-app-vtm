@@ -5,6 +5,5 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 	templateUrl: './button-group.component.html',
 	styleUrls: ['./button-group.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: false,
 })
 export class ButtonGroupComponent {}

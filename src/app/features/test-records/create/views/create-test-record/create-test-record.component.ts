@@ -1,5 +1,6 @@
+import { AsyncPipe, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { GlobalWarning } from '@core/components/global-warning/global-warning.interface';
@@ -22,12 +23,27 @@ import { createTestResultSuccess } from '@store/test-records';
 import { getTypeOfTest } from '@store/test-types/test-types.selectors';
 import cloneDeep from 'lodash.clonedeep';
 import { BehaviorSubject, Observable, Subject, filter, firstValueFrom, map, of, take, takeUntil, tap } from 'rxjs';
+import { BannerComponent } from '../../../../../components/banner/banner.component';
+import { ButtonGroupComponent } from '../../../../../components/button-group/button-group.component';
+import { ButtonComponent } from '../../../../../components/button/button.component';
+import { AbandonDialogComponent as AbandonDialogComponent_1 } from '../../../../../forms/custom-sections/abandon-dialog/abandon-dialog.component';
 import { BaseTestRecordComponent } from '../../../components/base-test-record/base-test-record.component';
 
 @Component({
 	selector: 'app-create-test-record',
 	templateUrl: './create-test-record.component.html',
-	standalone: false,
+	imports: [
+		NgIf,
+		BannerComponent,
+		ButtonComponent,
+		RouterLink,
+		NgSwitch,
+		NgSwitchCase,
+		BaseTestRecordComponent,
+		ButtonGroupComponent,
+		AbandonDialogComponent_1,
+		AsyncPipe,
+	],
 })
 export class CreateTestRecordComponent implements OnInit, OnDestroy, AfterViewInit {
 	@ViewChild(BaseTestRecordComponent) private baseTestRecordComponent?: BaseTestRecordComponent;

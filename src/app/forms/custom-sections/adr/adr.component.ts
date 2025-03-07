@@ -6,16 +6,19 @@ import { DynamicFormService } from '@services/dynamic-forms/dynamic-form.service
 import { CustomFormGroup, FormNode } from '@services/dynamic-forms/dynamic-form.types';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 
+import { NgIf } from '@angular/common';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { AdrSummaryTemplate } from '@forms/templates/general/adr-summary.template';
 import { AdrService } from '@services/adr/adr.service';
 import { ReplaySubject, skipWhile, takeUntil } from 'rxjs';
+import { RetrieveDocumentDirective } from '../../../directives/retrieve-document/retrieve-document.directive';
+import { DynamicFormGroupComponent } from '../../components/dynamic-form-group/dynamic-form-group.component';
 
 @Component({
 	selector: 'app-adr',
 	templateUrl: './adr.component.html',
 	styleUrls: ['./adr.component.scss'],
-	standalone: false,
+	imports: [NgIf, RetrieveDocumentDirective, DynamicFormGroupComponent],
 })
 export class AdrComponent implements OnInit, OnDestroy {
 	@Input() techRecord!: TechRecordType<'hgv' | 'lgv' | 'trl'>;

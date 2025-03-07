@@ -1,8 +1,11 @@
+import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Roles } from '@models/roles.enum';
 import { TestResultStatus } from '@models/test-results/test-result-status.enum';
 import { TestResultModel } from '@models/test-results/test-result.model';
 import { resultOfTestEnum } from '@models/test-types/test-type.model';
+import { PaginationComponent } from '../../../../components/pagination/pagination.component';
 
 interface TestField {
 	testTypeStartTimestamp: string | Date;
@@ -17,7 +20,7 @@ interface TestField {
 	selector: 'app-test-record-summary',
 	templateUrl: './test-record-summary.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: false,
+	imports: [NgIf, NgFor, RouterLink, PaginationComponent, DatePipe],
 })
 export class TestRecordSummaryComponent {
 	@Input() isEditing = false;

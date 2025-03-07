@@ -1,10 +1,7 @@
 import { Directive, EventEmitter, HostListener, Input, OnDestroy, Output } from '@angular/core';
 import { Subject, Subscription, throttleTime } from 'rxjs';
 
-@Directive({
-	selector: '[appPreventDoubleClick]',
-	standalone: false,
-})
+@Directive({ selector: '[appPreventDoubleClick]' })
 export class PreventDoubleClickDirective implements OnDestroy {
 	@Input()
 	throttleTime = 1000;

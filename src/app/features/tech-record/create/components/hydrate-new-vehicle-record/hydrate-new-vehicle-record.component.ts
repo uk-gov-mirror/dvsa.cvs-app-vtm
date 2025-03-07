@@ -1,3 +1,4 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,12 +20,14 @@ import {
 import { BatchRecord } from '@store/technical-records/batch-create.reducer';
 import { TechnicalRecordServiceState, nullADRDetails } from '@store/technical-records/technical-record-service.reducer';
 import { Observable, Subject, map, take, takeUntil, withLatestFrom } from 'rxjs';
+import { ButtonComponent } from '../../../../../components/button/button.component';
 import { TechRecordSummaryComponent } from '../../../components/tech-record-summary/tech-record-summary.component';
+import { TechRecordTitleComponent } from '../../../components/tech-record-title/tech-record-title.component';
 
 @Component({
 	selector: 'app-hydrate-new-vehicle-record',
 	templateUrl: './hydrate-new-vehicle-record.component.html',
-	standalone: false,
+	imports: [NgIf, TechRecordTitleComponent, ButtonComponent, TechRecordSummaryComponent, AsyncPipe],
 })
 export class HydrateNewVehicleRecordComponent implements OnDestroy, OnInit {
 	@ViewChild(TechRecordSummaryComponent) summary?: TechRecordSummaryComponent;

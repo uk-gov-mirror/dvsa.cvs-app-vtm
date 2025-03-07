@@ -16,7 +16,14 @@ import { TestRouterOutletComponent } from './views/test-router-outlet/test-route
 import { TestTypeSelectWrapperComponent } from './views/test-type-select-wrapper/test-type-select-wrapper.component';
 
 @NgModule({
-	declarations: [
+	imports: [
+		AmendTestRecordsRoutingModule,
+		CommonModule,
+		DynamicFormsModule,
+		FormsModule,
+		ReactiveFormsModule,
+		SharedModule,
+		TestRecordsModule,
 		AmendTestComponent,
 		AmendedTestRecordComponent,
 		ConfirmCancellationComponent,
@@ -26,15 +33,6 @@ import { TestTypeSelectWrapperComponent } from './views/test-type-select-wrapper
 		TestResultSummaryComponent,
 		TestRouterOutletComponent,
 		TestTypeSelectWrapperComponent,
-	],
-	imports: [
-		AmendTestRecordsRoutingModule,
-		CommonModule,
-		DynamicFormsModule,
-		FormsModule,
-		ReactiveFormsModule,
-		SharedModule,
-		TestRecordsModule,
 	],
 })
 export class AmendTestRecordsModule {}

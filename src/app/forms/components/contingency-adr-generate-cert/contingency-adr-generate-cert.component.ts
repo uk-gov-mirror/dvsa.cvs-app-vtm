@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ADRCertificateDetails } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/trl/complete';
 import {
@@ -13,12 +14,15 @@ import { State } from '@store/index';
 import { retryInterceptorFailure } from '@store/retry-interceptor/retry-interceptor.actions';
 import { generateADRCertificate, generateADRCertificateSuccess } from '@store/technical-records';
 import { Subject, take, takeUntil } from 'rxjs';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { RetrieveDocumentDirective } from '../../../directives/retrieve-document/retrieve-document.directive';
+import { FieldErrorMessageComponent } from '../field-error-message/field-error-message.component';
 
 @Component({
 	selector: 'app-contingency-adr-generate-cert',
 	templateUrl: './contingency-adr-generate-cert.component.html',
 	styleUrls: ['./contingency-adr-generate-cert.component.scss'],
-	standalone: false,
+	imports: [ButtonComponent, NgIf, FieldErrorMessageComponent, RetrieveDocumentDirective],
 })
 export class ContingencyAdrGenerateCertComponent extends CustomFormControlComponent {
 	systemNumber?: string;

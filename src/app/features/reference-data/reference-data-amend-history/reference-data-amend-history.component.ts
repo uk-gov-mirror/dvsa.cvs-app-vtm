@@ -1,3 +1,4 @@
+import { AsyncPipe, DatePipe, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import {
 	ReferenceDataAdminColumn,
@@ -7,12 +8,13 @@ import {
 import { Store, select } from '@ngrx/store';
 import { ReferenceDataState, fetchReferenceDataByKeySearch, selectSearchReturn } from '@store/reference-data';
 import { Observable, map } from 'rxjs';
+import { PaginationComponent } from '../../../components/pagination/pagination.component';
 
 @Component({
 	selector: 'app-reference-data-amend-history',
 	templateUrl: './reference-data-amend-history.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: false,
+	imports: [NgIf, NgFor, PaginationComponent, AsyncPipe, DatePipe],
 })
 export class ReferenceDataAmendHistoryComponent implements OnInit {
 	@Input() type = '';

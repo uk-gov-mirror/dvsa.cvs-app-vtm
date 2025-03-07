@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
@@ -13,7 +14,7 @@ import { AccordionComponent } from '../accordion/accordion.component';
 	templateUrl: './accordion-control.component.html',
 	styleUrls: ['accordion-control.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: false,
+	imports: [NgClass],
 })
 export class AccordionControlComponent {
 	private accordionsList?: QueryList<AccordionComponent>;

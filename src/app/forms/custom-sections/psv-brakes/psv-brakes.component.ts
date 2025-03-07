@@ -1,3 +1,4 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
@@ -19,12 +20,13 @@ import { ReferenceDataState, selectBrakeByCode } from '@store/reference-data';
 import { updateBrakeForces } from '@store/technical-records';
 import { TechnicalRecordServiceState } from '@store/technical-records/technical-record-service.reducer';
 import { Observable, Subject, debounceTime, of, switchMap, takeUntil, withLatestFrom } from 'rxjs';
+import { SwitchableInputComponent } from '../../components/switchable-input/switchable-input.component';
 
 @Component({
 	selector: 'app-psv-brakes',
 	templateUrl: './psv-brakes.component.html',
 	styleUrls: ['./psv-brakes.component.scss'],
-	standalone: false,
+	imports: [NgIf, SwitchableInputComponent, NgFor],
 })
 export class PsvBrakesComponent implements OnInit, OnChanges, OnDestroy {
 	@Input() vehicleTechRecord?: TechRecordType<'psv'>;

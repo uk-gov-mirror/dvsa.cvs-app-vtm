@@ -1,6 +1,11 @@
+import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { AfterContentInit, Component, Input } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { TagComponent } from '../../../components/tag/tag.component';
+import { NumberOnlyDirective } from '../../../directives/app-number-only/app-number-only.directive';
 import { BaseControlComponent } from '../base-control/base-control.component';
+import { FieldErrorMessageComponent } from '../field-error-message/field-error-message.component';
+import { FieldWarningMessageComponent } from '../field-warning-message/field-warning-message.component';
 
 @Component({
 	selector: 'app-number-input',
@@ -13,7 +18,17 @@ import { BaseControlComponent } from '../base-control/base-control.component';
 			multi: true,
 		},
 	],
-	standalone: false,
+	imports: [
+		NgClass,
+		NgIf,
+		NgFor,
+		TagComponent,
+		FieldErrorMessageComponent,
+		FieldWarningMessageComponent,
+		NgTemplateOutlet,
+		FormsModule,
+		NumberOnlyDirective,
+	],
 })
 export class NumberInputComponent extends BaseControlComponent implements AfterContentInit {
 	@Input() vehicleType?: string | null;

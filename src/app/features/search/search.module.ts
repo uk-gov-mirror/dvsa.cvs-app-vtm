@@ -9,7 +9,15 @@ import { SearchComponent } from './search.component';
 import { SingleSearchResultComponent } from './single-search-result/single-search-result.component';
 
 @NgModule({
-	declarations: [SearchComponent, SingleSearchResultComponent, MultipleSearchResultsComponent],
-	imports: [CommonModule, DynamicFormsModule, RouterModule, SearchRoutingModule, SharedModule],
+	imports: [
+		CommonModule,
+		DynamicFormsModule,
+		RouterModule,
+		SearchRoutingModule,
+		SharedModule,
+		SearchComponent,
+		SingleSearchResultComponent,
+		MultipleSearchResultsComponent,
+	],
 })
 export class SearchModule {}

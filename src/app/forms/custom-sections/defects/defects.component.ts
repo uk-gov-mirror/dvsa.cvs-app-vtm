@@ -1,15 +1,21 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { Defect } from '@models/defects/defect.model';
 import { TestResultDefect } from '@models/test-results/test-result-defect.model';
 import { TestResultModel } from '@models/test-results/test-result.model';
+import { TruncatePipe } from '@pipes/truncate/truncate.pipe';
 import { DynamicFormService } from '@services/dynamic-forms/dynamic-form.service';
 import { CustomFormArray, CustomFormGroup, FormNode } from '@services/dynamic-forms/dynamic-form.types';
 import { Subscription, debounceTime } from 'rxjs';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { TagComponent } from '../../../components/tag/tag.component';
 
 @Component({
 	selector: 'app-defects[defects][template]',
 	templateUrl: './defects.component.html',
-	standalone: false,
+	imports: [NgIf, FormsModule, ReactiveFormsModule, NgFor, RouterLink, TagComponent, ButtonComponent, TruncatePipe],
 })
 export class DefectsComponent implements OnInit, OnDestroy {
 	@Input() isEditing = false;

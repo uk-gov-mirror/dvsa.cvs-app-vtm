@@ -1,5 +1,6 @@
+import { NgFor, NgIf } from '@angular/common';
 import { AfterContentInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { FormArray, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TC3Types } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/tc3Types.enum.js';
 import { getOptionsFromEnum } from '@forms/utils/enum-map';
 import { CustomValidators } from '@forms/validators/custom-validators/custom-validators';
@@ -12,6 +13,9 @@ import {
 	FormNodeViewTypes,
 } from '@services/dynamic-forms/dynamic-form.types';
 import { ReplaySubject, takeUntil } from 'rxjs';
+import { DateComponent } from '../../components/date/date.component';
+import { SelectComponent } from '../../components/select/select.component';
+import { TextInputComponent } from '../../components/text-input/text-input.component';
 import { CustomFormControlComponent } from '../custom-form-control/custom-form-control.component';
 
 @Component({
@@ -21,7 +25,7 @@ import { CustomFormControlComponent } from '../custom-form-control/custom-form-c
 	providers: [
 		{ provide: NG_VALUE_ACCESSOR, useExisting: AdrTankDetailsSubsequentInspectionsEditComponent, multi: true },
 	],
-	standalone: false,
+	imports: [NgIf, NgFor, FormsModule, ReactiveFormsModule, SelectComponent, TextInputComponent, DateComponent],
 })
 export class AdrTankDetailsSubsequentInspectionsEditComponent
 	extends CustomFormControlComponent

@@ -1,10 +1,7 @@
 import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { FeatureToggleService } from '@services/feature-toggle-service/feature-toggle-service';
 
-@Directive({
-	selector: '[featureToggleName]',
-	standalone: false,
-})
+@Directive({ selector: '[featureToggleName]' })
 export class FeatureToggleDirective implements OnInit {
 	@Input() featureToggleName!: string;
 

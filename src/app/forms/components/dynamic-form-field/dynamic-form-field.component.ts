@@ -1,6 +1,6 @@
-import { KeyValue } from '@angular/common';
+import { AsyncPipe, KeyValue, NgComponentOutlet, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import { AfterContentInit, Component, InjectionToken, Injector, Input, OnInit } from '@angular/core';
-import { FormGroup, NgControl } from '@angular/forms';
+import { FormGroup, FormsModule, NgControl, ReactiveFormsModule } from '@angular/forms';
 // eslint-disable-next-line import/no-cycle
 import {
 	CustomFormControl,
@@ -10,12 +10,41 @@ import {
 } from '@services/dynamic-forms/dynamic-form.types';
 import { MultiOptionsService } from '@services/multi-options/multi-options.service';
 import { Observable, map, of } from 'rxjs';
+import { SuffixDirective } from '../../../directives/suffix/suffix.directive';
+import { AutocompleteComponent } from '../autocomplete/autocomplete.component';
+import { CheckboxGroupComponent } from '../checkbox-group/checkbox-group.component';
+import { CheckboxComponent } from '../checkbox/checkbox.component';
+import { DateComponent } from '../date/date.component';
+import { NumberInputComponent } from '../number-input/number-input.component';
+import { RadioGroupComponent } from '../radio-group/radio-group.component';
+import { SelectComponent } from '../select/select.component';
+import { TextAreaComponent } from '../text-area/text-area.component';
+import { TextInputComponent } from '../text-input/text-input.component';
 
 @Component({
 	selector: 'app-dynamic-form-field',
 	templateUrl: './dynamic-form-field.component.html',
 	providers: [MultiOptionsService],
-	standalone: false,
+	imports: [
+		NgIf,
+		NgSwitch,
+		FormsModule,
+		ReactiveFormsModule,
+		NgSwitchCase,
+		AutocompleteComponent,
+		DateComponent,
+		NumberInputComponent,
+		SuffixDirective,
+		RadioGroupComponent,
+		SelectComponent,
+		TextAreaComponent,
+		CheckboxComponent,
+		CheckboxGroupComponent,
+		TextInputComponent,
+		NgComponentOutlet,
+		NgSwitchDefault,
+		AsyncPipe,
+	],
 })
 export class DynamicFormFieldComponent implements OnInit, AfterContentInit {
 	@Input() control?: KeyValue<string, CustomFormControl>;

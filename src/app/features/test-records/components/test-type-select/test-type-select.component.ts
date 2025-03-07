@@ -1,3 +1,4 @@
+import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TestType } from '@models/test-types/testType';
@@ -11,7 +12,7 @@ import { Observable } from 'rxjs';
 	selector: 'app-test-type-select',
 	templateUrl: './test-type-select.component.html',
 	styleUrls: ['./test-type-select.component.scss'],
-	standalone: false,
+	imports: [NgIf, NgClass, NgFor, AsyncPipe],
 })
 export class TestTypeSelectComponent implements OnInit {
 	@Output() testTypeSelected = new EventEmitter<TestType>();

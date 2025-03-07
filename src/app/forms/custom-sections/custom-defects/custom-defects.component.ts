@@ -1,15 +1,19 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomDefect } from '@models/test-results/customDefect';
 import { CustomDefects } from '@models/test-results/customDefects';
 import { DynamicFormService } from '@services/dynamic-forms/dynamic-form.service';
 import { CustomFormArray, CustomFormGroup, FormNode } from '@services/dynamic-forms/dynamic-form.types';
 import { Subscription } from 'rxjs';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { CustomDefectComponent } from '../custom-defect/custom-defect.component';
 
 @Component({
 	selector: 'app-custom-defects[template]',
 	templateUrl: './custom-defects.component.html',
 	styleUrls: [],
-	standalone: false,
+	imports: [NgIf, FormsModule, ReactiveFormsModule, NgFor, CustomDefectComponent, ButtonComponent],
 })
 export class CustomDefectsComponent implements OnInit, OnDestroy {
 	@Input() isEditing = false;

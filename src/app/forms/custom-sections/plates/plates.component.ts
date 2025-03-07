@@ -1,5 +1,6 @@
-import { ViewportScroller } from '@angular/common';
+import { DatePipe, NgFor, NgIf, ViewportScroller } from '@angular/common';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { HGVPlates } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/hgv/complete';
@@ -16,12 +17,28 @@ import { canGeneratePlate, updateScrollPosition } from '@store/technical-records
 import { TechnicalRecordServiceState } from '@store/technical-records/technical-record-service.reducer';
 import { cloneDeep } from 'lodash';
 import { Subscription, debounceTime } from 'rxjs';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { PaginationComponent } from '../../../components/pagination/pagination.component';
+import { RoleRequiredDirective } from '../../../directives/app-role-required/app-role-required.directive';
+import { RetrieveDocumentDirective } from '../../../directives/retrieve-document/retrieve-document.directive';
+import { DefaultNullOrEmpty } from '../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
 
 @Component({
 	selector: 'app-plates[techRecord]',
 	templateUrl: './plates.component.html',
 	styleUrls: ['./plates.component.scss'],
-	standalone: false,
+	imports: [
+		FormsModule,
+		ReactiveFormsModule,
+		NgIf,
+		NgFor,
+		RetrieveDocumentDirective,
+		PaginationComponent,
+		RoleRequiredDirective,
+		ButtonComponent,
+		DatePipe,
+		DefaultNullOrEmpty,
+	],
 })
 export class PlatesComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() techRecord!: TechRecordType<'hgv' | 'trl'>;

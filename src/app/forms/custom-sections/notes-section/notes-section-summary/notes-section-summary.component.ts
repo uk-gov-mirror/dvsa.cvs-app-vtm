@@ -1,5 +1,6 @@
 import { VehicleTypes } from '@/src/app/models/vehicle-tech-record.model';
 import { TechnicalRecordService } from '@/src/app/services/technical-record/technical-record.service';
+import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb';
 import { Store } from '@ngrx/store';
@@ -10,7 +11,7 @@ import { isEqual } from 'lodash';
 	selector: 'app-notes-section-summary',
 	templateUrl: './notes-section-summary.component.html',
 	styleUrls: ['./notes-section-summary.component.scss'],
-	standalone: false,
+	imports: [NgIf],
 })
 export class NotesSectionSummaryComponent {
 	store = inject(Store);

@@ -1,3 +1,4 @@
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
@@ -22,11 +23,23 @@ import {
 	selectReferenceDataByResourceKey,
 } from '@store/reference-data';
 import { Observable, take } from 'rxjs';
+import { ButtonGroupComponent } from '../../../components/button-group/button-group.component';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { RoleRequiredDirective } from '../../../directives/app-role-required/app-role-required.directive';
+import { DynamicFormGroupComponent as DynamicFormGroupComponent_1 } from '../../../forms/components/dynamic-form-group/dynamic-form-group.component';
 
 @Component({
 	selector: 'app-reference-data-delete',
 	templateUrl: './reference-data-delete.component.html',
-	standalone: false,
+	imports: [
+		NgIf,
+		RoleRequiredDirective,
+		NgFor,
+		DynamicFormGroupComponent_1,
+		ButtonGroupComponent,
+		ButtonComponent,
+		AsyncPipe,
+	],
 })
 export class ReferenceDataDeleteComponent implements OnInit {
 	type!: ReferenceDataResourceType;

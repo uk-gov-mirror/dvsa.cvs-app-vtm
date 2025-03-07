@@ -1,17 +1,21 @@
+import { AsyncPipe, DatePipe, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { TechRecordSearchSchema } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/search';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb';
 import { V3TechRecordModel } from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
 import { getBySystemNumber, selectTechRecordHistory } from '@store/technical-records';
 import { Observable, map } from 'rxjs';
+import { ButtonComponent } from '../../../../components/button/button.component';
+import { PaginationComponent } from '../../../../components/pagination/pagination.component';
 
 @Component({
 	selector: 'app-tech-record-history',
 	templateUrl: './tech-record-history.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	styleUrls: ['./tech-record-history.component.scss'],
-	standalone: false,
+	imports: [NgIf, NgFor, ButtonComponent, RouterLink, PaginationComponent, AsyncPipe, DatePipe],
 })
 export class TechRecordHistoryComponent implements OnInit {
 	@Input() currentTechRecord?: V3TechRecordModel;

@@ -1,10 +1,11 @@
+import { KeyValuePipe, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
 	selector: 'app-control-errors',
 	templateUrl: './control-errors.component.html',
-	standalone: false,
+	imports: [NgIf, KeyValuePipe],
 })
 export class ControlErrorsComponent {
 	@Input({ required: true })

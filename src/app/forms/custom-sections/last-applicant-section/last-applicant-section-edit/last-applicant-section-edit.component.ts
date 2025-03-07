@@ -1,5 +1,6 @@
+import { NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
-import { ControlContainer, FormBuilder, FormGroup } from '@angular/forms';
+import { ControlContainer, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TagType } from '@components/tag/tag.component';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
 import { V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
@@ -7,12 +8,13 @@ import { Store } from '@ngrx/store';
 import { FormNodeWidth, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { ReplaySubject } from 'rxjs';
+import { GovukFormGroupInputComponent } from '../../../components/govuk-form-group-input/govuk-form-group-input.component';
 
 @Component({
 	selector: 'app-last-applicant-section-edit',
 	templateUrl: './last-applicant-section-edit.component.html',
 	styleUrls: ['./last-applicant-section-edit.component.scss'],
-	standalone: false,
+	imports: [FormsModule, ReactiveFormsModule, NgIf, GovukFormGroupInputComponent],
 })
 export class LastApplicantSectionEditComponent implements OnInit, OnDestroy {
 	fb = inject(FormBuilder);

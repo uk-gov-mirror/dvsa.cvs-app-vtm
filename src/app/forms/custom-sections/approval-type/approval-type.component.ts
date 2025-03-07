@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ApprovalType as approvalType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalType.enum.js';
@@ -17,12 +18,13 @@ import {
 	FormNodeWidth,
 } from '@services/dynamic-forms/dynamic-form.types';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
+import { SwitchableInputComponent } from '../../components/switchable-input/switchable-input.component';
 
 @Component({
 	selector: 'app-approval-type[techRecord]',
 	templateUrl: './approval-type.component.html',
 	styleUrls: ['./approval-type.component.scss'],
-	standalone: false,
+	imports: [NgIf, SwitchableInputComponent],
 })
 export class ApprovalTypeComponent implements OnInit, OnChanges, OnDestroy {
 	@Input() techRecord!: TechRecordType<'hgv' | 'psv' | 'trl'>;

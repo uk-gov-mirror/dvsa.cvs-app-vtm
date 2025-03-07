@@ -1,3 +1,4 @@
+import { AsyncPipe, NgFor, NgIf, NgStyle, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import {
 	AfterViewInit,
 	Component,
@@ -9,6 +10,7 @@ import {
 	ViewChildren,
 	inject,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { DynamicFormGroupComponent } from '@forms/components/dynamic-form-group/dynamic-form-group.component';
@@ -29,12 +31,45 @@ import { TestRecordsService } from '@services/test-records/test-records.service'
 import { DefectsState, filteredDefects } from '@store/defects';
 import merge from 'lodash.merge';
 import { Observable, map } from 'rxjs';
+import { AccordionControlComponent } from '../../../../components/accordion-control/accordion-control.component';
+import { AccordionComponent } from '../../../../components/accordion/accordion.component';
+import { BannerComponent } from '../../../../components/banner/banner.component';
+import { ButtonGroupComponent } from '../../../../components/button-group/button-group.component';
+import { ButtonComponent } from '../../../../components/button/button.component';
+import { RoleRequiredDirective } from '../../../../directives/app-role-required/app-role-required.directive';
+import { FeatureToggleDirective } from '../../../../directives/feature-toggle/feature-toggle.directive';
+import { DynamicFormGroupComponent as DynamicFormGroupComponent_1 } from '../../../../forms/components/dynamic-form-group/dynamic-form-group.component';
+import { CustomDefectsComponent as CustomDefectsComponent_1 } from '../../../../forms/custom-sections/custom-defects/custom-defects.component';
+import { DefectsComponent as DefectsComponent_1 } from '../../../../forms/custom-sections/defects/defects.component';
+import { RequiredStandardsComponent as RequiredStandardsComponent_1 } from '../../../../forms/custom-sections/required-standards/required-standards.component';
+import { VehicleHeaderComponent } from '../vehicle-header/vehicle-header.component';
 
 @Component({
 	selector: 'app-base-test-record[testResult]',
 	templateUrl: './base-test-record.component.html',
 	styleUrls: ['./base-test-record.component.scss'],
-	standalone: false,
+	imports: [
+		VehicleHeaderComponent,
+		NgIf,
+		ButtonGroupComponent,
+		RoleRequiredDirective,
+		ButtonComponent,
+		RouterLink,
+		AccordionControlComponent,
+		NgFor,
+		NgSwitch,
+		NgSwitchCase,
+		AccordionComponent,
+		DefectsComponent_1,
+		FeatureToggleDirective,
+		RequiredStandardsComponent_1,
+		CustomDefectsComponent_1,
+		DynamicFormGroupComponent_1,
+		NgStyle,
+		NgSwitchDefault,
+		BannerComponent,
+		AsyncPipe,
+	],
 })
 export class BaseTestRecordComponent implements AfterViewInit {
 	@ViewChildren(DynamicFormGroupComponent) sections?: QueryList<DynamicFormGroupComponent>;

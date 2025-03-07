@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { addSectionState, removeSectionState } from '@store/technical-records';
@@ -7,7 +8,7 @@ import { addSectionState, removeSectionState } from '@store/technical-records';
 	templateUrl: './accordion.component.html',
 	styleUrls: ['./accordion.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: false,
+	imports: [NgClass],
 })
 export class AccordionComponent {
 	@Input() title: string | undefined = '';

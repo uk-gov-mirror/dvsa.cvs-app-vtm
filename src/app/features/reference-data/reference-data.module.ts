@@ -14,15 +14,6 @@ import { ReferenceDataRoutingModule } from './reference-data-routing.module';
 import { ReferenceDataSelectTypeComponent } from './reference-data-select-type/reference-data-select-type.component';
 
 @NgModule({
-	declarations: [
-		ReferenceDataSelectTypeComponent,
-		ReferenceDataListComponent,
-		ReferenceDataDeletedListComponent,
-		ReferenceDataCreateComponent,
-		ReferenceDataAmendComponent,
-		ReferenceDataDeleteComponent,
-		ReferenceDataAmendHistoryComponent,
-	],
 	imports: [
 		CommonModule,
 		DynamicFormsModule,
@@ -30,6 +21,13 @@ import { ReferenceDataSelectTypeComponent } from './reference-data-select-type/r
 		ReactiveFormsModule,
 		ReferenceDataRoutingModule,
 		SharedModule,
+		ReferenceDataSelectTypeComponent,
+		ReferenceDataListComponent,
+		ReferenceDataDeletedListComponent,
+		ReferenceDataCreateComponent,
+		ReferenceDataAmendComponent,
+		ReferenceDataDeleteComponent,
+		ReferenceDataAmendHistoryComponent,
 	],
 })
 export class ReferenceDataModule {}

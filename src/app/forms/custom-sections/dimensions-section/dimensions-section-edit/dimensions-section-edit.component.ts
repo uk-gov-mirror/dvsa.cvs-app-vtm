@@ -3,19 +3,22 @@ import { VehicleTypes } from '@/src/app/models/vehicle-tech-record.model';
 import { FormNodeWidth, TagTypeLabels } from '@/src/app/services/dynamic-forms/dynamic-form.types';
 import { TechnicalRecordService } from '@/src/app/services/technical-record/technical-record.service';
 import { addAxle, removeAxle } from '@/src/app/store/technical-records';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
-import { ControlContainer, FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { ControlContainer, FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { ReplaySubject, skip, takeUntil, withLatestFrom } from 'rxjs';
+import { FieldWarningMessageComponent } from '../../../components/field-warning-message/field-warning-message.component';
+import { GovukFormGroupInputComponent } from '../../../components/govuk-form-group-input/govuk-form-group-input.component';
 
 @Component({
 	selector: 'app-dimensions-section-edit',
 	templateUrl: './dimensions-section-edit.component.html',
 	styleUrls: ['./dimensions-section-edit.component.scss'],
-	standalone: false,
+	imports: [NgIf, FormsModule, ReactiveFormsModule, GovukFormGroupInputComponent, NgFor, FieldWarningMessageComponent],
 })
 export class DimensionsSectionEditComponent implements OnInit, OnDestroy {
 	readonly VehicleTypes = VehicleTypes;

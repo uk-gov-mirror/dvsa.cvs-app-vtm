@@ -13,7 +13,6 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 			useExisting: DateControlsComponent,
 		},
 	],
-	standalone: false,
 })
 export class DateControlsComponent implements ControlValueAccessor, OnInit, OnDestroy {
 	fb = inject(FormBuilder);

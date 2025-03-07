@@ -1,3 +1,4 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { BaseControlComponent } from '@forms/components/base-control/base-control.component';
 
@@ -5,6 +6,6 @@ import { BaseControlComponent } from '@forms/components/base-control/base-contro
 	selector: 'app-adr-tank-statement-un-number-view',
 	templateUrl: './adr-tank-statement-un-number-view.component.html',
 	styleUrls: ['./adr-tank-statement-un-number-view.component.scss'],
-	standalone: false,
+	imports: [NgIf, NgFor],
 })
 export class AdrTankStatementUnNumberViewComponent extends BaseControlComponent {}

@@ -1,15 +1,17 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component, Signal, inject } from '@angular/core';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { Axle, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
 import { editingTechRecord, techRecord } from '@store/technical-records';
 import { isEqual } from 'lodash';
+import { DefaultNullOrEmpty } from '../../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
 
 @Component({
 	selector: 'app-weights-section-summary',
 	templateUrl: './weights-section-summary.component.html',
 	styleUrls: ['./weights-section-summary.component.scss'],
-	standalone: false,
+	imports: [NgIf, NgFor, DefaultNullOrEmpty],
 })
 export class WeightsSectionSummaryComponent {
 	protected readonly VehicleTypes = VehicleTypes;

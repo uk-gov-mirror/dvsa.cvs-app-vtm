@@ -117,7 +117,23 @@ import { WeightsSectionComponent } from './custom-sections/weights-section/weigh
 import { WeightsComponent } from './custom-sections/weights/weights.component';
 
 @NgModule({
-	declarations: [
+	imports: [
+		CommonModule,
+		FormsModule,
+		ReactiveFormsModule,
+		SharedModule,
+		RouterModule,
+		DateFocusNextDirective,
+		NumberOnlyDirective,
+		GovukCheckboxGroupComponent,
+		GovukFormGroupRadioComponent,
+		GovukFormGroupSelectComponent,
+		GovukFormGroupInputComponent,
+		GovukFormGroupDateComponent,
+		GovukFormGroupTextareaComponent,
+		GovukFormGroupAutocompleteComponent,
+		ApprovalTypeNumber,
+		ApprovalTypeFocusNextDirective,
 		BaseControlComponent,
 		TextInputComponent,
 		ViewListItemComponent,
@@ -189,12 +205,10 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		VehicleSectionViewComponent,
 		VehicleSectionEditComponent,
 		AdrPermittedDangerousGoodsComponent,
-
 		BodySectionComponent,
 		BodySectionEditComponent,
 		BodySectionViewComponent,
 		BodySectionSummaryComponent,
-
 		NotesSectionComponent,
 		NotesSectionEditComponent,
 		NotesSectionViewComponent,
@@ -203,7 +217,6 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		LastApplicantSectionEditComponent,
 		LastApplicantSectionSummaryComponent,
 		LastApplicantSectionViewComponent,
-
 		TypeApprovalSectionComponent,
 		TypeApprovalSectionEditComponent,
 		TypeApprovalSectionViewComponent,
@@ -223,24 +236,6 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		DimensionsSectionEditComponent,
 		DimensionsSectionViewComponent,
 		DimenionsSectionSummaryComponent,
-	],
-	imports: [
-		CommonModule,
-		FormsModule,
-		ReactiveFormsModule,
-		SharedModule,
-		RouterModule,
-		DateFocusNextDirective,
-		NumberOnlyDirective,
-		GovukCheckboxGroupComponent,
-		GovukFormGroupRadioComponent,
-		GovukFormGroupSelectComponent,
-		GovukFormGroupInputComponent,
-		GovukFormGroupDateComponent,
-		GovukFormGroupTextareaComponent,
-		GovukFormGroupAutocompleteComponent,
-		ApprovalTypeNumber,
-		ApprovalTypeFocusNextDirective,
 	],
 	exports: [
 		TextInputComponent,
@@ -307,12 +302,10 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		GovukFormGroupInputComponent,
 		GovukFormGroupDateComponent,
 		GovukFormGroupTextareaComponent,
-
 		BodySectionComponent,
 		BodySectionEditComponent,
 		BodySectionViewComponent,
 		BodySectionSummaryComponent,
-
 		NotesSectionComponent,
 		NotesSectionEditComponent,
 		NotesSectionViewComponent,
@@ -321,7 +314,6 @@ import { WeightsComponent } from './custom-sections/weights/weights.component';
 		LastApplicantSectionViewComponent,
 		LastApplicantSectionEditComponent,
 		LastApplicantSectionSummaryComponent,
-
 		TypeApprovalSectionComponent,
 		TypeApprovalSectionEditComponent,
 		TypeApprovalSectionViewComponent,

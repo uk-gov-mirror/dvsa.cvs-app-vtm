@@ -12,7 +12,9 @@ import { ServerErrorComponent } from './components/server-error/server-error.com
 import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
-	declarations: [
+	imports: [
+		CommonModule,
+		RouterModule,
 		FooterComponent,
 		HeaderComponent,
 		GlobalErrorComponent,
@@ -23,7 +25,6 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 		ServerErrorComponent,
 		PhaseBannerComponent,
 	],
-	imports: [CommonModule, RouterModule],
 	exports: [
 		FooterComponent,
 		HeaderComponent,

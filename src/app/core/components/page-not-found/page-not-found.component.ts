@@ -4,6 +4,5 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 	selector: 'app-page-not-found',
 	templateUrl: './page-not-found.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: false,
 })
 export class PageNotFoundComponent {}

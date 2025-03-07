@@ -1,7 +1,10 @@
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FormNodeOption } from '@services/dynamic-forms/dynamic-form.types';
+import { TagComponent } from '../../../components/tag/tag.component';
 import { BaseControlComponent } from '../base-control/base-control.component';
+import { FieldErrorMessageComponent } from '../field-error-message/field-error-message.component';
 
 @Component({
 	selector: 'app-radio-group',
@@ -14,7 +17,7 @@ import { BaseControlComponent } from '../base-control/base-control.component';
 		},
 	],
 	styleUrls: ['./radio-group.component.scss'],
-	standalone: false,
+	imports: [NgClass, NgFor, TagComponent, NgIf, FieldErrorMessageComponent, FormsModule],
 })
 export class RadioGroupComponent extends BaseControlComponent {
 	@Input() options: FormNodeOption<string | number | boolean | null>[] = [];

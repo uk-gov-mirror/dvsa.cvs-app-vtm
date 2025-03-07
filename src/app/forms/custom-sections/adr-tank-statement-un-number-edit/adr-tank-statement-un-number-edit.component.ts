@@ -1,14 +1,17 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnDestroy, inject } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CustomFormControl, FormNodeTypes } from '@services/dynamic-forms/dynamic-form.types';
 import { Subject, takeUntil } from 'rxjs';
+import { FieldErrorMessageComponent } from '../../components/field-error-message/field-error-message.component';
+import { TextInputComponent } from '../../components/text-input/text-input.component';
 import { CustomFormControlComponent } from '../custom-form-control/custom-form-control.component';
 
 @Component({
 	selector: 'app-adr-tank-statement-un-number',
 	templateUrl: './adr-tank-statement-un-number-edit.component.html',
 	styleUrls: ['./adr-tank-statement-un-number-edit.component.scss'],
-	standalone: false,
+	imports: [NgIf, FieldErrorMessageComponent, TextInputComponent, FormsModule, ReactiveFormsModule, NgFor],
 })
 export class AdrTankStatementUnNumberEditComponent extends CustomFormControlComponent implements OnDestroy {
 	fb = inject(FormBuilder);

@@ -1,3 +1,4 @@
+import { NgClass, NgFor, NgIf } from '@angular/common';
 /* eslint-disable no-underscore-dangle */
 import {
 	AfterContentInit,
@@ -11,13 +12,17 @@ import {
 	Output,
 	ViewChild,
 } from '@angular/core';
-import { AbstractControlDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractControlDirective, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { ValidatorNames } from '@models/validators.enum';
 import { BehaviorSubject, Observable, Subscription, combineLatest } from 'rxjs';
 import validateDate from 'validate-govuk-date';
+import { TagComponent } from '../../../components/tag/tag.component';
+import { NumberOnlyDirective } from '../../../directives/app-number-only/app-number-only.directive';
+import { DateFocusNextDirective } from '../../../directives/date-focus-next/date-focus-next.directive';
 import { DateValidators } from '../../validators/date/date.validators';
 import { BaseControlComponent } from '../base-control/base-control.component';
+import { FieldErrorMessageComponent } from '../field-error-message/field-error-message.component';
 
 type Segments = {
 	day: Observable<number | undefined>;
@@ -36,7 +41,16 @@ type Segments = {
 			multi: true,
 		},
 	],
-	standalone: false,
+	imports: [
+		NgIf,
+		NgFor,
+		TagComponent,
+		FieldErrorMessageComponent,
+		FormsModule,
+		NumberOnlyDirective,
+		DateFocusNextDirective,
+		NgClass,
+	],
 })
 export class DateComponent extends BaseControlComponent implements OnInit, OnDestroy, AfterContentInit {
 	@Input() displayTime = false;

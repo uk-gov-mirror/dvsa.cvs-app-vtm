@@ -24,7 +24,6 @@ import { ErrorMessageMap } from '../../utils/error-message-map';
 	template: '',
 	styles: [],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: false,
 })
 export class BaseControlComponent implements ControlValueAccessor, AfterContentInit {
 	@ContentChild(PrefixDirective) prefix?: PrefixDirective;

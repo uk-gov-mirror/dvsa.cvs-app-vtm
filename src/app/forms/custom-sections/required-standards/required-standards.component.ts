@@ -1,21 +1,25 @@
-import { ViewportScroller } from '@angular/common';
+import { NgFor, NgIf, ViewportScroller } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { TestResultRequiredStandard } from '@models/test-results/test-result-required-standard.model';
 import { TestResultModel } from '@models/test-results/test-result.model';
 import { Store, select } from '@ngrx/store';
+import { TruncatePipe } from '@pipes/truncate/truncate.pipe';
 import { DynamicFormService } from '@services/dynamic-forms/dynamic-form.service';
 import { CustomFormArray, CustomFormGroup, FormNode } from '@services/dynamic-forms/dynamic-form.types';
 import { ResultOfTestService } from '@services/result-of-test/result-of-test.service';
 import { testResultInEdit } from '@store/test-records';
 import { isEqual } from 'lodash';
 import { Subject, Subscription, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { TagComponent } from '../../../components/tag/tag.component';
 
 @Component({
 	selector: 'app-required-standards[template]',
 	templateUrl: './required-standards.component.html',
-	standalone: false,
+	imports: [NgIf, FormsModule, ReactiveFormsModule, NgFor, RouterLink, TagComponent, ButtonComponent, TruncatePipe],
 })
 export class RequiredStandardsComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() isEditing = false;

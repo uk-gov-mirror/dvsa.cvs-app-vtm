@@ -37,7 +37,10 @@ import { TestTypeNamePipe } from '../pipes/test-type-name/test-type-name.pipe';
 import { TyreAxleLoadPipe } from '../pipes/tyre-axle-load/tyre-axle-load.pipe';
 
 @NgModule({
-	declarations: [
+	imports: [
+		CommonModule,
+		RouterModule,
+		GovukDateInputDirective,
 		DefaultNullOrEmpty,
 		ButtonGroupComponent,
 		ButtonComponent,
@@ -74,7 +77,6 @@ import { TyreAxleLoadPipe } from '../pipes/tyre-axle-load/tyre-axle-load.pipe';
 		TagDirective,
 		MultiOptionPipe,
 	],
-	imports: [CommonModule, RouterModule, GovukDateInputDirective],
 	exports: [
 		DefaultNullOrEmpty,
 		ButtonGroupComponent,

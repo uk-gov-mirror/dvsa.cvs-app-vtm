@@ -1,10 +1,11 @@
+import { NgIf } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
 import { ControlContainer } from '@angular/forms';
 
 @Component({
 	selector: 'app-character-count',
 	templateUrl: './character-count.component.html',
-	standalone: false,
+	imports: [NgIf],
 })
 export class CharacterCountComponent {
 	for = input.required<string>();

@@ -1,9 +1,11 @@
+import { AsyncPipe, NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CustomValidators } from '@forms/validators/custom-validators/custom-validators';
 import { MultiOption } from '@models/options.model';
 import { Observable, firstValueFrom, skipWhile, take } from 'rxjs';
 import { BaseControlComponent } from '../base-control/base-control.component';
+import { FieldErrorMessageComponent } from '../field-error-message/field-error-message.component';
 
 @Component({
 	selector: 'app-suggestive-input',
@@ -17,7 +19,7 @@ import { BaseControlComponent } from '../base-control/base-control.component';
 			multi: true,
 		},
 	],
-	standalone: false,
+	imports: [NgClass, NgIf, FieldErrorMessageComponent, NgTemplateOutlet, FormsModule, NgFor, AsyncPipe],
 })
 export class SuggestiveInputComponent extends BaseControlComponent implements AfterContentInit, OnInit {
 	@Input() options$!: Observable<MultiOption[]>;

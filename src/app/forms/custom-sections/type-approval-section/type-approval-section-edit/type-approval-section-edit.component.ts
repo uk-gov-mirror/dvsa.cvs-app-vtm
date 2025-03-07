@@ -1,4 +1,5 @@
 import { FormNodeWidth, TagTypeLabels } from '@/src/app/services/dynamic-forms/dynamic-form.types';
+import { NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
 import {
 	AbstractControl,
@@ -6,6 +7,8 @@ import {
 	FormBuilder,
 	FormControl,
 	FormGroup,
+	FormsModule,
+	ReactiveFormsModule,
 	ValidationErrors,
 	ValidatorFn,
 } from '@angular/forms';
@@ -18,6 +21,10 @@ import { CommonValidatorsService } from '@forms/validators/common-validators.ser
 import { V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { ReplaySubject } from 'rxjs';
+import { GovukFormGroupDateComponent } from '../../../components/govuk-form-group-date/govuk-form-group-date.component';
+import { GovukFormGroupInputComponent } from '../../../components/govuk-form-group-input/govuk-form-group-input.component';
+import { GovukFormGroupSelectComponent } from '../../../components/govuk-form-group-select/govuk-form-group-select.component';
+import { ApprovalTypeNumber } from './components/approval-type-number/approval-type-number';
 
 type TypeApprovalSectionForm = Partial<Record<keyof TechRecordType<'hgv' | 'psv' | 'trl'>, FormControl>>;
 
@@ -25,7 +32,15 @@ type TypeApprovalSectionForm = Partial<Record<keyof TechRecordType<'hgv' | 'psv'
 	selector: 'app-type-approval-section-edit',
 	templateUrl: './type-approval-section-edit.component.html',
 	styleUrls: ['./type-approval-section-edit.component.scss'],
-	standalone: false,
+	imports: [
+		NgIf,
+		FormsModule,
+		ReactiveFormsModule,
+		GovukFormGroupSelectComponent,
+		ApprovalTypeNumber,
+		GovukFormGroupInputComponent,
+		GovukFormGroupDateComponent,
+	],
 })
 export class TypeApprovalSectionEditComponent implements OnInit, OnDestroy {
 	private readonly fb = inject(FormBuilder);

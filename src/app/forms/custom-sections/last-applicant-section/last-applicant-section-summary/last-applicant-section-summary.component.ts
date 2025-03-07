@@ -1,16 +1,18 @@
 import { VehicleTypes } from '@/src/app/models/vehicle-tech-record.model';
 import { TechnicalRecordService } from '@/src/app/services/technical-record/technical-record.service';
+import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb';
 import { Store } from '@ngrx/store';
 import { editingTechRecord, techRecord } from '@store/technical-records';
 import { isEqual } from 'lodash';
+import { DefaultNullOrEmpty } from '../../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
 
 @Component({
 	selector: 'app-last-applicant-section-summary',
 	templateUrl: './last-applicant-section-summary.component.html',
 	styleUrls: ['./last-applicant-section-summary.component.scss'],
-	standalone: false,
+	imports: [NgIf, DefaultNullOrEmpty],
 })
 export class LastApplicantSectionSummaryComponent {
 	store = inject(Store);

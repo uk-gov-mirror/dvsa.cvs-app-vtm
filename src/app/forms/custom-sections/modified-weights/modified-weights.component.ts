@@ -1,3 +1,4 @@
+import { KeyValuePipe, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import {
 	TechRecordGETHGV,
@@ -13,7 +14,7 @@ import { TechnicalRecordService } from '@services/technical-record/technical-rec
 	selector: 'app-modified-weights',
 	templateUrl: './modified-weights.component.html',
 	styleUrls: ['./modified-weights.component.scss'],
-	standalone: false,
+	imports: [NgIf, NgFor, KeyValuePipe],
 })
 export class ModifiedWeightsComponent implements OnInit {
 	@Input() vehicleType!: VehicleTypes;

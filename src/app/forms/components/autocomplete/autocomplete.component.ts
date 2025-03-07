@@ -1,10 +1,12 @@
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, Inject, Injector, Input } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CustomValidators } from '@forms/validators/custom-validators/custom-validators';
 import { enhanceSelectElement } from 'accessible-autocomplete/dist/accessible-autocomplete.min';
 import { Observable, lastValueFrom, takeWhile } from 'rxjs';
+import { TagComponent } from '../../../components/tag/tag.component';
 import { BaseControlComponent } from '../base-control/base-control.component';
+import { FieldErrorMessageComponent } from '../field-error-message/field-error-message.component';
 
 @Component({
 	selector: 'app-autocomplete',
@@ -17,7 +19,7 @@ import { BaseControlComponent } from '../base-control/base-control.component';
 			multi: true,
 		},
 	],
-	standalone: false,
+	imports: [NgFor, TagComponent, NgIf, FieldErrorMessageComponent, NgTemplateOutlet, FormsModule],
 })
 export class AutocompleteComponent extends BaseControlComponent implements AfterViewInit, AfterContentInit {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

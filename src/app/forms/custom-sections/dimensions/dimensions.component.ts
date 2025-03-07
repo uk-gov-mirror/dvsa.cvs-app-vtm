@@ -1,3 +1,4 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { HgvDimensionsTemplate } from '@forms/templates/hgv/hgv-dimensions.template';
@@ -13,12 +14,13 @@ import {
 	FormNodeWidth,
 } from '@services/dynamic-forms/dynamic-form.types';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
+import { SwitchableInputComponent } from '../../components/switchable-input/switchable-input.component';
 
 @Component({
 	selector: 'app-dimensions',
 	templateUrl: './dimensions.component.html',
 	styleUrls: ['./dimensions.component.scss'],
-	standalone: false,
+	imports: [NgIf, SwitchableInputComponent, NgFor],
 })
 export class DimensionsComponent implements OnInit, OnChanges, OnDestroy {
 	@Input() techRecord!: TechRecordType<'trl'> | TechRecordType<'psv'> | TechRecordType<'hgv'>;

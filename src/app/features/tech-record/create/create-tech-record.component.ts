@@ -1,5 +1,6 @@
+import { NgIf } from '@angular/common';
 import { Component, OnChanges } from '@angular/core';
-import { Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
@@ -16,11 +17,29 @@ import { CustomFormControl, CustomFormGroup, FormNodeTypes } from '@services/dyn
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { setSpinnerState } from '@store/spinner/spinner.actions';
 import { firstValueFrom } from 'rxjs';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { NoSpaceDirective } from '../../../directives/app-no-space/app-no-space.directive';
+import { ToUppercaseDirective } from '../../../directives/app-to-uppercase/app-to-uppercase.directive';
+import { TrimWhitespaceDirective } from '../../../directives/app-trim-whitespace/app-trim-whitespace.directive';
+import { CheckboxGroupComponent as CheckboxGroupComponent_1 } from '../../../forms/components/checkbox-group/checkbox-group.component';
+import { SelectComponent } from '../../../forms/components/select/select.component';
+import { TextInputComponent } from '../../../forms/components/text-input/text-input.component';
 
 @Component({
 	selector: 'app-create',
 	templateUrl: './create-tech-record.component.html',
-	standalone: false,
+	imports: [
+		FormsModule,
+		ReactiveFormsModule,
+		TextInputComponent,
+		ToUppercaseDirective,
+		NoSpaceDirective,
+		TrimWhitespaceDirective,
+		NgIf,
+		CheckboxGroupComponent_1,
+		SelectComponent,
+		ButtonComponent,
+	],
 })
 export class CreateTechRecordComponent implements OnChanges {
 	techRecord: Partial<V3TechRecordModel> = {};

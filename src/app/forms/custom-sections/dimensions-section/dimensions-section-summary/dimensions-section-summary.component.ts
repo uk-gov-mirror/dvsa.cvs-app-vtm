@@ -1,15 +1,17 @@
 import { VehicleTypes } from '@/src/app/models/vehicle-tech-record.model';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { TechRecordType as TechRecordTypeVerb } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb';
 import { Store } from '@ngrx/store';
 import { editingTechRecord, techRecord } from '@store/technical-records';
 import { isEqual } from 'lodash';
+import { DefaultNullOrEmpty } from '../../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
 
 @Component({
 	selector: 'app-dimensions-section-summary',
 	templateUrl: './dimensions-section-summary.component.html',
 	styleUrls: ['./dimensions-section-summary.component.scss'],
-	standalone: false,
+	imports: [NgIf, NgFor, DefaultNullOrEmpty],
 })
 export class DimenionsSectionSummaryComponent {
 	readonly VehicleTypes = VehicleTypes;
