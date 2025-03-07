@@ -21,6 +21,7 @@ import { Observable, Subject, combineLatest, filter, firstValueFrom, take } from
 	selector: 'app-batch-vehicle-details',
 	templateUrl: './batch-vehicle-details.component.html',
 	styleUrls: ['./batch-vehicle-details.component.scss'],
+	standalone: false,
 })
 export class BatchVehicleDetailsComponent implements OnInit, OnDestroy {
 	form: FormGroup;

@@ -4,6 +4,7 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 
 @Directive({
 	selector: '[govukTextarea]',
+	standalone: false,
 })
 export class GovukTextareaDirective implements OnInit, OnDestroy {
 	elementRef = inject<ElementRef<HTMLInputElement>>(ElementRef);

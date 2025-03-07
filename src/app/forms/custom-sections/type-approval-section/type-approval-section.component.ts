@@ -5,6 +5,7 @@ import { V3TechRecordModel } from '@models/vehicle-tech-record.model';
 	selector: 'app-type-approval-section',
 	templateUrl: './type-approval-section.component.html',
 	styleUrls: ['./type-approval-section.component.scss'],
+	standalone: false,
 })
 export class TypeApprovalSectionComponent {
 	mode = input<Mode>('edit');

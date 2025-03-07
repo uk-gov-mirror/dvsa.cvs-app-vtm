@@ -13,6 +13,7 @@ import { take } from 'rxjs';
 	selector: 'app-create-test-type',
 	templateUrl: './create-test-type.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: false,
 })
 export class CreateTestTypeComponent implements AfterContentInit {
 	constructor(

@@ -14,6 +14,7 @@ type OptionsType = string | number | boolean;
 			multi: true,
 		},
 	],
+	standalone: false,
 })
 export class CheckboxGroupComponent extends BaseControlComponent {
 	@Input() options: FormNodeOption<OptionsType>[] = [];

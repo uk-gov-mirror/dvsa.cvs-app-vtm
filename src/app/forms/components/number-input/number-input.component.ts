@@ -13,6 +13,7 @@ import { BaseControlComponent } from '../base-control/base-control.component';
 			multi: true,
 		},
 	],
+	standalone: false,
 })
 export class NumberInputComponent extends BaseControlComponent implements AfterContentInit {
 	@Input() vehicleType?: string | null;

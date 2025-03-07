@@ -6,6 +6,7 @@ import { TestType } from '@models/test-types/testType';
 	selector: 'app-test-type-select-wrapper',
 	templateUrl: './test-type-select-wrapper.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: false,
 })
 export class TestTypeSelectWrapperComponent {
 	constructor(

@@ -9,6 +9,7 @@ import { isEqual } from 'lodash';
 	selector: 'app-weights-section-summary',
 	templateUrl: './weights-section-summary.component.html',
 	styleUrls: ['./weights-section-summary.component.scss'],
+	standalone: false,
 })
 export class WeightsSectionSummaryComponent {
 	protected readonly VehicleTypes = VehicleTypes;

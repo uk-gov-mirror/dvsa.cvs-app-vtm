@@ -13,7 +13,6 @@ import { SharedModule } from '@shared/shared.module';
 
 @Component({
 	selector: 'govuk-form-group-input',
-	standalone: true,
 	imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule, NumberOnlyDirective],
 	templateUrl: './govuk-form-group-input.component.html',
 	styleUrls: ['./govuk-form-group-input.component.scss'],

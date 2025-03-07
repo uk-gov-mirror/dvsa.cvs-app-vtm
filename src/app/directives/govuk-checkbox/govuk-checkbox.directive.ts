@@ -5,6 +5,7 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 
 @Directive({
 	selector: '[govukCheckbox]',
+	standalone: false,
 })
 export class GovukCheckboxDirective implements OnInit, OnDestroy {
 	elementRef = inject<ElementRef<HTMLInputElement>>(ElementRef);

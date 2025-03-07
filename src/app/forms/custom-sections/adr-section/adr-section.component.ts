@@ -5,6 +5,7 @@ import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/
 	selector: 'app-adr-section',
 	templateUrl: './adr-section.component.html',
 	styleUrls: ['./adr-section.component.scss'],
+	standalone: false,
 })
 export class AdrSectionComponent {
 	mode = input<Mode>('edit');

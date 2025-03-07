@@ -15,6 +15,7 @@ import { Subject, takeUntil } from 'rxjs';
 	selector: 'app-required-standard-select',
 	templateUrl: './required-standard-select.component.html',
 	styleUrls: ['./required-standard-select.component.scss'],
+	standalone: false,
 })
 export class RequiredStandardSelectComponent implements OnInit, OnDestroy {
 	requiredStandards?: RequiredStandardTaxonomySection[];

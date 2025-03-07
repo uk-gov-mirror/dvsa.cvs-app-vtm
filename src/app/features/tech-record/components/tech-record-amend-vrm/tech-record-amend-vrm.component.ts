@@ -20,6 +20,7 @@ import { Subject, take, takeUntil } from 'rxjs';
 	selector: 'app-change-amend-vrm',
 	templateUrl: './tech-record-amend-vrm.component.html',
 	styleUrls: ['./tech-record-amend-vrm.component.scss'],
+	standalone: false,
 })
 export class AmendVrmComponent implements OnDestroy, OnInit {
 	techRecord?: VehiclesOtherThan<'trl'>;

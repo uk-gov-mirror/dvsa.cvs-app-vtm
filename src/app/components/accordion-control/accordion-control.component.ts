@@ -13,6 +13,7 @@ import { AccordionComponent } from '../accordion/accordion.component';
 	templateUrl: './accordion-control.component.html',
 	styleUrls: ['accordion-control.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: false,
 })
 export class AccordionControlComponent {
 	private accordionsList?: QueryList<AccordionComponent>;

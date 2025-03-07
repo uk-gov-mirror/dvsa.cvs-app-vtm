@@ -16,6 +16,7 @@ import { Observable, Subject, map, takeUntil } from 'rxjs';
 	selector: 'app-adr-certificate-history',
 	templateUrl: './adr-certificate-history.html',
 	styleUrls: ['./adr-certificate-history.scss'],
+	standalone: false,
 })
 export class AdrCertificateHistoryComponent extends CustomFormControlComponent {
 	@Input() currentTechRecord?: TechRecordType<'hgv' | 'lgv' | 'trl'>;

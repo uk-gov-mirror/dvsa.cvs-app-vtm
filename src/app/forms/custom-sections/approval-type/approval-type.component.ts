@@ -22,6 +22,7 @@ import { Subject, debounceTime, takeUntil } from 'rxjs';
 	selector: 'app-approval-type[techRecord]',
 	templateUrl: './approval-type.component.html',
 	styleUrls: ['./approval-type.component.scss'],
+	standalone: false,
 })
 export class ApprovalTypeComponent implements OnInit, OnChanges, OnDestroy {
 	@Input() techRecord!: TechRecordType<'hgv' | 'psv' | 'trl'>;

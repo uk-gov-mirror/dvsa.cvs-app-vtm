@@ -13,6 +13,7 @@ type ADRTechRecord = TechRecordType<'hgv' | 'trl' | 'lgv'> & {
 	selector: 'app-adr-section-summary',
 	templateUrl: './adr-section-summary.component.html',
 	styleUrls: ['./adr-section-summary.component.scss'],
+	standalone: false,
 })
 export class AdrSectionSummaryComponent {
 	store = inject(Store);

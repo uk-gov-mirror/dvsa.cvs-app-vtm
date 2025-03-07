@@ -13,7 +13,6 @@ import { SharedModule } from '@shared/shared.module';
 
 @Component({
 	selector: 'govuk-form-group-select',
-	standalone: true,
 	imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule],
 	templateUrl: './govuk-form-group-select.component.html',
 	styleUrls: ['./govuk-form-group-select.component.scss'],

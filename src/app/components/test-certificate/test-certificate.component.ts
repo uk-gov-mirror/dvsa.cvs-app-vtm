@@ -12,6 +12,7 @@ import { Subject, combineLatest, takeUntil } from 'rxjs';
 	templateUrl: './test-certificate.component.html',
 	styleUrls: ['./test-certificate.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: false,
 })
 export class TestCertificateComponent implements OnInit, OnDestroy {
 	store: Store<State> = inject(Store<State>);

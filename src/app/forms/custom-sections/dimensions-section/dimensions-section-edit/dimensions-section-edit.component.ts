@@ -15,6 +15,7 @@ import { ReplaySubject, skip, takeUntil, withLatestFrom } from 'rxjs';
 	selector: 'app-dimensions-section-edit',
 	templateUrl: './dimensions-section-edit.component.html',
 	styleUrls: ['./dimensions-section-edit.component.scss'],
+	standalone: false,
 })
 export class DimensionsSectionEditComponent implements OnInit, OnDestroy {
 	readonly VehicleTypes = VehicleTypes;

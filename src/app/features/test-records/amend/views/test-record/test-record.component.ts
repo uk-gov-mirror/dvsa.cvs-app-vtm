@@ -19,6 +19,7 @@ import { BaseTestRecordComponent } from '../../../components/base-test-record/ba
 @Component({
 	selector: 'app-test-records',
 	templateUrl: './test-record.component.html',
+	standalone: false,
 })
 export class TestRecordComponent implements OnInit, OnDestroy {
 	@ViewChild(BaseTestRecordComponent) private baseTestRecordComponent?: BaseTestRecordComponent;

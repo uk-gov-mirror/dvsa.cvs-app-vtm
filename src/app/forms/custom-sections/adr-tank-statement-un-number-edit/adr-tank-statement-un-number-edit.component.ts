@@ -8,6 +8,7 @@ import { CustomFormControlComponent } from '../custom-form-control/custom-form-c
 	selector: 'app-adr-tank-statement-un-number',
 	templateUrl: './adr-tank-statement-un-number-edit.component.html',
 	styleUrls: ['./adr-tank-statement-un-number-edit.component.scss'],
+	standalone: false,
 })
 export class AdrTankStatementUnNumberEditComponent extends CustomFormControlComponent implements OnDestroy {
 	fb = inject(FormBuilder);

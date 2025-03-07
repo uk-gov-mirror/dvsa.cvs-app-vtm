@@ -12,6 +12,7 @@ import { ReplaySubject } from 'rxjs';
 	selector: 'app-last-applicant-section-edit',
 	templateUrl: './last-applicant-section-edit.component.html',
 	styleUrls: ['./last-applicant-section-edit.component.scss'],
+	standalone: false,
 })
 export class LastApplicantSectionEditComponent implements OnInit, OnDestroy {
 	fb = inject(FormBuilder);

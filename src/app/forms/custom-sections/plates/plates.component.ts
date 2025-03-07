@@ -21,6 +21,7 @@ import { Subscription, debounceTime } from 'rxjs';
 	selector: 'app-plates[techRecord]',
 	templateUrl: './plates.component.html',
 	styleUrls: ['./plates.component.scss'],
+	standalone: false,
 })
 export class PlatesComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() techRecord!: TechRecordType<'hgv' | 'trl'>;

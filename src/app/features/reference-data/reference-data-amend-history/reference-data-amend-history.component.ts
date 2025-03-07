@@ -12,6 +12,7 @@ import { Observable, map } from 'rxjs';
 	selector: 'app-reference-data-amend-history',
 	templateUrl: './reference-data-amend-history.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: false,
 })
 export class ReferenceDataAmendHistoryComponent implements OnInit {
 	@Input() type = '';

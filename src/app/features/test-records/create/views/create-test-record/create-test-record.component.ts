@@ -27,6 +27,7 @@ import { BaseTestRecordComponent } from '../../../components/base-test-record/ba
 @Component({
 	selector: 'app-create-test-record',
 	templateUrl: './create-test-record.component.html',
+	standalone: false,
 })
 export class CreateTestRecordComponent implements OnInit, OnDestroy, AfterViewInit {
 	@ViewChild(BaseTestRecordComponent) private baseTestRecordComponent?: BaseTestRecordComponent;

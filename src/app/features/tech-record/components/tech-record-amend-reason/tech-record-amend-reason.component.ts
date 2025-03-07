@@ -15,6 +15,7 @@ import {
 	selector: 'app-tech-amend-reason',
 	templateUrl: './tech-record-amend-reason.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: false,
 })
 export class TechRecordAmendReasonComponent {
 	reasons: Array<FormNodeOption<string>> = [

@@ -21,6 +21,7 @@ import { CustomFormControlComponent } from '../custom-form-control/custom-form-c
 	providers: [
 		{ provide: NG_VALUE_ACCESSOR, useExisting: AdrTankDetailsSubsequentInspectionsEditComponent, multi: true },
 	],
+	standalone: false,
 })
 export class AdrTankDetailsSubsequentInspectionsEditComponent
 	extends CustomFormControlComponent

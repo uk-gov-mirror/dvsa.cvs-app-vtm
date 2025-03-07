@@ -8,6 +8,7 @@ import { techRecord } from '@store/technical-records';
 	selector: 'app-weights-section-view',
 	templateUrl: './weights-section-view.component.html',
 	styleUrls: ['./weights-section-view.component.scss'],
+	standalone: false,
 })
 export class WeightsSectionViewComponent {
 	protected readonly VehicleTypes = VehicleTypes;

@@ -8,6 +8,7 @@ import { techRecord } from '@store/technical-records';
 	selector: 'app-type-approval-section-view',
 	templateUrl: './type-approval-section-view.component.html',
 	styleUrls: ['./type-approval-section-view.component.scss'],
+	standalone: false,
 })
 export class TypeApprovalSectionViewComponent {
 	protected readonly VehicleTypes = VehicleTypes;

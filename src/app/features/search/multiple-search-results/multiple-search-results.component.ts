@@ -13,6 +13,7 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 	selector: 'app-multiple-search-results',
 	templateUrl: './multiple-search-results.component.html',
 	styleUrls: ['multiple-search-results.component.scss'],
+	standalone: false,
 })
 export class MultipleSearchResultsComponent implements OnDestroy {
 	searchResults$: Observable<TechRecordSearchSchema[] | undefined>;

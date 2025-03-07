@@ -12,6 +12,7 @@ import { Observable, Subject, distinctUntilChanged, map, takeUntil } from 'rxjs'
 @Component({
 	selector: 'app-edit-tech-record-button',
 	templateUrl: './edit-tech-record-button.component.html',
+	standalone: false,
 })
 export class EditTechRecordButtonComponent implements OnDestroy {
 	@Input() isEditing = false;

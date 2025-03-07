@@ -12,6 +12,7 @@ import { BaseControlComponent } from '../base-control/base-control.component';
 			multi: true,
 		},
 	],
+	standalone: false,
 })
 export class ReadOnlyComponent extends BaseControlComponent {
 	@Input() readOnlySuffix?: string;

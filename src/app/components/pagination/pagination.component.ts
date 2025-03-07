@@ -16,6 +16,7 @@ import { ReplaySubject, Subject, map, takeUntil } from 'rxjs';
 	templateUrl: './pagination.component.html',
 	styleUrls: ['./pagination.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: false,
 })
 export class PaginationComponent implements OnInit, OnDestroy {
 	@Input() tableName!: string;

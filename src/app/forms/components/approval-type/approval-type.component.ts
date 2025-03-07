@@ -115,6 +115,7 @@ const characterLimitGeneric: Record<string, number> = {
 			multi: true,
 		},
 	],
+	standalone: false,
 })
 export class ApprovalTypeInputComponent
 	extends BaseControlComponent

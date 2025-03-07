@@ -4,6 +4,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 	selector: 'app-field-warning-message',
 	templateUrl: './field-warning-message.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: false,
 })
 export class FieldWarningMessageComponent {
 	@Input() warningMessage: string | undefined;

@@ -20,6 +20,7 @@ import { ReplaySubject, take, takeUntil } from 'rxjs';
 	selector: 'tech-record-edit-additional-examiner-note',
 	templateUrl: './tech-record-edit-additional-examiner-note.component.html',
 	styleUrls: ['./tech-record-edit-additional-examiner-note.component.scss'],
+	standalone: false,
 })
 export class TechRecordEditAdditionalExaminerNoteComponent implements OnInit {
 	currentTechRecord!: TechRecordType<'hgv' | 'trl' | 'lgv'>;

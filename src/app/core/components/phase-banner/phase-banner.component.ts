@@ -6,6 +6,7 @@ import { environment } from '../../../../environments/environment';
 	templateUrl: './phase-banner.component.html',
 	styleUrls: ['./phase-banner.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: false,
 })
 export class PhaseBannerComponent {
 	get feedbackUri(): string {

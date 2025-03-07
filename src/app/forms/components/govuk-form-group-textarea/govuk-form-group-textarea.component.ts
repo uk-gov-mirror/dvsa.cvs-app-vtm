@@ -12,7 +12,6 @@ import { SharedModule } from '@shared/shared.module';
 
 @Component({
 	selector: 'govuk-form-group-textarea',
-	standalone: true,
 	imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule],
 	templateUrl: './govuk-form-group-textarea.component.html',
 	styleUrls: ['./govuk-form-group-textarea.component.scss'],

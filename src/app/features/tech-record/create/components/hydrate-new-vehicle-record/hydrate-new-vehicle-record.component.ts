@@ -24,6 +24,7 @@ import { TechRecordSummaryComponent } from '../../../components/tech-record-summ
 @Component({
 	selector: 'app-hydrate-new-vehicle-record',
 	templateUrl: './hydrate-new-vehicle-record.component.html',
+	standalone: false,
 })
 export class HydrateNewVehicleRecordComponent implements OnDestroy, OnInit {
 	@ViewChild(TechRecordSummaryComponent) summary?: TechRecordSummaryComponent;

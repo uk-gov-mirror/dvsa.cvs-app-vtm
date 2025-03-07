@@ -5,6 +5,7 @@ import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/
 	selector: 'app-weights-section',
 	templateUrl: './weights-section.component.html',
 	styleUrls: ['./weights-section.component.scss'],
+	standalone: false,
 })
 export class WeightsSectionComponent {
 	mode = input<Mode>('edit');

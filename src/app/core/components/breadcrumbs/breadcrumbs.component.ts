@@ -6,6 +6,7 @@ import { distinctUntilChanged, map } from 'rxjs';
 	selector: 'app-breadcrumbs',
 	templateUrl: './breadcrumbs.component.html',
 	styleUrls: ['./breadcrumbs.component.scss'],
+	standalone: false,
 })
 export class BreadcrumbsComponent {
 	constructor(private routerService: RouterService) {}

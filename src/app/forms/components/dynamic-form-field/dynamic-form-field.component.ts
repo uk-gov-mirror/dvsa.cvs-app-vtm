@@ -15,6 +15,7 @@ import { Observable, map, of } from 'rxjs';
 	selector: 'app-dynamic-form-field',
 	templateUrl: './dynamic-form-field.component.html',
 	providers: [MultiOptionsService],
+	standalone: false,
 })
 export class DynamicFormFieldComponent implements OnInit, AfterContentInit {
 	@Input() control?: KeyValue<string, CustomFormControl>;

@@ -8,6 +8,7 @@ import { techRecord } from '@store/technical-records';
 	selector: 'app-last-applicant-section-view',
 	templateUrl: './last-applicant-section-view.component.html',
 	styleUrls: ['./last-applicant-section-view.component.scss'],
+	standalone: false,
 })
 export class LastApplicantSectionViewComponent {
 	protected readonly VehicleTypes = VehicleTypes;

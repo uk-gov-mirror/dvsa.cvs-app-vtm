@@ -10,6 +10,7 @@ import { ReplaySubject } from 'rxjs';
 	selector: 'app-tyres-section-view',
 	templateUrl: './tyres-section-view.component.html',
 	styleUrls: ['./tyres-section-view.component.scss'],
+	standalone: false,
 })
 export class TyresSectionViewComponent {
 	protected readonly VehicleTypes = VehicleTypes;

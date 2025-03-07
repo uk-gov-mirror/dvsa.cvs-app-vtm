@@ -14,6 +14,7 @@ import { BaseControlComponent } from '../base-control/base-control.component';
 			multi: true,
 		},
 	],
+	standalone: false,
 })
 export class SelectComponent extends BaseControlComponent {
 	@Input() options!: Array<FormNodeOption<string | number | boolean>>;

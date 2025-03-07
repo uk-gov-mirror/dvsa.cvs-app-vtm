@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 	templateUrl: './number-plate.component.html',
 	styleUrls: ['./number-plate.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: false,
 })
 export class NumberPlateComponent {
 	private vrmToDisplay: string | undefined;

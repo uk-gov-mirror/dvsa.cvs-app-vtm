@@ -5,6 +5,7 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 
 @Directive({
 	selector: '[govukSelect]',
+	standalone: false,
 })
 export class GovukSelectDirective {
 	elementRef = inject<ElementRef<HTMLSelectElement>>(ElementRef);

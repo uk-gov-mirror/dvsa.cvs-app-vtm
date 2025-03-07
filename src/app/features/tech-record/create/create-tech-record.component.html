@@ -51,7 +51,7 @@
     (ngModelChange)="ngOnChanges()"
   ></app-select>
 
-  <p *ngIf="this.isVinUniqueCheckComplete && !this.vinUnique" class="govuk-error-message">
+  <p *ngIf="isVinUniqueCheckComplete && !vinUnique" class="govuk-error-message">
     The Vin you are about to submit is a duplicate, if you are happy to continue please press continue
   </p>
 

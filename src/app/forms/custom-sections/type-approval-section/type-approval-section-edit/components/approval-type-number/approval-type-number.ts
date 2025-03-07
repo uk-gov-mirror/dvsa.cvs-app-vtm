@@ -27,7 +27,6 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 	selector: 'approval-type-number-input',
 	templateUrl: 'approval-type-number.html',
 	styleUrls: ['./approval-type-number.scss'],
-	standalone: true,
 	imports: [
 		FormsModule,
 		NgSwitchCase,

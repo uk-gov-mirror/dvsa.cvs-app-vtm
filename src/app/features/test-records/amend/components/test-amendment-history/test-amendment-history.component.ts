@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/internal/Observable';
 @Component({
 	selector: 'app-test-amendment-history',
 	templateUrl: './test-amendment-history.component.html',
+	standalone: false,
 })
 export class TestAmendmentHistoryComponent {
 	@Input() testRecord: TestResultModel | undefined;

@@ -7,6 +7,7 @@ import { Observable, of } from 'rxjs';
 @Component({
 	selector: 'app-switchable-input[form][type][name][isEditing]',
 	templateUrl: './switchable-input.component.html',
+	standalone: false,
 })
 export class SwitchableInputComponent implements OnInit {
 	@Input() type!: FormNodeEditTypes;

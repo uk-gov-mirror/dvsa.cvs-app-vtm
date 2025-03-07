@@ -15,6 +15,7 @@ import { Observable, take } from 'rxjs';
 	selector: 'app-tech-record-title[vehicle]',
 	templateUrl: './tech-record-title.component.html',
 	styleUrls: ['./tech-record-title.component.scss'],
+	standalone: false,
 })
 export class TechRecordTitleComponent implements OnInit {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

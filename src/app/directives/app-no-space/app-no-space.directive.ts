@@ -2,6 +2,7 @@ import { Directive, HostListener } from '@angular/core';
 
 @Directive({
 	selector: '[appNoSpace]',
+	standalone: false,
 })
 export class NoSpaceDirective {
 	@HostListener('keydown', ['$event'])

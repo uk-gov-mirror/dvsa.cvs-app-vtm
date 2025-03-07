@@ -8,6 +8,7 @@ import { ReplaySubject } from 'rxjs';
 	selector: 'app-dimensions-section-view',
 	templateUrl: './dimensions-section-view.component.html',
 	styleUrls: ['./dimensions-section-view.component.scss'],
+	standalone: false,
 })
 export class DimensionsSectionViewComponent {
 	protected readonly VehicleTypes = VehicleTypes;

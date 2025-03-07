@@ -38,6 +38,7 @@ import { Subject, combineLatest, map, take, takeUntil } from 'rxjs';
 	templateUrl: './tech-record-summary-changes.component.html',
 	styleUrls: ['./tech-record-summary-changes.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: false,
 })
 export class TechRecordSummaryChangesComponent implements OnInit, OnDestroy {
 	destroy$ = new Subject<void>();

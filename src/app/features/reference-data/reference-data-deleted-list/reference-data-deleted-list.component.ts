@@ -10,6 +10,7 @@ import { Observable, map, take } from 'rxjs';
 @Component({
 	selector: 'app-reference-data-deleted-list',
 	templateUrl: './reference-data-deleted-list.component.html',
+	standalone: false,
 })
 export class ReferenceDataDeletedListComponent implements OnInit {
 	type!: ReferenceDataResourceType;

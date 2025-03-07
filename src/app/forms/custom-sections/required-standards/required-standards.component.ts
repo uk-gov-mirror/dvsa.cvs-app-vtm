@@ -15,6 +15,7 @@ import { Subject, Subscription, debounceTime, distinctUntilChanged, takeUntil } 
 @Component({
 	selector: 'app-required-standards[template]',
 	templateUrl: './required-standards.component.html',
+	standalone: false,
 })
 export class RequiredStandardsComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() isEditing = false;

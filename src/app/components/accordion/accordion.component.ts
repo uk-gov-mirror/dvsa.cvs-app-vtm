@@ -7,6 +7,7 @@ import { addSectionState, removeSectionState } from '@store/technical-records';
 	templateUrl: './accordion.component.html',
 	styleUrls: ['./accordion.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: false,
 })
 export class AccordionComponent {
 	@Input() title: string | undefined = '';

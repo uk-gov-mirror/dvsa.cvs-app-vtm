@@ -5,6 +5,7 @@ import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/
 	selector: 'app-plates-section',
 	templateUrl: './plates-section.component.html',
 	styleUrls: ['./plates-section.component.scss'],
+	standalone: false,
 })
 export class PlatesSectionComponent {
 	mode = input<Mode>('edit');

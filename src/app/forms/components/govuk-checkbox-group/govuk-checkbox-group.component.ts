@@ -6,7 +6,6 @@ import { SharedModule } from '../../../shared/shared.module';
 
 @Component({
 	selector: 'govuk-checkbox-group',
-	standalone: true,
 	imports: [CommonModule, FormsModule, SharedModule],
 	templateUrl: './govuk-checkbox-group.component.html',
 	styleUrls: ['./govuk-checkbox-group.component.scss'],

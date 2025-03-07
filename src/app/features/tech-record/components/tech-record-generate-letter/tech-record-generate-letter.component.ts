@@ -25,6 +25,7 @@ import { take } from 'rxjs';
 	selector: 'app-generate-letter',
 	templateUrl: './tech-record-generate-letter.component.html',
 	styleUrls: ['./tech-record-generate-letter.component.scss'],
+	standalone: false,
 })
 export class GenerateLetterComponent implements OnInit {
 	techRecord?: V3TechRecordModel;

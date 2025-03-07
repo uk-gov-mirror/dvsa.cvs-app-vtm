@@ -23,7 +23,7 @@
       (ngModelChange)="handleChangeForOption($event)"
       (blur)="onTouched(); handleEvent($event)"
       (focus)="handleEvent($event)"
-      onfocus="this.select();"
+      onfocus="select();"
     />
     <datalist [id]="name + '-datalist'" role="listbox">
       <option *ngFor="let option of options$ | async; let i = index; trackBy: trackByFn" [ngValue]="option">{{ option.label }}</option>

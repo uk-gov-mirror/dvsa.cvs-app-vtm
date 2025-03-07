@@ -25,6 +25,7 @@ import { Subject, debounceTime, takeUntil } from 'rxjs';
 	templateUrl: './dynamic-form-group.component.html',
 	styleUrls: ['./dynamic-form-group.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: false,
 })
 export class DynamicFormGroupComponent implements OnChanges, OnInit, OnDestroy {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -19,6 +19,7 @@ import { Observable, Subject, asapScheduler, combineLatest, map, of, take } from
 
 @Pipe({
 	name: 'refDataDecode$',
+	standalone: false,
 })
 export class RefDataDecodePipe implements PipeTransform, OnDestroy {
 	constructor(private store: Store<State>) {}

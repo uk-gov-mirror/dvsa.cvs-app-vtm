@@ -24,6 +24,7 @@ import { Observable, Subject, debounceTime, of, switchMap, takeUntil, withLatest
 	selector: 'app-psv-brakes',
 	templateUrl: './psv-brakes.component.html',
 	styleUrls: ['./psv-brakes.component.scss'],
+	standalone: false,
 })
 export class PsvBrakesComponent implements OnInit, OnChanges, OnDestroy {
 	@Input() vehicleTechRecord?: TechRecordType<'psv'>;

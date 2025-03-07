@@ -16,6 +16,7 @@ import { techRecord } from '@store/technical-records';
 	selector: 'app-vehicle-section-view',
 	templateUrl: './vehicle-section-view.component.html',
 	styleUrls: ['./vehicle-section-view.component.scss'],
+	standalone: false,
 })
 export class VehicleSectionViewComponent {
 	readonly VehicleTypes = VehicleTypes;

@@ -11,6 +11,7 @@ import { Subject, debounceTime, takeUntil } from 'rxjs';
 	selector: 'app-trl-brakes[vehicleTechRecord]',
 	templateUrl: './trl-brakes.component.html',
 	styleUrls: ['./trl-brakes.component.scss'],
+	standalone: false,
 })
 export class TrlBrakesComponent implements OnInit, OnChanges, OnDestroy {
 	@Input() vehicleTechRecord!: TechRecordType<'trl'>;

@@ -19,6 +19,7 @@ import { take } from 'rxjs';
 	selector: 'app-change-vehicle-type',
 	templateUrl: './tech-record-change-type.component.html',
 	styleUrls: ['./tech-record-change-type.component.scss'],
+	standalone: false,
 })
 export class ChangeVehicleTypeComponent implements OnInit {
 	techRecord?: V3TechRecordModel;

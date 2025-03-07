@@ -5,6 +5,7 @@ import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/
 	selector: 'app-tyres-section',
 	templateUrl: './tyres-section.component.html',
 	styleUrls: ['./tyres-section.component.scss'],
+	standalone: false,
 })
 export class TyresSectionComponent {
 	mode = input<Mode>('edit');

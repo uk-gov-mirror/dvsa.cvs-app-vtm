@@ -26,6 +26,7 @@ import { Observable, take } from 'rxjs';
 @Component({
 	selector: 'app-reference-data-delete',
 	templateUrl: './reference-data-delete.component.html',
+	standalone: false,
 })
 export class ReferenceDataDeleteComponent implements OnInit {
 	type!: ReferenceDataResourceType;

@@ -26,6 +26,7 @@ import { Observable, map, take, tap } from 'rxjs';
 	selector: 'app-generate-plate',
 	templateUrl: './tech-record-generate-plate.component.html',
 	styleUrls: ['./tech-record-generate-plate.component.scss'],
+	standalone: false,
 })
 export class GeneratePlateComponent implements OnInit {
 	form = new FormGroup({

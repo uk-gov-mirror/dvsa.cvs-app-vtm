@@ -25,6 +25,7 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 	selector: 'app-adr-section-edit',
 	templateUrl: './adr-section-edit.component.html',
 	styleUrls: ['./adr-section-edit.component.scss'],
+	standalone: false,
 })
 export class AdrSectionEditComponent implements OnInit, OnDestroy {
 	fb = inject(FormBuilder);

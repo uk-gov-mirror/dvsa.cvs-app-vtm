@@ -2,6 +2,7 @@ import { Directive, HostListener } from '@angular/core';
 
 @Directive({
 	selector: '[appTrimWhitespace]',
+	standalone: false,
 })
 export class TrimWhitespaceDirective {
 	@HostListener('focusout', ['$event.target'])

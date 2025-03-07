@@ -12,6 +12,7 @@ import { CustomFormControl, FormNode, FormNodeCombinationOptions } from '@servic
 			multi: true,
 		},
 	],
+	standalone: false,
 })
 export class ViewCombinationComponent implements OnInit {
 	@Input() formNode: FormNode;

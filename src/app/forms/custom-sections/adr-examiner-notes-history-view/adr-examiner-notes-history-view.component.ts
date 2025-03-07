@@ -18,6 +18,7 @@ import { Observable, Subject, map, takeUntil } from 'rxjs';
 			multi: true,
 		},
 	],
+	standalone: false,
 })
 export class AdrExaminerNotesHistoryViewComponent extends BaseControlComponent implements OnInit, OnDestroy {
 	technicalRecordService = inject(TechnicalRecordService);

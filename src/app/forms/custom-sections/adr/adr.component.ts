@@ -15,6 +15,7 @@ import { ReplaySubject, skipWhile, takeUntil } from 'rxjs';
 	selector: 'app-adr',
 	templateUrl: './adr.component.html',
 	styleUrls: ['./adr.component.scss'],
+	standalone: false,
 })
 export class AdrComponent implements OnInit, OnDestroy {
 	@Input() techRecord!: TechRecordType<'hgv' | 'lgv' | 'trl'>;

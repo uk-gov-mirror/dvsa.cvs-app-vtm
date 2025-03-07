@@ -17,6 +17,7 @@ import { BaseControlComponent } from '../base-control/base-control.component';
 			multi: true,
 		},
 	],
+	standalone: false,
 })
 export class AutocompleteComponent extends BaseControlComponent implements AfterViewInit, AfterContentInit {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

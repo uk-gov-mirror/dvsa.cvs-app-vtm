@@ -14,6 +14,7 @@ import { BaseControlComponent } from '../base-control/base-control.component';
 		},
 	],
 	styleUrls: ['./view-list-item.component.scss'],
+	standalone: false,
 })
 export class ViewListItemComponent extends BaseControlComponent {
 	customFormControlInjector?: Injector;

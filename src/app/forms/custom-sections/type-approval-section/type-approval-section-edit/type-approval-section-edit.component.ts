@@ -25,6 +25,7 @@ type TypeApprovalSectionForm = Partial<Record<keyof TechRecordType<'hgv' | 'psv'
 	selector: 'app-type-approval-section-edit',
 	templateUrl: './type-approval-section-edit.component.html',
 	styleUrls: ['./type-approval-section-edit.component.scss'],
+	standalone: false,
 })
 export class TypeApprovalSectionEditComponent implements OnInit, OnDestroy {
 	private readonly fb = inject(FormBuilder);

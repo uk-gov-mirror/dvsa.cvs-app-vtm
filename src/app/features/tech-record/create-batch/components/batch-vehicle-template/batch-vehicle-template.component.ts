@@ -24,6 +24,7 @@ import { TechRecordSummaryComponent } from '../../../components/tech-record-summ
 @Component({
 	selector: 'app-batch-vehicle-template',
 	templateUrl: './batch-vehicle-template.component.html',
+	standalone: false,
 })
 export class BatchVehicleTemplateComponent {
 	@ViewChild(TechRecordSummaryComponent) summary?: TechRecordSummaryComponent;

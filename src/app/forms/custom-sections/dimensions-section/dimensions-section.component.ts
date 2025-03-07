@@ -5,6 +5,7 @@ import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/
 	selector: 'app-dimensions-section',
 	templateUrl: './dimensions-section.component.html',
 	styleUrls: ['./dimensions-section.component.scss'],
+	standalone: false,
 })
 export class DimensionsSectionComponent {
 	mode = input<Mode>('edit');

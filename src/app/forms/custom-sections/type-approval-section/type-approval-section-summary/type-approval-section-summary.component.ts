@@ -10,6 +10,7 @@ import { isEqual } from 'lodash';
 	selector: 'app-type-approval-section-summary',
 	templateUrl: './type-approval-section-summary.component.html',
 	styleUrls: ['./type-approval-section-summary.component.scss'],
+	standalone: false,
 })
 export class TypeApprovalSectionSummaryComponent {
 	store = inject(Store);

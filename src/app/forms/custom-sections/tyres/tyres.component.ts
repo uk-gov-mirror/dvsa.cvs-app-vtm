@@ -40,6 +40,7 @@ import { Observable, ReplaySubject, filter, takeUntil } from 'rxjs';
 	selector: 'app-tyres',
 	templateUrl: './tyres.component.html',
 	styleUrls: ['./tyres.component.scss'],
+	standalone: false,
 })
 export class TyresComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() vehicleTechRecord!: TechRecordType<'hgv' | 'psv' | 'trl'>;

@@ -13,5 +13,6 @@ import { BaseControlComponent } from '@forms/components/base-control/base-contro
 			multi: true,
 		},
 	],
+	standalone: false,
 })
 export class AdrTankDetailsSubsequentInspectionsViewComponent extends BaseControlComponent {}

@@ -18,6 +18,7 @@ import { Subject, debounceTime, takeUntil } from 'rxjs';
 	selector: 'app-dimensions',
 	templateUrl: './dimensions.component.html',
 	styleUrls: ['./dimensions.component.scss'],
+	standalone: false,
 })
 export class DimensionsComponent implements OnInit, OnChanges, OnDestroy {
 	@Input() techRecord!: TechRecordType<'trl'> | TechRecordType<'psv'> | TechRecordType<'hgv'>;

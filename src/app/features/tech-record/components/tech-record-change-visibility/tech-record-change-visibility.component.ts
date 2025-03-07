@@ -18,6 +18,7 @@ import { Subject, skipWhile, take, takeUntil, withLatestFrom } from 'rxjs';
 	selector: 'app-tech-record-change-visibility',
 	templateUrl: './tech-record-change-visibility.component.html',
 	styleUrls: ['./tech-record-change-visibility.component.scss'],
+	standalone: false,
 })
 export class TechRecordChangeVisibilityComponent implements OnDestroy {
 	private store = inject(Store<State>);

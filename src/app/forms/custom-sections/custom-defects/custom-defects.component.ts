@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 	selector: 'app-custom-defects[template]',
 	templateUrl: './custom-defects.component.html',
 	styleUrls: [],
+	standalone: false,
 })
 export class CustomDefectsComponent implements OnInit, OnDestroy {
 	@Input() isEditing = false;

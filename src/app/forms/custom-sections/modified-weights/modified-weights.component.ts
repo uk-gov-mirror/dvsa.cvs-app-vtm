@@ -13,6 +13,7 @@ import { TechnicalRecordService } from '@services/technical-record/technical-rec
 	selector: 'app-modified-weights',
 	templateUrl: './modified-weights.component.html',
 	styleUrls: ['./modified-weights.component.scss'],
+	standalone: false,
 })
 export class ModifiedWeightsComponent implements OnInit {
 	@Input() vehicleType!: VehicleTypes;

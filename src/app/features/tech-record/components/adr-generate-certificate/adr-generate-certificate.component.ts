@@ -19,6 +19,7 @@ import { Subject, take, takeUntil } from 'rxjs';
 @Component({
 	selector: 'app-adr-generate-certificate',
 	templateUrl: './adr-generate-certificate.component.html',
+	standalone: false,
 })
 export class AdrGenerateCertificateComponent implements OnInit, OnDestroy {
 	systemNumber?: string;

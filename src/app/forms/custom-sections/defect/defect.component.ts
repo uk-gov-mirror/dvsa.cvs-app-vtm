@@ -28,6 +28,7 @@ import { Subject, filter, take, takeUntil, withLatestFrom } from 'rxjs';
 	styleUrls: ['./defect.component.scss'],
 	providers: [DefaultNullOrEmpty],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: false,
 })
 export class DefectComponent implements OnInit, OnDestroy {
 	form!: CustomFormGroup;

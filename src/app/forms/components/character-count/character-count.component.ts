@@ -4,6 +4,7 @@ import { ControlContainer } from '@angular/forms';
 @Component({
 	selector: 'app-character-count',
 	templateUrl: './character-count.component.html',
+	standalone: false,
 })
 export class CharacterCountComponent {
 	for = input.required<string>();

@@ -23,6 +23,7 @@ import { Observable, mergeMap, take } from 'rxjs';
 	selector: 'app-tyres-search',
 	templateUrl: './tech-record-search-tyres.component.html',
 	styleUrls: ['./tech-record-search-tyres.component.scss'],
+	standalone: false,
 })
 export class TechRecordSearchTyresComponent implements OnInit {
 	options?: MultiOptions = [

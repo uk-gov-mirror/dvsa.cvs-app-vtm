@@ -29,6 +29,7 @@ import { TechRecordSummaryComponent } from '../tech-record-summary/tech-record-s
 	selector: 'app-vehicle-technical-record',
 	templateUrl: './vehicle-technical-record.component.html',
 	styleUrls: ['./vehicle-technical-record.component.scss'],
+	standalone: false,
 })
 export class VehicleTechnicalRecordComponent implements OnInit, OnDestroy {
 	@ViewChild(TechRecordSummaryComponent) summary!: TechRecordSummaryComponent;

@@ -9,6 +9,7 @@ import { take } from 'rxjs';
 @Component({
 	selector: 'app-tech-record',
 	templateUrl: './tech-record.component.html',
+	standalone: false,
 })
 export class TechRecordComponent implements OnInit {
 	systemNumber?: string;

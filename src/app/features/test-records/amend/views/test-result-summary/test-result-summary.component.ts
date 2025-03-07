@@ -8,6 +8,7 @@ import { Observable, of, skipWhile, switchMap, take } from 'rxjs';
 	selector: 'app-test-result-summary',
 	templateUrl: './test-result-summary.component.html',
 	styleUrls: ['./test-result-summary.component.scss'],
+	standalone: false,
 })
 export class TestResultSummaryComponent implements OnInit {
 	testResult$: Observable<TestResultModel | undefined> = of(undefined);

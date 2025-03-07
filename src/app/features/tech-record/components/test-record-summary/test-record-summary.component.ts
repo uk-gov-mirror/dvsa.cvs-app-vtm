@@ -17,6 +17,7 @@ interface TestField {
 	selector: 'app-test-record-summary',
 	templateUrl: './test-record-summary.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: false,
 })
 export class TestRecordSummaryComponent {
 	@Input() isEditing = false;

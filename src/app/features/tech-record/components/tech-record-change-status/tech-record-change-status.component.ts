@@ -19,6 +19,7 @@ import { Subject, takeUntil } from 'rxjs';
 @Component({
 	selector: 'app-tech-record-change-status',
 	templateUrl: './tech-record-change-status.component.html',
+	standalone: false,
 })
 export class TechRecordChangeStatusComponent implements OnInit, OnDestroy {
 	techRecord: TechRecordType<'get'> | undefined;

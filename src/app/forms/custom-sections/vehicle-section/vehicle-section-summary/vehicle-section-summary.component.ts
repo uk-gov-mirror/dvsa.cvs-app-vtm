@@ -18,6 +18,7 @@ import { isEqual } from 'lodash';
 	selector: 'app-vehicle-section-summary',
 	templateUrl: './vehicle-section-summary.component.html',
 	styleUrls: ['./vehicle-section-summary.component.scss'],
+	standalone: false,
 })
 export class VehicleSectionSummaryComponent {
 	readonly VehicleTypes = VehicleTypes;

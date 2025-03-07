@@ -17,6 +17,7 @@ import { BaseControlComponent } from '../base-control/base-control.component';
 			multi: true,
 		},
 	],
+	standalone: false,
 })
 export class SuggestiveInputComponent extends BaseControlComponent implements AfterContentInit, OnInit {
 	@Input() options$!: Observable<MultiOption[]>;

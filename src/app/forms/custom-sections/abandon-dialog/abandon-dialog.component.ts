@@ -52,6 +52,7 @@ const ABANDON_FORM = (ReasonsForAbandoning: ReferenceDataResourceType | SpecialR
 @Component({
 	selector: 'app-abandon-dialog',
 	templateUrl: './abandon-dialog.component.html',
+	standalone: false,
 })
 export class AbandonDialogComponent extends BaseDialogComponent implements OnInit {
 	@ViewChild(DynamicFormGroupComponent) dynamicFormGroup?: DynamicFormGroupComponent;

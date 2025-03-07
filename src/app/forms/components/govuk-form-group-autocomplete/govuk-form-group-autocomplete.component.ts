@@ -28,7 +28,6 @@ import { BehaviorSubject, Observable, ReplaySubject, combineLatest, takeUntil, t
 import { CommonValidatorsService } from '../../validators/common-validators.service';
 @Component({
 	selector: 'govuk-form-group-autocomplete',
-	standalone: true,
 	imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule],
 	templateUrl: './govuk-form-group-autocomplete.component.html',
 	styleUrls: ['./govuk-form-group-autocomplete.component.scss'],

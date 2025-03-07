@@ -4,6 +4,7 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 
 @Directive({
 	selector: '[govukRadio]',
+	standalone: false,
 })
 export class GovukRadioDirective implements OnInit, OnDestroy {
 	elementRef = inject<ElementRef<HTMLInputElement>>(ElementRef);

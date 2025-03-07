@@ -6,7 +6,10 @@ import { HttpService } from '@services/http/http.service';
 import { setSpinnerState } from '@store/spinner/spinner.actions';
 import { takeWhile } from 'rxjs';
 
-@Directive({ selector: '[appRetrieveDocument][params][fileName]' })
+@Directive({
+	selector: '[appRetrieveDocument][params][fileName]',
+	standalone: false,
+})
 export class RetrieveDocumentDirective {
 	@Input() params: Map<string, string> = new Map();
 	@Input() fileName = '';

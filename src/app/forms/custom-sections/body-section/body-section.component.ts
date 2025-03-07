@@ -5,6 +5,7 @@ import { Component, input } from '@angular/core';
 	selector: 'app-body-section',
 	templateUrl: './body-section.component.html',
 	styleUrls: ['./body-section.component.scss'],
+	standalone: false,
 })
 export class BodySectionComponent {
 	mode = input<Mode>('edit');

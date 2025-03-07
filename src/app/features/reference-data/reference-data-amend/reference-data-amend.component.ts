@@ -15,6 +15,7 @@ import { Observable, first } from 'rxjs';
 @Component({
 	selector: 'app-reference-data-amend',
 	templateUrl: './reference-data-amend.component.html',
+	standalone: false,
 })
 export class ReferenceDataAmendComponent implements OnInit {
 	type!: ReferenceDataResourceType;

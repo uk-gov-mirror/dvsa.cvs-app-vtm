@@ -16,7 +16,6 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 
 @Component({
 	selector: 'govuk-form-group-date',
-	standalone: true,
 	imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule, DateFocusNextDirective, NumberOnlyDirective],
 	templateUrl: './govuk-form-group-date.component.html',
 	styleUrls: ['./govuk-form-group-date.component.scss'],

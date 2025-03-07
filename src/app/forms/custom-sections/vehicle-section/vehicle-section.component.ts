@@ -5,6 +5,7 @@ import { Component, input } from '@angular/core';
 	selector: 'app-vehicle-section',
 	templateUrl: './vehicle-section.component.html',
 	styleUrls: ['./vehicle-section.component.scss'],
+	standalone: false,
 })
 export class VehicleSectionComponent {
 	mode = input<Mode>('edit');

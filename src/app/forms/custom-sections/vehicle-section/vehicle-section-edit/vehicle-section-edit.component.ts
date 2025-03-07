@@ -53,6 +53,7 @@ type VehicleSectionForm = Partial<Record<keyof TechRecordType<'hgv' | 'car' | 'p
 	selector: 'app-vehicle-section-edit',
 	templateUrl: './vehicle-section-edit.component.html',
 	styleUrls: ['./vehicle-section-edit.component.scss'],
+	standalone: false,
 })
 export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 	readonly CouplingTypeOptions = CouplingTypeOptions;

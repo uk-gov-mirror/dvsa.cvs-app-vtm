@@ -10,6 +10,7 @@ import { isEqual } from 'lodash';
 	selector: 'app-last-applicant-section-summary',
 	templateUrl: './last-applicant-section-summary.component.html',
 	styleUrls: ['./last-applicant-section-summary.component.scss'],
+	standalone: false,
 })
 export class LastApplicantSectionSummaryComponent {
 	store = inject(Store);

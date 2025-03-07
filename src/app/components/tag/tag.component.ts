@@ -15,6 +15,7 @@ export const TagType = {
 	selector: 'app-tag',
 	templateUrl: './tag.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: false,
 })
 export class TagComponent {
 	@Input() type: string = TagType.BLUE;

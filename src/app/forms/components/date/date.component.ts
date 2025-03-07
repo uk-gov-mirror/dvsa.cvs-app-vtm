@@ -36,6 +36,7 @@ type Segments = {
 			multi: true,
 		},
 	],
+	standalone: false,
 })
 export class DateComponent extends BaseControlComponent implements OnInit, OnDestroy, AfterContentInit {
 	@Input() displayTime = false;

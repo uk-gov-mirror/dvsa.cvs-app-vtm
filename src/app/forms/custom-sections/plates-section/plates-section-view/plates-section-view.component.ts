@@ -17,6 +17,7 @@ import { cloneDeep } from 'lodash';
 	selector: 'app-plates-section-view',
 	templateUrl: './plates-section-view.component.html',
 	styleUrls: ['./plates-section-view.component.scss'],
+	standalone: false,
 })
 export class PlatesSectionViewComponent {
 	protected readonly VehicleTypes = VehicleTypes;

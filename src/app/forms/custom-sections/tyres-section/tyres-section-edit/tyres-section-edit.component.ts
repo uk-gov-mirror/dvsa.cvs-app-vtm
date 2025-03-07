@@ -31,6 +31,7 @@ import { ReplaySubject, combineLatest, filter, takeUntil, withLatestFrom } from 
 	selector: 'app-tyres-section-edit',
 	templateUrl: './tyres-section-edit.component.html',
 	styleUrls: ['./tyres-section-edit.component.scss'],
+	standalone: false,
 })
 export class TyresSectionEditComponent implements OnInit, OnDestroy, OnChanges {
 	protected readonly VehicleTypes = VehicleTypes;

@@ -19,6 +19,7 @@ import { Subject, take, takeUntil, withLatestFrom } from 'rxjs';
 @Component({
 	selector: 'app-change-amend-vin',
 	templateUrl: './tech-record-amend-vin.component.html',
+	standalone: false,
 })
 export class AmendVinComponent implements OnDestroy, OnInit {
 	techRecord?: V3TechRecordModel;

@@ -18,6 +18,7 @@ import { Subject, take, takeUntil } from 'rxjs';
 	selector: 'app-amend-vrm-reason',
 	templateUrl: './tech-record-amend-vrm-reason.component.html',
 	styleUrls: ['./tech-record-amend-vrm-reason.component.scss'],
+	standalone: false,
 })
 export class AmendVrmReasonComponent implements OnDestroy, OnInit {
 	techRecord?: VehiclesOtherThan<'trl'>;

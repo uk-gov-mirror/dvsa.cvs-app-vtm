@@ -4,6 +4,7 @@ import { Component, Input } from '@angular/core';
 	selector: 'collapsible-text',
 	templateUrl: './collapsible-text.component.html',
 	styleUrls: ['./collapsible-text.component.scss'],
+	standalone: false,
 })
 export class CollapsibleTextComponent {
 	@Input() text = '';

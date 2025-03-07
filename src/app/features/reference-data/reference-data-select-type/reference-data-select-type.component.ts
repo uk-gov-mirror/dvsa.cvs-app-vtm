@@ -20,6 +20,7 @@ import { Observable, map, take } from 'rxjs';
 @Component({
 	selector: 'app-reference-data-select-type',
 	templateUrl: './reference-data-select-type.component.html',
+	standalone: false,
 })
 export class ReferenceDataSelectTypeComponent {
 	form: CustomFormGroup = new CustomFormGroup(

@@ -5,6 +5,7 @@ import { GlobalWarningService } from './global-warning.service';
 @Component({
 	selector: 'app-global-warning',
 	templateUrl: './global-warning.component.html',
+	standalone: false,
 })
 export class GlobalWarningComponent {
 	constructor(public globalWarningService: GlobalWarningService) {}

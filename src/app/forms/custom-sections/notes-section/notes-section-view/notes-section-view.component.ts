@@ -8,6 +8,7 @@ import { techRecord } from '@store/technical-records';
 	selector: 'app-notes-section-view',
 	templateUrl: './notes-section-view.component.html',
 	styleUrls: ['./notes-section-view.component.scss'],
+	standalone: false,
 })
 export class NotesSectionViewComponent {
 	protected readonly VehicleTypes = VehicleTypes;

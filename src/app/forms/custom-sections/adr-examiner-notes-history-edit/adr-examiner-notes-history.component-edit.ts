@@ -17,6 +17,7 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 	selector: 'app-adr-examiner-notes-history',
 	templateUrl: './adr-examiner-notes-history-edit.component.html',
 	styleUrls: ['adr-examiner-notes-history.component-edit.scss'],
+	standalone: false,
 })
 export class AdrExaminerNotesHistoryEditComponent
 	extends BaseControlComponent

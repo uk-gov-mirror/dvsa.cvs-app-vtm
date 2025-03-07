@@ -12,6 +12,7 @@ import { ReplaySubject } from 'rxjs';
 	selector: 'app-notes-section-edit',
 	templateUrl: './notes-section-edit.component.html',
 	styleUrls: ['./notes-section-edit.component.scss'],
+	standalone: false,
 })
 export class NotesSectionEditComponent implements OnInit, OnDestroy {
 	fb = inject(FormBuilder);

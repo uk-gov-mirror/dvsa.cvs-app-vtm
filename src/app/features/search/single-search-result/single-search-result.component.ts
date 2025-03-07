@@ -9,6 +9,7 @@ import { StatusCodes } from '@models/vehicle-tech-record.model';
 	templateUrl: './single-search-result.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	styleUrls: ['./single-search-result.component.scss'],
+	standalone: false,
 })
 export class SingleSearchResultComponent {
 	@Input() searchResult!: TechRecordSearchSchema;

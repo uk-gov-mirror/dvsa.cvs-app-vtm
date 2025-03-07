@@ -3,6 +3,7 @@ import { ReplaySubject } from 'rxjs';
 
 @Directive({
 	selector: '[tag]',
+	standalone: false,
 })
 export class TagDirective implements OnInit, OnDestroy {
 	elementRef = inject<ElementRef<HTMLInputElement>>(ElementRef);

@@ -7,6 +7,7 @@ import { techRecord } from '@store/technical-records';
 	selector: 'app-adr-section-view',
 	templateUrl: './adr-section-view.component.html',
 	styleUrls: ['./adr-section-view.component.scss'],
+	standalone: false,
 })
 export class AdrSectionViewComponent {
 	store = inject(Store);

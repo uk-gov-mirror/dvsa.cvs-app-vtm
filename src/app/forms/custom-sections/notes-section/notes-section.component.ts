@@ -5,6 +5,7 @@ import { Component, input } from '@angular/core';
 	selector: 'app-notes-section',
 	templateUrl: './notes-section.component.html',
 	styleUrls: ['./notes-section.component.scss'],
+	standalone: false,
 })
 export class NotesSectionComponent {
 	mode = input<Mode>('edit');

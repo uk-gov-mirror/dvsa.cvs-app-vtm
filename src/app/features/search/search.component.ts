@@ -11,6 +11,7 @@ import { Observable, map } from 'rxjs';
 @Component({
 	selector: 'app-search',
 	templateUrl: './search.component.html',
+	standalone: false,
 })
 export class SearchComponent {
 	missingTermErrorMessage =

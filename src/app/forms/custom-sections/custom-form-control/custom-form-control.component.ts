@@ -15,6 +15,7 @@ import { CustomControl } from '@services/dynamic-forms/dynamic-form.types';
 			multi: true,
 		},
 	],
+	standalone: false,
 })
 export class CustomFormControlComponent extends BaseControlComponent {
 	protected form?: FormGroup;

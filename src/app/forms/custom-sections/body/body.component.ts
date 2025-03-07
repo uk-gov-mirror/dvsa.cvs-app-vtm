@@ -43,6 +43,7 @@ import {
 	selector: 'app-body',
 	templateUrl: './body.component.html',
 	styleUrls: ['./body.component.scss'],
+	standalone: false,
 })
 export class BodyComponent implements OnInit, OnChanges, OnDestroy {
 	@Input() techRecord!: V3TechRecordModel;

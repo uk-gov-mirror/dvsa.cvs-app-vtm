@@ -20,6 +20,7 @@ import { Subject, takeUntil } from 'rxjs';
 @Component({
 	selector: 'app-tech-record-unarchive',
 	templateUrl: './tech-record-unarchive.component.html',
+	standalone: false,
 })
 export class TechRecordUnarchiveComponent implements OnInit, OnDestroy {
 	techRecord: TechRecordType<'get'> | undefined;

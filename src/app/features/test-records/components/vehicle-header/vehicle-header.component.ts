@@ -20,6 +20,7 @@ import { Observable, map } from 'rxjs';
 	templateUrl: './vehicle-header.component.html',
 	styleUrls: ['./vehicle-header.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: false,
 })
 export class VehicleHeaderComponent {
 	@Input() isEditing = false;

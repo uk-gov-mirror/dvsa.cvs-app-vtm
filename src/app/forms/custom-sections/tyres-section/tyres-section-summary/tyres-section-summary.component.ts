@@ -11,6 +11,7 @@ import { isEqual } from 'lodash';
 	selector: 'app-tyres-section-summary',
 	templateUrl: './tyres-section-summary.component.html',
 	styleUrls: ['./tyres-section-summary.component.scss'],
+	standalone: false,
 })
 export class TyresSectionSummaryComponent {
 	protected readonly VehicleTypes = VehicleTypes;

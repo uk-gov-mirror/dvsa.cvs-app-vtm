@@ -12,6 +12,7 @@ import {
 	selector: 'app-test-amend-reason',
 	templateUrl: './test-amend-reason.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: false,
 })
 export class TestAmendReasonComponent {
 	private routes: Record<number, string> = { 1: 'incorrect-test-type', 2: 'amend-test-details' };

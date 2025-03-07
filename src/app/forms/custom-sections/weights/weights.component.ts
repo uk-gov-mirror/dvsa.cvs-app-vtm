@@ -21,6 +21,7 @@ import { Subscription } from 'rxjs';
 	selector: 'app-weights[vehicleTechRecord]',
 	templateUrl: './weights.component.html',
 	styleUrls: ['./weights.component.scss'],
+	standalone: false,
 })
 export class WeightsComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() vehicleTechRecord!: TechRecordType<'psv'> | TechRecordType<'trl'> | TechRecordType<'hgv'>;

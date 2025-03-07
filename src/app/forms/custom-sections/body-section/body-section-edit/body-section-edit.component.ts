@@ -27,6 +27,7 @@ import { Observable, ReplaySubject, combineLatest, map, skipWhile, switchMap, ta
 	selector: 'app-body-section-edit',
 	templateUrl: './body-section-edit.component.html',
 	styleUrls: ['./body-section-edit.component.scss'],
+	standalone: false,
 })
 export class BodySectionEditComponent implements OnInit, OnDestroy {
 	fb = inject(FormBuilder);

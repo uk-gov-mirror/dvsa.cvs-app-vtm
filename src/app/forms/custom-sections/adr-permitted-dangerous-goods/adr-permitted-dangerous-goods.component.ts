@@ -11,6 +11,7 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 	selector: 'app-adr-permitted-dangerous-goods',
 	templateUrl: './adr-permitted-dangerous-goods.component.html',
 	styleUrls: ['./adr-permitted-dangerous-goods.component.scss'],
+	standalone: false,
 })
 export class AdrPermittedDangerousGoodsComponent
 	extends BaseControlComponent

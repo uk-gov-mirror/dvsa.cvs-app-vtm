@@ -22,6 +22,7 @@ import { take } from 'rxjs';
 @Component({
 	selector: 'app-select-vehicle-type',
 	templateUrl: './select-vehicle-type.component.html',
+	standalone: false,
 })
 export class SelectVehicleTypeComponent {
 	form: CustomFormGroup = new CustomFormGroup(

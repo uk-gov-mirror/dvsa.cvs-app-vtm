@@ -8,6 +8,7 @@ import { Subject, filter, race, take, withLatestFrom } from 'rxjs';
 @Component({
 	selector: 'app-batch-vehicle-results',
 	templateUrl: './batch-vehicle-results.component.html',
+	standalone: false,
 })
 export class BatchVehicleResultsComponent implements OnDestroy {
 	private destroy$ = new Subject<void>();

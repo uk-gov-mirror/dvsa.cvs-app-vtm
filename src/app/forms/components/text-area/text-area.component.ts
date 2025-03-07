@@ -13,6 +13,7 @@ import { BaseControlComponent } from '../base-control/base-control.component';
 			multi: true,
 		},
 	],
+	standalone: false,
 })
 export class TextAreaComponent extends BaseControlComponent {
 	get maxLength(): number | undefined {

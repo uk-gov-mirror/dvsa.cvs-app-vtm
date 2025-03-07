@@ -3,6 +3,7 @@ import { Subject, Subscription, throttleTime } from 'rxjs';
 
 @Directive({
 	selector: '[appPreventDoubleClick]',
+	standalone: false,
 })
 export class PreventDoubleClickDirective implements OnDestroy {
 	@Input()

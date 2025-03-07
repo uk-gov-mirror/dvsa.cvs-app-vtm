@@ -20,6 +20,7 @@ import { ReplaySubject, Subscription, debounceTime, takeUntil } from 'rxjs';
 	selector: 'app-letters[techRecord]',
 	templateUrl: './letters.component.html',
 	styleUrls: ['./letters.component.scss'],
+	standalone: false,
 })
 export class LettersComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() techRecord?: TechRecordType<'trl'>;

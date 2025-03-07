@@ -18,6 +18,7 @@ import { Subject, take, takeUntil } from 'rxjs';
 	selector: 'app-contingency-adr-generate-cert',
 	templateUrl: './contingency-adr-generate-cert.component.html',
 	styleUrls: ['./contingency-adr-generate-cert.component.scss'],
+	standalone: false,
 })
 export class ContingencyAdrGenerateCertComponent extends CustomFormControlComponent {
 	systemNumber?: string;

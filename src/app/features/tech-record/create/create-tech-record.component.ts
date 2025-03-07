@@ -20,6 +20,7 @@ import { firstValueFrom } from 'rxjs';
 @Component({
 	selector: 'app-create',
 	templateUrl: './create-tech-record.component.html',
+	standalone: false,
 })
 export class CreateTechRecordComponent implements OnChanges {
 	techRecord: Partial<V3TechRecordModel> = {};

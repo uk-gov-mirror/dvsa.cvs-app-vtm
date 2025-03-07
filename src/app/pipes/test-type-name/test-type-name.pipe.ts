@@ -4,6 +4,7 @@ import { TestTypeCategory } from '@models/test-types/testTypeCategory';
 
 @Pipe({
 	name: 'testTypeName',
+	standalone: false,
 })
 export class TestTypeNamePipe implements PipeTransform {
 	findTestTypeNameById(id: string, testTypes: Array<TestType | TestTypeCategory>): TestType | undefined {

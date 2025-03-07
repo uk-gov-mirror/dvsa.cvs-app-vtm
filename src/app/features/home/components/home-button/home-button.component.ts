@@ -4,6 +4,7 @@ import { Component, Input } from '@angular/core';
 	selector: 'app-home-button',
 	templateUrl: './home-button.component.html',
 	styleUrls: ['./home-button.component.scss'],
+	standalone: false,
 })
 export class HomeButtonComponent {
 	@Input() url = '';

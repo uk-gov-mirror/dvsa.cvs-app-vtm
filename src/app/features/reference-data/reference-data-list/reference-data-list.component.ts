@@ -22,6 +22,7 @@ import { Observable, Subject, catchError, filter, map, of, switchMap, take } fro
 	selector: 'app-reference-data-list',
 	templateUrl: './reference-data-list.component.html',
 	styleUrls: ['./reference-data-list.component.scss'],
+	standalone: false,
 })
 export class ReferenceDataListComponent implements OnInit, OnDestroy {
 	type!: ReferenceDataResourceType;

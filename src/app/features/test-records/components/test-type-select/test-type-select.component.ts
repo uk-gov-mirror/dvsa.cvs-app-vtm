@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 	selector: 'app-test-type-select',
 	templateUrl: './test-type-select.component.html',
 	styleUrls: ['./test-type-select.component.scss'],
+	standalone: false,
 })
 export class TestTypeSelectComponent implements OnInit {
 	@Output() testTypeSelected = new EventEmitter<TestType>();

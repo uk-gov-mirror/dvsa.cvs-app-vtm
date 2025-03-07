@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
 	name: 'digitGroupSeparator',
+	standalone: false,
 })
 export class DigitGroupSeparatorPipe implements PipeTransform {
 	transform(value: number | undefined): string | undefined {

@@ -3,6 +3,7 @@ import { ReplaySubject } from 'rxjs';
 
 @Directive({
 	selector: '[govukFormGroup]',
+	standalone: false,
 })
 export class GovukFormGroupDirective implements OnInit, OnDestroy {
 	elementRef = inject<ElementRef<HTMLInputElement>>(ElementRef);

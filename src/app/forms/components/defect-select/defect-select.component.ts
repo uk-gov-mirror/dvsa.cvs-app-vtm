@@ -16,6 +16,7 @@ import { Subject, filter, takeUntil } from 'rxjs';
 	selector: 'app-defect-select',
 	templateUrl: './defect-select.component.html',
 	styleUrls: ['./defect-select.component.scss'],
+	standalone: false,
 })
 export class DefectSelectComponent implements OnInit, OnDestroy {
 	defects: Defect[] = [];

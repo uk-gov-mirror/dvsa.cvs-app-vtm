@@ -15,6 +15,7 @@ import { withLatestFrom } from 'rxjs/operators';
 	selector: 'app-weights-section-edit',
 	templateUrl: './weights-section-edit.component.html',
 	styleUrls: ['./weights-section-edit.component.scss'],
+	standalone: false,
 })
 export class WeightsSectionEditComponent implements OnInit, OnDestroy, OnChanges {
 	protected readonly VehicleTypes = VehicleTypes;

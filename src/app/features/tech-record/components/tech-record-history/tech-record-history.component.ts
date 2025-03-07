@@ -11,6 +11,7 @@ import { Observable, map } from 'rxjs';
 	templateUrl: './tech-record-history.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	styleUrls: ['./tech-record-history.component.scss'],
+	standalone: false,
 })
 export class TechRecordHistoryComponent implements OnInit {
 	@Input() currentTechRecord?: V3TechRecordModel;

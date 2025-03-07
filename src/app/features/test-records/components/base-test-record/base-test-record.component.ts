@@ -34,6 +34,7 @@ import { Observable, map } from 'rxjs';
 	selector: 'app-base-test-record[testResult]',
 	templateUrl: './base-test-record.component.html',
 	styleUrls: ['./base-test-record.component.scss'],
+	standalone: false,
 })
 export class BaseTestRecordComponent implements AfterViewInit {
 	@ViewChildren(DynamicFormGroupComponent) sections?: QueryList<DynamicFormGroupComponent>;

@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 @Component({
 	selector: 'app-control-errors',
 	templateUrl: './control-errors.component.html',
+	standalone: false,
 })
 export class ControlErrorsComponent {
 	@Input({ required: true })

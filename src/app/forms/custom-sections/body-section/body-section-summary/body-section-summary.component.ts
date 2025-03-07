@@ -10,6 +10,7 @@ import { isEqual } from 'lodash';
 	selector: 'app-body-section-summary',
 	templateUrl: './body-section-summary.component.html',
 	styleUrls: ['./body-section-summary.component.scss'],
+	standalone: false,
 })
 export class BodySectionSummaryComponent {
 	protected readonly VehicleTypes = VehicleTypes;

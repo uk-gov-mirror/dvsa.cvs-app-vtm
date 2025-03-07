@@ -5,6 +5,7 @@ import { Component, input } from '@angular/core';
 	selector: 'app-last-applicant-section',
 	templateUrl: './last-applicant-section.component.html',
 	styleUrls: ['./last-applicant-section.component.scss'],
+	standalone: false,
 })
 export class LastApplicantSectionComponent {
 	mode = input<Mode>('edit');

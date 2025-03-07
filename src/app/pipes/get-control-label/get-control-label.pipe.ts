@@ -3,6 +3,7 @@ import { FormNodeCombinationOptions, FormNodeOption } from '@services/dynamic-fo
 
 @Pipe({
 	name: 'getControlLabel',
+	standalone: false,
 })
 export class GetControlLabelPipe implements PipeTransform {
 	transform(

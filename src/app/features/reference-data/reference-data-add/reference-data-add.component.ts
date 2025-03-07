@@ -15,6 +15,7 @@ import { Observable, catchError, filter, of, switchMap, take, throwError } from 
 @Component({
 	selector: 'app-reference-data-add',
 	templateUrl: './reference-data-add.component.html',
+	standalone: false,
 })
 export class ReferenceDataCreateComponent implements OnInit {
 	type: ReferenceDataResourceType = ReferenceDataResourceType.Brakes;

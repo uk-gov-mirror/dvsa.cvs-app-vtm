@@ -50,6 +50,7 @@ import { Observable, Subject, debounceTime, map, skipWhile, take, takeUntil } fr
 	templateUrl: './tech-record-summary.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	styleUrls: ['./tech-record-summary.component.scss'],
+	standalone: false,
 })
 export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewInit {
 	@ViewChildren(DynamicFormGroupComponent) sections!: QueryList<DynamicFormGroupComponent>;

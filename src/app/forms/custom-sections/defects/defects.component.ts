@@ -9,6 +9,7 @@ import { Subscription, debounceTime } from 'rxjs';
 @Component({
 	selector: 'app-defects[defects][template]',
 	templateUrl: './defects.component.html',
+	standalone: false,
 })
 export class DefectsComponent implements OnInit, OnDestroy {
 	@Input() isEditing = false;

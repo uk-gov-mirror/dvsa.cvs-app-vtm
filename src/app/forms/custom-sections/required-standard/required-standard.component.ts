@@ -25,6 +25,7 @@ import { Subject, distinctUntilChanged, takeUntil, withLatestFrom } from 'rxjs';
 	templateUrl: './required-standard.component.html',
 	providers: [DefaultNullOrEmpty],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: false,
 })
 export class RequiredStandardComponent implements OnInit, OnDestroy {
 	form!: CustomFormGroup;
