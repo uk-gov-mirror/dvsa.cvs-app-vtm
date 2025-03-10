@@ -113,6 +113,7 @@ export class DimensionsSectionEditComponent implements OnInit, OnDestroy {
 
 	getAxleSpacingForm() {
 		return this.fb.group({
+			axles: this.fb.control<string>(''),
 			value: this.fb.control<number | null>(null, [
 				this.commonValidators.max(99999, 'Axle spacing must be less than 99999 mm'),
 			]),

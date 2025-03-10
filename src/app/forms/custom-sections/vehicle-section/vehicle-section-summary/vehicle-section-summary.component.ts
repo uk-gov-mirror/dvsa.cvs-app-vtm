@@ -7,12 +7,11 @@ import {
 	TRL_VEHICLE_CLASS_DESCRIPTION_OPTIONS,
 } from '@/src/app/models/options.model';
 import { VehicleTypes } from '@/src/app/models/vehicle-tech-record.model';
+import { TechnicalRecordChangesService } from '@/src/app/services/technical-record/technical-record-changes.service';
 import { TechnicalRecordService } from '@/src/app/services/technical-record/technical-record.service';
 import { Component, inject } from '@angular/core';
-import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb';
 import { Store } from '@ngrx/store';
 import { editingTechRecord, techRecord } from '@store/technical-records';
-import { isEqual } from 'lodash';
 
 @Component({
 	selector: 'app-vehicle-section-summary',
@@ -30,30 +29,16 @@ export class VehicleSectionSummaryComponent {
 
 	store = inject(Store);
 	technicalRecordService = inject(TechnicalRecordService);
+	tcs = inject(TechnicalRecordChangesService);
 
 	currentTechRecord = this.store.selectSignal(techRecord);
 	amendedTechRecord = this.store.selectSignal(editingTechRecord);
 
 	get displaySeatsHeading(): boolean {
 		return (
-			this.hasChanged('techRecord_seatsUpperDeck') ||
-			this.hasChanged('techRecord_seatsLowerDeck') ||
-			this.hasChanged('techRecord_standingCapacity')
+			this.tcs.hasChanged('techRecord_seatsUpperDeck') ||
+			this.tcs.hasChanged('techRecord_seatsLowerDeck') ||
+			this.tcs.hasChanged('techRecord_standingCapacity')
 		);
-	}
-
-	hasChanged(property: string) {
-		const current = this.currentTechRecord();
-		const amended = this.amendedTechRecord();
-
-		if (!current || !amended) return true;
-
-		const currentValue = current[property as keyof TechRecordType<'put'>];
-		const amendedValue = amended[property as keyof TechRecordType<'put'>];
-
-		// If the property is edited, exclude certain changes
-		if (currentValue == null && Array.isArray(amendedValue) && amendedValue.length === 0) return false;
-
-		return !isEqual(currentValue, amendedValue);
 	}
 }

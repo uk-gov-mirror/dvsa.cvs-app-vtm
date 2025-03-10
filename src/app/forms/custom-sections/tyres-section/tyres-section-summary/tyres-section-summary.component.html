@@ -2,7 +2,7 @@
   <ng-container *ngIf="vm.techRecord_vehicleType === VehicleTypes.PSV || vm.techRecord_vehicleType === VehicleTypes.HGV || vm.techRecord_vehicleType === VehicleTypes.TRL">
     <!-- Speed restriction (PSV Only) -->
     <dl class="govuk-summary-list"  *ngIf="vm.techRecord_vehicleType === VehicleTypes.PSV">
-      <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_speedRestriction')">
+      <div class="govuk-summary-list__row" *ngIf="tcs.hasChanged('techRecord_speedRestriction')">
         <dt class="govuk-summary-list__key">Speed restriction</dt>
         <dd class="govuk-summary-list__value" id="test-techRecord_speedRestriction">
           {{ vm.techRecord_speedRestriction | defaultNullOrEmpty }}
@@ -41,7 +41,7 @@
 
     <!-- Tyre Use Code (HGV/TRL Only) -->
     <dl class="govuk-summary-list"  *ngIf="vm.techRecord_vehicleType === VehicleTypes.HGV || vm.techRecord_vehicleType === VehicleTypes.TRL">
-      <div class="govuk-summary-list__row" *ngIf="hasChanged('techRecord_tyreUseCode')">
+      <div class="govuk-summary-list__row" *ngIf="tcs.hasChanged('techRecord_tyreUseCode')">
         <dt class="govuk-summary-list__key">Tyre Use Code</dt>
         <dd class="govuk-summary-list__value" id="test-techRecord_tyreUseCode">
           {{ vm.techRecord_tyreUseCode | defaultNullOrEmpty }}

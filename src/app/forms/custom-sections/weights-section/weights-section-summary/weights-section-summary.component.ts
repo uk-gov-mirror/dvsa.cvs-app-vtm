@@ -1,3 +1,4 @@
+import { TechnicalRecordChangesService } from '@/src/app/services/technical-record/technical-record-changes.service';
 import { Component, Signal, inject } from '@angular/core';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { Axle, VehicleTypes } from '@models/vehicle-tech-record.model';
@@ -14,6 +15,7 @@ export class WeightsSectionSummaryComponent {
 	protected readonly VehicleTypes = VehicleTypes;
 
 	store = inject(Store);
+	tcs = inject(TechnicalRecordChangesService);
 
 	currentTechRecord = this.store.selectSignal(techRecord) as Signal<TechRecordType<'hgv' | 'psv' | 'trl'>>;
 	amendedTechRecord = this.store.selectSignal(editingTechRecord) as Signal<TechRecordType<'hgv' | 'psv' | 'trl'>>;
@@ -25,54 +27,34 @@ export class WeightsSectionSummaryComponent {
 		return !isEqual(current, amended);
 	}
 
-	hasChanged(property: string) {
-		const current = this.currentTechRecord();
-		const amended = this.amendedTechRecord();
-		if (!current || !amended) return true;
-
-		return !isEqual(
-			current[property as keyof TechRecordType<'hgv' | 'psv' | 'trl'>],
-			amended[property as keyof TechRecordType<'hgv' | 'psv' | 'trl'>]
-		);
-	}
-
 	hasHGVOrTRLGrossAxleChanged() {
-		return [
-			this.hasChanged('techRecord_grossEecWeight'),
-			this.hasChanged('techRecord_grossDesignWeight'),
-			this.hasChanged('techRecord_grossGbWeight'),
-		].some(Boolean);
+		return this.tcs.hasChanged('techRecord_grossEecWeight', 'techRecord_grossDesignWeight', 'techRecord_grossGbWeight');
 	}
 
 	hasPsvGrossAxleChanged() {
-		return [
-			this.hasChanged('techRecord_grossKerbWeight'),
-			this.hasChanged('techRecord_grossLadenWeight'),
-			this.hasChanged('techRecord_grossGbWeight'),
-			this.hasChanged('techRecord_grossDesignWeight'),
-		].some(Boolean);
+		return this.tcs.hasChanged(
+			'techRecord_grossKerbWeight',
+			'techRecord_grossLadenWeight',
+			'techRecord_grossGbWeight',
+			'techRecord_grossDesignWeight'
+		);
 	}
 
 	hasHgvTrainAxleChanged() {
-		return [
-			this.hasChanged('techRecord_trainDesignWeight'),
-			this.hasChanged('techRecord_trainGbWeight'),
-			this.hasChanged('techRecord_trainEecWeight'),
-		].some(Boolean);
+		return this.tcs.hasChanged('techRecord_trainDesignWeight', 'techRecord_trainGbWeight', 'techRecord_trainEecWeight');
 	}
 
 	hasPsvTrainAxleChanged() {
-		return [
-			this.hasChanged('techRecord_maxTrainGbWeight'),
-			this.hasAxleChanged('techRecord_trainDesignWeight' as any),
-		].some(Boolean);
+		return (
+			this.tcs.hasChanged('techRecord_maxTrainGbWeight') || this.hasAxleChanged('techRecord_trainDesignWeight' as any)
+		);
 	}
 
 	hasMaxTrainAxleChanged() {
-		return [
-			this.hasChanged('techRecord_maxTrainDesignWeight'),
-			this.hasChanged('techRecord_maxTrainEecWeight'),
-			this.hasChanged('techRecord_maxTrainGbWeight'),
-		].some(Boolean);
+		return this.tcs.hasChanged(
+			'techRecord_maxTrainDesignWeight',
+			'techRecord_maxTrainEecWeight',
+			'techRecord_maxTrainGbWeight'
+		);
 	}
 }
