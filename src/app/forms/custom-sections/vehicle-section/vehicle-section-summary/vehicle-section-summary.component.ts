@@ -35,10 +35,6 @@ export class VehicleSectionSummaryComponent {
 	amendedTechRecord = this.store.selectSignal(editingTechRecord);
 
 	get displaySeatsHeading(): boolean {
-		return (
-			this.tcs.hasChanged('techRecord_seatsUpperDeck') ||
-			this.tcs.hasChanged('techRecord_seatsLowerDeck') ||
-			this.tcs.hasChanged('techRecord_standingCapacity')
-		);
+		return this.tcs.hasChanged('techRecord_seatsUpperDeck', 'techRecord_seatsLowerDeck', 'techRecord_standingCapacity');
 	}
 }

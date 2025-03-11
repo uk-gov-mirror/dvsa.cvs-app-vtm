@@ -24,81 +24,78 @@ export class AdrSectionSummaryComponent {
 	amendedTechRecord = this.store.selectSignal(editingTechRecord) as Signal<ADRTechRecord>;
 
 	haveAnyApplicantDetailItemsChanged() {
-		return [
-			this.tcs.hasChanged('techRecord_adrDetails_applicantDetails_city'),
-			this.tcs.hasChanged('techRecord_adrDetails_applicantDetails_name'),
-			this.tcs.hasChanged('techRecord_adrDetails_applicantDetails_postcode'),
-			this.tcs.hasChanged('techRecord_adrDetails_applicantDetails_street'),
-			this.tcs.hasChanged('techRecord_adrDetails_applicantDetails_town'),
-		].some((hasChanged) => hasChanged);
+		return this.tcs.hasChanged(
+			'techRecord_adrDetails_applicantDetails_city',
+			'techRecord_adrDetails_applicantDetails_name',
+			'techRecord_adrDetails_applicantDetails_postcode',
+			'techRecord_adrDetails_applicantDetails_street',
+			'techRecord_adrDetails_applicantDetails_town'
+		);
 	}
 
 	hasInitialInspectionChanged() {
-		return [
-			this.tcs.hasChanged('techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateApprovalNo'),
-			this.tcs.hasChanged('techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate'),
-		].some((hasChanged) => hasChanged);
+		return this.tcs.hasChanged(
+			'techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateApprovalNo',
+			'techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate'
+		);
 	}
 
 	haveAnyADRDetailItemsChanged() {
-		return [
-			this.tcs.hasChanged('techRecord_adrDetails_vehicleDetails_type'),
-			this.tcs.hasChanged('techRecord_adrDetails_vehicleDetails_usedOnInternationalJourneys'),
-			this.tcs.hasChanged('techRecord_adrDetails_vehicleDetails_approvalDate'),
-			this.tcs.hasChanged('techRecord_adrDetails_permittedDangerousGoods'),
-			this.tcs.hasChanged('techRecord_adrDetails_bodyDeclaration_type'),
-			this.tcs.hasChanged('techRecord_adrDetails_compatibilityGroupJ'),
-			this.tcs.hasChanged('techRecord_adrDetails_additionalNotes_number'),
-			this.tcs.hasChanged('techRecord_adrDetails_adrTypeApprovalNo'),
-		].some((hasChanged) => hasChanged);
+		return this.tcs.hasChanged(
+			'techRecord_adrDetails_vehicleDetails_type',
+			'techRecord_adrDetails_vehicleDetails_usedOnInternationalJourneys',
+			'techRecord_adrDetails_vehicleDetails_approvalDate',
+			'techRecord_adrDetails_permittedDangerousGoods',
+			'techRecord_adrDetails_bodyDeclaration_type',
+			'techRecord_adrDetails_compatibilityGroupJ',
+			'techRecord_adrDetails_additionalNotes_number',
+			'techRecord_adrDetails_adrTypeApprovalNo'
+		);
 	}
 
 	haveAnyTankDetailItemsChanged() {
-		return [
-			this.tcs.hasChanged('techRecord_adrDetails_tank_tankDetails_tankManufacturer'),
-			this.tcs.hasChanged('techRecord_adrDetails_tank_tankDetails_yearOfManufacture'),
-			this.tcs.hasChanged('techRecord_adrDetails_tank_tankDetails_tankManufacturerSerialNo'),
-			this.tcs.hasChanged('techRecord_adrDetails_tank_tankDetails_tankTypeAppNo'),
-			this.tcs.hasChanged('techRecord_adrDetails_tank_tankDetails_tankCode'),
-			this.tcs.hasChanged('techRecord_adrDetails_tank_tankDetails_tankStatement_substancesPermitted'),
-			this.tcs.hasChanged('techRecord_adrDetails_tank_tankDetails_tankStatement_statement'),
-			this.tcs.hasChanged('techRecord_adrDetails_tank_tankDetails_tankStatement_productListUnNo'),
-			this.tcs.hasChanged('techRecord_adrDetails_tank_tankDetails_tankStatement_productListRefNo'),
-			this.tcs.hasChanged('techRecord_adrDetails_tank_tankDetails_tankStatement_productList'),
-			this.tcs.hasChanged('techRecord_adrDetails_tank_tankDetails_specialProvisions'),
-		].some((hasChanged) => hasChanged);
+		return this.tcs.hasChanged(
+			'techRecord_adrDetails_tank_tankDetails_tankManufacturer',
+			'techRecord_adrDetails_tank_tankDetails_yearOfManufacture',
+			'techRecord_adrDetails_tank_tankDetails_tankManufacturerSerialNo',
+			'techRecord_adrDetails_tank_tankDetails_tankTypeAppNo',
+			'techRecord_adrDetails_tank_tankDetails_tankCode',
+			'techRecord_adrDetails_tank_tankDetails_tankStatement_substancesPermitted',
+			'techRecord_adrDetails_tank_tankDetails_tankStatement_statement',
+			'techRecord_adrDetails_tank_tankDetails_tankStatement_productListUnNo',
+			'techRecord_adrDetails_tank_tankDetails_tankStatement_productListRefNo',
+			'techRecord_adrDetails_tank_tankDetails_tankStatement_productList',
+			'techRecord_adrDetails_tank_tankDetails_specialProvisions'
+		);
 	}
 
 	haveAnyTankInspectionItemsChanged() {
-		return [
-			this.tcs.hasChanged('techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateApprovalNo'),
-			this.tcs.hasChanged('techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate'),
-			this.tcs.hasChanged('techRecord_adrDetails_tank_tankDetails_tc3Details'),
-		].some((hasChanged) => hasChanged);
+		return this.tcs.hasChanged(
+			'techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateApprovalNo',
+			'techRecord_adrDetails_tank_tankDetails_tc2Details_tc2IntermediateExpiryDate',
+			'techRecord_adrDetails_tank_tankDetails_tc3Details'
+		);
 	}
 
 	haveAnyMiscellaneousItemsChanged() {
-		return [
-			this.tcs.hasChanged('techRecord_adrDetails_memosApply'),
-			this.tcs.hasChanged('techRecord_adrDetails_m145Statement'),
-		].some((hasChanged) => hasChanged);
+		return this.tcs.hasChanged('techRecord_adrDetails_memosApply', 'techRecord_adrDetails_m145Statement');
 	}
 
 	haveAnyBatteryListItemsChanged() {
-		return [
-			this.tcs.hasChanged('techRecord_adrDetails_listStatementApplicable'),
-			this.tcs.hasChanged('techRecord_adrDetails_batteryListNumber'),
-		].some((hasChanged) => hasChanged);
+		return this.tcs.hasChanged(
+			'techRecord_adrDetails_listStatementApplicable',
+			'techRecord_adrDetails_batteryListNumber'
+		);
 	}
 
 	haveAnyDeclarationsSeenItemsChanged() {
-		return [
-			this.tcs.hasChanged('techRecord_adrDetails_brakeDeclarationsSeen'),
-			this.tcs.hasChanged('techRecord_adrDetails_brakeDeclarationIssuer'),
-			this.tcs.hasChanged('techRecord_adrDetails_brakeEndurance'),
-			this.tcs.hasChanged('techRecord_adrDetails_weight'),
-			this.tcs.hasChanged('techRecord_adrDetails_declarationsSeen'),
-		].some((hasChanged) => hasChanged);
+		return this.tcs.hasChanged(
+			'techRecord_adrDetails_brakeDeclarationsSeen',
+			'techRecord_adrDetails_brakeDeclarationIssuer',
+			'techRecord_adrDetails_brakeEndurance',
+			'techRecord_adrDetails_weight',
+			'techRecord_adrDetails_declarationsSeen'
+		);
 	}
 
 	hasUNNumberChanged(index: number) {
