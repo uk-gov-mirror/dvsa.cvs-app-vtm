@@ -1,3 +1,4 @@
+import { FormNodeViewTypes } from '@/src/app/services/dynamic-forms/dynamic-form.types';
 import { TechnicalRecordChangesService } from '@/src/app/services/technical-record/technical-record-changes.service';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -192,6 +193,13 @@ export class TechRecordSummaryChangesComponent implements OnInit, OnDestroy {
 	}
 
 	get vehicleTemplates() {
-		return vehicleTemplateMap.get(this.techRecordEdited?.techRecord_vehicleType as VehicleTypes);
+		const templates = vehicleTemplateMap.get(this.techRecordEdited?.techRecord_vehicleType as VehicleTypes);
+
+		// Always show the reason for creation section
+		if (templates?.[0]?.children?.[0]) {
+			templates[0].children[0].viewType = FormNodeViewTypes.STRING;
+		}
+
+		return templates;
 	}
 }
