@@ -12,6 +12,6 @@ import { Store } from '@ngrx/store';
 export class BodySectionSummaryComponent {
 	protected readonly VehicleTypes = VehicleTypes;
 	store = inject(Store);
-	amendedTechRecord = inject(editingTechRecord);
+	amendedTechRecord = this.store.selectSignal(editingTechRecord);
 	tcs = inject(TechnicalRecordChangesService);
 }

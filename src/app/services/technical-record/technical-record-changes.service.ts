@@ -32,8 +32,6 @@ export class TechnicalRecordChangesService {
 		// [] -> null/undefined
 		if (Array.isArray(a) && a.length === 0 && b != null) return false;
 
-		console.log(property, a, b, isEqual(a, b));
-
 		return !isEqual(a, b);
 	}
 
