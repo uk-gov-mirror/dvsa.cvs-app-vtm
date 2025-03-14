@@ -4,7 +4,7 @@
     <ng-container content>Check your changes before submitting the technical record</ng-container>
   </app-banner>
 
-  <app-icon [icon]="techRecordEdited.techRecord_vehicleType || ''"></app-icon>
+  <app-icon [icon]="techRecordEdited.techRecord_vehicleType || ''" />
 
   <!-- Vehicle summary -->
   <dl class="govuk-summary-list">
@@ -75,7 +75,7 @@
   <app-accordion-control [sectionState]="sectionTemplatesState$ | async">
     <ng-container *ngFor="let section of customVehicleTemplate; let i = index">
       <app-accordion [id]="section.name" [title]="section.label" [isExpanded]="isSectionExpanded$(section.name) | async">
-        <ng-template [ngTemplateOutlet]="accordion" [ngTemplateOutletContext]="{ sectionName: section.name, section: section }"></ng-template>
+        <ng-template [ngTemplateOutlet]="accordion" [ngTemplateOutletContext]="{ sectionName: section.name, section: section }" />
       </app-accordion>
     </ng-container>
   </app-accordion-control>
@@ -89,7 +89,7 @@
         </ng-container>
         <!-- OLD NOTES-->
         <ng-template #oldNotes>
-          <app-dynamic-form-group [data]="techRecordChanges" [template]="section"></app-dynamic-form-group>
+          <app-dynamic-form-group [data]="techRecordChanges" [template]="section" />
         </ng-template>
       </ng-container>
 
@@ -101,7 +101,7 @@
 
         <!-- Old Vehicle summary section -->
         <ng-template #oldTechRecordSummary>
-          <app-dynamic-form-group [data]="techRecordChanges" [template]="section"></app-dynamic-form-group>
+          <app-dynamic-form-group [data]="techRecordChanges" [template]="section" />
         </ng-template>
 
       </ng-container>
@@ -114,7 +114,7 @@
 
         <!-- Old Body section -->
         <ng-template #oldBodySection>
-          <app-body [techRecord]="techRecordEdited" [disableLoadOptions]="true"></app-body>
+          <app-body [techRecord]="techRecordEdited" [disableLoadOptions]="true" />
         </ng-template>
       </ng-container>
 
@@ -126,12 +126,12 @@
         ">
           <!-- New Dimensions section -->
           <ng-container *ngIf="featureToggleService.isFeatureEnabled('FsDimensions'); else oldDimensionsSection">
-            <app-dimensions-section [techRecord]="techRecordEdited" mode="summary"></app-dimensions-section>
+            <app-dimensions-section [techRecord]="techRecordEdited" mode="summary" />
           </ng-container>
 
           <!-- Old Dimensions section -->
           <ng-template #oldDimensionsSection>
-            <app-dimensions [techRecord]="techRecordEdited" mode="summary"></app-dimensions>
+            <app-dimensions [techRecord]="techRecordEdited" mode="summary" />
           </ng-template>
         </ng-container>
       </ng-container>
@@ -149,17 +149,17 @@
           </ng-container>
 
           <ng-template #oldApprovalTypeSection>
-            <app-approval-type [techRecord]="techRecordEdited"></app-approval-type>
+            <app-approval-type [techRecord]="techRecordEdited" />
           </ng-template>
         </ng-container>
       </ng-container>
 
       <ng-container *ngSwitchCase="'psvBrakesSection'">
-        <app-psv-brakes *ngIf="techRecordEdited.techRecord_vehicleType === 'psv'" [vehicleTechRecord]="techRecordEdited"></app-psv-brakes>
+        <app-psv-brakes *ngIf="techRecordEdited.techRecord_vehicleType === 'psv'" [vehicleTechRecord]="techRecordEdited" />
       </ng-container>
 
       <ng-container *ngSwitchCase="'trlBrakesSection'">
-        <app-trl-brakes *ngIf="techRecordEdited.techRecord_vehicleType === 'trl'" [vehicleTechRecord]="techRecordEdited"></app-trl-brakes>
+        <app-trl-brakes *ngIf="techRecordEdited.techRecord_vehicleType === 'trl'" [vehicleTechRecord]="techRecordEdited" />
       </ng-container>
 
       <ng-container *ngSwitchCase="'tyreSection'">
@@ -172,12 +172,12 @@
         >
           <!-- New Tyres section -->
           <ng-container *ngIf="featureToggleService.isFeatureEnabled('FsTyres'); else oldTyresSection">
-            <app-tyres-section [techRecord]="techRecordEdited" [mode]="'summary'"></app-tyres-section>
+            <app-tyres-section [techRecord]="techRecordEdited" [mode]="'summary'" />
           </ng-container>
 
           <!-- Old Tyres section -->
           <ng-template #oldTyresSection>
-            <app-tyres [vehicleTechRecord]="techRecordEdited"></app-tyres>
+            <app-tyres [vehicleTechRecord]="techRecordEdited" />
           </ng-template>
         </ng-container>
       </ng-container>
@@ -205,7 +205,7 @@
 
             <!-- Old Weights section -->
             <ng-template #oldWeightsSection>
-              <app-weights [vehicleTechRecord]="techRecordEdited"></app-weights>
+              <app-weights [vehicleTechRecord]="techRecordEdited" />
             </ng-template>
           </ng-container>
 
@@ -217,7 +217,7 @@
 
             <!-- Old Weights section -->
             <ng-template #oldModifiedWeightsSection>
-              <app-modified-weights *ngIf="changesForWeights" [vehicleType]="vehicleType" [changes]="changesForWeights"></app-modified-weights>
+              <app-modified-weights *ngIf="changesForWeights" [vehicleType]="vehicleType" [changes]="changesForWeights" />
             </ng-template>
           </ng-template>
         </ng-container>
@@ -248,11 +248,11 @@
 
         <!-- Old last applicant section -->
         <ng-template #oldLastApplicantSection>
-          <app-dynamic-form-group *ngSwitchDefault [data]="techRecordChanges" [template]="section"></app-dynamic-form-group>
+          <app-dynamic-form-group *ngSwitchDefault [data]="techRecordChanges" [template]="section" />
         </ng-template>
       </ng-container>
 
-      <app-dynamic-form-group *ngSwitchDefault [data]="techRecordChanges" [template]="section"></app-dynamic-form-group>
+      <app-dynamic-form-group *ngSwitchDefault [data]="techRecordChanges" [template]="section" />
     </ng-container>
   </ng-template>
 </ng-container>

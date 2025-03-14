@@ -35,31 +35,31 @@
   <ng-container *ngFor="let control of entriesOf(form.controls); let i = index; trackBy: trackByFn">
     <ng-container [ngSwitch]="control.value.meta.type">
       <ng-container *ngSwitchCase="formNodeTypes.CONTROL">
-        <ng-template [ngTemplateOutlet]="controlTemplate" [ngTemplateOutletContext]="{ control: control, formGroup: form }"></ng-template>
+        <ng-template [ngTemplateOutlet]="controlTemplate" [ngTemplateOutletContext]="{ control: control, formGroup: form }" />
       </ng-container>
 
       <ng-container *ngSwitchCase="formNodeTypes.GROUP">
-        <ng-template [ngTemplateOutlet]="childNode" [ngTemplateOutletContext]="{ form: form.controls[control.key] }"></ng-template>
+        <ng-template [ngTemplateOutlet]="childNode" [ngTemplateOutletContext]="{ form: form.controls[control.key] }" />
       </ng-container>
 
       <ng-container *ngSwitchCase="formNodeTypes.ARRAY">
-        <ng-template [ngTemplateOutlet]="nodeTemplateRef" [ngTemplateOutletContext]="{ form: form.controls[control.key] }"></ng-template>
+        <ng-template [ngTemplateOutlet]="nodeTemplateRef" [ngTemplateOutletContext]="{ form: form.controls[control.key] }" />
       </ng-container>
 
       <ng-container *ngSwitchCase="formNodeTypes.SECTION">
-        <ng-template [ngTemplateOutlet]="sectionTemplate" [ngTemplateOutletContext]="{ control: control }"></ng-template>
+        <ng-template [ngTemplateOutlet]="sectionTemplate" [ngTemplateOutletContext]="{ control: control }" />
       </ng-container>
 
       <ng-container *ngSwitchCase="formNodeTypes.TITLE">
-        <ng-template [ngTemplateOutlet]="titleTemplate" [ngTemplateOutletContext]="{ control: control }"></ng-template>
+        <ng-template [ngTemplateOutlet]="titleTemplate" [ngTemplateOutletContext]="{ control: control }" />
       </ng-container>
 
       <ng-container *ngSwitchCase="formNodeTypes.SUBTITLE">
-        <ng-template [ngTemplateOutlet]="subtitleTemplate" [ngTemplateOutletContext]="{ control: control }"></ng-template>
+        <ng-template [ngTemplateOutlet]="subtitleTemplate" [ngTemplateOutletContext]="{ control: control }" />
       </ng-container>
 
       <ng-container *ngSwitchCase="formNodeTypes.COMBINATION">
-        <ng-template [ngTemplateOutlet]="combinationTemplate" [ngTemplateOutletContext]="{ control: control, formGroup: form }"></ng-template>
+        <ng-template [ngTemplateOutlet]="combinationTemplate" [ngTemplateOutletContext]="{ control: control, formGroup: form }" />
       </ng-container>
     </ng-container>
   </ng-container>
@@ -81,21 +81,20 @@
             [link]="control.value.meta.link"
           ></tr>
       </ng-container>
-      <app-dynamic-form-field
-        *ngSwitchCase="true"
+      <app-dynamic-form-field *ngSwitchCase="true"
         [control]="control"
         [form]="formGroup"
         [parentForm]="parentForm"
         [customId]="control.value.meta.customId"
         [ngClass]="control.value.meta.class"
-      ></app-dynamic-form-field>
+       />
     </ng-container>
   </ng-container>
 </ng-template>
 
 <ng-template #childNode let-form="form">
   <ng-container *ngIf="!(form.meta && form.meta.hide)">
-    <ng-template [ngTemplateOutlet]="nodeTemplateRef" [ngTemplateOutletContext]="{ form: form }"> </ng-template>
+    <ng-template [ngTemplateOutlet]="nodeTemplateRef" [ngTemplateOutletContext]="{ form: form }" />
   </ng-container>
 </ng-template>
 

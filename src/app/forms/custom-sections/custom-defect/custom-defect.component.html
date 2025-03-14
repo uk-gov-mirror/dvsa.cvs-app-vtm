@@ -1,4 +1,4 @@
-<ng-template [ngTemplateOutlet]="isEditing ? editCustomDefect : viewCustomDefect" [ngTemplateOutletContext]="{ data: form }"></ng-template>
+<ng-template [ngTemplateOutlet]="isEditing ? editCustomDefect : viewCustomDefect" [ngTemplateOutletContext]="{ data: form }" />
 
 <ng-template #viewCustomDefect let-data="data">
   <h3 class="govuk-heading-m">Defect {{ index + 1 }}</h3>
@@ -37,14 +37,13 @@
     </div>
   </div>
   <ng-container [formGroup]="form">
-    <app-text-input 
-      *ngIf="templateName === 'customDefectsSection'" 
+    <app-text-input *ngIf="templateName === 'customDefectsSection'" 
       formControlName="referenceNumber" 
       label="Reference Number" 
       [width]="30"
       customId="referenceNumber"
-    ></app-text-input>
-    <app-text-input formControlName="defectName" label="Defect Name" [width]="30" customId="defectName"></app-text-input>
-    <app-text-area formControlName="defectNotes" label="Defect Notes" customId="defectNotes"></app-text-area>
+     />
+    <app-text-input formControlName="defectName" label="Defect Name" [width]="30" customId="defectName" />
+    <app-text-area formControlName="defectNotes" label="Defect Notes" customId="defectNotes" />
   </ng-container>
 </ng-template>

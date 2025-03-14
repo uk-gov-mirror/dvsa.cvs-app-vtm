@@ -1,13 +1,12 @@
 <ng-container *ngIf="form && defectCount; else noDefects" [formGroup]="form">
   <h2 class="govuk-heading-m">{{ defectNameType }}s</h2>
-  <app-custom-defect
-    *ngFor="let customDefect of customDefects; let i = index; trackBy: trackByFn"
+  <app-custom-defect *ngFor="let customDefect of customDefects; let i = index; trackBy: trackByFn"
     [isEditing]="isEditing"
     [form]="getCustomDefectForm(i)"
     [index]="i"
     [templateName]="template.name"
     (removeCustomDefect)="handleRemoveDefect($event)"
-  ></app-custom-defect>
+   />
 </ng-container>
 
 <ng-template #noDefects>

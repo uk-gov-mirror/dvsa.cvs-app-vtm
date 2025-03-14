@@ -24,9 +24,8 @@
     </tbody>
   </table>
 
-  <app-pagination
-    tableName="audit-history"
+  <app-pagination tableName="audit-history"
     [numberOfItems]="(numberOfRecords$ | async) ?? 0"
     (paginationOptions)="handlePaginationChange($event)"
-  ></app-pagination>
+   />
 </ng-container>

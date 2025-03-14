@@ -1,5 +1,4 @@
-<app-switchable-input
-  *ngIf="isEditing; else view"
+<app-switchable-input *ngIf="isEditing; else view"
   [form]="form"
   [type]="editTypes.AUTOCOMPLETE"
   name="techRecord_brakes_brakeCodeOriginal"
@@ -8,7 +7,7 @@
   [isEditing]="isEditing"
   [prefix]="brakeCodePrefix"
   [propOptions$]="brakeCodeOptions$"
-></app-switchable-input>
+ />
 
 <ng-template #view>
   <div>
@@ -17,32 +16,29 @@
   </div>
 </ng-template>
 
-<app-switchable-input
-  [form]="form"
+<app-switchable-input [form]="form"
   [type]="editTypes.TEXT"
   name="techRecord_brakes_dataTrBrakeOne"
   label="Service"
   [isEditing]="isEditing"
   [width]="widths.XL"
-></app-switchable-input>
+ />
 
-<app-switchable-input
-  [form]="form"
+<app-switchable-input [form]="form"
   [type]="editTypes.TEXT"
   name="techRecord_brakes_dataTrBrakeTwo"
   label="Secondary"
   [isEditing]="isEditing"
   [width]="widths.XL"
-></app-switchable-input>
+ />
 
-<app-switchable-input
-  [form]="form"
+<app-switchable-input [form]="form"
   [type]="editTypes.TEXT"
   name="techRecord_brakes_dataTrBrakeThree"
   label="Parking"
   [isEditing]="isEditing"
   [width]="widths.XL"
-></app-switchable-input>
+ />
 
 <div class="row">
   <app-switchable-input

@@ -22,11 +22,10 @@
       </tr>
     </tbody>
   </table>
-  <app-pagination
-    tableName="adr-certificate-history"
+  <app-pagination tableName="adr-certificate-history"
     [numberOfItems]="numberOfADRCertificates"
     (paginationOptions)="handlePaginationChange($event)"
-  ></app-pagination>
+   />
 </ng-container>
 
 <ng-template #noTable>

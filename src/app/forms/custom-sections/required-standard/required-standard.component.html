@@ -1,4 +1,4 @@
-<ng-template [ngTemplateOutlet]="isEditing ? editRs : viewRs" [ngTemplateOutletContext]="{ data: form }"></ng-template>
+<ng-template [ngTemplateOutlet]="isEditing ? editRs : viewRs" [ngTemplateOutletContext]="{ data: form }" />
 
 <ng-template #viewRs let-data="data">
   <ng-container *ngIf="requiredStandard">

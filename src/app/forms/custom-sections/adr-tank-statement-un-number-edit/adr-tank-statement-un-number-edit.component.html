@@ -1,9 +1,8 @@
 <ng-container *ngIf="control && formArray.controls.length">
-  <app-field-error-message [error]="control.touched ? control.getError('custom')?.message : ''"></app-field-error-message>
+  <app-field-error-message [error]="control.touched ? control.getError('custom')?.message : ''" />
 
   <ng-container *ngIf="formArray.controls.length === 1; else multiple">
-    <app-text-input
-      [id]="'UN_number_1'"
+    <app-text-input [id]="'UN_number_1'"
       [name]="'UN number 1'"
       [label]="'UN number 1'"
       [customId]="'UN number 1'"
@@ -11,7 +10,7 @@
       [minlength]="1"
       [maxlength]="1500"
       (blur)="formArray.controls[0].markAsTouched(); control.markAsTouched()"
-    ></app-text-input>
+     />
   </ng-container>
 
   <ng-template #multiple>

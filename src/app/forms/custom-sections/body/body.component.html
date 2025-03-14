@@ -1,13 +1,12 @@
 <ng-container *ngIf="techRecord.techRecord_vehicleType === 'psv'">
-  <app-switchable-input
-    [form]="form"
+  <app-switchable-input [form]="form"
     [type]="editTypes.AUTOCOMPLETE"
     name="techRecord_brakes_dtpNumber"
     label="DTp Number"
     [isEditing]="isEditing"
     [propOptions$]="dtpNumbers$"
     [width]="widths.L"
-  ></app-switchable-input>
+   />
 
   <div class="node-row">
     <app-switchable-input
@@ -75,14 +74,13 @@
 </ng-container>
 
 <ng-container *ngIf="techRecord.techRecord_vehicleType !== 'psv'">
-  <app-switchable-input
-    [form]="form"
+  <app-switchable-input [form]="form"
     [type]="editTypes.TEXT"
     name="techRecord_brakes_dtpNumber"
     label="DTp Number"
     [isEditing]="isEditing"
     [width]="widths.L"
-  ></app-switchable-input>
+   />
 
   <div class="node-row">
     <app-switchable-input
@@ -105,8 +103,7 @@
     ></app-switchable-input>
   </div>
 
-  <app-switchable-input
-    [form]="form"
+  <app-switchable-input [form]="form"
     [type]="editTypes.DROPDOWN"
     name="techRecord_bodyType_description"
     label="Body type"
@@ -114,11 +111,10 @@
     [options]="bodyTypes"
     [width]="widths.L"
     customId="techRecord_bodyType_description"
-  ></app-switchable-input>
+   />
 </ng-container>
 
-<app-switchable-input
-  [form]="form"
+<app-switchable-input [form]="form"
   [type]="editTypes.DROPDOWN"
   name="techRecord_functionCode"
   label="Function code"
@@ -128,14 +124,13 @@
     { value: 'A', label: 'A' }
   ]"
   [width]="widths.XS"
-></app-switchable-input>
+ />
 
-<app-switchable-input
-  [form]="form"
+<app-switchable-input [form]="form"
   [type]="editTypes.TEXT"
   name="techRecord_conversionRefNo"
   appTrimWhitespace
   label="Conversion reference number"
   [isEditing]="isEditing"
   [width]="widths.L"
-></app-switchable-input>
+ />

@@ -1,4 +1,4 @@
-<ng-template [ngTemplateOutlet]="isEditing ? editDefect : viewDefect" [ngTemplateOutletContext]="{ data: form }"></ng-template>
+<ng-template [ngTemplateOutlet]="isEditing ? editDefect : viewDefect" [ngTemplateOutletContext]="{ data: form }" />
 
 <ng-template #viewDefect let-data="data">
   <ng-container *ngIf="defect">
@@ -98,36 +98,33 @@
       <ng-container formGroupName="additionalInformation">
         <ng-container *ngIf="!isAdvisory" formGroupName="location">
           <ng-container *ngFor="let item of infoDictionary | keyvalue; trackBy: trackByFn; let index = index">
-            <app-radio-group
-              *ngIf="item.value.length <= 4"
+            <app-radio-group *ngIf="item.value.length <= 4"
               [name]="item.key + '-' + index"
               [label]="pascalCase(item.key)"
               [formControlName]="item.key"
               [options]="item.value"
               [inline]="item.value.length <= 2"
-            ></app-radio-group>
+             />
 
-            <app-select
-              *ngIf="item.value.length >= 5"
+            <app-select *ngIf="item.value.length >= 5"
               [name]="item.key + index"
               [label]="pascalCase(item.key)"
               [formControlName]="item.key"
               [options]="item.value"
-            ></app-select>
+             />
           </ng-container>
         </ng-container>
-        <app-text-area name="notes" label="Notes" formControlName="notes"></app-text-area>
+        <app-text-area name="notes" label="Notes" formControlName="notes" />
       </ng-container>
 
-      <app-radio-group
-        *ngIf="isDangerous"
+      <app-radio-group *ngIf="isDangerous"
         name="prohibitionIssued"
         label="Prohibition issued in mobile compliance"
         formControlName="prohibitionIssued"
         [options]="booleanOptions"
         hint="{{ isDangerousAsterisk ? '' : 'You must issue a prohibition notice in search before adding this defect' }}"
         (change)="toggleDefectField('prohibitionIssued')"
-      ></app-radio-group>
+       />
 
       <div class="govuk-form-group" *ngIf="!isAdvisory">
         <div class="govuk-checkboxes" data-module="govuk-checkboxes">

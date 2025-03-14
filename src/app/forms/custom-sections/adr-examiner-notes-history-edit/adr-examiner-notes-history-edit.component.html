@@ -29,13 +29,12 @@
         </ng-container>
       </tbody>
     </table>
-    <app-pagination
-      tableName="adr-notes-history"
+    <app-pagination tableName="adr-notes-history"
       *ngIf="notes.length"
       [numberOfItems]="notes.length"
       [itemsPerPage]="3"
       (paginationOptions)="handlePaginationChange($event)"
-    ></app-pagination>
+     />
     <ng-template #empty>
       <dl class="govuk-summary-list" *ngIf="notes.length === 0">
         <div class="govuk-summary-list__row">

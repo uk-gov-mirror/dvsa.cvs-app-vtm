@@ -40,9 +40,8 @@
       </tr>
     </tbody>
   </table>
-  <app-pagination
-    tableName="tech-history"
+  <app-pagination tableName="tech-history"
     [numberOfItems]="(numberOfRecords$ | async) ?? 0"
     (paginationOptions)="handlePaginationChange($event)"
-  ></app-pagination>
+   />
 </ng-container>
