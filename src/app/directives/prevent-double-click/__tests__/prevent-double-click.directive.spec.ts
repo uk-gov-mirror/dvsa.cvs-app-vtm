@@ -6,6 +6,7 @@ import { PreventDoubleClickDirective } from '../prevent-double-click.directive';
 @Component({
 	selector: 'app-host',
 	template: '<button appPreventDoubleClick (clicked)="clicked.emit()"></button>',
+	standalone: false,
 })
 class HostComponent {
 	clicked = new EventEmitter();

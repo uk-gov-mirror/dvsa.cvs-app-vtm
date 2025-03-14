@@ -7,6 +7,7 @@ import { TrimWhitespaceDirective } from '../app-trim-whitespace.directive';
 @Component({
 	template: ` <form [formGroup]="form"><input id="bar" appTrimWhitespace formControlName="foo" /></form>
     <input id="baz" appTrimWhitespace />`,
+	standalone: false,
 })
 class TestComponent {
 	form = new FormGroup({

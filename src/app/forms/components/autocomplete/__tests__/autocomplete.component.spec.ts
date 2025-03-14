@@ -19,6 +19,7 @@ jest.mock('accessible-autocomplete/dist/accessible-autocomplete.min', () => {
 	selector: 'app-host-component',
 	template:
 		'<form [formGroup]="form"><app-autocomplete [name]="name" [options$]="options$" formControlName="foo"></app-autocomplete></form>',
+	standalone: false,
 })
 class HostComponent {
 	name = 'autocomplete';

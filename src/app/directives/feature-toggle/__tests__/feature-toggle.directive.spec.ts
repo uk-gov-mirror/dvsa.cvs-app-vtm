@@ -20,6 +20,7 @@ import { FeatureToggleDirective } from '../feature-toggle.directive';
       <h1>This displays by default</h1>
     </div>
   `,
+	standalone: false,
 })
 class TestComponent {}
 

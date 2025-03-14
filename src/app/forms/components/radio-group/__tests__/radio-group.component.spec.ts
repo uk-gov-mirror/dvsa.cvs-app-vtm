@@ -16,6 +16,7 @@ import { RadioGroupComponent } from '../radio-group.component';
     <app-radio-group name="foo" label="Foo" [options]="options" formControlName="foo"></app-radio-group>
   </form> `,
 	styles: [],
+	standalone: false,
 })
 class HostComponent {
 	form = new FormGroup({

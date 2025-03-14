@@ -9,6 +9,7 @@ import { PaginationComponent } from '../pagination.component';
 @Component({
 	selector: 'app-host',
 	template: '<app-pagination [tableName]="tableName" [numberOfItems]="numberOfItems"></app-pagination>',
+	standalone: false,
 })
 class HostComponent {
 	tableName = 'test-pagination';

@@ -16,6 +16,7 @@ import { ApprovalTypeNumber } from '../approval-type-number';
     </approval-type-number-input>
   </form> `,
 	styles: [],
+	standalone: false,
 })
 class HostComponent {
 	readonly FormNodeWidth = FormNodeWidth;

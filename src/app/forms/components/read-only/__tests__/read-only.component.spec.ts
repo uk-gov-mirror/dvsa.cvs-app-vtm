@@ -12,6 +12,7 @@ import { ReadOnlyComponent } from '../read-only.component';
     <app-read-only name="foo" label="Foo" formControlName="foo"></app-read-only>
   </form> `,
 	styles: [],
+	standalone: false,
 })
 class HostComponent {
 	form = new FormGroup({

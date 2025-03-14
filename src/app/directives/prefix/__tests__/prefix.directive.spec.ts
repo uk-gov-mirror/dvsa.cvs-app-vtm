@@ -4,6 +4,7 @@ import { PrefixDirective } from '../prefix.directive';
 
 @Component({
 	template: '<ng-template appPrefix></ng-template>',
+	standalone: false,
 })
 class TestComponent {}
 

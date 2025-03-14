@@ -6,6 +6,7 @@ import { ToUppercaseDirective } from '../app-to-uppercase.directive';
 
 @Component({
 	template: ' <form [formGroup]="form"><input appToUppercase formControlName="foo" /></form>',
+	standalone: false,
 })
 class TestComponent {
 	form = new FormGroup({

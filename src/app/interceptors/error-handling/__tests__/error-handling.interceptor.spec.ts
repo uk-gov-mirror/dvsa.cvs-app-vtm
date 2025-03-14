@@ -9,6 +9,7 @@ import { ErrorInterceptor } from '../error-handling.interceptor';
 @Component({
 	selector: 'app-dummy-component',
 	template: '',
+	standalone: false,
 })
 class DummyComponent {}
 

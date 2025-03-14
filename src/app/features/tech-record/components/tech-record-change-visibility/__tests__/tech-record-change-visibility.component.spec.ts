@@ -17,7 +17,7 @@ import { TechRecordTitleComponent } from '../../tech-record-title/tech-record-ti
 import { TechRecordChangeVisibilityComponent } from '../tech-record-change-visibility.component';
 
 describe('TechRecordHoldComponent', () => {
-	let actions$: ReplaySubject<Action>;
+	const actions$ = new ReplaySubject<Action>(1);
 	let component: TechRecordChangeVisibilityComponent;
 	let fixture: ComponentFixture<TechRecordChangeVisibilityComponent>;
 

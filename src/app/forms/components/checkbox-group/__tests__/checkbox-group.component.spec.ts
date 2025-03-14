@@ -14,6 +14,7 @@ import { CheckboxGroupComponent } from '../checkbox-group.component';
     <app-checkbox-group name="foo" label="Foo" [options]="options" formControlName="foo" [delimited]="delimited"></app-checkbox-group>
   </form> `,
 	styles: [],
+	standalone: false,
 })
 class HostComponent {
 	form = new FormGroup({

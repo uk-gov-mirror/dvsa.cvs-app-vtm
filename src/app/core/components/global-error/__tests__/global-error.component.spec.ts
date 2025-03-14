@@ -10,6 +10,7 @@ import { GlobalErrorService } from '../global-error.service';
 	selector: 'app-mock-component',
 	template: '<app-global-error></app-global-error><input id="test-input" type="text" />\n',
 	styles: [],
+	standalone: false,
 })
 class MockComponent {}
 

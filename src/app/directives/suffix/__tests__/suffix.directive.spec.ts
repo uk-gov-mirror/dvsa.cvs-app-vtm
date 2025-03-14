@@ -4,6 +4,7 @@ import { SuffixDirective } from '../suffix.directive';
 
 @Component({
 	template: '<ng-template appSuffix></ng-template>',
+	standalone: false,
 })
 class TestComponent {}
 

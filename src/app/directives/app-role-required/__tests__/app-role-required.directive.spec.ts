@@ -23,6 +23,7 @@ import { RoleRequiredDirective } from '../app-role-required.directive';
       <h1>This is an error case</h1>
     </div>
   `,
+	standalone: false,
 })
 class TestComponent {
 	public get Roles() {

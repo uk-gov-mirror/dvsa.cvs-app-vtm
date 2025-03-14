@@ -7,6 +7,7 @@ import { NoSpaceDirective } from '../app-no-space.directive';
 @Component({
 	template: ` <form [formGroup]="form"><input id="bar" appNoSpace formControlName="foo" /></form>
     <input id="baz" appNoSpace />`,
+	standalone: false,
 })
 class TestComponent {
 	form = new FormGroup({

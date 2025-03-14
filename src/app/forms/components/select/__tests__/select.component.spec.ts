@@ -14,6 +14,7 @@ import { SelectComponent } from '../select.component';
     <app-select name="foo" label="Foo" [options]="options" formControlName="foo"></app-select>
   </form> `,
 	styles: [],
+	standalone: false,
 })
 class HostComponent {
 	@ViewChild(SelectComponent) select?: SelectComponent;

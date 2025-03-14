@@ -27,7 +27,9 @@ global.scrollTo = jest.fn();
 describe('VehicleTechnicalRecordComponent', () => {
 	let component: VehicleTechnicalRecordComponent;
 	let fixture: ComponentFixture<VehicleTechnicalRecordComponent>;
-	@Component({})
+	@Component({
+		standalone: false,
+	})
 	class TechRecordSummaryStubComponent {
 		checkForms() {}
 	}

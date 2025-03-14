@@ -13,6 +13,7 @@ import { NumberInputComponent } from '../number-input.component';
     <app-number-input name="foo" label="Foo" formControlName="foo"></app-number-input>
   </form> `,
 	styles: [],
+	standalone: false,
 })
 class HostComponent {
 	form = new FormGroup({

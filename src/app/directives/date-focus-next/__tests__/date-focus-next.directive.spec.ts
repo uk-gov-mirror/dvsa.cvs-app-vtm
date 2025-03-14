@@ -14,6 +14,7 @@ import { DateFocusNextDirective } from '../date-focus-next.directive';
       <input appFocusNext [displayTime]="displayTime" type="number" id="test-minute" />
     </div>
   `,
+	standalone: false,
 })
 class TestComponent {
 	displayTime = false;

@@ -11,6 +11,7 @@ import { AccordionControlComponent } from '../accordion-control.component';
 	template: `<app-accordion-control>
     <app-accordion id="test" title="Test"> <div id="content">Details</div> </app-accordion>
   </app-accordion-control>`,
+	standalone: false,
 })
 class HostComponent {}
 

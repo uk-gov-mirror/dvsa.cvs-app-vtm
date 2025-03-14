@@ -10,6 +10,7 @@ import { ViewListItemComponent } from '../view-list-item.component';
     <app-view-list-item name="foo" formControlName="foo"></app-view-list-item>
   </form> `,
 	styles: [],
+	standalone: false,
 })
 class HostComponent {
 	form = new FormGroup({

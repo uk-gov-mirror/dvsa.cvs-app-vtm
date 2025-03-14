@@ -39,7 +39,9 @@ const mockBatchTechRecordService = (<unknown>{
 	},
 }) as BatchTechnicalRecordService;
 
-@Component({})
+@Component({
+	standalone: false,
+})
 class TechRecordSummaryStubComponent {
 	checkForms() {}
 }

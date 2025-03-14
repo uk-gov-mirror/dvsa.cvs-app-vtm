@@ -14,6 +14,7 @@ import { SuggestiveInputComponent } from '../suggestive-input.component';
     <app-suggestive-input name="foo" formControlName="foo" [options$]="options$"></app-suggestive-input>
   </form> `,
 	styles: [],
+	standalone: false,
 })
 class HostComponent {
 	form = new FormGroup({

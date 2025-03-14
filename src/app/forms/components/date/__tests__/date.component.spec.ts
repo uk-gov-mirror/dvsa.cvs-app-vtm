@@ -17,6 +17,7 @@ import { DateComponent } from '../date.component';
     <app-date name="foo" label="Foo" formControlName="foo"></app-date>
   </form> `,
 	styles: [],
+	standalone: false,
 })
 class HostComponent {
 	@ViewChild(DateComponent, { static: true }) dateComponent?: DateComponent;

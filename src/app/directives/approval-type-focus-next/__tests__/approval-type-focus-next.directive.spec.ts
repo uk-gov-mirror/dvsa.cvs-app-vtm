@@ -8,6 +8,7 @@ import { ApprovalTypeFocusNextDirective } from '../approval-type-focus-next.dire
     <input id="first" [characterLimit]="20" appFocusNextApprovalType="next" />
     <input id='next' />
   `,
+	standalone: false,
 })
 class TestComponent {}
 

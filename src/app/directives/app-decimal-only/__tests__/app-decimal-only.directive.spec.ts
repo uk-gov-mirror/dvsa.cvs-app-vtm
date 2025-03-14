@@ -5,6 +5,7 @@ import { DecimalOnlyDirective } from '../app-decimal-only.directive';
 
 @Component({
 	template: ' <input type="number" appDecimalOnly />',
+	standalone: false,
 })
 class TestComponent {}
 

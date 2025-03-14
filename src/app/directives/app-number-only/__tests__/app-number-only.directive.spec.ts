@@ -5,6 +5,7 @@ import { NumberOnlyDirective } from '../app-number-only.directive';
 
 @Component({
 	template: ' <input type="number" appNumberOnly />',
+	standalone: false,
 })
 class TestComponent {}
 

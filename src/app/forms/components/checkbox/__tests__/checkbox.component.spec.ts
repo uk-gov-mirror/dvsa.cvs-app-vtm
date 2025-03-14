@@ -10,6 +10,7 @@ import { CheckboxComponent } from '../checkbox.component';
     <app-checkbox name="foo" formControlName="foo"></app-checkbox>
   </form> `,
 	styles: [],
+	standalone: false,
 })
 class HostComponent {
 	form = new FormGroup({

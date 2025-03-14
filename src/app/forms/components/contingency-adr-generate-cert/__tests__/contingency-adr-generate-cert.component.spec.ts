@@ -49,7 +49,7 @@ describe('AdrGenerateCertTestComponent', () => {
 	let fixture: ComponentFixture<ContingencyAdrGenerateCertComponent>;
 	let store: Store<State>;
 	let techRecordService: TechnicalRecordService;
-	let actions$: ReplaySubject<Action>;
+	const actions$: ReplaySubject<Action> = new ReplaySubject<Action>(1);
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			declarations: [ContingencyAdrGenerateCertComponent],

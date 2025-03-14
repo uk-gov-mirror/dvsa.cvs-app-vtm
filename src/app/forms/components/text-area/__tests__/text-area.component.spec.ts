@@ -10,6 +10,7 @@ import { TextAreaComponent } from '../text-area.component';
     <app-text-area name="foo" formControlName="foo"></app-text-area>
   </form> `,
 	styles: [],
+	standalone: false,
 })
 class HostComponent {
 	form = new FormGroup({

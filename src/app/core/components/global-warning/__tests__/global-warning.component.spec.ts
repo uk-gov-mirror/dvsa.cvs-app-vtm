@@ -10,6 +10,7 @@ import { GlobalWarningService } from '../global-warning.service';
 	selector: 'app-mock-component',
 	template: '<app-global-warning></app-global-warning><input id="test-input" type="text" />\n',
 	styles: [],
+	standalone: false,
 })
 class MockComponent {}
 

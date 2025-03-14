@@ -22,6 +22,7 @@ import { ApprovalTypeInputComponent } from '../approval-type.component';
       <app-approval-type-input formControlName="approvalType"></app-approval-type-input>
     </form> `,
 	styles: [],
+	standalone: false,
 })
 class HostComponent {
 	@ViewChild(ApprovalTypeInputComponent, { static: true }) approvalTypeComponent!: ApprovalTypeInputComponent;

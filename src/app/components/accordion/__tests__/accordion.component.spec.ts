@@ -9,6 +9,7 @@ import { AccordionComponent } from '../accordion.component';
 @Component({
 	selector: 'app-host',
 	template: '<app-accordion id="test" title="Test"> <div id="content">Details</div> </app-accordion>',
+	standalone: false,
 })
 class HostComponent {}
 
