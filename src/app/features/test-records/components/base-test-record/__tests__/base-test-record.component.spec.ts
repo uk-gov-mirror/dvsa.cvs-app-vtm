@@ -1,5 +1,4 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { QueryList } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
@@ -76,7 +75,7 @@ describe('BaseTestRecordComponent', () => {
 
 	describe('validateEuVehicleCategory', () => {
 		it('should call the validate function of eu vehicle category', () => {
-			component.sections = [
+			jest.spyOn(component, 'sections').mockReturnValue([
 				{ form: new CustomFormGroup({ name: 'vehicleSection', type: FormNodeTypes.GROUP, children: [] }, {}) },
 				{
 					form: new CustomFormGroup(
@@ -88,7 +87,7 @@ describe('BaseTestRecordComponent', () => {
 						{}
 					),
 				},
-			] as unknown as QueryList<DynamicFormGroupComponent>;
+			] as unknown as DynamicFormGroupComponent[]);
 
 			const spy = jest.spyOn(DynamicFormService, 'validateControl');
 			spy.mockImplementation(() => undefined);
@@ -99,7 +98,7 @@ describe('BaseTestRecordComponent', () => {
 		});
 
 		it('should not call the validate function of eu vehicle category', () => {
-			component.sections = [
+			jest.spyOn(component, 'sections').mockReturnValue([
 				{ form: new CustomFormGroup({ name: 'anotherTestSection', type: FormNodeTypes.GROUP, children: [] }, {}) },
 				{
 					form: new CustomFormGroup(
@@ -111,7 +110,7 @@ describe('BaseTestRecordComponent', () => {
 						{}
 					),
 				},
-			] as unknown as QueryList<DynamicFormGroupComponent>;
+			] as unknown as DynamicFormGroupComponent[]);
 
 			const spy = jest.spyOn(DynamicFormService, 'validateControl');
 			spy.mockImplementation(() => undefined);

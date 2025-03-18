@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, viewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
@@ -27,7 +27,7 @@ import { TechRecordSummaryComponent } from '../../../components/tech-record-summ
 	standalone: false,
 })
 export class HydrateNewVehicleRecordComponent implements OnDestroy, OnInit {
-	@ViewChild(TechRecordSummaryComponent) summary?: TechRecordSummaryComponent;
+	readonly summary = viewChild(TechRecordSummaryComponent);
 	isInvalid = false;
 	batchForm?: FormGroup;
 	username = '';
@@ -100,7 +100,7 @@ export class HydrateNewVehicleRecordComponent implements OnDestroy, OnInit {
 	}
 
 	handleSubmit(): void {
-		this.summary?.checkForms();
+		this.summary()?.checkForms();
 
 		if (this.isInvalid) return;
 

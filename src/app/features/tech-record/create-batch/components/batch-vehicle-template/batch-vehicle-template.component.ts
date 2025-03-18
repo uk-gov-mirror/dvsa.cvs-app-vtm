@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, viewChild } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
@@ -27,7 +27,7 @@ import { TechRecordSummaryComponent } from '../../../components/tech-record-summ
 	standalone: false,
 })
 export class BatchVehicleTemplateComponent {
-	@ViewChild(TechRecordSummaryComponent) summary?: TechRecordSummaryComponent;
+	summary = viewChild(TechRecordSummaryComponent);
 	isInvalid = false;
 	form: CustomFormGroup;
 	public vehicleStatusOptions: MultiOptions = [
@@ -105,7 +105,7 @@ export class BatchVehicleTemplateComponent {
 	}
 
 	handleSubmit() {
-		this.summary?.checkForms();
+		this.summary()?.checkForms();
 		const check = this.isVehicleStatusValid;
 
 		if (!this.isInvalid && check) {

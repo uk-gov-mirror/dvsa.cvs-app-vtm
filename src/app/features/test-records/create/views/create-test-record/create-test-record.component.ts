@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, viewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
@@ -29,8 +29,8 @@ import { BaseTestRecordComponent } from '../../../components/base-test-record/ba
 	standalone: false,
 })
 export class CreateTestRecordComponent implements OnInit, OnDestroy, AfterViewInit {
-	@ViewChild(BaseTestRecordComponent) private baseTestRecordComponent?: BaseTestRecordComponent;
-	@ViewChild(AbandonDialogComponent) abandonDialog?: AbandonDialogComponent;
+	baseTestRecordComponent = viewChild(BaseTestRecordComponent);
+	abandonDialog = viewChild(AbandonDialogComponent);
 
 	private destroy$ = new Subject<void>();
 
@@ -159,20 +159,29 @@ export class CreateTestRecordComponent implements OnInit, OnDestroy, AfterViewIn
 		const errors: GlobalError[] = [];
 		const forms = [];
 
-		if (this.baseTestRecordComponent?.sections) {
-			this.baseTestRecordComponent.sections.forEach((section) => forms.push(section.form));
+		const baseTestRecordComponent = this.baseTestRecordComponent();
+		if (!baseTestRecordComponent) {
+			return true;
+		}
+		const sectionsbaseTestRecordComponent = baseTestRecordComponent.sections();
+		if (sectionsbaseTestRecordComponent) {
+			sectionsbaseTestRecordComponent.forEach((section) => forms.push(section.form));
 		}
 
-		if (this.baseTestRecordComponent?.defects) {
-			forms.push(this.baseTestRecordComponent.defects.form);
+		const defectsbaseTestRecordComponent = baseTestRecordComponent?.defects();
+		if (defectsbaseTestRecordComponent) {
+			forms.push(defectsbaseTestRecordComponent.form);
 		}
 
-		if (this.baseTestRecordComponent?.customDefects) {
-			forms.push(this.baseTestRecordComponent.customDefects.form);
+		const customDefectsbaseTestRecordComponent = baseTestRecordComponent?.customDefects();
+		if (customDefectsbaseTestRecordComponent) {
+			forms.push(customDefectsbaseTestRecordComponent.form);
 		}
 
-		if (this.testMode === TestModeEnum.Abandon && this.abandonDialog?.dynamicFormGroup) {
-			forms.push(this.abandonDialog.dynamicFormGroup.form);
+		const abandonDialogDynamicFormGroup = this.abandonDialog();
+		const dynamicFormGroup = abandonDialogDynamicFormGroup?.dynamicFormGroup();
+		if (this.testMode === TestModeEnum.Abandon && dynamicFormGroup) {
+			forms.push(dynamicFormGroup.form);
 		}
 
 		forms.forEach((form) => {
@@ -202,7 +211,7 @@ export class CreateTestRecordComponent implements OnInit, OnDestroy, AfterViewIn
 				await this.handleSave();
 				break;
 			case 'no':
-				this.abandonDialog?.dynamicFormGroup?.form.reset();
+				this.abandonDialog()?.dynamicFormGroup()?.form.reset();
 				this.resultOfTestService.toggleAbandoned(resultOfTestEnum.pass);
 				this.testMode = TestModeEnum.Edit;
 				break;

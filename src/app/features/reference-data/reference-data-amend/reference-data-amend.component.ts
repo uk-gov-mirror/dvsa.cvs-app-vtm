@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit, viewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
@@ -26,7 +26,7 @@ export class ReferenceDataAmendComponent implements OnInit {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	amendedData: any;
 
-	@ViewChildren(DynamicFormGroupComponent) sections!: QueryList<DynamicFormGroupComponent>;
+	readonly sections = viewChildren(DynamicFormGroupComponent);
 
 	constructor(
 		public globalErrorService: GlobalErrorService,
@@ -81,7 +81,7 @@ export class ReferenceDataAmendComponent implements OnInit {
 	}
 
 	checkForms(): void {
-		const forms = this.sections.map((section) => section.form) as Array<CustomFormGroup>;
+		const forms = this.sections().map((section) => section.form) as Array<CustomFormGroup>;
 
 		this.isFormDirty = forms.some((form) => form.dirty);
 
@@ -116,7 +116,7 @@ export class ReferenceDataAmendComponent implements OnInit {
 			})
 		);
 
-		this.sections.forEach((form) => {
+		this.sections().forEach((form) => {
 			form.ngOnDestroy();
 		});
 

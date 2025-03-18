@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output, QueryList, ViewChildren, inject } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, inject, viewChildren } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
@@ -87,7 +87,7 @@ export class AmendVrmComponent implements OnDestroy, OnInit {
 	@Output() isFormDirty = new EventEmitter<boolean>();
 	@Output() isFormInvalid = new EventEmitter<boolean>();
 
-	@ViewChildren(DynamicFormGroupComponent) sections!: QueryList<DynamicFormGroupComponent>;
+	readonly sections = viewChildren(DynamicFormGroupComponent);
 
 	private destroy$ = new Subject<void>();
 

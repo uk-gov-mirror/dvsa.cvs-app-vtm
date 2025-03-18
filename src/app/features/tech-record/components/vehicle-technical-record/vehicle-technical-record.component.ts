@@ -1,5 +1,5 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, viewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { TechRecordSearchSchema } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/search';
@@ -32,7 +32,7 @@ import { TechRecordSummaryComponent } from '../tech-record-summary/tech-record-s
 	standalone: false,
 })
 export class VehicleTechnicalRecordComponent implements OnInit, OnDestroy {
-	@ViewChild(TechRecordSummaryComponent) summary!: TechRecordSummaryComponent;
+	readonly summary = viewChild.required(TechRecordSummaryComponent);
 	@Input() techRecord?: V3TechRecordModel;
 
 	testResults$: Observable<TestResultModel[]>;
@@ -155,7 +155,7 @@ export class VehicleTechnicalRecordComponent implements OnInit, OnDestroy {
 	}
 
 	async handleSubmit(): Promise<void> {
-		this.summary.checkForms();
+		this.summary().checkForms();
 		if (this.isInvalid) return;
 
 		await this.router.navigate(['change-summary'], { relativeTo: this.route });

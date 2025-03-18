@@ -102,8 +102,11 @@ describe('BatchVehicleTemplateComponent', () => {
 
 	describe('should dispatch the createVehicleTechRecord action for every vin and trailerId given', () => {
 		beforeEach(() => {
-			component.summary = TestBed.createComponent(TechRecordSummaryStubComponent)
-				.componentInstance as TechRecordSummaryComponent;
+			jest
+				.spyOn(component, 'summary')
+				.mockReturnValue(
+					TestBed.createComponent(TechRecordSummaryStubComponent).componentInstance as TechRecordSummaryComponent
+				);
 		});
 
 		it('given a batch of 0', () => {

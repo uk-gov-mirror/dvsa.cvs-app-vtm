@@ -1,14 +1,4 @@
-import {
-	AfterViewInit,
-	Component,
-	EventEmitter,
-	Input,
-	Output,
-	QueryList,
-	ViewChild,
-	ViewChildren,
-	inject,
-} from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output, inject, viewChild, viewChildren } from '@angular/core';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { DynamicFormGroupComponent } from '@forms/components/dynamic-form-group/dynamic-form-group.component';
@@ -37,10 +27,10 @@ import { Observable, map } from 'rxjs';
 	standalone: false,
 })
 export class BaseTestRecordComponent implements AfterViewInit {
-	@ViewChildren(DynamicFormGroupComponent) sections?: QueryList<DynamicFormGroupComponent>;
-	@ViewChild(DefectsComponent) defects?: DefectsComponent;
-	@ViewChild(CustomDefectsComponent) customDefects?: CustomDefectsComponent;
-	@ViewChild(RequiredStandardsComponent) requiredStandards?: RequiredStandardsComponent;
+	readonly sections = viewChildren(DynamicFormGroupComponent);
+	readonly defects = viewChild(DefectsComponent);
+	readonly customDefects = viewChild(CustomDefectsComponent);
+	readonly requiredStandards = viewChild(RequiredStandardsComponent);
 
 	@Input() testResult!: TestResultModel;
 	@Input() isEditing = false;
@@ -62,13 +52,16 @@ export class BaseTestRecordComponent implements AfterViewInit {
 	handleFormChange(event: any) {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		let latestTest: any;
-		this.sections?.forEach((section) => {
+		this.sections()?.forEach((section) => {
 			const { form } = section;
 			latestTest = merge(latestTest, form.getCleanValue(form));
 		});
-		const defectsValue = this.defects?.form.getCleanValue(this.defects?.form);
-		const customDefectsValue = this.customDefects?.form.getCleanValue(this.customDefects?.form);
-		const requiredStandardsValue = this.requiredStandards?.form.getCleanValue(this.requiredStandards?.form);
+		const defects = this.defects();
+		const defectsValue = defects?.form.getCleanValue(defects?.form);
+		const customDefects = this.customDefects();
+		const customDefectsValue = customDefects?.form.getCleanValue(customDefects?.form);
+		const requiredStandards = this.requiredStandards();
+		const requiredStandardsValue = requiredStandards?.form.getCleanValue(requiredStandards?.form);
 
 		latestTest = merge(latestTest, defectsValue, customDefectsValue, requiredStandardsValue, event);
 
@@ -83,7 +76,7 @@ export class BaseTestRecordComponent implements AfterViewInit {
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	validateEuVehicleCategory(_event: unknown) {
-		this.sections?.forEach((section) => {
+		this.sections()?.forEach((section) => {
 			const { form } = section;
 			if (form.meta.name === 'vehicleSection') {
 				const errors: GlobalError[] = [];

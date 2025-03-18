@@ -146,15 +146,23 @@ describe('CreateTestRecordComponent', () => {
 		});
 
 		it('should return true if some forms are invalid', () => {
-			component.abandonDialog = {
+			jest.spyOn(component, 'abandonDialog').mockReturnValue({
 				dynamicFormGroup: { form: { controls: { errors: 'foo' }, invalid: true } },
-			} as unknown as AbandonDialogComponent;
+			} as unknown as AbandonDialogComponent);
+			// component.abandonDialog = {
+			// 	dynamicFormGroup: { form: { controls: { errors: 'foo' }, invalid: true } },
+			// } as unknown as AbandonDialogComponent;
 			component.testMode = TestModeEnum.Abandon;
 			DynamicFormService.validate = jest.fn();
 			expect(component.isAnyFormInvalid()).toBe(true);
 		});
 
 		it('should return false if no forms are invalid', fakeAsync(() => {
+			jest.spyOn(component, 'baseTestRecordComponent').mockReturnValue({
+				sections: jest.fn().mockReturnValue({ forEach: jest.fn().mockReturnValue([{ foo: 'foo' }]) }),
+				defects: jest.fn(),
+				customDefects: jest.fn(),
+			} as unknown as BaseTestRecordComponent);
 			tick();
 			fixture.detectChanges();
 			expect(component.isAnyFormInvalid()).toBe(false);
@@ -164,6 +172,7 @@ describe('CreateTestRecordComponent', () => {
 
 	describe('CreateTestRecordComponent.prototype.abandon.name', () => {
 		it('should set testMode to be abandon', () => {
+			jest.spyOn(component, 'isAnyFormInvalid').mockReturnValue(false);
 			component.abandon();
 			expect(component.testMode).toEqual(TestModeEnum.Abandon);
 		});
@@ -188,9 +197,14 @@ describe('CreateTestRecordComponent', () => {
 	});
 
 	it('should combine forms', async () => {
-		component['baseTestRecordComponent'] = {
-			sections: { forEach: jest.fn().mockReturnValue([{ foo: 'foo' }]) },
-		} as unknown as BaseTestRecordComponent;
+		jest.spyOn(component, 'baseTestRecordComponent').mockReturnValue({
+			sections: jest.fn().mockReturnValue({ forEach: jest.fn().mockReturnValue([{ foo: 'foo' }]) }),
+			defects: jest.fn(),
+			customDefects: jest.fn(),
+		} as unknown as BaseTestRecordComponent);
+		// component['baseTestRecordComponent'] = {
+		// 	sections: { forEach: jest.fn().mockReturnValue([{ foo: 'foo' }]) },
+		// } as unknown as BaseTestRecordComponent;
 
 		// eslint-disable-next-line @typescript-eslint/no-misused-promises
 		const createTestResultSpy = jest

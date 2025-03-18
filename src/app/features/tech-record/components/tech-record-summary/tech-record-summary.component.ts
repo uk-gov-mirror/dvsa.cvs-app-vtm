@@ -7,10 +7,9 @@ import {
 	OnDestroy,
 	OnInit,
 	Output,
-	QueryList,
-	ViewChild,
-	ViewChildren,
 	inject,
+	viewChild,
+	viewChildren,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -53,16 +52,16 @@ import { Observable, Subject, debounceTime, map, skipWhile, take, takeUntil } fr
 	standalone: false,
 })
 export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewInit {
-	@ViewChildren(DynamicFormGroupComponent) sections!: QueryList<DynamicFormGroupComponent>;
-	@ViewChild(BodyComponent) body!: BodyComponent;
-	@ViewChild(DimensionsComponent) dimensions!: DimensionsComponent;
-	@ViewChild(PsvBrakesComponent) psvBrakes!: PsvBrakesComponent;
-	@ViewChild(TrlBrakesComponent) trlBrakes!: TrlBrakesComponent;
-	@ViewChild(TyresComponent) tyres!: TyresComponent;
-	@ViewChild(WeightsComponent) weights!: WeightsComponent;
-	@ViewChild(LettersComponent) letters!: LettersComponent;
-	@ViewChild(ApprovalTypeComponent) approvalType!: ApprovalTypeComponent;
-	@ViewChild(AdrComponent) adr!: AdrComponent;
+	readonly sections = viewChildren(DynamicFormGroupComponent);
+	readonly body = viewChild.required(BodyComponent);
+	readonly dimensions = viewChild.required(DimensionsComponent);
+	readonly psvBrakes = viewChild.required(PsvBrakesComponent);
+	readonly trlBrakes = viewChild.required(TrlBrakesComponent);
+	readonly tyres = viewChild.required(TyresComponent);
+	readonly weights = viewChild.required(WeightsComponent);
+	readonly letters = viewChild.required(LettersComponent);
+	readonly approvalType = viewChild.required(ApprovalTypeComponent);
+	readonly adr = viewChild.required(AdrComponent);
 
 	@Output() isFormDirty = new EventEmitter<boolean>();
 	@Output() isFormInvalid = new EventEmitter<boolean>();
@@ -233,15 +232,15 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 
 		switch (this.vehicleType) {
 			case VehicleTypes.PSV:
-				return [...commonCustomSections, this.psvBrakes.form];
+				return [...commonCustomSections, this.psvBrakes().form];
 			case VehicleTypes.HGV:
-				return !this.isADREnabled ? [...commonCustomSections, this.adr.form] : commonCustomSections;
+				return !this.isADREnabled ? [...commonCustomSections, this.adr().form] : commonCustomSections;
 			case VehicleTypes.TRL:
 				return !this.isADREnabled
-					? [...commonCustomSections, this.trlBrakes.form, this.letters.form, this.adr.form]
-					: [...commonCustomSections, this.trlBrakes.form, this.letters.form];
+					? [...commonCustomSections, this.trlBrakes().form, this.letters().form, this.adr().form]
+					: [...commonCustomSections, this.trlBrakes().form, this.letters().form];
 			case VehicleTypes.LGV:
-				return !this.isADREnabled ? [this.adr.form] : [];
+				return !this.isADREnabled ? [this.adr().form] : [];
 			default:
 				return [];
 		}
@@ -249,20 +248,25 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 
 	addCustomSectionsBasedOffFlag(): CustomFormGroup[] {
 		const sections = [];
-		if (!this.featureToggleService.isFeatureEnabled('FsBody') && this.body?.form) {
-			sections.push(this.body.form);
+		const body = this.body();
+		if (!this.featureToggleService.isFeatureEnabled('FsBody') && body?.form) {
+			sections.push(body.form);
 		}
-		if (!this.featureToggleService.isFeatureEnabled('FsDimensions') && this.dimensions?.form) {
-			sections.push(this.dimensions.form);
+		const dimensions = this.dimensions();
+		if (!this.featureToggleService.isFeatureEnabled('FsDimensions') && dimensions?.form) {
+			sections.push(dimensions.form);
 		}
-		if (!this.featureToggleService.isFeatureEnabled('FsTyres') && this.tyres?.form) {
-			sections.push(this.tyres.form);
+		const tyres = this.tyres();
+		if (!this.featureToggleService.isFeatureEnabled('FsTyres') && tyres?.form) {
+			sections.push(tyres.form);
 		}
-		if (!this.featureToggleService.isFeatureEnabled('FsWeights') && this.weights?.form) {
-			sections.push(this.weights.form);
+		const weights = this.weights();
+		if (!this.featureToggleService.isFeatureEnabled('FsWeights') && weights?.form) {
+			sections.push(weights.form);
 		}
-		if (!this.featureToggleService.isFeatureEnabled('FsApprovalType') && this.approvalType?.form) {
-			sections.push(this.approvalType.form);
+		const approvalType = this.approvalType();
+		if (!this.featureToggleService.isFeatureEnabled('FsApprovalType') && approvalType?.form) {
+			sections.push(approvalType.form);
 		}
 		return sections;
 	}
@@ -277,7 +281,7 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 	}
 
 	checkForms(): void {
-		const forms: Array<CustomFormGroup | CustomFormArray | FormGroup> = this.sections
+		const forms: Array<CustomFormGroup | CustomFormArray | FormGroup> = this.sections()
 			?.map((section) => section.form)
 			.concat(this.customSectionForms);
 

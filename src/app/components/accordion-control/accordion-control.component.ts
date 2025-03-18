@@ -20,6 +20,8 @@ export class AccordionControlComponent {
 	get accordions(): QueryList<AccordionComponent> | undefined {
 		return this.accordionsList;
 	}
+	// TODO: Skipped for migration because:
+	//  Accessor queries cannot be migrated as they are too complex.
 	@ContentChildren(AccordionComponent, {
 		descendants: true,
 		emitDistinctChangesOnly: false,

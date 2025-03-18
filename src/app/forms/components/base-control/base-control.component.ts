@@ -3,9 +3,9 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
-	ContentChild,
 	Injector,
 	Input,
+	contentChild,
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { PrefixDirective } from '@directives/prefix/prefix.directive';
@@ -22,8 +22,8 @@ import { ErrorMessageMap } from '../../utils/error-message-map';
 	standalone: false,
 })
 export class BaseControlComponent implements ControlValueAccessor, AfterContentInit {
-	@ContentChild(PrefixDirective) prefix?: PrefixDirective;
-	@ContentChild(SuffixDirective) suffix?: SuffixDirective;
+	readonly prefix = contentChild(PrefixDirective);
+	readonly suffix = contentChild(SuffixDirective);
 
 	@Input() name = '';
 	@Input() customId?: string;

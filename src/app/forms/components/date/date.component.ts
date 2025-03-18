@@ -9,7 +9,7 @@ import {
 	OnDestroy,
 	OnInit,
 	Output,
-	ViewChild,
+	viewChild,
 } from '@angular/core';
 import { AbstractControlDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
@@ -42,7 +42,7 @@ export class DateComponent extends BaseControlComponent implements OnInit, OnDes
 	@Input() displayTime = false;
 	@Input() isoDate = true;
 	@Input() customError? = false;
-	@ViewChild('dayModel') dayModel?: AbstractControlDirective;
+	readonly dayModel = viewChild<AbstractControlDirective>('dayModel');
 	@Output() blur = new EventEmitter<FocusEvent>();
 
 	private day_: BehaviorSubject<number | undefined> = new BehaviorSubject<number | undefined>(undefined);

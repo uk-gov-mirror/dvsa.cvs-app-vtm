@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, viewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
@@ -22,7 +22,7 @@ import { BaseTestRecordComponent } from '../../../components/base-test-record/ba
 	standalone: false,
 })
 export class TestRecordComponent implements OnInit, OnDestroy {
-	@ViewChild(BaseTestRecordComponent) private baseTestRecordComponent?: BaseTestRecordComponent;
+	readonly baseTestRecordComponent = viewChild(BaseTestRecordComponent);
 
 	private destroy$ = new Subject<void>();
 
@@ -114,8 +114,16 @@ export class TestRecordComponent implements OnInit, OnDestroy {
 		const errors: GlobalError[] = [];
 		const forms = [];
 
-		if (this.baseTestRecordComponent) {
-			const { sections, defects, customDefects } = this.baseTestRecordComponent;
+		const baseTestRecordComponent = this.baseTestRecordComponent();
+		if (baseTestRecordComponent) {
+			const {
+				sections: sectionsInput,
+				defects: defectsInput,
+				customDefects: customDefectsInput,
+			} = baseTestRecordComponent;
+			const sections = sectionsInput();
+			const defects = defectsInput();
+			const customDefects = customDefectsInput();
 			if (sections) {
 				sections.forEach((section) => {
 					forms.push(section.form);

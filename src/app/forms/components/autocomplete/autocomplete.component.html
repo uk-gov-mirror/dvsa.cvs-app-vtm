@@ -9,7 +9,7 @@
   <app-field-error-message [error]="error" [name]="name"></app-field-error-message>
   <app-field-error-message [error]="warning" [name]="name"></app-field-error-message>
   <div [class]="innerStyle">
-    <div *ngIf="prefix" class="govuk-input__suffix prefix" aria-hidden="true">
+    <div *ngIf="prefix() as prefix" class="govuk-input__suffix prefix" aria-hidden="true">
       <ng-container [ngTemplateOutlet]="prefix.templateRef"></ng-container>
     </div>
 
@@ -17,5 +17,5 @@
       <option value=""></option>
       <option *ngFor="let option of options" [value]="option.value" [selected]="option.value === control?.value">{{ option.label }}</option>
     </select>
-  </div>   
+  </div>
 </div>
