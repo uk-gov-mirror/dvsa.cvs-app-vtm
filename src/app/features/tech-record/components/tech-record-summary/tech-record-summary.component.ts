@@ -53,15 +53,15 @@ import { Observable, Subject, debounceTime, map, skipWhile, take, takeUntil } fr
 })
 export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewInit {
 	readonly sections = viewChildren(DynamicFormGroupComponent);
-	readonly body = viewChild.required(BodyComponent);
-	readonly dimensions = viewChild.required(DimensionsComponent);
-	readonly psvBrakes = viewChild.required(PsvBrakesComponent);
-	readonly trlBrakes = viewChild.required(TrlBrakesComponent);
-	readonly tyres = viewChild.required(TyresComponent);
-	readonly weights = viewChild.required(WeightsComponent);
-	readonly letters = viewChild.required(LettersComponent);
-	readonly approvalType = viewChild.required(ApprovalTypeComponent);
-	readonly adr = viewChild.required(AdrComponent);
+	readonly body = viewChild(BodyComponent);
+	readonly dimensions = viewChild(DimensionsComponent);
+	readonly psvBrakes = viewChild(PsvBrakesComponent);
+	readonly trlBrakes = viewChild(TrlBrakesComponent);
+	readonly tyres = viewChild(TyresComponent);
+	readonly weights = viewChild(WeightsComponent);
+	readonly letters = viewChild(LettersComponent);
+	readonly approvalType = viewChild(ApprovalTypeComponent);
+	readonly adr = viewChild(AdrComponent);
 
 	@Output() isFormDirty = new EventEmitter<boolean>();
 	@Output() isFormInvalid = new EventEmitter<boolean>();
@@ -72,7 +72,6 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 	isEditing = false;
 	scrollPosition: [number, number] = [0, 0];
 	isADRCertGenEnabled = false;
-	isADREnabled = false;
 
 	private axlesService = inject(AxlesService);
 	private errorService = inject(GlobalErrorService);
@@ -95,7 +94,6 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 
 	ngOnInit(): void {
 		this.isADRCertGenEnabled = this.featureToggleService.isFeatureEnabled('adrCertToggle');
-		this.isADREnabled = this.featureToggleService.isFeatureEnabled('FsAdr');
 
 		this.technicalRecordService.techRecord$
 			.pipe(
@@ -229,18 +227,31 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 
 	get customSectionForms(): Array<CustomFormGroup | CustomFormArray> {
 		const commonCustomSections = this.addCustomSectionsBasedOffFlag();
+		const adr = this.adr();
+		const trlBrakes = this.trlBrakes();
+		const letters = this.letters();
+		const psvBrakes = this.psvBrakes();
 
 		switch (this.vehicleType) {
-			case VehicleTypes.PSV:
-				return [...commonCustomSections, this.psvBrakes().form];
-			case VehicleTypes.HGV:
-				return !this.isADREnabled ? [...commonCustomSections, this.adr().form] : commonCustomSections;
-			case VehicleTypes.TRL:
-				return !this.isADREnabled
-					? [...commonCustomSections, this.trlBrakes().form, this.letters().form, this.adr().form]
-					: [...commonCustomSections, this.trlBrakes().form, this.letters().form];
-			case VehicleTypes.LGV:
-				return !this.isADREnabled ? [this.adr().form] : [];
+			case VehicleTypes.PSV: {
+				if (!psvBrakes?.form) return [];
+				return [...commonCustomSections, psvBrakes.form];
+			}
+			case VehicleTypes.HGV: {
+				if (!adr?.form) return commonCustomSections;
+				return [...commonCustomSections, adr.form];
+			}
+			case VehicleTypes.TRL: {
+				const arr = [...commonCustomSections];
+				if (trlBrakes?.form) arr.push(trlBrakes.form);
+				if (letters?.form) arr.push(letters.form);
+				if (adr?.form) arr.push(adr.form);
+				return arr;
+			}
+			case VehicleTypes.LGV: {
+				if (!adr?.form) return commonCustomSections;
+				return [adr.form];
+			}
 			default:
 				return [];
 		}
@@ -249,23 +260,23 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 	addCustomSectionsBasedOffFlag(): CustomFormGroup[] {
 		const sections = [];
 		const body = this.body();
-		if (!this.featureToggleService.isFeatureEnabled('FsBody') && body?.form) {
+		if (body && !this.featureToggleService.isFeatureEnabled('FsBody') && body?.form) {
 			sections.push(body.form);
 		}
 		const dimensions = this.dimensions();
-		if (!this.featureToggleService.isFeatureEnabled('FsDimensions') && dimensions?.form) {
+		if (dimensions && !this.featureToggleService.isFeatureEnabled('FsDimensions') && dimensions?.form) {
 			sections.push(dimensions.form);
 		}
 		const tyres = this.tyres();
-		if (!this.featureToggleService.isFeatureEnabled('FsTyres') && tyres?.form) {
+		if (tyres && !this.featureToggleService.isFeatureEnabled('FsTyres') && tyres?.form) {
 			sections.push(tyres.form);
 		}
 		const weights = this.weights();
-		if (!this.featureToggleService.isFeatureEnabled('FsWeights') && weights?.form) {
+		if (weights && !this.featureToggleService.isFeatureEnabled('FsWeights') && weights?.form) {
 			sections.push(weights.form);
 		}
 		const approvalType = this.approvalType();
-		if (!this.featureToggleService.isFeatureEnabled('FsApprovalType') && approvalType?.form) {
+		if (approvalType && !this.featureToggleService.isFeatureEnabled('FsApprovalType') && approvalType?.form) {
 			sections.push(approvalType.form);
 		}
 		return sections;
