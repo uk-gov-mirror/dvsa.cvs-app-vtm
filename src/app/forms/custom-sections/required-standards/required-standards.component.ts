@@ -22,7 +22,7 @@ export class RequiredStandardsComponent implements OnInit, OnDestroy, OnChanges 
 	@Input() template!: FormNode;
 	@Input() testData: Partial<TestResultModel> = {};
 
-	readonly formChange = output();
+	readonly formChange = output<Record<string, any> | [][]>();
 	readonly validateEuVehicleCategory = output();
 
 	public form!: CustomFormGroup;

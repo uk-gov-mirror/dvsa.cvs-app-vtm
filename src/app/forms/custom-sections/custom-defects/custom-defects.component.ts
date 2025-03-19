@@ -17,7 +17,7 @@ export class CustomDefectsComponent implements OnInit, OnDestroy {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	@Input() data: any = {};
 
-	readonly formChange = output();
+	readonly formChange = output<Record<string, any> | [][]>();
 	form!: CustomFormGroup;
 
 	private formSubscription = new Subscription();

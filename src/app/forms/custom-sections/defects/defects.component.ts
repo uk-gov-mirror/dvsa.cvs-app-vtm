@@ -17,7 +17,7 @@ export class DefectsComponent implements OnInit, OnDestroy {
 	@Input() template!: FormNode;
 	@Input() data: Partial<TestResultModel> = {};
 
-	readonly formChange = output();
+	readonly formChange = output<Record<string, any> | [][]>();
 
 	public form!: CustomFormGroup;
 	private formSubscription = new Subscription();

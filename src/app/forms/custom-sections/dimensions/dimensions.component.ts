@@ -23,7 +23,7 @@ import { Subject, debounceTime, takeUntil } from 'rxjs';
 export class DimensionsComponent implements OnInit, OnChanges, OnDestroy {
 	@Input() techRecord!: TechRecordType<'trl'> | TechRecordType<'psv'> | TechRecordType<'hgv'>;
 	@Input() isEditing = false;
-	readonly formChange = output();
+	readonly formChange = output<Record<string, any> | [][]>();
 
 	form!: CustomFormGroup;
 

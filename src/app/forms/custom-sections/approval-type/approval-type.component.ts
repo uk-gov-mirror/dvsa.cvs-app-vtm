@@ -27,7 +27,7 @@ import { Subject, debounceTime, takeUntil } from 'rxjs';
 export class ApprovalTypeComponent implements OnInit, OnChanges, OnDestroy {
 	@Input() techRecord!: TechRecordType<'hgv' | 'psv' | 'trl'>;
 	@Input() isEditing = false;
-	readonly formChange = output();
+	readonly formChange = output<Record<string, any> | [][]>();
 	readonly approvalTypeNumberChange = output<string>();
 
 	public form!: CustomFormGroup;

@@ -32,7 +32,7 @@ export class DynamicFormGroupComponent implements OnChanges, OnInit, OnDestroy {
 	@Input() template?: FormNode;
 	@Input() edit = false;
 	@Input() parentForm?: CustomFormGroup;
-	readonly formChange = output();
+	readonly formChange = output<Record<string, unknown>>();
 
 	form: CustomFormGroup | CustomFormArray = new CustomFormGroup(
 		{ name: 'dynamic-form', type: FormNodeTypes.GROUP, children: [] },
@@ -56,7 +56,7 @@ export class DynamicFormGroupComponent implements OnChanges, OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.form.cleanValueChanges
 			.pipe(debounceTime(400), takeUntil(this.destroy$))
-			.subscribe((e) => this.formChange.emit(e));
+			.subscribe((e) => this.formChange.emit(e as Record<string, unknown>));
 	}
 
 	ngOnDestroy(): void {

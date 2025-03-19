@@ -26,7 +26,7 @@ export class LettersComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() techRecord?: TechRecordType<'trl'>;
 	@Input() isEditing = false;
 
-	readonly formChange = output();
+	readonly formChange = output<Record<string, any> | [][]>();
 
 	form!: CustomFormGroup;
 

@@ -1,6 +1,9 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, output } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
-import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
+import {
+	TechRecordPSV,
+	TechRecordType,
+} from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { PsvBrakesTemplate } from '@forms/templates/psv/psv-brakes.template';
 import { getOptionsFromEnum } from '@forms/utils/enum-map';
 import { MultiOptions } from '@models/options.model';
@@ -30,7 +33,7 @@ export class PsvBrakesComponent implements OnInit, OnChanges, OnDestroy {
 	@Input() vehicleTechRecord?: TechRecordType<'psv'>;
 	@Input() isEditing = false;
 
-	readonly formChange = output();
+	readonly formChange = output<Partial<TechRecordPSV>>();
 
 	form!: CustomFormGroup;
 	template!: FormNode;

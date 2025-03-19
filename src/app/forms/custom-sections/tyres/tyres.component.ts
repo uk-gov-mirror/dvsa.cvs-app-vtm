@@ -46,7 +46,7 @@ export class TyresComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() vehicleTechRecord!: TechRecordType<'hgv' | 'psv' | 'trl'>;
 	@Input() isEditing = false;
 
-	readonly formChange = output();
+	readonly formChange = output<any[] | Record<string, any>>();
 
 	private destroy$ = new ReplaySubject<boolean>(1);
 
