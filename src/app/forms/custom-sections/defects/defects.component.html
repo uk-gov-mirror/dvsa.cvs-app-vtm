@@ -42,6 +42,6 @@
   </div>
 </div>
 
-<app-button *ngIf="isEditing" type="link" design="secondary" id="add-defect-button" [routerLink]="['selectDefect']" queryParamsHandling="merge"
+<app-button *ngIf="isEditing()" type="link" design="secondary" id="add-defect-button" [routerLink]="['selectDefect']" queryParamsHandling="merge"
   >Add defect</app-button
 >

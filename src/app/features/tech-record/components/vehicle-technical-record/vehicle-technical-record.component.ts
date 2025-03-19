@@ -1,5 +1,5 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit, viewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, input, viewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { TechRecordSearchSchema } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/search';
@@ -33,7 +33,7 @@ import { TechRecordSummaryComponent } from '../tech-record-summary/tech-record-s
 })
 export class VehicleTechnicalRecordComponent implements OnInit, OnDestroy {
 	readonly summary = viewChild.required(TechRecordSummaryComponent);
-	@Input() techRecord?: V3TechRecordModel;
+	readonly techRecord = input<V3TechRecordModel>();
 
 	testResults$: Observable<TestResultModel[]>;
 	editingReason?: ReasonForEditing;
@@ -75,8 +75,9 @@ export class VehicleTechnicalRecordComponent implements OnInit, OnDestroy {
 				`/tech-records/${vehicleTechRecord.vehicleTechRecord.systemNumber}/${vehicleTechRecord.vehicleTechRecord.createdTimestamp}`,
 			]);
 		});
-		this.isArchived = this.techRecord?.techRecord_statusCode === StatusCodes.ARCHIVED;
-		this.isCurrent = this.techRecord?.techRecord_statusCode === StatusCodes.CURRENT;
+		const techRecord = this.techRecord();
+		this.isArchived = techRecord?.techRecord_statusCode === StatusCodes.ARCHIVED;
+		this.isCurrent = techRecord?.techRecord_statusCode === StatusCodes.CURRENT;
 
 		this.userService.roles$.pipe(take(1)).subscribe((storedRoles) => {
 			this.hasTestResultAmend = storedRoles?.some((role) => {
@@ -86,7 +87,8 @@ export class VehicleTechnicalRecordComponent implements OnInit, OnDestroy {
 	}
 
 	get currentVrm(): string | undefined {
-		return this.techRecord?.techRecord_vehicleType !== 'trl' ? (this.techRecord?.primaryVrm ?? '') : undefined;
+		const techRecord = this.techRecord();
+		return techRecord?.techRecord_vehicleType !== 'trl' ? (techRecord?.primaryVrm ?? '') : undefined;
 	}
 
 	get roles(): typeof Roles {

@@ -1,9 +1,9 @@
-<ng-container *ngIf="techRecord.techRecord_vehicleType === 'psv'">
+<ng-container *ngIf="techRecord().techRecord_vehicleType === 'psv'">
   <app-switchable-input [form]="form"
     [type]="editTypes.DROPDOWN"
     name="techRecord_approvalType"
     label="Approval type"
-    [isEditing]="isEditing"
+    [isEditing]="isEditing()"
     [options]="getOptionsFromEnum(approvalType)"
     [width]="widths.L"
    />
@@ -12,7 +12,7 @@
     [type]="editTypes.APPROVAL_TYPE"
     name="techRecord_approvalTypeNumber"
     label="Approval type number"
-    [isEditing]="isEditing"
+    [isEditing]="isEditing()"
     [width]="widths.XL"
     [approvalType]="chosenApprovalType"
     [approvalTypeChange]="approvalTypeChange"
@@ -22,7 +22,7 @@
     [type]="editTypes.TEXT"
     name="techRecord_ntaNumber"
     label="National type number"
-    [isEditing]="isEditing"
+    [isEditing]="isEditing()"
     [width]="widths.XL"
    />
 
@@ -30,7 +30,7 @@
     [type]="editTypes.TEXT"
     name="techRecord_coifSerialNumber"
     label="COIF Serial number"
-    [isEditing]="isEditing"
+    [isEditing]="isEditing()"
     [width]="widths.XL"
    />
 
@@ -38,7 +38,7 @@
     [type]="editTypes.TEXT"
     name="techRecord_coifCertifierName"
     label="COIF Certifier name"
-    [isEditing]="isEditing"
+    [isEditing]="isEditing()"
     [width]="widths.XL"
    />
 
@@ -46,7 +46,7 @@
     [type]="editTypes.DATE"
     name="techRecord_coifDate"
     label="COIF Certifier date"
-    [isEditing]="isEditing"
+    [isEditing]="isEditing()"
     [width]="widths.XL"
     [readOnlyDate]="true"
    />
@@ -55,7 +55,7 @@
     [type]="editTypes.TEXT"
     name="techRecord_variantNumber"
     label="Variant number"
-    [isEditing]="isEditing"
+    [isEditing]="isEditing()"
     [width]="widths.XL"
    />
 
@@ -63,17 +63,17 @@
     [type]="editTypes.TEXT"
     name="techRecord_variantVersionNumber"
     label="Variant version number"
-    [isEditing]="isEditing"
+    [isEditing]="isEditing()"
     [width]="widths.XL"
    />
 </ng-container>
 
-<ng-container *ngIf="techRecord.techRecord_vehicleType === 'hgv' || techRecord.techRecord_vehicleType === 'trl'">
+<ng-container *ngIf="techRecord().techRecord_vehicleType === 'hgv' || techRecord().techRecord_vehicleType === 'trl'">
   <app-switchable-input [form]="form"
     [type]="editTypes.DROPDOWN"
     name="techRecord_approvalType"
     label="Approval type"
-    [isEditing]="isEditing"
+    [isEditing]="isEditing()"
     [options]="getOptionsFromEnum(approvalType)"
     [width]="widths.L"
    />
@@ -82,7 +82,7 @@
     [type]="editTypes.APPROVAL_TYPE"
     name="techRecord_approvalTypeNumber"
     label="Approval type number"
-    [isEditing]="isEditing"
+    [isEditing]="isEditing()"
     [width]="widths.XL"
     [approvalType]="chosenApprovalType"
     [approvalTypeChange]="approvalTypeChange"
@@ -92,7 +92,7 @@
     [type]="editTypes.TEXT"
     name="techRecord_ntaNumber"
     label="National type number"
-    [isEditing]="isEditing"
+    [isEditing]="isEditing()"
     [width]="widths.XL"
    />
 
@@ -100,7 +100,7 @@
     [type]="editTypes.TEXT"
     name="techRecord_variantNumber"
     label="Variant number"
-    [isEditing]="isEditing"
+    [isEditing]="isEditing()"
     [width]="widths.XL"
    />
 
@@ -108,7 +108,7 @@
     [type]="editTypes.TEXT"
     name="techRecord_variantVersionNumber"
     label="Variant version number"
-    [isEditing]="isEditing"
+    [isEditing]="isEditing()"
     [width]="widths.XL"
    />
 </ng-container>

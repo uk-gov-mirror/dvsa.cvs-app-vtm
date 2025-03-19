@@ -1,5 +1,5 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, output } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges, input, output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { TestResultRequiredStandard } from '@models/test-results/test-result-required-standard.model';
@@ -18,9 +18,9 @@ import { Subject, Subscription, debounceTime, distinctUntilChanged, takeUntil } 
 	standalone: false,
 })
 export class RequiredStandardsComponent implements OnInit, OnDestroy, OnChanges {
-	@Input() isEditing = false;
-	@Input() template!: FormNode;
-	@Input() testData: Partial<TestResultModel> = {};
+	readonly isEditing = input(false);
+	readonly template = input.required<FormNode>();
+	readonly testData = input<Partial<TestResultModel>>({});
 
 	readonly formChange = output<Record<string, any> | [][]>();
 	readonly validateEuVehicleCategory = output();
@@ -42,7 +42,7 @@ export class RequiredStandardsComponent implements OnInit, OnDestroy, OnChanges 
 	) {}
 
 	ngOnInit(): void {
-		this.form = this.dfs.createForm(this.template, this.testData) as CustomFormGroup;
+		this.form = this.dfs.createForm(this.template(), this.testData()) as CustomFormGroup;
 		this.formSubscription = this.form.cleanValueChanges.pipe(debounceTime(400)).subscribe((event) => {
 			this.formChange.emit(event);
 		});
@@ -73,7 +73,7 @@ export class RequiredStandardsComponent implements OnInit, OnDestroy, OnChanges 
 
 	onAddRequiredStandard(): void {
 		this.globalErrorService.clearErrors();
-		if (!this.testData?.euVehicleCategory) {
+		if (!this.testData()?.euVehicleCategory) {
 			this.validateEuVehicleCategory.emit();
 			this.viewportScroller.scrollToPosition([0, 0]);
 			return;

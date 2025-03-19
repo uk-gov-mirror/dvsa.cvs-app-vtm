@@ -1,4 +1,4 @@
-import { Component, Input, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { CustomFormGroup } from '@services/dynamic-forms/dynamic-form.types';
 
 @Component({
@@ -8,9 +8,9 @@ import { CustomFormGroup } from '@services/dynamic-forms/dynamic-form.types';
 	standalone: false,
 })
 export class CustomDefectComponent {
-	@Input() form!: CustomFormGroup;
-	@Input() index!: number;
-	@Input() isEditing = false;
-	@Input() templateName?: string;
+	readonly form = input.required<CustomFormGroup>();
+	readonly index = input.required<number>();
+	readonly isEditing = input(false);
+	readonly templateName = input<string>();
 	readonly removeCustomDefect = output<number>();
 }

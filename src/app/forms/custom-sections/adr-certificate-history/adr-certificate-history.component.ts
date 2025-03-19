@@ -1,5 +1,5 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, Input, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { ADRCertificateDetails } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/hgv/complete';
@@ -19,7 +19,7 @@ import { Observable, Subject, map, takeUntil } from 'rxjs';
 	standalone: false,
 })
 export class AdrCertificateHistoryComponent extends CustomFormControlComponent {
-	@Input() currentTechRecord?: TechRecordType<'hgv' | 'lgv' | 'trl'>;
+	readonly currentTechRecord = input<TechRecordType<'hgv' | 'lgv' | 'trl'>>();
 	isEditing = false;
 	private destroy$ = new Subject<void>();
 	routerService = inject(RouterService);
@@ -47,7 +47,7 @@ export class AdrCertificateHistoryComponent extends CustomFormControlComponent {
 	}
 
 	get sortedCertificates(): ADRCertificateDetails[] | undefined {
-		return cloneDeep(this.currentTechRecord?.techRecord_adrPassCertificateDetails)?.sort((a, b) =>
+		return cloneDeep(this.currentTechRecord()?.techRecord_adrPassCertificateDetails)?.sort((a, b) =>
 			a.generatedTimestamp && b.generatedTimestamp
 				? new Date(b.generatedTimestamp).getTime() - new Date(a.generatedTimestamp).getTime()
 				: 0
@@ -74,7 +74,7 @@ export class AdrCertificateHistoryComponent extends CustomFormControlComponent {
 	}
 
 	get isArchived(): boolean {
-		return this.currentTechRecord?.techRecord_statusCode === 'archived';
+		return this.currentTechRecord()?.techRecord_statusCode === 'archived';
 	}
 
 	showTable(): boolean {
@@ -93,8 +93,9 @@ export class AdrCertificateHistoryComponent extends CustomFormControlComponent {
 
 	validateADRDetailsAndNavigate(): void {
 		this.globalErrorService.clearErrors();
-		if (this.currentTechRecord) {
-			if (!this.adrService.carriesDangerousGoods(this.currentTechRecord)) {
+		const currentTechRecord = this.currentTechRecord();
+		if (currentTechRecord) {
+			if (!this.adrService.carriesDangerousGoods(currentTechRecord)) {
 				this.viewportScroller.scrollToPosition([0, 0]);
 				this.globalErrorService.addError({
 					error:

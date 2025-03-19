@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
 	selector: 'app-home-button',
@@ -7,8 +7,8 @@ import { Component, Input } from '@angular/core';
 	standalone: false,
 })
 export class HomeButtonComponent {
-	@Input() url = '';
-	@Input() linkText = '';
-	@Input() description = '';
-	@Input() linkId = '';
+	readonly url = input('');
+	readonly linkText = input('');
+	readonly description = input('');
+	readonly linkId = input('');
 }

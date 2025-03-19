@@ -1,16 +1,16 @@
-<ng-container [ngSwitch]="approvalType">
+<ng-container [ngSwitch]="approvalType()">
   <!-- NTA Template -->
   <div *ngSwitchCase="'NTA'">
-    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>
-    <div class="govuk-date-input" id="{{ name }}">
-      <label class="govuk-label govuk-label--m" for="{{ name }}-approvalTypeNumber1">
+    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name()"></app-field-error-message>
+    <div class="govuk-date-input" id="{{ name() }}">
+      <label class="govuk-label govuk-label--m" for="{{ name() }}-approvalTypeNumber1">
         Approval type number <app-tag *ngFor="let tag of control?.meta?.customTags" type="{{ tag.colour }}">{{ tag.label }}</app-tag></label
       >
       <input
         maxlength="25"
         class="govuk-input govuk-input--width-20"
-        [id]="getId(name)"
-        name="{{ name }}-approvalTypeNumber1-NTA"
+        [id]="getId(name())"
+        name="{{ name() }}-approvalTypeNumber1-NTA"
         [(ngModel)]="approvalTypeNumber1"
         (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"
       />
@@ -19,8 +19,8 @@
 
   <!-- ECTA Template -->
   <div *ngSwitchCase="'ECTA'">
-    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>
-    <div class="govuk-date-input" id="{{ name }}">
+    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name()"></app-field-error-message>
+    <div class="govuk-date-input" id="{{ name() }}">
       <div class="govuk-date-input__item">
         <div class="govuk-form-group">
           <label class="govuk-label govuk-label--m">
@@ -33,8 +33,8 @@
               [characterLimit]="2"
               [maxlength]="2"
               class="govuk-input govuk-date-input__input govuk-input--width-2"
-              [id]="getId(name)"
-              name="{{ name }}-approvalTypeNumber1-ECTA"
+              [id]="getId(name())"
+              name="{{ name() }}-approvalTypeNumber1-ECTA"
               [(ngModel)]="approvalTypeNumber1"
               (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"
             />
@@ -77,16 +77,16 @@
 
   <!-- IVA Template -->
   <div *ngSwitchCase="'IVA'">
-    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>
-    <div class="govuk-date-input" id="{{ name }}">
+    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name()"></app-field-error-message>
+    <div class="govuk-date-input" id="{{ name() }}">
       <label class="govuk-label govuk-label--m">
         Approval type number <app-tag *ngFor="let tag of control?.meta?.customTags" type="{{ tag.colour }}">{{ tag.label }}</app-tag></label
       >
       <input
         maxlength="25"
         class="govuk-input govuk-date-input__input govuk-input--width-20"
-        [id]="getId(name)"
-        name="{{ name }}-approvalTypeNumber1-IVA"
+        [id]="getId(name())"
+        name="{{ name() }}-approvalTypeNumber1-IVA"
         [(ngModel)]="approvalTypeNumber1"
         (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"
       />
@@ -95,8 +95,8 @@
 
   <!-- NSSTA Template -->
   <div *ngSwitchCase="'NSSTA'">
-    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>
-    <div class="govuk-date-input" id="{{ name }}">
+    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name()"></app-field-error-message>
+    <div class="govuk-date-input" id="{{ name() }}">
       <div class="govuk-date-input__item">
         <div class="govuk-form-group">
           <label class="govuk-label govuk-label--m">
@@ -109,8 +109,8 @@
               [characterLimit]="2"
               [maxlength]="2"
               class="govuk-input govuk-date-input__input govuk-input--width-2"
-              [id]="getId(name)"
-              name="{{ name }}-approvalTypeNumber1-NSSTA"
+              [id]="getId(name())"
+              name="{{ name() }}-approvalTypeNumber1-NSSTA"
               [(ngModel)]="approvalTypeNumber1"
               (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"
             />
@@ -131,8 +131,8 @@
 
   <!-- ECSSTA Template -->
   <div *ngSwitchCase="'ECSSTA'">
-    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>
-    <div class="govuk-date-input" id="{{ name }}">
+    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name()"></app-field-error-message>
+    <div class="govuk-date-input" id="{{ name() }}">
       <div class="govuk-date-input__item">
         <div class="govuk-form-group">
           <label class="govuk-label govuk-label--m">
@@ -145,8 +145,8 @@
               [characterLimit]="2"
               [maxlength]="2"
               class="govuk-input govuk-date-input__input govuk-input--width-2"
-              [id]="getId(name)"
-              name="{{ name }}-approvalTypeNumber1-ECSSTA"
+              [id]="getId(name())"
+              name="{{ name() }}-approvalTypeNumber1-ECSSTA"
               [(ngModel)]="approvalTypeNumber1"
               (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"
             />
@@ -189,8 +189,8 @@
 
   <!-- GB WVTA Template -->
   <div *ngSwitchCase="'GB WVTA'">
-    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>
-    <div class="govuk-date-input" id="{{ name }}">
+    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name()"></app-field-error-message>
+    <div class="govuk-date-input" id="{{ name() }}">
       <div class="govuk-date-input__item">
         <div class="govuk-form-group">
           <label class="govuk-label govuk-label--m">
@@ -202,8 +202,8 @@
               [characterLimit]="3"
               [maxlength]="3"
               class="govuk-input govuk-date-input__input govuk-input--width-2"
-              [id]="getId(name)"
-              name="{{ name }}-approvalTypeNumber1-GB WVTA"
+              [id]="getId(name())"
+              name="{{ name() }}-approvalTypeNumber1-GB WVTA"
               [(ngModel)]="approvalTypeNumber1"
               (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"
             />
@@ -246,8 +246,8 @@
 
   <!-- UKNI WVTA Template -->
   <div *ngSwitchCase="'UKNI WVTA'">
-    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>
-    <div class="govuk-date-input" id="{{ name }}">
+    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name()"></app-field-error-message>
+    <div class="govuk-date-input" id="{{ name() }}">
       <div class="govuk-date-input__item">
         <div class="govuk-form-group">
           <label class="govuk-label govuk-label--m">
@@ -259,8 +259,8 @@
               [characterLimit]="1"
               [maxlength]="1"
               class="govuk-input govuk-date-input__input govuk-input--width-4"
-              [id]="getId(name)"
-              name="{{ name }}-approvalTypeNumber1-UKNI WVTA"
+              [id]="getId(name())"
+              name="{{ name() }}-approvalTypeNumber1-UKNI WVTA"
               [(ngModel)]="approvalTypeNumber1"
               (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"
             />
@@ -303,8 +303,8 @@
 
   <!-- EU WVTA Pre 23 Template -->
   <div *ngSwitchCase="'EU WVTA Pre 23'">
-    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>
-    <div class="govuk-date-input" id="{{ name }}">
+    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name()"></app-field-error-message>
+    <div class="govuk-date-input" id="{{ name() }}">
       <div class="govuk-date-input__item">
         <div class="govuk-form-group">
           <label class="govuk-label govuk-label--m">
@@ -317,8 +317,8 @@
               [characterLimit]="2"
               [maxlength]="2"
               class="govuk-input govuk-date-input__input govuk-input--width-2"
-              [id]="getId(name)"
-              name="{{ name }}-approvalTypeNumber1-EU WVTA Pre 23"
+              [id]="getId(name())"
+              name="{{ name() }}-approvalTypeNumber1-EU WVTA Pre 23"
               [(ngModel)]="approvalTypeNumber1"
               (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"
             />
@@ -361,8 +361,8 @@
 
   <!-- EU WVTA 23 on Template -->
   <div *ngSwitchCase="'EU WVTA 23 on'">
-    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>
-    <div class="govuk-date-input" id="{{ name }}">
+    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name()"></app-field-error-message>
+    <div class="govuk-date-input" id="{{ name() }}">
       <div class="govuk-date-input__item">
         <div class="govuk-form-group">
           <label class="govuk-label govuk-label--m">
@@ -375,8 +375,8 @@
               [characterLimit]="2"
               [maxlength]="2"
               class="govuk-input govuk-date-input__input govuk-input--width-2"
-              [id]="getId(name)"
-              name="{{ name }}-approvalTypeNumber1-EU WVTA 23 on"
+              [id]="getId(name())"
+              name="{{ name() }}-approvalTypeNumber1-EU WVTA 23 on"
               [(ngModel)]="approvalTypeNumber1"
               (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"
             />
@@ -418,8 +418,8 @@
   </div>
   <!-- QNIG Template -->
   <div *ngSwitchCase="'QNIG'">
-    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>
-    <div class="govuk-date-input" id="{{ name }}">
+    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name()"></app-field-error-message>
+    <div class="govuk-date-input" id="{{ name() }}">
       <div class="govuk-date-input__item">
         <div class="govuk-form-group">
           <label class="govuk-label govuk-label--m">
@@ -432,8 +432,8 @@
               [characterLimit]="2"
               [maxlength]="2"
               class="govuk-input govuk-date-input__input govuk-input--width-2"
-              [id]="getId(name)"
-              name="{{ name }}-approvalTypeNumber1-QNIG"
+              [id]="getId(name())"
+              name="{{ name() }}-approvalTypeNumber1-QNIG"
               [(ngModel)]="approvalTypeNumber1"
               (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"
             />
@@ -476,8 +476,8 @@
 
   <!-- Prov.GB WVTA Template -->
   <div *ngSwitchCase="'Prov.GB WVTA'">
-    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>
-    <div class="govuk-date-input" id="{{ name }}">
+    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name()"></app-field-error-message>
+    <div class="govuk-date-input" id="{{ name() }}">
       <div class="govuk-date-input__item">
         <div class="govuk-form-group">
           <label class="govuk-label govuk-label--m">
@@ -489,8 +489,8 @@
               [characterLimit]="3"
               [maxlength]="3"
               class="govuk-input govuk-date-input__input govuk-input--width-2"
-              [id]="getId(name)"
-              name="{{ name }}-approvalTypeNumber1-Prov.GB WVTA"
+              [id]="getId(name())"
+              name="{{ name() }}-approvalTypeNumber1-Prov.GB WVTA"
               [(ngModel)]="approvalTypeNumber1"
               (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"
             />
@@ -533,8 +533,8 @@
 
   <!-- Small series NKSXX Template -->
   <div *ngSwitchCase="'Small series NKSXX'">
-    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>
-    <div class="govuk-date-input" id="{{ name }}">
+    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name()"></app-field-error-message>
+    <div class="govuk-date-input" id="{{ name() }}">
       <div class="govuk-date-input__item">
         <div class="govuk-form-group">
           <label class="govuk-label govuk-label--m">
@@ -545,8 +545,8 @@
               [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-smallseries-NKSXX'"
               [characterLimit]="1"
               [maxlength]="1"
-              [id]="getId(name)"
-              name="{{ name }}-approvalTypeNumber1-Small series NKSXX"
+              [id]="getId(name())"
+              name="{{ name() }}-approvalTypeNumber1-Small series NKSXX"
               class="govuk-input govuk-date-input__input govuk-input--width-2"
               [(ngModel)]="approvalTypeNumber1"
               (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"
@@ -589,8 +589,8 @@
   </div>
 
   <div *ngSwitchCase="'Small series NKS'">
-    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>
-    <div class="govuk-date-input" id="{{ name }}">
+    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name()"></app-field-error-message>
+    <div class="govuk-date-input" id="{{ name() }}">
       <div class="govuk-date-input__item">
         <div class="govuk-form-group">
           <label class="govuk-label govuk-label--m">
@@ -601,8 +601,8 @@
               [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-smallseries-NKS'"
               [characterLimit]="1"
               [maxlength]="1"
-              [id]="getId(name)"
-              name="{{ name }}-approvalTypeNumber1-Small series NKS"
+              [id]="getId(name())"
+              name="{{ name() }}-approvalTypeNumber1-Small series NKS"
               class="govuk-input govuk-date-input__input govuk-input--width-2"
               [(ngModel)]="approvalTypeNumber1"
               (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"
@@ -624,8 +624,8 @@
 
   <!-- IVA – VCA Template -->
   <div *ngSwitchCase="'IVA - VCA'">
-    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>
-    <div class="govuk-date-input" id="{{ name }}">
+    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name()"></app-field-error-message>
+    <div class="govuk-date-input" id="{{ name() }}">
       <div class="govuk-date-input__item">
         <div class="govuk-form-group">
           <label class="govuk-label govuk-label--m">
@@ -637,8 +637,8 @@
               [appFocusNextApprovalType]="'techRecord_approvalTypeNumber2-ivavca'"
               [characterLimit]="2"
               [maxlength]="2"
-              [id]="getId(name)"
-              name="{{ name }}-approvalTypeNumber1-IVA - VCA"
+              [id]="getId(name())"
+              name="{{ name() }}-approvalTypeNumber1-IVA - VCA"
               class="govuk-input govuk-date-input__input govuk-input--width-2"
               [(ngModel)]="approvalTypeNumber1"
               (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"
@@ -671,16 +671,16 @@
 
   <!-- IVA – DVSA/NI Template -->
   <div *ngSwitchCase="'IVA - DVSA/NI'">
-    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name"></app-field-error-message>
-    <div class="govuk-date-input" id="{{ name }}">
+    <app-field-error-message *ngIf="formSubmitted" [error]="error" [name]="name()"></app-field-error-message>
+    <div class="govuk-date-input" id="{{ name() }}">
       <label class="govuk-label govuk-label--m">
         Approval type number <app-tag *ngFor="let tag of control?.meta?.customTags" type="{{ tag.colour }}">{{ tag.label }}</app-tag></label
       >
       <input
         maxlength="25"
         class="govuk-input govuk-input--width-20"
-        [id]="getId(name)"
-        name="{{ name }}-approvalTypeNumber1-IVA - DVSA/NI"
+        [id]="getId(name())"
+        name="{{ name() }}-approvalTypeNumber1-IVA - DVSA/NI"
         [(ngModel)]="approvalTypeNumber1"
         (ngModelChange)="onTechRecord_approvalTypeNumber1_Change($event); validate()"
       />

@@ -4,10 +4,10 @@ import {
 	AfterViewInit,
 	ChangeDetectorRef,
 	Component,
-	Input,
 	OnDestroy,
 	forwardRef,
 	inject,
+	input,
 	output,
 } from '@angular/core';
 import {
@@ -41,29 +41,29 @@ export class GovukFormGroupAutocompleteComponent
 
 	readonly focus = output<FocusEvent>();
 
-	@Input() isCreateMode = false;
+	readonly isCreateMode = input(false);
 
-	@Input() value: string | number | boolean | null = null;
+	readonly value = input<string | number | boolean | null>(null);
 
-	@Input() disabled = false;
+	readonly disabled = input(false);
 
-	@Input() tags: CustomTag[] = [];
+	readonly tags = input<CustomTag[]>([]);
 
-	@Input({ alias: 'hint' }) controlHint = '';
+	readonly controlHint = input('', { alias: 'hint' });
 
-	@Input({ alias: 'formControlName', required: true }) controlName = '';
+	readonly controlName = input.required<string>({ alias: 'formControlName' });
 
-	@Input({ alias: 'label', required: true }) controlLabel = '';
+	readonly controlLabel = input.required<string>({ alias: 'label' });
 
-	@Input({ alias: 'id' }) controlId = '';
+	readonly controlId = input('', { alias: 'id' });
 
-	@Input() allowNull = true;
+	readonly allowNull = input(true);
 
-	@Input() width?: FormNodeWidth;
+	readonly width = input<FormNodeWidth>();
 
-	@Input() noBottomMargin = false;
+	readonly noBottomMargin = input(false);
 
-	@Input() options$!: Observable<any[]>;
+	readonly options$ = input.required<Observable<any[]>>();
 
 	document = inject(DOCUMENT);
 	cdr = inject(ChangeDetectorRef);
@@ -76,7 +76,7 @@ export class GovukFormGroupAutocompleteComponent
 	valueSub = new BehaviorSubject<unknown>(null);
 
 	ngAfterViewInit(): void {
-		combineLatest([this.options$.pipe(takeWhile((options) => !options || options.length === 0, true)), this.valueSub])
+		combineLatest([this.options$().pipe(takeWhile((options) => !options || options.length === 0, true)), this.valueSub])
 			.pipe(takeUntil(this.destroy))
 			.subscribe(([options, latest]) => {
 				this.options = options;
@@ -119,11 +119,11 @@ export class GovukFormGroupAutocompleteComponent
 	}
 
 	get control() {
-		return this.controlContainer.control?.get(this.controlName);
+		return this.controlContainer.control?.get(this.controlName());
 	}
 
 	get id() {
-		return this.controlId || this.controlName;
+		return this.controlId() || this.controlName();
 	}
 
 	get hintId() {
@@ -143,11 +143,12 @@ export class GovukFormGroupAutocompleteComponent
 	}
 
 	get style(): string {
-		return `autocomplete__wrapper${this.noBottomMargin ? '' : ' extra-margin'}`;
+		return `autocomplete__wrapper${this.noBottomMargin() ? '' : ' extra-margin'}`;
 	}
 
 	get innerStyle(): string {
-		return this.width ? ` govuk-input--width-${this.width}` : ' internal-wrapper';
+		const width = this.width();
+		return width ? ` govuk-input--width-${width}` : ' internal-wrapper';
 	}
 
 	onChange = (_: any) => {};
@@ -187,6 +188,6 @@ export class GovukFormGroupAutocompleteComponent
 	}
 
 	addValidators() {
-		this.control?.addValidators(this.commonValidators.invalidOption(`${this.controlLabel} is invalid`));
+		this.control?.addValidators(this.commonValidators.invalidOption(`${this.controlLabel()} is invalid`));
 	}
 }

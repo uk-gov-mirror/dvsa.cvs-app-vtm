@@ -50,7 +50,7 @@ export class AdrExaminerNotesHistoryEditComponent
 		if (injectedControl) {
 			const ngControl = injectedControl.control as unknown as KeyValue<string, CustomControl>;
 			if (ngControl.value) {
-				this.name = ngControl.key;
+				this.name.set(ngControl.key);
 				this.control = ngControl.value;
 			}
 		}

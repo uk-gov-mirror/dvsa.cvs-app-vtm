@@ -1,5 +1,5 @@
 import { ViewportScroller } from '@angular/common';
-import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, output } from '@angular/core';
+import { ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit, input, output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { HGVPlates } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/hgv/complete';
@@ -24,8 +24,8 @@ import { Subscription, debounceTime } from 'rxjs';
 	standalone: false,
 })
 export class PlatesComponent implements OnInit, OnDestroy, OnChanges {
-	@Input() techRecord!: TechRecordType<'hgv' | 'trl'>;
-	@Input() isEditing = false;
+	readonly techRecord = input.required<TechRecordType<'hgv' | 'trl'>>();
+	readonly isEditing = input(false);
 
 	readonly formChange = output<Record<string, any> | [][]>();
 
@@ -46,14 +46,14 @@ export class PlatesComponent implements OnInit, OnDestroy, OnChanges {
 	) {}
 
 	ngOnInit(): void {
-		this.form = this.dynamicFormService.createForm(PlatesTemplate, this.techRecord) as CustomFormGroup;
+		this.form = this.dynamicFormService.createForm(PlatesTemplate, this.techRecord()) as CustomFormGroup;
 		this.formSubscription = this.form.cleanValueChanges
 			.pipe(debounceTime(400))
 			.subscribe((event) => this.formChange.emit(event));
 	}
 
 	ngOnChanges(): void {
-		this.form?.patchValue(this.techRecord, { emitEvent: false });
+		this.form?.patchValue(this.techRecord(), { emitEvent: false });
 	}
 
 	ngOnDestroy(): void {
@@ -69,11 +69,11 @@ export class PlatesComponent implements OnInit, OnDestroy, OnChanges {
 	}
 
 	get hasPlates(): boolean {
-		return !!this.techRecord.techRecord_plates?.length;
+		return !!this.techRecord().techRecord_plates?.length;
 	}
 
 	get sortedPlates(): HGVPlates[] | TRLPlates[] | undefined {
-		return cloneDeep(this.techRecord.techRecord_plates)?.sort((a, b) =>
+		return cloneDeep(this.techRecord().techRecord_plates)?.sort((a, b) =>
 			a.plateIssueDate && b.plateIssueDate
 				? new Date(b.plateIssueDate).getTime() - new Date(a.plateIssueDate).getTime()
 				: 0
@@ -85,7 +85,7 @@ export class PlatesComponent implements OnInit, OnDestroy, OnChanges {
 	}
 
 	get mostRecentPlate() {
-		return cloneDeep(this.techRecord.techRecord_plates)
+		return cloneDeep(this.techRecord().techRecord_plates)
 			?.sort((a, b) =>
 				a.plateIssueDate && b.plateIssueDate
 					? new Date(a.plateIssueDate).getTime() - new Date(b.plateIssueDate).getTime()
@@ -121,15 +121,15 @@ export class PlatesComponent implements OnInit, OnDestroy, OnChanges {
 	}
 
 	get eligibleForPlates(): boolean {
-		return this.techRecord.techRecord_statusCode === StatusCodes.CURRENT && !this.isEditing;
+		return this.techRecord().techRecord_statusCode === StatusCodes.CURRENT && !this.isEditing();
 	}
 
 	get reasonForIneligibility(): string {
-		if (this.isEditing) {
+		if (this.isEditing()) {
 			return 'This section is not available when amending or creating a technical record.';
 		}
 
-		if (this.techRecord.techRecord_statusCode !== StatusCodes.CURRENT) {
+		if (this.techRecord().techRecord_statusCode !== StatusCodes.CURRENT) {
 			return 'Generating plates is only applicable to current technical records.';
 		}
 		return '';
@@ -138,7 +138,7 @@ export class PlatesComponent implements OnInit, OnDestroy, OnChanges {
 	validateTechRecordPlates(): void {
 		this.globalErrorService.clearErrors();
 		const plateValidationTable =
-			this.techRecord.techRecord_vehicleType === 'trl' ? trlRequiredFields : hgvRequiredFields;
+			this.techRecord().techRecord_vehicleType === 'trl' ? trlRequiredFields : hgvRequiredFields;
 
 		if (this.cannotGeneratePlate(plateValidationTable)) {
 			this.viewportScroller.scrollToPosition([0, 0]);
@@ -152,16 +152,16 @@ export class PlatesComponent implements OnInit, OnDestroy, OnChanges {
 
 	cannotGeneratePlate(plateRequiredFields: string[]): boolean {
 		const isOneFieldEmpty = plateRequiredFields.some((field) => {
-			const value = this.techRecord[field as keyof TechRecordType<'hgv' | 'trl'>];
+			const value = this.techRecord()[field as keyof TechRecordType<'hgv' | 'trl'>];
 			return value === undefined || value === null || value === '';
 		});
 
 		// Only gbWeight of Axle 1 is required
-		const { techRecord_noOfAxles: noOfAxles, techRecord_axles: axles } = this.techRecord;
+		const { techRecord_noOfAxles: noOfAxles, techRecord_axles: axles } = this.techRecord();
 		const areAxlesInvalid = !noOfAxles || noOfAxles < 1 || !axles || axles[0].weights_gbWeight == null;
 
 		// check tyre fields
-		const areTyresInvalid = this.techRecord.techRecord_axles?.some((axle) => {
+		const areTyresInvalid = this.techRecord().techRecord_axles?.some((axle) => {
 			const tyreRequiredInvalid = tyreRequiredFields.map((field) => {
 				const value = axle[field as keyof Axle<'hgv'>];
 				return value === undefined || value === null || value === '';

@@ -1,6 +1,6 @@
 import { CustomTag } from '@/src/app/services/dynamic-forms/dynamic-form.types';
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef, inject, output } from '@angular/core';
+import { Component, forwardRef, inject, input, output } from '@angular/core';
 import { ControlContainer, ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SharedModule } from '../../../shared/shared.module';
 
@@ -21,38 +21,36 @@ export class GovukCheckboxGroupComponent implements ControlValueAccessor {
 	readonly blur = output<FocusEvent>();
 	readonly focus = output<FocusEvent>();
 
-	@Input()
-	value: unknown[] | null = null;
+	readonly value = input<unknown[] | null>(null);
 
-	@Input()
-	disabled = false;
+	readonly disabled = input(false);
 
-	@Input()
-	tags: CustomTag[] = [];
+	readonly tags = input<CustomTag[]>([]);
 
-	@Input({ required: true })
-	options!: { value: any; label: string }[];
+	readonly options =
+		input.required<
+			{
+				value: any;
+				label: string;
+			}[]
+		>();
 
-	@Input({ alias: 'hint' })
-	controlHint = '';
+	readonly controlHint = input('', { alias: 'hint' });
 
-	@Input({ alias: 'formControlName' })
-	controlName = '';
+	readonly controlName = input('', { alias: 'formControlName' });
 
-	@Input({ alias: 'label' })
-	controlLabel = '';
+	readonly controlLabel = input('', { alias: 'label' });
 
-	@Input({ alias: 'id' })
-	controlId = '';
+	readonly controlId = input('', { alias: 'id' });
 
 	controlContainer = inject(ControlContainer);
 
 	get control() {
-		return this.controlContainer.control?.get(this.controlName);
+		return this.controlContainer.control?.get(this.controlName());
 	}
 
 	get id() {
-		return this.controlId || this.controlName;
+		return this.controlId() || this.controlName();
 	}
 
 	get hintId() {
@@ -92,21 +90,21 @@ export class GovukCheckboxGroupComponent implements ControlValueAccessor {
 	}
 
 	toggle(option: any) {
-		const value = this.value;
+		const value = this.value();
 
 		if (!value) {
 			this.value = [option];
-			this.onChange(this.value);
+			this.onChange(this.value());
 			return;
 		}
 
 		const arr = [...value];
 		arr.includes(option) ? arr.splice(arr.indexOf(option), 1) : arr.push(option);
 		this.value = arr;
-		this.onChange(this.value);
+		this.onChange(this.value());
 	}
 
 	isChecked(value: unknown) {
-		return this.value?.includes(value?.toString());
+		return this.value()?.includes(value?.toString());
 	}
 }

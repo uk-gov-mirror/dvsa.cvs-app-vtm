@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { RouterLinkWithHref } from '@angular/router';
 
 @Component({
@@ -9,10 +9,10 @@ import { RouterLinkWithHref } from '@angular/router';
 	standalone: false,
 })
 export class ButtonComponent extends RouterLinkWithHref {
-	@Input() id?: string;
-	@Input() disabled = false;
-	@Input() type: 'link' | 'button' = 'button';
-	@Input() design: '' | 'secondary' | 'warning' | 'link' = '';
+	readonly id = input<string>();
+	readonly disabled = input(false);
+	readonly type = input<'link' | 'button'>('button');
+	readonly design = input<'' | 'secondary' | 'warning' | 'link'>('');
 
 	readonly clicked = output();
 }

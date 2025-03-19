@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef, inject, output } from '@angular/core';
+import { Component, forwardRef, inject, input, model, output } from '@angular/core';
 import {
 	ControlContainer,
 	ControlValueAccessor,
@@ -27,44 +27,34 @@ export class GovukFormGroupTextareaComponent implements ControlValueAccessor {
 	readonly blur = output<FocusEvent>();
 	readonly focus = output<FocusEvent>();
 
-	@Input()
-	value: string | null | undefined = null;
+	value = model<string | null | undefined>(null);
 
-	@Input()
-	disabled = false;
+	disabled = model(false);
 
-	@Input()
-	tags: CustomTag[] = [];
+	readonly tags = input<CustomTag[]>([]);
 
-	@Input({ alias: 'hint' })
-	controlHint = '';
+	readonly controlHint = input('', { alias: 'hint' });
 
-	@Input({ alias: 'formControlName', required: true })
-	controlName = '';
+	readonly controlName = input.required<string>({ alias: 'formControlName' });
 
-	@Input({ alias: 'label', required: true })
-	controlLabel = '';
+	readonly controlLabel = input.required<string>({ alias: 'label' });
 
-	@Input({ alias: 'id' })
-	controlId = '';
+	readonly controlId = input('', { alias: 'id' });
 
-	@Input({ alias: 'type' })
-	controlType = 'text';
+	readonly controlType = input('text', { alias: 'type' });
 
-	@Input()
-	width?: FormNodeWidth;
+	readonly width = input<FormNodeWidth>();
 
-	@Input()
-	maxLength: number | null = null;
+	readonly maxLength = input<number | null>(null);
 
 	controlContainer = inject(ControlContainer);
 
 	get control() {
-		return this.controlContainer.control?.get(this.controlName);
+		return this.controlContainer.control?.get(this.controlName());
 	}
 
 	get id() {
-		return this.controlId || this.controlName;
+		return this.controlId() || this.controlName();
 	}
 
 	get hintId() {
@@ -84,18 +74,19 @@ export class GovukFormGroupTextareaComponent implements ControlValueAccessor {
 	}
 
 	get style(): string {
-		return `govuk-input ${this.width ? `govuk-input--width-${this.width}` : ''}`;
+		const width = this.width();
+		return `govuk-input ${width ? `govuk-input--width-${width}` : ''}`;
 	}
 
 	get length() {
-		return this.value?.length ?? 0;
+		return this.value()?.length ?? 0;
 	}
 
 	onChange = (_: any) => {};
 	onTouched = () => {};
 
 	writeValue(obj: any): void {
-		this.value = obj;
+		this.value.set(obj);
 		this.onChange(obj);
 	}
 
@@ -108,7 +99,7 @@ export class GovukFormGroupTextareaComponent implements ControlValueAccessor {
 	}
 
 	setDisabledState?(isDisabled: boolean): void {
-		this.disabled = isDisabled;
+		this.disabled.set(isDisabled);
 	}
 
 	protected readonly FormNodeWidth = FormNodeWidth;

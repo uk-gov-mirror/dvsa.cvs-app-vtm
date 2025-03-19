@@ -1,7 +1,7 @@
 <nav class="govuk-pagination" role="navigation" aria-label="results">
   <div *ngIf="currentPage > 1" class="govuk-pagination__prev">
     <a
-      [id]="tableName + '-prev-page'"
+      [id]="tableName() + '-prev-page'"
       class="govuk-link govuk-pagination__link"
       [routerLink]="[]"
       [queryParams]="prevPage()"
@@ -27,7 +27,7 @@
     <ng-container *ngFor="let page of visiblePages; let i = index; trackBy: trackByFn">
       <li class="govuk-pagination__item" [ngClass]="{ 'govuk-pagination__item--current': currentPage === page }">
         <a
-          [id]="tableName + '-page-' + page"
+          [id]="tableName() + '-page-' + page"
           class="govuk-link govuk-pagination__link"
           [routerLink]="[]"
           [queryParams]="pageQuery(page)"
@@ -45,7 +45,7 @@
 
   <div *ngIf="currentPage !== pages.length" class="govuk-pagination__next">
     <a
-      [id]="tableName + '-next-page'"
+      [id]="tableName() + '-next-page'"
       class="govuk-link govuk-pagination__link"
       rel="next"
       [routerLink]="[]"

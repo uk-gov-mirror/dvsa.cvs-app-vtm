@@ -1,5 +1,5 @@
-<app-vehicle-header [isEditing]="isEditing" [testResult]="testResult" [testNumber]="testNumber$ | async" [isReview]="isReview">
-  <app-button-group class="page-actions" *ngIf="!isReview && testResult?.testStatus !== statuses.CANCELLED">
+<app-vehicle-header [isEditing]="isEditing()" [testResult]="testResult()" [testNumber]="testNumber$ | async" [isReview]="isReview()">
+  <app-button-group class="page-actions" *ngIf="!isReview() && testResult()?.testStatus !== statuses.CANCELLED">
     <ng-container *appRoleRequired="roles.TestResultAmend">
       <ng-container *ngIf="isTestTypeGroupEditable$ | async; else notSupported">
         <app-button id="amend-test" type="link" design="secondary" [routerLink]="['amend-test']">Amend</app-button>
@@ -11,15 +11,15 @@
 </app-vehicle-header>
 
 <ng-container *ngIf="sectionTemplates$ | async as sectionTemplates">
-  <app-accordion-control [isExpanded]="expandSections">
+  <app-accordion-control [isExpanded]="expandSections()">
     <ng-container *ngFor="let template of sectionTemplates; let i = index" [ngSwitch]="template.name">
       <app-accordion *ngSwitchCase="'defects'" [id]="template.name" [title]="template.label">
         <app-defects class="section"
           [id]="template.name"
-          [isEditing]="isEditing"
-          [defects]="getDefects$(testResult.vehicleType) | async"
+          [isEditing]="isEditing()"
+          [defects]="getDefects$(testResult().vehicleType) | async"
           [template]="template"
-          [data]="testResult"
+          [data]="testResult()"
           (formChange)="handleFormChange($event)"
          />
       </app-accordion>
@@ -28,9 +28,9 @@
         <app-accordion *featureToggleName="'requiredStandards'" [id]="template.name" [title]="template.label">
           <app-required-standards class="section"
             [id]="template.name"
-            [isEditing]="isEditing"
+            [isEditing]="isEditing()"
             [template]="template"
-            [testData]="testResult"
+            [testData]="testResult()"
             (formChange)="handleFormChange($event)"
             (validateEuVehicleCategory)="validateEuVehicleCategory($event)"
            />
@@ -40,9 +40,9 @@
       <app-accordion *ngSwitchCase="'customDefectsSection'" [id]="template.name" [title]="template.label">
         <app-custom-defects class="section"
           [id]="template.name"
-          [isEditing]="isEditing"
+          [isEditing]="isEditing()"
           [template]="template"
-          [data]="testResult"
+          [data]="testResult()"
           (formChange)="handleFormChange($event)"
          />
       </app-accordion>
@@ -50,20 +50,20 @@
       <app-accordion *ngSwitchCase="'additionalDefectsSection'" [id]="template.name" [title]="template.label">
         <app-custom-defects class="section"
           [id]="template.name"
-          [isEditing]="isEditing"
+          [isEditing]="isEditing()"
           [template]="template"
-          [data]="testResult"
+          [data]="testResult()"
           (formChange)="handleFormChange($event)"
          />
       </app-accordion>
 
       <ng-container *ngSwitchCase="'vehicleSection'">
-        <app-accordion *ngIf="isEditing" [id]="template.name" [title]="template.label">
+        <app-accordion *ngIf="isEditing()" [id]="template.name" [title]="template.label">
           <app-dynamic-form-group class="section"
             [id]="template.name"
             [template]="template"
-            [data]="testResult"
-            [edit]="isEditing"
+            [data]="testResult()"
+            [edit]="isEditing()"
             (formChange)="handleFormChange($event)"
            />
         </app-accordion>
@@ -71,7 +71,7 @@
 
       <ng-container *ngSwitchCase="'emissionsSection'">
         <app-accordion
-          *ngIf="isEditing"
+          *ngIf="isEditing()"
           [ngStyle]="{ display: resultOfTest === 'fail' ? 'none' : 'block' }"
           [id]="template.name"
           [title]="template.label"
@@ -79,8 +79,8 @@
           <app-dynamic-form-group class="section"
             [id]="template.name"
             [template]="template"
-            [data]="testResult"
-            [edit]="isEditing"
+            [data]="testResult()"
+            [edit]="isEditing()"
             (formChange)="handleFormChange($event)"
            />
         </app-accordion>
@@ -91,8 +91,8 @@
         class="hidden"
         [id]="template.name"
         [template]="template"
-        [data]="testResult"
-        [edit]="isEditing"
+        [data]="testResult()"
+        [edit]="isEditing()"
         (formChange)="handleFormChange($event)"
        />
 
@@ -102,19 +102,19 @@
           <app-dynamic-form-group class="section"
             [id]="template.name"
             [template]="template"
-            [data]="testResult"
-            [edit]="isEditing"
+            [data]="testResult()"
+            [edit]="isEditing()"
             (formChange)="handleFormChange($event)"
            />
         </app-accordion>
 
         <!-- We only show this section if in editing state -->
-        <app-accordion *ngIf="'reasonForCreationSection' === template.name && isEditing" [id]="template.name" [title]="template.label">
+        <app-accordion *ngIf="'reasonForCreationSection' === template.name && isEditing()" [id]="template.name" [title]="template.label">
           <app-dynamic-form-group class="section"
             [id]="template.name"
             [template]="template"
-            [data]="testResult"
-            [edit]="isEditing"
+            [data]="testResult()"
+            [edit]="isEditing()"
             (formChange)="handleFormChange($event)"
            />
         </app-accordion>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
 	selector: 'app-field-warning-message',
@@ -7,5 +7,5 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 	standalone: false,
 })
 export class FieldWarningMessageComponent {
-	@Input() warningMessage: string | undefined;
+	readonly warningMessage = input<string>();
 }

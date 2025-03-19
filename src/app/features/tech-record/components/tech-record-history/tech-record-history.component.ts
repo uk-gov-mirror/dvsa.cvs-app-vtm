@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, input } from '@angular/core';
 import { TechRecordSearchSchema } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/search';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb';
 import { V3TechRecordModel } from '@models/vehicle-tech-record.model';
@@ -14,7 +14,7 @@ import { Observable, map } from 'rxjs';
 	standalone: false,
 })
 export class TechRecordHistoryComponent implements OnInit {
-	@Input() currentTechRecord?: V3TechRecordModel;
+	readonly currentTechRecord = input<V3TechRecordModel>();
 
 	pageStart?: number;
 	pageEnd?: number;
@@ -25,9 +25,10 @@ export class TechRecordHistoryComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		if (this.currentTechRecord) {
+		const currentTechRecord = this.currentTechRecord();
+		if (currentTechRecord) {
 			this.store.dispatch(
-				getBySystemNumber({ systemNumber: (this.currentTechRecord as TechRecordType<'get'>)?.systemNumber })
+				getBySystemNumber({ systemNumber: (currentTechRecord as TechRecordType<'get'>)?.systemNumber })
 			);
 		}
 	}
@@ -64,6 +65,6 @@ export class TechRecordHistoryComponent implements OnInit {
 	}
 
 	get currentTimeStamp() {
-		return (this.currentTechRecord as TechRecordType<'get'>).createdTimestamp;
+		return (this.currentTechRecord() as TechRecordType<'get'>).createdTimestamp;
 	}
 }

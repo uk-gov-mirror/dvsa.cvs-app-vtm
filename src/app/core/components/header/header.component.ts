@@ -1,4 +1,4 @@
-import { Component, Input, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import packageInfo from '../../../../../package.json';
 
 @Component({
@@ -9,7 +9,7 @@ import packageInfo from '../../../../../package.json';
 })
 export class HeaderComponent {
 	readonly logOutEvent = output<void>();
-	@Input() username: string | null = '';
+	readonly username = input<string | null>('');
 	protected readonly version = packageInfo.version;
 
 	logout() {

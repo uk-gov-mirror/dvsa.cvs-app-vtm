@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BaseControlComponent } from '../base-control/base-control.component';
 
@@ -15,6 +15,6 @@ import { BaseControlComponent } from '../base-control/base-control.component';
 	standalone: false,
 })
 export class ReadOnlyComponent extends BaseControlComponent {
-	@Input() readOnlySuffix?: string;
-	@Input() date?: boolean = false;
+	readonly readOnlySuffix = input<string>();
+	readonly date = input<boolean | undefined>(false);
 }

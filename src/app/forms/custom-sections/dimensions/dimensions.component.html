@@ -5,7 +5,7 @@
     [type]="types.NUMBER"
     name="techRecord_dimensions_height"
     label="Height"
-    [isEditing]="isEditing"
+    [isEditing]="isEditing()"
     [width]="widths.XS"
     suffix="mm"
   ></app-switchable-input>
@@ -15,10 +15,10 @@
     [type]="types.NUMBER"
     name="techRecord_dimensions_length"
     label="Length"
-    [isEditing]="isEditing"
+    [isEditing]="isEditing()"
     [width]="widths.XS"
     suffix="mm"
-    [vehicleType]="techRecord.techRecord_vehicleType"
+    [vehicleType]="techRecord().techRecord_vehicleType"
   ></app-switchable-input>
 
   <app-switchable-input
@@ -26,10 +26,10 @@
     [type]="types.NUMBER"
     name="techRecord_dimensions_width"
     label="Width"
-    [isEditing]="isEditing"
+    [isEditing]="isEditing()"
     [width]="widths.XS"
     suffix="mm"
-    [vehicleType]="techRecord.techRecord_vehicleType"
+    [vehicleType]="techRecord().techRecord_vehicleType"
   ></app-switchable-input>
 
   <app-switchable-input
@@ -37,7 +37,7 @@
     [type]="types.NUMBER"
     name="techRecord_frontAxleToRearAxle"
     label="Front axle to rear axle"
-    [isEditing]="isEditing"
+    [isEditing]="isEditing()"
     [width]="widths.XS"
     suffix="mm"
   ></app-switchable-input>
@@ -48,7 +48,7 @@
     [type]="types.NUMBER"
     name="techRecord_rearAxleToRearTrl"
     label="Rear axle to rear trailer"
-    [isEditing]="isEditing"
+    [isEditing]="isEditing()"
     [width]="widths.XS"
     suffix="mm"
   ></app-switchable-input>
@@ -60,7 +60,7 @@
       [type]="types.NUMBER"
       name="value"
       label="Axle {{ i + 1 }} to axle {{ i + 2 }} (mm)"
-      [isEditing]="isEditing"
+      [isEditing]="isEditing()"
       [width]="widths.XS"
       suffix="mm"
     ></app-switchable-input>
@@ -77,7 +77,7 @@
         [type]="types.NUMBER"
         name="techRecord_couplingCenterToRearAxleMin"
         label="Minimum"
-        [isEditing]="isEditing"
+        [isEditing]="isEditing()"
         [width]="widths.XS"
         suffix="mm"
       ></app-switchable-input>
@@ -87,7 +87,7 @@
         [type]="types.NUMBER"
         name="techRecord_couplingCenterToRearAxleMax"
         label="Maximum"
-        [isEditing]="isEditing"
+        [isEditing]="isEditing()"
         [width]="widths.XS"
         suffix="mm"
       ></app-switchable-input>
@@ -99,7 +99,7 @@
         [type]="types.NUMBER"
         name="techRecord_frontVehicleTo5thWheelCouplingMin"
         label="Minimum"
-        [isEditing]="isEditing"
+        [isEditing]="isEditing()"
         [width]="widths.XS"
         suffix="mm"
       ></app-switchable-input>
@@ -109,7 +109,7 @@
         [type]="types.NUMBER"
         name="techRecord_frontVehicleTo5thWheelCouplingMax"
         label="Maximum"
-        [isEditing]="isEditing"
+        [isEditing]="isEditing()"
         [width]="widths.XS"
         suffix="mm"
       ></app-switchable-input>
@@ -125,7 +125,7 @@
         [type]="types.NUMBER"
         name="techRecord_couplingCenterToRearTrlMin"
         label="Minimum"
-        [isEditing]="isEditing"
+        [isEditing]="isEditing()"
         [width]="widths.XS"
         suffix="mm"
       ></app-switchable-input>
@@ -135,7 +135,7 @@
         [type]="types.NUMBER"
         name="techRecord_couplingCenterToRearTrlMax"
         label="Maximum"
-        [isEditing]="isEditing"
+        [isEditing]="isEditing()"
         [width]="widths.XS"
         suffix="mm"
       ></app-switchable-input>
@@ -145,7 +145,7 @@
         [type]="types.NUMBER"
         name="techRecord_centreOfRearmostAxleToRearOfTrl"
         label="Center of rear axle to rear of trailer"
-        [isEditing]="isEditing"
+        [isEditing]="isEditing()"
         [width]="widths.XS"
         suffix="mm"
       ></app-switchable-input>
@@ -157,7 +157,7 @@
         [type]="types.NUMBER"
         name="techRecord_frontAxleTo5thWheelMin"
         label="Minimum"
-        [isEditing]="isEditing"
+        [isEditing]="isEditing()"
         [width]="widths.XS"
         suffix="mm"
       ></app-switchable-input>
@@ -167,7 +167,7 @@
         [type]="types.NUMBER"
         name="techRecord_frontAxleTo5thWheelMax"
         label="Maximum"
-        [isEditing]="isEditing"
+        [isEditing]="isEditing()"
         [width]="widths.XS"
         suffix="mm"
       ></app-switchable-input>

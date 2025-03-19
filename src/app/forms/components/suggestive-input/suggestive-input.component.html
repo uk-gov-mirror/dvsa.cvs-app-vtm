@@ -1,10 +1,10 @@
-<div [ngClass]="{ 'govuk-form-group': !noBottomMargin }">
-  <label *ngIf="label" class="govuk-label govuk-label--m" for="{{ name }}">{{ label }}</label>
+<div [ngClass]="{ 'govuk-form-group': !noBottomMargin() }">
+  <label *ngIf="label()" class="govuk-label govuk-label--m" for="{{ name() }}">{{ label() }}</label>
 
-  <div *ngIf="hint" id="{{ name }}-hint" class="govuk-hint">{{ hint }}</div>
+  <div *ngIf="hint()" id="{{ name() }}-hint" class="govuk-hint">{{ hint() }}</div>
 
-  <app-field-error-message [error]="error" [name]="name"></app-field-error-message>
-  <app-field-error-message [error]="warning" [name]="name"></app-field-error-message>
+  <app-field-error-message [error]="error" [name]="name()"></app-field-error-message>
+  <app-field-error-message [error]="warning()" [name]="name()"></app-field-error-message>
 
   <div class="govuk-input__wrapper">
     <div *ngIf="prefix() as prefix" class="govuk-input__suffix prefix" aria-hidden="true">
@@ -13,10 +13,10 @@
 
     <input
       #suggestiveInput
-      id="{{ name }}"
-      name="{{ name }}"
+      id="{{ name() }}"
+      name="{{ name() }}"
       type="text"
-      [attr.list]="name + '-datalist'"
+      [attr.list]="name() + '-datalist'"
       [ngClass]="style"
       [disabled]="disabled"
       [(ngModel)]="field_value"
@@ -25,8 +25,8 @@
       (focus)="handleEvent($event)"
       onfocus="select();"
     />
-    <datalist [id]="name + '-datalist'" role="listbox">
-      <option *ngFor="let option of options$ | async; let i = index; trackBy: trackByFn" [ngValue]="option">{{ option.label }}</option>
+    <datalist [id]="name() + '-datalist'" role="listbox">
+      <option *ngFor="let option of options$() | async; let i = index; trackBy: trackByFn" [ngValue]="option">{{ option.label }}</option>
     </datalist>
     <span class="datalist-arrow"> </span>
 

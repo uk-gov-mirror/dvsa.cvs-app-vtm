@@ -17,12 +17,12 @@
           [form]="getAxleForm(i)"
           [type]="types.NUMBER"
           name="brakes_brakeActuator"
-          [isEditing]="isEditing"
+          [isEditing]="isEditing()"
         ></app-switchable-input>
       </td>
 
       <td class="govuk-table__cell">
-        <app-switchable-input [form]="getAxleForm(i)" [type]="types.NUMBER" name="brakes_leverLength" [isEditing]="isEditing"></app-switchable-input>
+        <app-switchable-input [form]="getAxleForm(i)" [type]="types.NUMBER" name="brakes_leverLength" [isEditing]="isEditing()"></app-switchable-input>
       </td>
 
       <td class="govuk-table__cell">
@@ -30,7 +30,7 @@
           [form]="getAxleForm(i)"
           [type]="types.DROPDOWN"
           name="brakes_springBrakeParking"
-          [isEditing]="isEditing"
+          [isEditing]="isEditing()"
           [options]="booleanOptions"
         ></app-switchable-input>
       </td>
@@ -49,7 +49,7 @@
       [type]="types.RADIO"
       [name]="name"
       [label]="stripName(name)"
-      [isEditing]="isEditing"
+      [isEditing]="isEditing()"
       [options]="booleanOptions"
     ></app-switchable-input>
   </ng-template>
@@ -66,7 +66,7 @@
       [customId]="'parkingBrakeMrk' + (i + 1)"
       name="parkingBrakeMrk"
       [label]="'Axle ' + (i + 1)"
-      [isEditing]="isEditing"
+      [isEditing]="isEditing()"
     ></app-switchable-input>
   </div>
 </div>

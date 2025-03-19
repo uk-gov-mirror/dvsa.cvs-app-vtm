@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, inject, output, viewChild, viewChildren } from '@angular/core';
+import { AfterViewInit, Component, inject, input, output, viewChild, viewChildren } from '@angular/core';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { DynamicFormGroupComponent } from '@forms/components/dynamic-form-group/dynamic-form-group.component';
@@ -32,10 +32,10 @@ export class BaseTestRecordComponent implements AfterViewInit {
 	readonly customDefects = viewChild(CustomDefectsComponent);
 	readonly requiredStandards = viewChild(RequiredStandardsComponent);
 
-	@Input() testResult!: TestResultModel;
-	@Input() isEditing = false;
-	@Input() expandSections = false;
-	@Input() isReview = false;
+	readonly testResult = input.required<TestResultModel>();
+	readonly isEditing = input(false);
+	readonly expandSections = input(false);
+	readonly isReview = input(false);
 
 	readonly newTestResult = output<TestResultModel>();
 
@@ -107,7 +107,7 @@ export class BaseTestRecordComponent implements AfterViewInit {
 	}
 
 	get resultOfTest(): resultOfTestEnum {
-		return this.testResult?.testTypes[0].testResult;
+		return this.testResult()?.testTypes[0].testResult;
 	}
 
 	get testNumber$(): Observable<string | undefined> {

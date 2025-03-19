@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
 	selector: 'app-icon',
@@ -7,5 +7,5 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 	standalone: false,
 })
 export class IconComponent {
-	@Input() icon = '';
+	readonly icon = input('');
 }

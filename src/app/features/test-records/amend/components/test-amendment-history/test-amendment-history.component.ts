@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { TestResultModel } from '@models/test-results/test-result.model';
 import { Store, select } from '@ngrx/store';
 import { selectedTestSortedAmendmentHistory } from '@store/test-records/test-records.selectors';
@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/internal/Observable';
 	standalone: false,
 })
 export class TestAmendmentHistoryComponent {
-	@Input() testRecord: TestResultModel | undefined;
+	readonly testRecord = input<TestResultModel>();
 
 	constructor(private store: Store) {}
 

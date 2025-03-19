@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, model } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, input, model } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReplaySubject, Subject, map, takeUntil } from 'rxjs';
 
@@ -10,9 +10,9 @@ import { ReplaySubject, Subject, map, takeUntil } from 'rxjs';
 	standalone: false,
 })
 export class PaginationComponent implements OnInit, OnDestroy {
-	@Input() tableName!: string;
-	@Input() numberOfItems = 0;
-	@Input() itemsPerPage = 5;
+	readonly tableName = input.required<string>();
+	readonly numberOfItems = input(0);
+	readonly itemsPerPage = input(5);
 
 	paginationOptions = model<{
 		currentPage: number;
@@ -37,7 +37,7 @@ export class PaginationComponent implements OnInit, OnDestroy {
 		this.route.queryParams
 			.pipe(
 				takeUntil(this.destroy$),
-				map((params) => Number.parseInt(params[`${this.tableName}-page`] ?? '1', 10))
+				map((params) => Number.parseInt(params[`${this.tableName()}-page`] ?? '1', 10))
 			)
 			.subscribe({
 				next: (page) => {
@@ -48,12 +48,12 @@ export class PaginationComponent implements OnInit, OnDestroy {
 
 		this.currentPageSubject.pipe(takeUntil(this.destroy$)).subscribe({
 			next: (page) => {
-				const [start, end] = [(page - 1) * this.itemsPerPage, page * this.itemsPerPage];
+				const [start, end] = [(page - 1) * this.itemsPerPage(), page * this.itemsPerPage()];
 
 				this.currentPage = page;
 				this.paginationOptions.set({
 					currentPage: page,
-					itemsPerPage: this.itemsPerPage,
+					itemsPerPage: this.itemsPerPage(),
 					start,
 					end,
 				});
@@ -68,7 +68,7 @@ export class PaginationComponent implements OnInit, OnDestroy {
 	}
 
 	pageQuery(page: number) {
-		return { [`${this.tableName}-page`]: page };
+		return { [`${this.tableName()}-page`]: page };
 	}
 	nextPage() {
 		return this.pageQuery(this.currentPage + 1);
@@ -88,7 +88,7 @@ export class PaginationComponent implements OnInit, OnDestroy {
 	}
 
 	get numberOfPages() {
-		return Math.ceil(this.numberOfItems / this.itemsPerPage);
+		return Math.ceil(this.numberOfItems() / this.itemsPerPage());
 	}
 
 	/**

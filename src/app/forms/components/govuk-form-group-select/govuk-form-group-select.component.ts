@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef, inject, output } from '@angular/core';
+import { Component, forwardRef, inject, input, output } from '@angular/core';
 import {
 	ControlContainer,
 	ControlValueAccessor,
@@ -28,44 +28,34 @@ export class GovukFormGroupSelectComponent implements ControlValueAccessor {
 	readonly blur = output<FocusEvent>();
 	readonly focus = output<FocusEvent>();
 
-	@Input()
-	value: string | number | boolean | null = null;
+	readonly value = input<string | number | boolean | null>(null);
 
-	@Input()
-	disabled = false;
+	readonly disabled = input(false);
 
-	@Input()
-	tags: CustomTag[] = [];
+	readonly tags = input<CustomTag[]>([]);
 
-	@Input({ required: true })
-	options!: MultiOptions;
+	readonly options = input.required<MultiOptions>();
 
-	@Input({ alias: 'hint' })
-	controlHint = '';
+	readonly controlHint = input('', { alias: 'hint' });
 
-	@Input({ alias: 'formControlName', required: true })
-	controlName = '';
+	readonly controlName = input.required<string>({ alias: 'formControlName' });
 
-	@Input({ alias: 'label' })
-	controlLabel = '';
+	readonly controlLabel = input('', { alias: 'label' });
 
-	@Input({ alias: 'id' })
-	controlId = '';
+	readonly controlId = input('', { alias: 'id' });
 
-	@Input()
-	allowNull = true;
+	readonly allowNull = input(true);
 
-	@Input()
-	width?: FormNodeWidth;
+	readonly width = input<FormNodeWidth>();
 
 	controlContainer = inject(ControlContainer);
 
 	get control() {
-		return this.controlContainer.control?.get(this.controlName);
+		return this.controlContainer.control?.get(this.controlName());
 	}
 
 	get id() {
-		return this.controlId || this.controlName;
+		return this.controlId() || this.controlName();
 	}
 
 	get hintId() {
@@ -85,7 +75,8 @@ export class GovukFormGroupSelectComponent implements ControlValueAccessor {
 	}
 
 	get style(): string {
-		return `govuk-select ${this.width ? `govuk-input--width-${this.width}` : ''}`;
+		const width = this.width();
+		return `govuk-select ${width ? `govuk-input--width-${width}` : ''}`;
 	}
 
 	onChange = (_: any) => {};

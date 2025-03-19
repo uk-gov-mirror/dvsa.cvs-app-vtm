@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, output } from '@angular/core';
+import { Component, OnDestroy, OnInit, input, output } from '@angular/core';
 import { CustomDefect } from '@models/test-results/customDefect';
 import { CustomDefects } from '@models/test-results/customDefects';
 import { DynamicFormService } from '@services/dynamic-forms/dynamic-form.service';
@@ -12,10 +12,10 @@ import { Subscription } from 'rxjs';
 	standalone: false,
 })
 export class CustomDefectsComponent implements OnInit, OnDestroy {
-	@Input() isEditing = false;
-	@Input() template!: FormNode;
+	readonly isEditing = input(false);
+	readonly template = input.required<FormNode>();
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	@Input() data: any = {};
+	readonly data = input<any>({});
 
 	readonly formChange = output<Record<string, any> | [][]>();
 	form!: CustomFormGroup;
@@ -26,11 +26,11 @@ export class CustomDefectsComponent implements OnInit, OnDestroy {
 	constructor(private dfs: DynamicFormService) {}
 
 	ngOnInit(): void {
-		this.form = this.dfs.createForm(this.template, this.data) as CustomFormGroup;
+		this.form = this.dfs.createForm(this.template(), this.data()) as CustomFormGroup;
 		this.formSubscription = this.form.cleanValueChanges.subscribe((event) => {
 			this.formChange.emit(event);
 		});
-		this.defectNameType = this.template.name === 'additionalDefectsSection' ? 'Additional Defect' : 'Custom Defect';
+		this.defectNameType = this.template().name === 'additionalDefectsSection' ? 'Additional Defect' : 'Custom Defect';
 	}
 
 	ngOnDestroy(): void {

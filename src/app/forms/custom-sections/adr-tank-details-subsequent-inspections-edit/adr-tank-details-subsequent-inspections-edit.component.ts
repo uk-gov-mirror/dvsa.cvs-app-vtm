@@ -45,7 +45,7 @@ export class AdrTankDetailsSubsequentInspectionsEditComponent
 	override ngAfterContentInit() {
 		super.ngAfterContentInit();
 		if (this.form) {
-			const value = this.form?.get(this.name)?.value;
+			const value = this.form?.get(this.name())?.value;
 			const values = Array.isArray(value) && value.length ? value : [];
 
 			values.forEach(

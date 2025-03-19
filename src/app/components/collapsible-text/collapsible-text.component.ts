@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
 	selector: 'collapsible-text',
@@ -7,9 +7,9 @@ import { Component, Input } from '@angular/core';
 	standalone: false,
 })
 export class CollapsibleTextComponent {
-	@Input() text = '';
-	@Input() maxChars = 0;
-	@Input() isCollapsed = true;
+	readonly text = input('');
+	readonly maxChars = input(0);
+	readonly isCollapsed = input(true);
 
 	open() {
 		this.isCollapsed = false;

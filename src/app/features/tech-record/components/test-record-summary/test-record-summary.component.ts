@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, input } from '@angular/core';
 import { Roles } from '@models/roles.enum';
 import { TestResultStatus } from '@models/test-results/test-result-status.enum';
 import { TestResultModel } from '@models/test-results/test-result.model';
@@ -20,8 +20,8 @@ interface TestField {
 	standalone: false,
 })
 export class TestRecordSummaryComponent {
-	@Input() isEditing = false;
-	@Input() testResults: TestResultModel[] = [];
+	readonly isEditing = input(false);
+	readonly testResults = input<TestResultModel[]>([]);
 
 	pageStart?: number;
 	pageEnd?: number;
@@ -33,7 +33,7 @@ export class TestRecordSummaryComponent {
 	}
 
 	get numberOfRecords(): number {
-		return this.testResults.length;
+		return this.testResults().length;
 	}
 
 	get paginatedTestFields(): TestField[] {
@@ -44,7 +44,7 @@ export class TestRecordSummaryComponent {
 		const byDate = (a: TestField, b: TestField) =>
 			new Date(b.testTypeStartTimestamp).getTime() - new Date(a.testTypeStartTimestamp).getTime();
 
-		return this.testResults
+		return this.testResults()
 			.flatMap((record) =>
 				record.testTypes.map((testType) => ({
 					testTypeStartTimestamp: testType.testTypeStartTimestamp,

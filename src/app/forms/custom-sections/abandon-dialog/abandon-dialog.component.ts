@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, output, viewChild } from '@angular/core';
+import { Component, OnInit, input, output, viewChild } from '@angular/core';
 import { ReferenceDataResourceType } from '@models/reference-data.model';
 import { TestResultModel } from '@models/test-results/test-result.model';
 import { TEST_TYPES_GROUP5_13 } from '@models/testTypeId.enum';
@@ -55,7 +55,7 @@ const ABANDON_FORM = (ReasonsForAbandoning: ReferenceDataResourceType | SpecialR
 })
 export class AbandonDialogComponent extends BaseDialogComponent implements OnInit {
 	readonly dynamicFormGroup = viewChild(DynamicFormGroupComponent);
-	@Input() testResult?: TestResultModel;
+	readonly testResult = input<TestResultModel>();
 	readonly newTestResult = output<TestResultModel>();
 	template?: FormNode;
 	ngOnInit() {
@@ -63,7 +63,7 @@ export class AbandonDialogComponent extends BaseDialogComponent implements OnIni
 	}
 
 	getTemplate(): FormNode {
-		const testTypeId = this.testResult?.testTypes[0].testTypeId ?? '';
+		const testTypeId = this.testResult()?.testTypes[0].testTypeId ?? '';
 
 		if (TEST_TYPES_GROUP5_13.includes(testTypeId)) {
 			return ABANDON_FORM(ReferenceDataResourceType.TirReasonsForAbandoning);
@@ -76,7 +76,7 @@ export class AbandonDialogComponent extends BaseDialogComponent implements OnIni
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	handleFormChange(event: any) {
-		const latestTest = merge(this.testResult, event);
+		const latestTest = merge(this.testResult(), event);
 		if (latestTest && Object.keys(latestTest).length > 0) {
 			this.newTestResult.emit(latestTest as TestResultModel);
 		}

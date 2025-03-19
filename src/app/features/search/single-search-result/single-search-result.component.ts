@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { TagType } from '@components/tag/tag.component';
 import { TechRecordSearchSchema } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/search';
 import { Roles } from '@models/roles.enum';
@@ -12,14 +12,14 @@ import { StatusCodes } from '@models/vehicle-tech-record.model';
 	standalone: false,
 })
 export class SingleSearchResultComponent {
-	@Input() searchResult!: TechRecordSearchSchema;
+	readonly searchResult = input.required<TechRecordSearchSchema>();
 
 	public get roles() {
 		return Roles;
 	}
 
 	public get tagType() {
-		switch (this.searchResult?.techRecord_statusCode) {
+		switch (this.searchResult()?.techRecord_statusCode) {
 			case StatusCodes.CURRENT:
 				return ''; // default is dark blue;
 			case StatusCodes.ARCHIVED:

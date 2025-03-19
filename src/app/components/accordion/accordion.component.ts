@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { addSectionState, removeSectionState } from '@store/technical-records';
 
@@ -10,10 +10,10 @@ import { addSectionState, removeSectionState } from '@store/technical-records';
 	standalone: false,
 })
 export class AccordionComponent {
-	@Input() title: string | undefined = '';
-	@Input() id: string | number = '';
+	readonly title = input<string | undefined>('');
+	readonly id = input<string | number>('');
 
-	@Input() isExpanded: boolean | null | undefined = false;
+	readonly isExpanded = input<boolean | null | undefined>(false);
 
 	constructor(
 		private cdr: ChangeDetectorRef,
@@ -21,7 +21,7 @@ export class AccordionComponent {
 	) {}
 
 	get iconStyle(): string {
-		return `govuk-accordion-nav__chevron${this.isExpanded ? '' : ' govuk-accordion-nav__chevron--down'}`;
+		return `govuk-accordion-nav__chevron${this.isExpanded() ? '' : ' govuk-accordion-nav__chevron--down'}`;
 	}
 
 	open(sectionName: string | number | undefined): void {

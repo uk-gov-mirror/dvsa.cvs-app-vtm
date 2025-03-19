@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject, input } from '@angular/core';
 import { resultOfTestEnum } from '@models/test-types/test-type.model';
 import { TEST_TYPES_GROUP1_SPEC_TEST, TEST_TYPES_GROUP5_SPEC_TEST } from '@models/testTypeId.enum';
 import { Store, select } from '@ngrx/store';
@@ -17,9 +17,9 @@ import { Subject, combineLatest, takeUntil } from 'rxjs';
 export class TestCertificateComponent implements OnInit, OnDestroy {
 	store: Store<State> = inject(Store<State>);
 	featureToggleService = inject(FeatureToggleService);
-	@Input() testNumber!: string;
-	@Input() vin!: string;
-	@Input() isClickable = true;
+	readonly testNumber = input.required<string>();
+	readonly vin = input.required<string>();
+	readonly isClickable = input(true);
 	certNotNeeded = false;
 	private destroyed$ = new Subject<void>();
 
@@ -38,13 +38,13 @@ export class TestCertificateComponent implements OnInit, OnDestroy {
 
 	get documentParams(): Map<string, string> {
 		return new Map([
-			['testNumber', this.testNumber],
-			['vinNumber', this.vin],
+			['testNumber', this.testNumber()],
+			['vinNumber', this.vin()],
 		]);
 	}
 
 	get fileName(): string {
-		return `${this.testNumber}_${this.vin}`;
+		return `${this.testNumber()}_${this.vin()}`;
 	}
 
 	ngOnDestroy(): void {

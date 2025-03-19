@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, output } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges, input, output } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import {
 	TechRecordPSV,
@@ -30,8 +30,8 @@ import { Observable, Subject, debounceTime, of, switchMap, takeUntil, withLatest
 	standalone: false,
 })
 export class PsvBrakesComponent implements OnInit, OnChanges, OnDestroy {
-	@Input() vehicleTechRecord?: TechRecordType<'psv'>;
-	@Input() isEditing = false;
+	readonly vehicleTechRecord = input<TechRecordType<'psv'>>();
+	readonly isEditing = input(false);
 
 	readonly formChange = output<Partial<TechRecordPSV>>();
 
@@ -50,7 +50,7 @@ export class PsvBrakesComponent implements OnInit, OnChanges, OnDestroy {
 	) {}
 
 	ngOnInit(): void {
-		this.form = this.dfs.createForm(PsvBrakesTemplate, this.vehicleTechRecord) as CustomFormGroup;
+		this.form = this.dfs.createForm(PsvBrakesTemplate, this.vehicleTechRecord()) as CustomFormGroup;
 
 		(this.form.cleanValueChanges as Observable<Partial<TechRecordType<'psv'>>>)
 			.pipe(
@@ -137,10 +137,11 @@ export class PsvBrakesComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	get brakeCodePrefix(): string {
-		if (!this.vehicleTechRecord?.techRecord_grossLadenWeight) {
+		const vehicleTechRecord = this.vehicleTechRecord();
+		if (!vehicleTechRecord?.techRecord_grossLadenWeight) {
 			return '';
 		}
-		const prefix = `${Math.round(this.vehicleTechRecord.techRecord_grossLadenWeight / 100)}`;
+		const prefix = `${Math.round(vehicleTechRecord.techRecord_grossLadenWeight / 100)}`;
 
 		return prefix.length <= 2 ? `0${prefix}` : prefix;
 	}

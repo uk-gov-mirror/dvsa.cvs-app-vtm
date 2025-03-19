@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 export type TagTypes = 'blue' | 'green' | 'orange' | 'red' | 'yellow' | 'purple' | 'grey';
 export const TagType = {
@@ -18,5 +18,5 @@ export const TagType = {
 	standalone: false,
 })
 export class TagComponent {
-	@Input() type: string = TagType.BLUE;
+	readonly type = input<string>(TagType.BLUE);
 }

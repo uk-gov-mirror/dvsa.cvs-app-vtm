@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FormNodeOption } from '@services/dynamic-forms/dynamic-form.types';
 import { BaseControlComponent } from '../base-control/base-control.component';
@@ -17,11 +17,11 @@ import { BaseControlComponent } from '../base-control/base-control.component';
 	standalone: false,
 })
 export class RadioGroupComponent extends BaseControlComponent {
-	@Input() options: FormNodeOption<string | number | boolean | null>[] = [];
-	@Input() inline = false;
+	readonly options = input<FormNodeOption<string | number | boolean | null>[]>([]);
+	readonly inline = input(false);
 
 	getLabel(value: string | number | boolean | null): string | undefined {
-		return this.options.find((option) => option.value === value)?.label;
+		return this.options().find((option) => option.value === value)?.label;
 	}
 
 	trackByFn = (index: number): number => index;

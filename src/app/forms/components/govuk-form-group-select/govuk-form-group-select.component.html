@@ -1,15 +1,15 @@
 <div class="govuk-form-group-select">
-  <label tag for="{{ id }}" [id]="labelId" *ngIf="controlLabel">
-    {{ controlLabel }}
-    <ng-container *ngIf="tags?.length">
+  <label tag for="{{ id }}" [id]="labelId" *ngIf="controlLabel()">
+    {{ controlLabel() }}
+    <ng-container *ngIf="tags()?.length">
       <div class="flex gap-2">
-        <app-tag *ngFor="let tag of tags" [type]="tag.colour">{{ tag.label }}</app-tag>
+        <app-tag *ngFor="let tag of tags()" [type]="tag.colour">{{ tag.label }}</app-tag>
       </div>
     </ng-container>
   </label>
   
-  <ng-container *ngIf="controlHint">
-    <div class="govuk-hint" id="{{ hintId }}"> {{ controlHint }} </div>
+  <ng-container *ngIf="controlHint()">
+    <div class="govuk-hint" id="{{ hintId }}"> {{ controlHint() }} </div>
   </ng-container>
 
   <ng-container *ngIf="hasError">
@@ -26,12 +26,12 @@
     [attr.aria-labelledby]="labelId"
     [attr.data-testid]="id"
     [class.govuk-radios__input--error]="hasError"
-    [(ngModel)]="value"
+    [(ngModel)]="value()"
     (ngModelChange)="onChange($event)"
     (blur)="onBlur($event)"
     [class]="style"
   >
-    <option *ngIf="allowNull" [ngValue]="null"></option>
-    <option [value]="option.value" *ngFor="let option of options">{{ option.label }}</option>
+    <option *ngIf="allowNull()" [ngValue]="null"></option>
+    <option [value]="option.value" *ngFor="let option of options()">{{ option.label }}</option>
   </select>
 </div>

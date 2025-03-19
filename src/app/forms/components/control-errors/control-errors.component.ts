@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -7,9 +7,7 @@ import { FormControl } from '@angular/forms';
 	standalone: false,
 })
 export class ControlErrorsComponent {
-	@Input({ required: true })
-	elementId!: string;
+	readonly elementId = input.required<string>();
 
-	@Input({ required: true })
-	control!: FormControl;
+	readonly control = input.required<FormControl>();
 }

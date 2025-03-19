@@ -1,11 +1,11 @@
 <div class="flex" id="{{ 'test-' + form.meta.name || 'test-dynamic-form' }}">
   <ng-template [ngTemplateOutlet]="templateHeading"></ng-template>
-  <table *ngIf="!edit" class="govuk-table">
+  <table *ngIf="!edit()" class="govuk-table">
     <tbody class="govuk-table__body">
       <ng-template [ngTemplateOutlet]="nodeTemplateRef" [ngTemplateOutletContext]="{ form: form }"> </ng-template>
     </tbody>
   </table>
-  <ng-container *ngIf="edit">
+  <ng-container *ngIf="edit()">
     <ng-template [ngTemplateOutlet]="nodeTemplateRef" [ngTemplateOutletContext]="{ form: form }"> </ng-template>
   </ng-container>
 </div>
@@ -67,7 +67,7 @@
 
 <ng-template #controlTemplate let-control="control" let-formGroup="formGroup">
   <ng-container [formGroup]="formGroup">
-    <ng-container *ngIf="control.value.meta && !control.value.meta.hide" [ngSwitch]="edit">
+    <ng-container *ngIf="control.value.meta && !control.value.meta.hide" [ngSwitch]="edit()">
       <ng-container *ngIf="control.value.meta.viewType !== 'hidden'">
           <tr
             *ngSwitchCase="false"
@@ -84,7 +84,7 @@
       <app-dynamic-form-field *ngSwitchCase="true"
         [control]="control"
         [form]="formGroup"
-        [parentForm]="parentForm"
+        [parentForm]="parentForm()"
         [customId]="control.value.meta.customId"
         [ngClass]="control.value.meta.class"
        />
@@ -107,7 +107,7 @@
 <ng-template #combinationTemplate let-control="control" let-formGroup="formGroup">
   <!-- check for editable here so that we don't render this template as well as the actual form fields -->
   <div
-    *ngIf="control.value.meta && !edit"
+    *ngIf="control.value.meta && !edit()"
     app-view-combination
     class="govuk-summary-list__row"
     [formNode]="control.value.meta"
@@ -117,14 +117,14 @@
 
 <ng-template #titleTemplate let-control="control">
   <ng-container *ngIf="!(control.value.meta && control.value.meta.hide)">
-    <ng-container *ngIf="!edit">
+    <ng-container *ngIf="!edit()">
       <tr class="govuk-table__row">
         <td colspan="2" class="govuk-table__cell pt-2">
           <h4 class="govuk-heading-m mb-0">{{ control.value.meta.label }}</h4>
         </td>
       </tr>
     </ng-container>
-    <div *ngIf="edit">
+    <div *ngIf="edit()">
       <span class="govuk-label govuk-label--m">{{ control.value.meta.label }}</span>
     </div>
   </ng-container>
@@ -132,14 +132,14 @@
 
 <ng-template #subtitleTemplate let-control="control">
   <ng-container *ngIf="!(control.value.meta && control.value.meta.hide)">
-    <ng-container *ngIf="!edit && control.value.meta.viewType !== formNodeViewTypes.HIDDEN">
+    <ng-container *ngIf="!edit() && control.value.meta.viewType !== formNodeViewTypes.HIDDEN">
       <tr class="govuk-table__row">
         <td colspan="2" class="govuk-table__cell">
           <h4 class="govuk-heading-s mb-0">{{ control.value.meta.label }}</h4>
         </td>
       </tr>
     </ng-container>
-    <div *ngIf="edit">
+    <div *ngIf="edit()">
       <span class="govuk-label govuk-label--m">{{ control.value.meta.label }}</span>
     </div>
   </ng-container>

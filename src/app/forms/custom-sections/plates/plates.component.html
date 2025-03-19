@@ -1,5 +1,5 @@
 <form [formGroup]="form">
-  <ng-container *ngIf="hasPlates && !isEditing">
+  <ng-container *ngIf="hasPlates && !isEditing()">
     <table class="govuk-table">
       <caption class="govuk-table__caption govuk-table__caption--m">
         Plates History

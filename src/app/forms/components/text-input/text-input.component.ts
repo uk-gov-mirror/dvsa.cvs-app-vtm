@@ -1,4 +1,4 @@
-import { Component, Input, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BaseControlComponent } from '../base-control/base-control.component';
 
@@ -16,11 +16,12 @@ import { BaseControlComponent } from '../base-control/base-control.component';
 	standalone: false,
 })
 export class TextInputComponent extends BaseControlComponent {
-	@Input() numeric = false;
-	@Input() uppercase?: boolean = false;
+	readonly numeric = input(false);
+	readonly uppercase = input<boolean | undefined>(false);
 	readonly blur = output<FocusEvent>();
 
 	get style(): string {
-		return `govuk-input ${this.width ? `govuk-input--width-${this.width}` : ''}`;
+		const width = this.width();
+		return `govuk-input ${width ? `govuk-input--width-${width}` : ''}`;
 	}
 }

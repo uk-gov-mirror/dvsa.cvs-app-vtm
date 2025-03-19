@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, output } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges, input, output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ApprovalType as approvalType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalType.enum.js';
 import { ApprovalType as approvalTypeHgvOrPsv } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalTypeHgvOrPsv.enum.js';
@@ -25,8 +25,8 @@ import { Subject, debounceTime, takeUntil } from 'rxjs';
 	standalone: false,
 })
 export class ApprovalTypeComponent implements OnInit, OnChanges, OnDestroy {
-	@Input() techRecord!: TechRecordType<'hgv' | 'psv' | 'trl'>;
-	@Input() isEditing = false;
+	readonly techRecord = input.required<TechRecordType<'hgv' | 'psv' | 'trl'>>();
+	readonly isEditing = input(false);
 	readonly formChange = output<Record<string, any> | [][]>();
 	readonly approvalTypeNumberChange = output<string>();
 
@@ -40,13 +40,14 @@ export class ApprovalTypeComponent implements OnInit, OnChanges, OnDestroy {
 	constructor(private dfs: DynamicFormService) {}
 
 	ngOnInit() {
+		const techRecord = this.techRecord();
 		this.approvalType =
-			this.techRecord.techRecord_vehicleType === 'psv' || this.techRecord.techRecord_vehicleType === 'hgv'
+			techRecord.techRecord_vehicleType === 'psv' || techRecord.techRecord_vehicleType === 'hgv'
 				? approvalTypeHgvOrPsv
 				: approvalType;
 		this.form = this.dfs.createForm(
-			this.techRecord.techRecord_vehicleType === 'psv' ? PsvTypeApprovalTemplate : HgvAndTrlTypeApprovalTemplate,
-			this.techRecord
+			this.techRecord().techRecord_vehicleType === 'psv' ? PsvTypeApprovalTemplate : HgvAndTrlTypeApprovalTemplate,
+			this.techRecord()
 		) as CustomFormGroup;
 		this.form.cleanValueChanges
 			.pipe(debounceTime(400), takeUntil(this.destroy$))
@@ -75,7 +76,7 @@ export class ApprovalTypeComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	get template(): FormNode {
-		switch (this.techRecord.techRecord_vehicleType) {
+		switch (this.techRecord().techRecord_vehicleType) {
 			case VehicleTypes.PSV:
 				return PsvTypeApprovalTemplate;
 			case VehicleTypes.HGV:
@@ -96,7 +97,7 @@ export class ApprovalTypeComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	get isPsv(): boolean {
-		return this.techRecord.techRecord_vehicleType === VehicleTypes.PSV;
+		return this.techRecord().techRecord_vehicleType === VehicleTypes.PSV;
 	}
 
 	get formNodeViewTypes(): typeof FormNodeViewTypes {

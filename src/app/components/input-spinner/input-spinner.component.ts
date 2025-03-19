@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
 	selector: 'app-input-spinner',
@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 	standalone: false,
 })
 export class InputSpinnerComponent {
-	@Input() isValid = '';
+	readonly isValid = input('');
 }

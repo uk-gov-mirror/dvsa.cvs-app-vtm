@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, output } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges, input, output } from '@angular/core';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { HgvWeight } from '@forms/templates/hgv/hgv-weight.template';
 import { PsvWeightsTemplate } from '@forms/templates/psv/psv-weight.template';
@@ -24,8 +24,8 @@ import { Subscription } from 'rxjs';
 	standalone: false,
 })
 export class WeightsComponent implements OnInit, OnDestroy, OnChanges {
-	@Input() vehicleTechRecord!: TechRecordType<'psv'> | TechRecordType<'trl'> | TechRecordType<'hgv'>;
-	@Input() isEditing = false;
+	readonly vehicleTechRecord = input.required<TechRecordType<'psv'> | TechRecordType<'trl'> | TechRecordType<'hgv'>>();
+	readonly isEditing = input(false);
 	readonly formChange = output();
 
 	public form!: CustomFormGroup;
@@ -53,7 +53,7 @@ export class WeightsComponent implements OnInit, OnDestroy, OnChanges {
 	}
 
 	get template(): FormNode {
-		switch (this.vehicleTechRecord.techRecord_vehicleType) {
+		switch (this.vehicleTechRecord().techRecord_vehicleType) {
 			case VehicleTypes.PSV:
 				return PsvWeightsTemplate;
 			case VehicleTypes.HGV:
@@ -66,19 +66,19 @@ export class WeightsComponent implements OnInit, OnDestroy, OnChanges {
 	}
 
 	get isPsv(): boolean {
-		return this.vehicleTechRecord.techRecord_vehicleType === VehicleTypes.PSV;
+		return this.vehicleTechRecord().techRecord_vehicleType === VehicleTypes.PSV;
 	}
 
 	get isHgv(): boolean {
-		return this.vehicleTechRecord.techRecord_vehicleType === VehicleTypes.HGV;
+		return this.vehicleTechRecord().techRecord_vehicleType === VehicleTypes.HGV;
 	}
 
 	get isTrl(): boolean {
-		return this.vehicleTechRecord.techRecord_vehicleType === VehicleTypes.TRL;
+		return this.vehicleTechRecord().techRecord_vehicleType === VehicleTypes.TRL;
 	}
 
 	get requiredPlates(): boolean {
-		return !this.isPsv && this.isEditing;
+		return !this.isPsv && this.isEditing();
 	}
 
 	get types(): typeof FormNodeEditTypes {
@@ -90,7 +90,7 @@ export class WeightsComponent implements OnInit, OnDestroy, OnChanges {
 	}
 
 	private initializeForm(): void {
-		this.form = this.dynamicFormsService.createForm(this.template, this.vehicleTechRecord) as CustomFormGroup;
+		this.form = this.dynamicFormsService.createForm(this.template, this.vehicleTechRecord()) as CustomFormGroup;
 	}
 
 	private subscribeToFieldsForGrossLadenWeightRecalculation(): void {
@@ -125,15 +125,16 @@ export class WeightsComponent implements OnInit, OnDestroy, OnChanges {
 				'techRecord_standingCapacity',
 			].some((field) => currentValue[`${field}`] !== previousValue[`${field}`]);
 
+			const vehicleTechRecordValue = this.vehicleTechRecord();
 			if (
 				fieldsChanged &&
 				currentValue.techRecord_manufactureYear &&
-				this.vehicleTechRecord.techRecord_vehicleType === 'psv'
+				vehicleTechRecordValue.techRecord_vehicleType === 'psv'
 			) {
-				this.vehicleTechRecord.techRecord_grossLadenWeight = this.calculateGrossLadenWeight();
+				vehicleTechRecordValue.techRecord_grossLadenWeight = this.calculateGrossLadenWeight();
 			}
 
-			this.form.patchValue(this.vehicleTechRecord, { emitEvent: false });
+			this.form.patchValue(vehicleTechRecordValue, { emitEvent: false });
 		}
 	}
 
@@ -141,7 +142,7 @@ export class WeightsComponent implements OnInit, OnDestroy, OnChanges {
 		this._formSubscription.add(
 			this.form.valueChanges.subscribe((event) => {
 				if (event?.techRecord_grossLadenWeight) {
-					(this.vehicleTechRecord as TechRecordType<'psv'>).techRecord_grossLadenWeight =
+					(this.vehicleTechRecord() as TechRecordType<'psv'>).techRecord_grossLadenWeight =
 						event.techRecord_grossLadenWeight;
 					this.form.patchValue(
 						{ techRecord_grossLadenWeight: event.techRecord_grossLadenWeight },
@@ -189,7 +190,7 @@ export class WeightsComponent implements OnInit, OnDestroy, OnChanges {
 	}
 
 	calculateGrossLadenWeight(): number {
-		const psvRecord = this.vehicleTechRecord as TechRecordType<'psv'>;
+		const psvRecord = this.vehicleTechRecord() as TechRecordType<'psv'>;
 		const techRecord_seatsUpperDeck = psvRecord?.techRecord_seatsUpperDeck ?? 0;
 		const techRecord_seatsLowerDeck = psvRecord?.techRecord_seatsLowerDeck ?? 0;
 		const techRecord_manufactureYear = psvRecord?.techRecord_manufactureYear ?? 0;
@@ -206,7 +207,8 @@ export class WeightsComponent implements OnInit, OnDestroy, OnChanges {
 	}
 
 	addAxle(): void {
-		if (!this.vehicleTechRecord.techRecord_axles || this.vehicleTechRecord.techRecord_axles.length < 10) {
+		const vehicleTechRecord = this.vehicleTechRecord();
+		if (!vehicleTechRecord.techRecord_axles || vehicleTechRecord.techRecord_axles.length < 10) {
 			this.isError = false;
 			this.store.dispatch(addAxle());
 		} else {
@@ -217,7 +219,7 @@ export class WeightsComponent implements OnInit, OnDestroy, OnChanges {
 
 	removeAxle(index: number): void {
 		const minLength = this.isTrl ? 1 : 2;
-		const axles = this.vehicleTechRecord.techRecord_axles;
+		const axles = this.vehicleTechRecord().techRecord_axles;
 
 		if (axles && axles.length > minLength) {
 			this.isError = false;

@@ -1,20 +1,20 @@
 <div class="govuk-form-group">
   <fieldset class="govuk-fieldset" role="group">
-   <ng-container *ngIf="controlLabel">
+   <ng-container *ngIf="controlLabel()">
     <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
       <h1 class="govuk-fieldset__heading" tag>
-        {{ controlLabel }}
-        <ng-container *ngIf="tags?.length">
+        {{ controlLabel() }}
+        <ng-container *ngIf="tags()?.length">
           <div>
-            <app-tag *ngFor="let tag of tags" [type]="tag.colour">{{ tag.label }}</app-tag>
+            <app-tag *ngFor="let tag of tags()" [type]="tag.colour">{{ tag.label }}</app-tag>
           </div>
         </ng-container>
       </h1>
     </legend>
    </ng-container>
   
-    <ng-container *ngIf="controlHint">
-      <div class="govuk-hint" id="{{ hintId }}"> {{ controlHint }} </div>
+    <ng-container *ngIf="controlHint()">
+      <div class="govuk-hint" id="{{ hintId }}"> {{ controlHint() }} </div>
     </ng-container>
 
       <ng-container *ngIf="hasError">
@@ -36,7 +36,7 @@
             formControlName="day"
             appFocusNext
             appNumberOnly
-            [disabled]="disabled"
+            [disabled]="disabled()"
           />
         </div>
       </div>
@@ -51,7 +51,7 @@
             formControlName="month"
             appFocusNext
             appNumberOnly
-            [disabled]="disabled"
+            [disabled]="disabled()"
           />
         </div>
       </div>
@@ -66,7 +66,7 @@
             formControlName="year"             
             appFocusNext
             appNumberOnly
-            [disabled]="disabled"
+            [disabled]="disabled()"
           />
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, OnInit, TemplateRef, ViewContainerRef, input } from '@angular/core';
 import { FeatureToggleService } from '@services/feature-toggle-service/feature-toggle-service';
 
 @Directive({
@@ -6,7 +6,7 @@ import { FeatureToggleService } from '@services/feature-toggle-service/feature-t
 	standalone: false,
 })
 export class FeatureToggleDirective implements OnInit {
-	@Input() featureToggleName!: string;
+	readonly featureToggleName = input.required<string>();
 
 	constructor(
 		private templateRef: TemplateRef<HTMLElement>,
@@ -15,7 +15,7 @@ export class FeatureToggleDirective implements OnInit {
 	) {}
 
 	ngOnInit() {
-		const isEnabled = this.featureToggleService.isFeatureEnabled(this.featureToggleName);
+		const isEnabled = this.featureToggleService.isFeatureEnabled(this.featureToggleName());
 		if (isEnabled) {
 			this.viewContainer.createEmbeddedView(this.templateRef);
 		}

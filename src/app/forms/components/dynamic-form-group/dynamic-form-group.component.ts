@@ -1,11 +1,11 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
-	Input,
 	OnChanges,
 	OnDestroy,
 	OnInit,
 	SimpleChanges,
+	input,
 	output,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
@@ -28,10 +28,10 @@ import { Subject, debounceTime, takeUntil } from 'rxjs';
 })
 export class DynamicFormGroupComponent implements OnChanges, OnInit, OnDestroy {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	@Input() data: any = {};
-	@Input() template?: FormNode;
-	@Input() edit = false;
-	@Input() parentForm?: CustomFormGroup;
+	readonly data = input<any>({});
+	readonly template = input<FormNode>();
+	readonly edit = input(false);
+	readonly parentForm = input<CustomFormGroup>();
 	readonly formChange = output<Record<string, unknown>>();
 
 	form: CustomFormGroup | CustomFormArray = new CustomFormGroup(
@@ -46,7 +46,7 @@ export class DynamicFormGroupComponent implements OnChanges, OnInit, OnDestroy {
 	ngOnChanges(changes: SimpleChanges): void {
 		const { template, data } = changes;
 		if (template && template.currentValue) {
-			this.form = this.dfs.createForm(template.currentValue, this.data);
+			this.form = this.dfs.createForm(template.currentValue, this.data());
 		}
 		if (data?.currentValue && data.currentValue !== data.previousValue) {
 			this.form.patchValue(data.currentValue, { emitEvent: false });

@@ -1,9 +1,9 @@
-<ng-container *ngIf="techRecord.techRecord_vehicleType === 'psv'">
+<ng-container *ngIf="techRecord().techRecord_vehicleType === 'psv'">
   <app-switchable-input [form]="form"
     [type]="editTypes.AUTOCOMPLETE"
     name="techRecord_brakes_dtpNumber"
     label="DTp Number"
-    [isEditing]="isEditing"
+    [isEditing]="isEditing()"
     [propOptions$]="dtpNumbers$"
     [width]="widths.L"
    />
@@ -14,7 +14,7 @@
       [type]="editTypes.TEXT"
       name="techRecord_chassisMake"
       label="Chassis make"
-      [isEditing]="isEditing"
+      [isEditing]="isEditing()"
       [width]="widths.L"
     >
     </app-switchable-input>
@@ -24,7 +24,7 @@
       [type]="editTypes.TEXT"
       name="techRecord_chassisModel"
       label="Chassis model"
-      [isEditing]="isEditing"
+      [isEditing]="isEditing()"
       [width]="widths.L"
     >
     </app-switchable-input>
@@ -36,7 +36,7 @@
       [type]="editTypes.TEXT"
       name="techRecord_bodyMake"
       label="Body make"
-      [isEditing]="isEditing"
+      [isEditing]="isEditing()"
       [width]="widths.L"
     ></app-switchable-input>
 
@@ -45,7 +45,7 @@
       [type]="editTypes.TEXT"
       name="techRecord_bodyModel"
       label="Body model"
-      [isEditing]="isEditing"
+      [isEditing]="isEditing()"
       [width]="widths.L"
     ></app-switchable-input>
   </div>
@@ -56,7 +56,7 @@
       [type]="editTypes.TEXT"
       name="techRecord_bodyType_description"
       label="Body type"
-      [isEditing]="isEditing"
+      [isEditing]="isEditing()"
       [options]="bodyTypes"
       [width]="widths.L"
       customId="bodyType"
@@ -67,18 +67,18 @@
       [type]="editTypes.TEXT"
       name="techRecord_modelLiteral"
       label="Model Literal"
-      [isEditing]="isEditing"
+      [isEditing]="isEditing()"
       [width]="widths.L"
     ></app-switchable-input>
   </div>
 </ng-container>
 
-<ng-container *ngIf="techRecord.techRecord_vehicleType !== 'psv'">
+<ng-container *ngIf="techRecord().techRecord_vehicleType !== 'psv'">
   <app-switchable-input [form]="form"
     [type]="editTypes.TEXT"
     name="techRecord_brakes_dtpNumber"
     label="DTp Number"
-    [isEditing]="isEditing"
+    [isEditing]="isEditing()"
     [width]="widths.L"
    />
 
@@ -88,7 +88,7 @@
       [type]="editTypes.DROPDOWN"
       name="techRecord_make"
       label="Body make"
-      [isEditing]="isEditing"
+      [isEditing]="isEditing()"
       [options]="(bodyMakes$ | async) || []"
       [width]="widths.L"
     ></app-switchable-input>
@@ -98,7 +98,7 @@
       [type]="editTypes.TEXT"
       name="techRecord_model"
       label="Body model"
-      [isEditing]="isEditing"
+      [isEditing]="isEditing()"
       [width]="widths.L"
     ></app-switchable-input>
   </div>
@@ -107,7 +107,7 @@
     [type]="editTypes.DROPDOWN"
     name="techRecord_bodyType_description"
     label="Body type"
-    [isEditing]="isEditing"
+    [isEditing]="isEditing()"
     [options]="bodyTypes"
     [width]="widths.L"
     customId="techRecord_bodyType_description"
@@ -118,7 +118,7 @@
   [type]="editTypes.DROPDOWN"
   name="techRecord_functionCode"
   label="Function code"
-  [isEditing]="isEditing"
+  [isEditing]="isEditing()"
   [options]="[
     { value: 'R', label: 'R' },
     { value: 'A', label: 'A' }
@@ -131,6 +131,6 @@
   name="techRecord_conversionRefNo"
   appTrimWhitespace
   label="Conversion reference number"
-  [isEditing]="isEditing"
+  [isEditing]="isEditing()"
   [width]="widths.L"
  />

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, output } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges, input, output } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { TrlBrakesTemplate } from '@forms/templates/trl/trl-brakes.template';
@@ -14,8 +14,8 @@ import { Subject, debounceTime, takeUntil } from 'rxjs';
 	standalone: false,
 })
 export class TrlBrakesComponent implements OnInit, OnChanges, OnDestroy {
-	@Input() vehicleTechRecord!: TechRecordType<'trl'>;
-	@Input() isEditing = false;
+	readonly vehicleTechRecord = input.required<TechRecordType<'trl'>>();
+	readonly isEditing = input(false);
 	readonly formChange = output();
 
 	form!: CustomFormGroup;
@@ -30,7 +30,7 @@ export class TrlBrakesComponent implements OnInit, OnChanges, OnDestroy {
 	constructor(private dfs: DynamicFormService) {}
 
 	ngOnInit(): void {
-		this.form = this.dfs.createForm(TrlBrakesTemplate, this.vehicleTechRecord) as CustomFormGroup;
+		this.form = this.dfs.createForm(TrlBrakesTemplate, this.vehicleTechRecord()) as CustomFormGroup;
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		this.form.cleanValueChanges.pipe(debounceTime(400), takeUntil(this.destroy$)).subscribe((event: any) => {

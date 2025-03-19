@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, output } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges, input, output } from '@angular/core';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { HgvDimensionsTemplate } from '@forms/templates/hgv/hgv-dimensions.template';
 import { PsvDimensionsTemplate } from '@forms/templates/psv/psv-dimensions.template';
@@ -21,8 +21,8 @@ import { Subject, debounceTime, takeUntil } from 'rxjs';
 	standalone: false,
 })
 export class DimensionsComponent implements OnInit, OnChanges, OnDestroy {
-	@Input() techRecord!: TechRecordType<'trl'> | TechRecordType<'psv'> | TechRecordType<'hgv'>;
-	@Input() isEditing = false;
+	readonly techRecord = input.required<TechRecordType<'trl'> | TechRecordType<'psv'> | TechRecordType<'hgv'>>();
+	readonly isEditing = input(false);
 	readonly formChange = output<Record<string, any> | [][]>();
 
 	form!: CustomFormGroup;
@@ -33,7 +33,7 @@ export class DimensionsComponent implements OnInit, OnChanges, OnDestroy {
 
 	ngOnInit(): void {
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		this.form = this.dfs.createForm(this.template!, this.techRecord) as CustomFormGroup;
+		this.form = this.dfs.createForm(this.template!, this.techRecord()) as CustomFormGroup;
 
 		this.form.cleanValueChanges
 			.pipe(debounceTime(400), takeUntil(this.destroy$))
@@ -54,7 +54,7 @@ export class DimensionsComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	get template(): FormNode | undefined {
-		switch (this.techRecord.techRecord_vehicleType) {
+		switch (this.techRecord().techRecord_vehicleType) {
 			case VehicleTypes.PSV:
 				return PsvDimensionsTemplate;
 			case VehicleTypes.HGV:
@@ -67,11 +67,11 @@ export class DimensionsComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	get isPsv(): boolean {
-		return this.techRecord.techRecord_vehicleType === VehicleTypes.PSV;
+		return this.techRecord().techRecord_vehicleType === VehicleTypes.PSV;
 	}
 
 	get isTrl(): boolean {
-		return this.techRecord.techRecord_vehicleType === VehicleTypes.TRL;
+		return this.techRecord().techRecord_vehicleType === VehicleTypes.TRL;
 	}
 
 	get widths(): typeof FormNodeWidth {
@@ -87,10 +87,11 @@ export class DimensionsComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	get hasAxleSpacings(): boolean {
-		if (this.techRecord.techRecord_vehicleType === 'psv') {
+		const techRecord = this.techRecord();
+		if (techRecord.techRecord_vehicleType === 'psv') {
 			return false;
 		}
-		return !!this.techRecord.techRecord_dimensions_axleSpacing?.length;
+		return !!techRecord.techRecord_dimensions_axleSpacing?.length;
 	}
 
 	get axleSpacings(): CustomFormArray {

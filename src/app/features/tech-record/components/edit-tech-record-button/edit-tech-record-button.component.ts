@@ -1,5 +1,5 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, Input, OnDestroy, output } from '@angular/core';
+import { Component, OnDestroy, input, output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { StatusCodes } from '@models/vehicle-tech-record.model';
@@ -15,9 +15,9 @@ import { Observable, Subject, distinctUntilChanged, map, takeUntil } from 'rxjs'
 	standalone: false,
 })
 export class EditTechRecordButtonComponent implements OnDestroy {
-	@Input() isEditing = false;
-	@Input() isDirty = false;
-	@Input() customId = '';
+	readonly isEditing = input(false);
+	readonly isDirty = input(false);
+	readonly customId = input('');
 
 	readonly isEditingChange = output<boolean>();
 	readonly submitChange = output();
@@ -68,13 +68,13 @@ export class EditTechRecordButtonComponent implements OnDestroy {
 	}
 
 	toggleEditMode() {
-		this.isEditing = !this.isEditing;
-		this.isEditingChange.emit(this.isEditing);
+		this.isEditing = !this.isEditing();
+		this.isEditingChange.emit(this.isEditing());
 	}
 
 	cancel() {
 		// eslint-disable-next-line no-restricted-globals, no-alert
-		if (!this.isDirty || confirm('Your changes will not be saved. Are you sure?')) {
+		if (!this.isDirty() || confirm('Your changes will not be saved. Are you sure?')) {
 			this.toggleEditMode();
 			this.errorService.clearErrors();
 			this.store.dispatch(updateEditingTechRecordCancel());

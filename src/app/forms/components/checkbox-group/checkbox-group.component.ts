@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FormNodeOption } from '@services/dynamic-forms/dynamic-form.types';
 import { BaseControlComponent } from '../base-control/base-control.component';
@@ -17,8 +17,11 @@ type OptionsType = string | number | boolean;
 	standalone: false,
 })
 export class CheckboxGroupComponent extends BaseControlComponent {
-	@Input() options: FormNodeOption<OptionsType>[] = [];
-	@Input() delimited?: { regex?: string; separator: string };
+	readonly options = input<FormNodeOption<OptionsType>[]>([]);
+	readonly delimited = input<{
+		regex?: string;
+		separator: string;
+	}>();
 
 	isChecked(option: string | number | boolean): boolean {
 		return this.value && this.value.includes(option);
@@ -30,16 +33,18 @@ export class CheckboxGroupComponent extends BaseControlComponent {
 
 	private add(option: FormNodeOption<OptionsType>) {
 		if (!this.value) {
-			this.value = this.delimited ? option.value : [option.value];
+			this.value = this.delimited() ? option.value : [option.value];
 		} else {
-			this.value = this.value.concat(this.delimited ? `${this.delimited.separator}${option.value}` : option.value);
+			const delimited = this.delimited();
+			this.value = this.value.concat(delimited ? `${delimited.separator}${option.value}` : option.value);
 		}
 
 		this.onChange(this.value);
 	}
 
 	private remove(option: FormNodeOption<OptionsType>) {
-		const seperator = this.delimited?.regex ? new RegExp(this.delimited.regex) : this.delimited?.separator;
+		const delimited = this.delimited();
+		const seperator = delimited?.regex ? new RegExp(delimited.regex) : delimited?.separator;
 
 		let filtered: string[] = [];
 		let newValue: string[] | string | null = null;
@@ -58,7 +63,7 @@ export class CheckboxGroupComponent extends BaseControlComponent {
 		filtered = filtered.filter((v) => v !== option.value);
 
 		// if we used a seperator, join the pieces back together (as this implies the value is a string)
-		newValue = seperator ? filtered.join(this.delimited?.separator) : filtered;
+		newValue = seperator ? filtered.join(this.delimited()?.separator) : filtered;
 
 		// prevent empty strings or arrays, represent these as null
 		if (newValue?.length === 0) {

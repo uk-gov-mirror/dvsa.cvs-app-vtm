@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, input } from '@angular/core';
 
 @Component({
 	selector: 'app-number-plate',
@@ -10,7 +10,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 export class NumberPlateComponent {
 	private vrmToDisplay: string | undefined;
 
-	@Input() isSecondary = false;
+	readonly isSecondary = input(false);
 	@Input() set vrm(value: string | undefined) {
 		// formatting: if the number plate is long enough, add a space before the final 3 characters
 		if (value && value.length >= 5 && !this.isZNumber(value)) {

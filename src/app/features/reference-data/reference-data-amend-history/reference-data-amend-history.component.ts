@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, input } from '@angular/core';
 import {
 	ReferenceDataAdminColumn,
 	ReferenceDataModelBase,
@@ -15,10 +15,10 @@ import { Observable, map } from 'rxjs';
 	standalone: false,
 })
 export class ReferenceDataAmendHistoryComponent implements OnInit {
-	@Input() type = '';
-	@Input() key = '';
-	@Input() title = '';
-	@Input() columns: ReferenceDataAdminColumn[] = [];
+	readonly type = input('');
+	readonly key = input('');
+	readonly title = input('');
+	readonly columns = input<ReferenceDataAdminColumn[]>([]);
 
 	pageStart?: number;
 	pageEnd?: number;
@@ -32,14 +32,14 @@ export class ReferenceDataAmendHistoryComponent implements OnInit {
 		// load the audit history
 		this.store.dispatch(
 			fetchReferenceDataByKeySearch({
-				resourceType: `${this.type}#AUDIT` as ReferenceDataResourceType,
-				resourceKey: `${decodeURIComponent(this.key)}#`,
+				resourceType: `${this.type()}#AUDIT` as ReferenceDataResourceType,
+				resourceKey: `${decodeURIComponent(this.key())}#`,
 			})
 		);
 	}
 
 	get history$(): Observable<ReferenceDataModelBase[] | undefined> {
-		return this.store.pipe(select(selectSearchReturn(`${this.type}#AUDIT` as ReferenceDataResourceType)));
+		return this.store.pipe(select(selectSearchReturn(`${this.type()}#AUDIT` as ReferenceDataResourceType)));
 	}
 
 	get numberOfRecords$(): Observable<number> {

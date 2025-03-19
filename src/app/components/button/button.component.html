@@ -1,12 +1,12 @@
-<ng-container [ngSwitch]="type">
+<ng-container [ngSwitch]="type()">
   <a
     *ngSwitchCase="'link'"
     role="button"
     class="govuk-button"
     data-module="govuk-button"
     draggable="false"
-    [id]="id"
-    [ngClass]="design ? 'govuk-button--' + design : ''"
+    [id]="id()"
+    [ngClass]="design() ? 'govuk-button--' + design() : ''"
   >
     <ng-container [ngTemplateOutlet]="content"></ng-container>
   </a>
@@ -16,10 +16,10 @@
     appPreventDoubleClick
     class="govuk-button"
     data-module="govuk-button"
-    [id]="id"
-    [ngClass]="design ? 'govuk-button--' + design : ''"
-    [disabled]="disabled"
-    [attr.aria-disabled]="disabled"
+    [id]="id()"
+    [ngClass]="design() ? 'govuk-button--' + design() : ''"
+    [disabled]="disabled()"
+    [attr.aria-disabled]="disabled()"
     (clicked)="clicked.emit()"
   >
     <ng-container [ngTemplateOutlet]="content"></ng-container>

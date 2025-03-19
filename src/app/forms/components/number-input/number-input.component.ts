@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, Input } from '@angular/core';
+import { AfterContentInit, Component, input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BaseControlComponent } from '../base-control/base-control.component';
 
@@ -16,10 +16,11 @@ import { BaseControlComponent } from '../base-control/base-control.component';
 	standalone: false,
 })
 export class NumberInputComponent extends BaseControlComponent implements AfterContentInit {
-	@Input() vehicleType?: string | null;
-	@Input() enableDecimals: boolean | undefined = false;
+	readonly vehicleType = input<string | null>();
+	readonly enableDecimals = input<boolean | undefined>(false);
 	get style(): string {
-		return `govuk-input ${this.width ? `govuk-input--width-${this.width}` : ''}`;
+		const width = this.width();
+		return `govuk-input ${width ? `govuk-input--width-${width}` : ''}`;
 	}
 
 	// @TODO: remove this when dimensions feature flag is removed
@@ -35,23 +36,24 @@ export class NumberInputComponent extends BaseControlComponent implements AfterC
 
 	// @TODO: remove this when dimensions feature flag is removed
 	shouldDisplayLengthWarning(): boolean {
-		return this.label === 'Length' && Number.parseInt(this.value, 10) > 12000;
+		return this.label() === 'Length' && Number.parseInt(this.value, 10) > 12000;
 	}
 
 	// @TODO: remove this when dimensions feature flag is removed
 	shouldDisplayWidthWarning(): boolean {
-		return this.label === 'Width' && Number.parseInt(this.value, 10) > 2600;
+		return this.label() === 'Width' && Number.parseInt(this.value, 10) > 2600;
 	}
 
 	// @TODO: remove this when dimensions feature flag is removed
 	isCorrectVehicleType(): boolean {
-		return this.vehicleType === 'hgv' || this.vehicleType === 'trl';
+		const vehicleType = this.vehicleType();
+		return vehicleType === 'hgv' || vehicleType === 'trl';
 	}
 
 	override ngAfterContentInit(): void {
 		super.ngAfterContentInit();
 		if (this.control) {
-			this.control.meta.customId = this.name;
+			this.control.meta.customId = this.name();
 		}
 	}
 }

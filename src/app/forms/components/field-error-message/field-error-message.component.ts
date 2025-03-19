@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
 	selector: 'app-field-error-message',
@@ -6,6 +6,6 @@ import { Component, Input } from '@angular/core';
 	standalone: false,
 })
 export class FieldErrorMessageComponent {
-	@Input() name = '';
-	@Input() error?: string | null;
+	readonly name = input('');
+	readonly error = input<string | null>();
 }

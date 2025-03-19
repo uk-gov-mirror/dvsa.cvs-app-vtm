@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, input } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { StatusCode } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/lgv/skeleton';
 import { VehicleType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/search';
@@ -19,10 +19,10 @@ import { Observable, take } from 'rxjs';
 })
 export class TechRecordTitleComponent implements OnInit {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	@Input() vehicle?: any;
-	@Input() actions: TechRecordActions = TechRecordActions.NONE;
-	@Input() hideActions = false;
-	@Input() customTitle = '';
+	readonly vehicle = input<any>();
+	readonly actions = input<TechRecordActions>(TechRecordActions.NONE);
+	readonly hideActions = input(false);
+	readonly customTitle = input('');
 
 	currentTechRecord$?: Observable<TechRecordType<'get'> | undefined>;
 	queryableActions: string[] = [];
@@ -36,7 +36,7 @@ export class TechRecordTitleComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.queryableActions = this.actions.split(',');
+		this.queryableActions = this.actions().split(',');
 
 		this.currentTechRecord$ = this.store.select(selectTechRecord) as Observable<TechRecordType<'get'> | undefined>;
 
@@ -48,11 +48,13 @@ export class TechRecordTitleComponent implements OnInit {
 	}
 
 	get currentVrm(): string | undefined {
-		return this.vehicle?.techRecord_vehicleType !== 'trl' ? (this.vehicle?.primaryVrm ?? '') : undefined;
+		const vehicle = this.vehicle();
+		return vehicle?.techRecord_vehicleType !== 'trl' ? (vehicle?.primaryVrm ?? '') : undefined;
 	}
 
 	get otherVrms(): string[] | undefined {
-		return this.vehicle?.techRecord_vehicleType !== 'trl' ? (this.vehicle?.secondaryVrms ?? []) : undefined;
+		const vehicle = this.vehicle();
+		return vehicle?.techRecord_vehicleType !== 'trl' ? (vehicle?.secondaryVrms ?? []) : undefined;
 	}
 
 	get vehicleTypes(): typeof VehicleTypes {
@@ -80,7 +82,7 @@ export class TechRecordTitleComponent implements OnInit {
 		currentVehicleType: VehicleType,
 		editableVehicleType: VehicleType
 	): boolean {
-		return !this.hideActions && statusCode !== StatusCodes.ARCHIVED && currentVehicleType === editableVehicleType;
+		return !this.hideActions() && statusCode !== StatusCodes.ARCHIVED && currentVehicleType === editableVehicleType;
 	}
 
 	navigateTo(path: string, queryParams?: Params): void {

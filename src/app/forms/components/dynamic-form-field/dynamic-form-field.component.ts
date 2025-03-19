@@ -1,5 +1,5 @@
 import { KeyValue } from '@angular/common';
-import { AfterContentInit, Component, InjectionToken, Injector, Input, OnInit } from '@angular/core';
+import { AfterContentInit, Component, InjectionToken, Injector, OnInit, input } from '@angular/core';
 import { FormGroup, NgControl } from '@angular/forms';
 // eslint-disable-next-line import/no-cycle
 import {
@@ -18,10 +18,10 @@ import { Observable, map, of } from 'rxjs';
 	standalone: false,
 })
 export class DynamicFormFieldComponent implements OnInit, AfterContentInit {
-	@Input() control?: KeyValue<string, CustomFormControl>;
-	@Input() form?: FormGroup;
-	@Input() parentForm?: CustomFormGroup;
-	@Input() customId?: string;
+	readonly control = input<KeyValue<string, CustomFormControl>>();
+	readonly form = input<FormGroup>();
+	readonly parentForm = input<CustomFormGroup>();
+	readonly customId = input<string>();
 
 	customFormControlInjector?: Injector;
 	customFormControlInputs?: Record<string, unknown>;
@@ -36,7 +36,7 @@ export class DynamicFormFieldComponent implements OnInit, AfterContentInit {
 	}
 
 	get options$(): Observable<FormNodeOption<string | number | boolean>[]> {
-		const meta = this.control?.value.meta;
+		const meta = this.control()?.value.meta;
 
 		return meta?.referenceData
 			? this.optionsService.getOptions(meta.referenceData).pipe(map((l) => l || []))
@@ -45,11 +45,11 @@ export class DynamicFormFieldComponent implements OnInit, AfterContentInit {
 
 	ngOnInit(): void {
 		this.createCustomFormControlInjector();
-		this.customFormControlInputs = { parentForm: this.parentForm };
+		this.customFormControlInputs = { parentForm: this.parentForm() };
 	}
 
 	ngAfterContentInit(): void {
-		const referenceData = this.control?.value.meta?.referenceData;
+		const referenceData = this.control()?.value.meta?.referenceData;
 
 		if (referenceData) {
 			this.optionsService.loadOptions(referenceData);
@@ -59,8 +59,8 @@ export class DynamicFormFieldComponent implements OnInit, AfterContentInit {
 	createCustomFormControlInjector() {
 		this.customFormControlInjector = Injector.create({
 			providers: [
-				{ provide: FORM_INJECTION_TOKEN, useValue: this.form },
-				{ provide: NgControl, useValue: { control: this.control } },
+				{ provide: FORM_INJECTION_TOKEN, useValue: this.form() },
+				{ provide: NgControl, useValue: { control: this.control() } },
 			],
 			parent: this.injector,
 		});

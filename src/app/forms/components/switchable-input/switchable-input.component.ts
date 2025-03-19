@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MultiOptions } from '@models/options.model';
 import { FormNodeEditTypes, FormNodeWidth } from '@services/dynamic-forms/dynamic-form.types';
@@ -10,45 +10,46 @@ import { Observable, of } from 'rxjs';
 	standalone: false,
 })
 export class SwitchableInputComponent implements OnInit {
-	@Input() type!: FormNodeEditTypes;
-	@Input() form!: FormGroup;
-	@Input() name!: string;
+	readonly type = input.required<FormNodeEditTypes>();
+	readonly form = input.required<FormGroup>();
+	readonly name = input.required<string>();
 
-	@Input() isEditing = true;
+	readonly isEditing = input(true);
 
-	@Input() customId?: string;
-	@Input() idExtension?: number;
-	@Input() label?: string;
-	@Input() prefix?: string;
-	@Input() suffix?: string;
-	@Input() width?: FormNodeWidth;
-	@Input() options?: MultiOptions = [];
-	@Input() propOptions$?: Observable<MultiOptions>;
-	@Input() hint?: string;
-	@Input() approvalType?: string;
-	@Input() approvalTypeChange?: boolean | undefined = false;
+	readonly customId = input<string>();
+	readonly idExtension = input<number>();
+	readonly label = input<string>();
+	readonly prefix = input<string>();
+	readonly suffix = input<string>();
+	readonly width = input<FormNodeWidth>();
+	readonly options = input<MultiOptions | undefined>([]);
+	readonly propOptions$ = input<Observable<MultiOptions>>();
+	readonly hint = input<string>();
+	readonly approvalType = input<string>();
+	readonly approvalTypeChange = input<boolean | undefined>(false);
 
-	@Input() readOnlyDate?: boolean;
-	@Input() vehicleType?: string | null;
+	readonly readOnlyDate = input<boolean>();
+	readonly vehicleType = input<string | null>();
 	delimiter = { regex: '\\. (?<!\\..\\. )', separator: '. ' };
 
 	ngOnInit(): void {
-		if (this.requiresOptions && !this.options && !this.propOptions$) {
+		if (this.requiresOptions && !this.options() && !this.propOptions$()) {
 			throw new Error('Cannot use autocomplete or radio control without providing an options array.');
 		}
 	}
 
 	get requiresOptions(): boolean {
+		const type = this.type();
 		return (
-			this.type === this.types.AUTOCOMPLETE ||
-			this.type === this.types.CHECKBOXGROUP ||
-			this.type === this.types.DROPDOWN ||
-			this.type === this.types.RADIO
+			type === this.types.AUTOCOMPLETE ||
+			type === this.types.CHECKBOXGROUP ||
+			type === this.types.DROPDOWN ||
+			type === this.types.RADIO
 		);
 	}
 
 	get options$(): Observable<MultiOptions> {
-		return this.propOptions$ ?? of(this.options ?? []);
+		return this.propOptions$() ?? of(this.options() ?? []);
 	}
 
 	get types(): typeof FormNodeEditTypes {

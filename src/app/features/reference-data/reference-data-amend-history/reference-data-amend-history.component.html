@@ -2,13 +2,13 @@
   <table class="govuk-table">
     <caption class="govuk-table__caption govuk-table__caption--m">
       {{
-        title
+        title()
       }}
       history
     </caption>
     <thead class="govuk-table__head">
       <tr class="govuk-table__row">
-        <th *ngFor="let column of columns" scope="col" class="govuk-table__header">{{ column.heading }}</th>
+        <th *ngFor="let column of columns()" scope="col" class="govuk-table__header">{{ column.heading }}</th>
         <th scope="col" class="govuk-table__header">Created At</th>
         <th scope="col" class="govuk-table__header">Created By</th>
         <th scope="col" class="govuk-table__header"></th>
@@ -17,7 +17,7 @@
 
     <tbody class="govuk-table__body">
       <tr class="govuk-table__row" *ngFor="let item of paginatedItems$ | async">
-        <td *ngFor="let column of columns" class="govuk-table__cell">{{ $any(item)[column.name] }}</td>
+        <td *ngFor="let column of columns()" class="govuk-table__cell">{{ $any(item)[column.name] }}</td>
         <td class="govuk-table__cell">{{ item.createdAt | date : 'dd/MM/yyyy HH:mm' }}</td>
         <td class="govuk-table__cell">{{ item.createdName }}</td>
       </tr>

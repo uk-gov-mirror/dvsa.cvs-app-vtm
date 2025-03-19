@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, output } from '@angular/core';
+import { Component, OnDestroy, OnInit, input, output } from '@angular/core';
 import { Defect } from '@models/defects/defect.model';
 import { TestResultDefect } from '@models/test-results/test-result-defect.model';
 import { TestResultModel } from '@models/test-results/test-result.model';
@@ -12,10 +12,10 @@ import { Subscription, debounceTime } from 'rxjs';
 	standalone: false,
 })
 export class DefectsComponent implements OnInit, OnDestroy {
-	@Input() isEditing = false;
-	@Input() defects!: Defect[] | null;
-	@Input() template!: FormNode;
-	@Input() data: Partial<TestResultModel> = {};
+	readonly isEditing = input(false);
+	readonly defects = input.required<Defect[] | null>();
+	readonly template = input.required<FormNode>();
+	readonly data = input<Partial<TestResultModel>>({});
 
 	readonly formChange = output<Record<string, any> | [][]>();
 
@@ -26,7 +26,7 @@ export class DefectsComponent implements OnInit, OnDestroy {
 	constructor(private dfs: DynamicFormService) {}
 
 	ngOnInit(): void {
-		this.form = this.dfs.createForm(this.template, this.data) as CustomFormGroup;
+		this.form = this.dfs.createForm(this.template(), this.data()) as CustomFormGroup;
 		this.formSubscription = this.form.cleanValueChanges.pipe(debounceTime(400)).subscribe((event) => {
 			this.formChange.emit(event);
 		});

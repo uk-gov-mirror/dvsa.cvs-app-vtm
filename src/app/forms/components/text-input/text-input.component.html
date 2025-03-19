@@ -1,15 +1,15 @@
-<div [ngClass]="{ 'govuk-form-group': !noBottomMargin }">
-  <label *ngIf="label" class="flex flex-wrap gap-2 govuk-label govuk-label--m" for="{{ name }}">
-    {{ label }}
+<div [ngClass]="{ 'govuk-form-group': !noBottomMargin() }">
+  <label *ngIf="label()" class="flex flex-wrap gap-2 govuk-label govuk-label--m" for="{{ name() }}">
+    {{ label() }}
     <div class="flex flex-wrap gap-2">
       <app-tag *ngFor="let tag of control?.meta?.customTags" type="{{ tag.colour }}">{{ tag.label }}</app-tag>
     </div>
   </label>
 
-  <div *ngIf="hint" id="{{ name }}-hint" class="govuk-hint">{{ hint }}</div>
+  <div *ngIf="hint()" id="{{ name() }}-hint" class="govuk-hint">{{ hint() }}</div>
 
-  <app-field-error-message [error]="error" [name]="name"></app-field-error-message>
-  <app-field-error-message [error]="warning" [name]="name"></app-field-error-message>
+  <app-field-error-message [error]="error" [name]="name()"></app-field-error-message>
+  <app-field-error-message [error]="warning()" [name]="name()"></app-field-error-message>
 
   <div class="govuk-input__wrapper">
     <div *ngIf="prefix() as prefix" class="govuk-input__suffix prefix" aria-hidden="true">
@@ -17,9 +17,9 @@
     </div>
 
     <input
-      *ngIf="!numeric"
-      [id]="customId ?? name"
-      name="{{ name }}"
+      *ngIf="!numeric()"
+      [id]="customId() ?? name()"
+      name="{{ name() }}"
       type="text"
       [class]="style"
       [(ngModel)]="value"
@@ -28,13 +28,13 @@
       (blur)="onTouched(); handleEvent($event); blur.emit($event)"
       (focus)="handleEvent($event)"
       appToUppercase
-      [uppercase]="uppercase || false"
+      [uppercase]="uppercase() || false"
     />
 
     <input
-      *ngIf="numeric"
-      [id]="customId ?? name"
-      name="{{ name }}"
+      *ngIf="numeric()"
+      [id]="customId() ?? name()"
+      name="{{ name() }}"
       type="text"
       [class]="style"
       [(ngModel)]="value"

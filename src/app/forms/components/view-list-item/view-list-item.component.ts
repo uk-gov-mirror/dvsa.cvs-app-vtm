@@ -24,7 +24,8 @@ export class ViewListItemComponent extends BaseControlComponent {
 	}
 
 	get displayAsRow() {
-		return !(this.viewType === this.formNodeViewTypes.FULLWIDTH || this.viewType === this.formNodeViewTypes.CUSTOM);
+		const viewType = this.viewType();
+		return !(viewType === this.formNodeViewTypes.FULLWIDTH || viewType === this.formNodeViewTypes.CUSTOM);
 	}
 
 	override ngAfterContentInit(): void {

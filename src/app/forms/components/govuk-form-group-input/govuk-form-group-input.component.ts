@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef, inject, output } from '@angular/core';
+import { Component, forwardRef, inject, input, output } from '@angular/core';
 import {
 	ControlContainer,
 	ControlValueAccessor,
@@ -28,47 +28,36 @@ export class GovukFormGroupInputComponent implements ControlValueAccessor {
 	readonly blur = output<FocusEvent>();
 	readonly focus = output<FocusEvent>();
 
-	@Input()
-	value: string | number | boolean | null | undefined = null;
+	readonly value = input<string | number | boolean | null | undefined>(null);
 
-	@Input()
-	disabled = false;
+	readonly disabled = input(false);
 
-	@Input()
-	tags: CustomTag[] = [];
+	readonly tags = input<CustomTag[]>([]);
 
-	@Input({ alias: 'hint' })
-	controlHint = '';
+	readonly controlHint = input('', { alias: 'hint' });
 
-	@Input({ alias: 'formControlName', required: true })
-	controlName = '';
+	readonly controlName = input.required<string>({ alias: 'formControlName' });
 
-	@Input({ alias: 'label' })
-	controlLabel = '';
+	readonly controlLabel = input('', { alias: 'label' });
 
-	@Input({ alias: 'id' })
-	controlId = '';
+	readonly controlId = input('', { alias: 'id' });
 
-	@Input({ alias: 'type' })
-	controlType = 'text';
+	readonly controlType = input('text', { alias: 'type' });
 
-	@Input()
-	width?: FormNodeWidth;
+	readonly width = input<FormNodeWidth>();
 
-	@Input()
-	maxlength: string | number | null = null;
+	readonly maxlength = input<string | number | null>(null);
 
-	@Input()
-	suffix?: string;
+	readonly suffix = input<string>();
 
 	controlContainer = inject(ControlContainer);
 
 	get control() {
-		return this.controlContainer.control?.get(this.controlName);
+		return this.controlContainer.control?.get(this.controlName());
 	}
 
 	get id() {
-		return this.controlId || this.controlName;
+		return this.controlId() || this.controlName();
 	}
 
 	get hintId() {
@@ -88,7 +77,8 @@ export class GovukFormGroupInputComponent implements ControlValueAccessor {
 	}
 
 	get style(): string {
-		return `govuk-input ${this.width ? `govuk-input--width-${this.width}` : ''}`;
+		const width = this.width();
+		return `govuk-input ${width ? `govuk-input--width-${width}` : ''}`;
 	}
 
 	onChange = (_: any) => {};
