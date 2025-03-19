@@ -38,7 +38,7 @@
       </tr>
       </tbody>
     </table>
-    <app-pagination tableName="plate-history" [numberOfItems]="numberOfPlates" (paginationOptions)="handlePaginationChange($event)" />
+    <app-pagination tableName="plate-history" [numberOfItems]="numberOfPlates" (paginationOptionsChange)="handlePaginationChange($event)" />
   </ng-container>
   <ng-container *ngIf="eligibleForPlates">
     <div class="govuk-grid-row">

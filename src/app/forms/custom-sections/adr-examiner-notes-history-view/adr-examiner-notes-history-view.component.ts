@@ -38,9 +38,10 @@ export class AdrExaminerNotesHistoryViewComponent extends BaseControlComponent i
 		return this.routerService.getRouteDataProperty$('isEditing').pipe(map((isEditing) => !!isEditing));
 	}
 
-	handlePaginationChange({ start, end }: { start: number; end: number }): void {
-		this.pageStart = start;
-		this.pageEnd = end;
+	handlePaginationChange(event?: { start: number; end: number }): void {
+		if (!event) return;
+		this.pageStart = event.start;
+		this.pageEnd = event.end;
 		this.cdr.detectChanges();
 	}
 

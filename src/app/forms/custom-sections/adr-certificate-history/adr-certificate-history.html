@@ -24,7 +24,7 @@
   </table>
   <app-pagination tableName="adr-certificate-history"
     [numberOfItems]="numberOfADRCertificates"
-    (paginationOptions)="handlePaginationChange($event)"
+    (paginationOptionsChange)="handlePaginationChange($event)"
    />
 </ng-container>
 

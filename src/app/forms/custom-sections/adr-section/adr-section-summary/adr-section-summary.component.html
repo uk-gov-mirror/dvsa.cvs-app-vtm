@@ -348,7 +348,7 @@
                   <th scope="col" class="govuk-table__header">Created By</th>
                   <th scope="col" class="govuk-table__header">Date</th>
                 </tr>
-                <ng-container *ngIf="pagination.paginationOptions | async as page">
+                <ng-container *ngIf="pagination.paginationOptions() as page">
                   <ng-container *ngFor="let note of notes.slice(page.start, page.end); let i = index">
                     <tr class="govuk-table__row" id="test-techRecord_adrDetails_additionalExaminerNotes_{{ i }}">
                       <td class="govuk-table__cell whitespace-pre-wrap">{{ note.note | defaultNullOrEmpty }}</td>

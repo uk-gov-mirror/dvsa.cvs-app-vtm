@@ -107,9 +107,10 @@ export class AdrCertificateHistoryComponent extends CustomFormControlComponent {
 		void this.router.navigate(['adr-certificate'], { relativeTo: this.route });
 	}
 
-	handlePaginationChange({ start, end }: { start: number; end: number }) {
-		this.pageStart = start;
-		this.pageEnd = end;
+	handlePaginationChange(event?: { start: number; end: number }) {
+		if (!event) return;
+		this.pageStart = event.start;
+		this.pageEnd = event.end;
 		this.cdr.detectChanges();
 	}
 }

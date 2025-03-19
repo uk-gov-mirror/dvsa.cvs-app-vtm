@@ -33,7 +33,7 @@
       *ngIf="notes.length"
       [numberOfItems]="notes.length"
       [itemsPerPage]="3"
-      (paginationOptions)="handlePaginationChange($event)"
+      (paginationOptionsChange)="handlePaginationChange($event)"
      />
     <ng-template #empty>
       <dl class="govuk-summary-list" *ngIf="notes.length === 0">

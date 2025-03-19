@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, model } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReplaySubject, Subject, map, takeUntil } from 'rxjs';
 
@@ -13,7 +13,8 @@ export class PaginationComponent implements OnInit, OnDestroy {
 	@Input() tableName!: string;
 	@Input() numberOfItems = 0;
 	@Input() itemsPerPage = 5;
-	readonly paginationOptions = output<{
+
+	paginationOptions = model<{
 		currentPage: number;
 		itemsPerPage: number;
 		start: number;
@@ -50,7 +51,7 @@ export class PaginationComponent implements OnInit, OnDestroy {
 				const [start, end] = [(page - 1) * this.itemsPerPage, page * this.itemsPerPage];
 
 				this.currentPage = page;
-				this.paginationOptions.emit({
+				this.paginationOptions.set({
 					currentPage: page,
 					itemsPerPage: this.itemsPerPage,
 					start,

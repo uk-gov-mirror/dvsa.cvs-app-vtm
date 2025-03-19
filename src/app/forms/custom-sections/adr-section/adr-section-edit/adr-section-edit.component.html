@@ -840,7 +840,7 @@
               <th scope="col" class="govuk-table__header">Date</th>
               <th scope="col" class="govuk-table__header"></th>
             </tr>
-            <ng-container *ngIf="pagination.paginationOptions | async as page">
+            <ng-container *ngIf="pagination.paginationOptions() as page">
               <tr class="govuk-table__row" *ngFor="let note of notes.slice(page.start, page.end)">
                 <td class="govuk-table__cell whitespace-pre-wrap">{{ note.note | defaultNullOrEmpty }}</td>
                 <td class="govuk-table__cell">{{ note.lastUpdatedBy | defaultNullOrEmpty }}</td>

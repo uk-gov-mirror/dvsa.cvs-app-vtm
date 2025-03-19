@@ -74,9 +74,10 @@ export class TestRecordSummaryComponent {
 		return t.testNumber;
 	}
 
-	handlePaginationChange({ start, end }: { start: number; end: number }): void {
-		this.pageStart = start;
-		this.pageEnd = end;
+	handlePaginationChange(event?: { start: number; end: number }): void {
+		if (!event) return;
+		this.pageStart = event.start;
+		this.pageEnd = event.end;
 		this.cdr.detectChanges();
 	}
 }

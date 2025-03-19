@@ -26,7 +26,7 @@
     <app-pagination
       tableName="reference-data-items"
       [numberOfItems]="(numberOfRecords$ | async) ?? 0"
-      (paginationOptions)="handlePaginationChange($event)"
+      (paginationOptionsChange)="handlePaginationChange($event)"
       [itemsPerPage]="25"
     ></app-pagination>
   </div>

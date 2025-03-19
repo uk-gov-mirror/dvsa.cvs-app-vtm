@@ -26,6 +26,6 @@
 
   <app-pagination tableName="audit-history"
     [numberOfItems]="(numberOfRecords$ | async) ?? 0"
-    (paginationOptions)="handlePaginationChange($event)"
+    (paginationOptionsChange)="handlePaginationChange($event)"
    />
 </ng-container>

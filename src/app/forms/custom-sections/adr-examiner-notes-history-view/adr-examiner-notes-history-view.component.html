@@ -34,7 +34,7 @@
         *ngIf="adrNotes.length"
         [numberOfItems]="adrNotes.length"
         [itemsPerPage]="3"
-        (paginationOptions)="handlePaginationChange($event)"
+        (paginationOptionsChange)="handlePaginationChange($event)"
       ></app-pagination>
       <ng-template #empty>
         <dl class="govuk-summary-list">
