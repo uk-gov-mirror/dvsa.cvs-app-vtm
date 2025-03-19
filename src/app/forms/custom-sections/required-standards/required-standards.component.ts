@@ -1,5 +1,5 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { TestResultRequiredStandard } from '@models/test-results/test-result-required-standard.model';
@@ -22,8 +22,8 @@ export class RequiredStandardsComponent implements OnInit, OnDestroy, OnChanges 
 	@Input() template!: FormNode;
 	@Input() testData: Partial<TestResultModel> = {};
 
-	@Output() formChange = new EventEmitter();
-	@Output() validateEuVehicleCategory = new EventEmitter();
+	readonly formChange = output();
+	readonly validateEuVehicleCategory = output();
 
 	public form!: CustomFormGroup;
 	private formSubscription = new Subscription();

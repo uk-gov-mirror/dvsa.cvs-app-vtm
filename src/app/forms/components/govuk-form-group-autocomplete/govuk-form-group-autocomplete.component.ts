@@ -4,12 +4,11 @@ import {
 	AfterViewInit,
 	ChangeDetectorRef,
 	Component,
-	EventEmitter,
 	Input,
 	OnDestroy,
-	Output,
 	forwardRef,
 	inject,
+	output,
 } from '@angular/core';
 import {
 	ControlContainer,
@@ -38,9 +37,9 @@ import { CommonValidatorsService } from '../../validators/common-validators.serv
 export class GovukFormGroupAutocompleteComponent
 	implements ControlValueAccessor, AfterViewInit, AfterContentInit, OnDestroy
 {
-	@Output() blur = new EventEmitter<FocusEvent>();
+	readonly blur = output<FocusEvent>();
 
-	@Output() focus = new EventEmitter<FocusEvent>();
+	readonly focus = output<FocusEvent>();
 
 	@Input() isCreateMode = false;
 

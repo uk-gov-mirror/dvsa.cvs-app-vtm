@@ -1,5 +1,5 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Component, Input, OnDestroy, output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { StatusCodes } from '@models/vehicle-tech-record.model';
@@ -19,8 +19,8 @@ export class EditTechRecordButtonComponent implements OnDestroy {
 	@Input() isDirty = false;
 	@Input() customId = '';
 
-	@Output() isEditingChange = new EventEmitter<boolean>();
-	@Output() submitChange = new EventEmitter();
+	readonly isEditingChange = output<boolean>();
+	readonly submitChange = output();
 	destroy$ = new Subject();
 
 	constructor(

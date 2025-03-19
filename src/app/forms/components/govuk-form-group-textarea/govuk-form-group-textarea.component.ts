@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, forwardRef, inject } from '@angular/core';
+import { Component, Input, forwardRef, inject, output } from '@angular/core';
 import {
 	ControlContainer,
 	ControlValueAccessor,
@@ -24,8 +24,8 @@ import { SharedModule } from '@shared/shared.module';
 	],
 })
 export class GovukFormGroupTextareaComponent implements ControlValueAccessor {
-	@Output() blur = new EventEmitter<FocusEvent>();
-	@Output() focus = new EventEmitter<FocusEvent>();
+	readonly blur = output<FocusEvent>();
+	readonly focus = output<FocusEvent>();
 
 	@Input()
 	value: string | null | undefined = null;

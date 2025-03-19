@@ -3,12 +3,11 @@ import {
 	AfterContentInit,
 	ChangeDetectorRef,
 	Component,
-	EventEmitter,
 	Injector,
 	Input,
 	OnDestroy,
 	OnInit,
-	Output,
+	output,
 	viewChild,
 } from '@angular/core';
 import { AbstractControlDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -43,7 +42,7 @@ export class DateComponent extends BaseControlComponent implements OnInit, OnDes
 	@Input() isoDate = true;
 	@Input() customError? = false;
 	readonly dayModel = viewChild<AbstractControlDirective>('dayModel');
-	@Output() blur = new EventEmitter<FocusEvent>();
+	readonly blur = output<FocusEvent>();
 
 	private day_: BehaviorSubject<number | undefined> = new BehaviorSubject<number | undefined>(undefined);
 	private month_: BehaviorSubject<number | undefined> = new BehaviorSubject<number | undefined>(undefined);

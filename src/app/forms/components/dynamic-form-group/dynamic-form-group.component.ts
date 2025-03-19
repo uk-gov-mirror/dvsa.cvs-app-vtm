@@ -1,13 +1,12 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
-	EventEmitter,
 	Input,
 	OnChanges,
 	OnDestroy,
 	OnInit,
-	Output,
 	SimpleChanges,
+	output,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DynamicFormService } from '@services/dynamic-forms/dynamic-form.service';
@@ -33,7 +32,7 @@ export class DynamicFormGroupComponent implements OnChanges, OnInit, OnDestroy {
 	@Input() template?: FormNode;
 	@Input() edit = false;
 	@Input() parentForm?: CustomFormGroup;
-	@Output() formChange = new EventEmitter();
+	readonly formChange = output();
 
 	form: CustomFormGroup | CustomFormArray = new CustomFormGroup(
 		{ name: 'dynamic-form', type: FormNodeTypes.GROUP, children: [] },

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, output } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { PsvBrakesTemplate } from '@forms/templates/psv/psv-brakes.template';
@@ -30,7 +30,7 @@ export class PsvBrakesComponent implements OnInit, OnChanges, OnDestroy {
 	@Input() vehicleTechRecord?: TechRecordType<'psv'>;
 	@Input() isEditing = false;
 
-	@Output() formChange = new EventEmitter();
+	readonly formChange = output();
 
 	form!: CustomFormGroup;
 	template!: FormNode;

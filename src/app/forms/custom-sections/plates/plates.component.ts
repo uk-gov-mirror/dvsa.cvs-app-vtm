@@ -1,5 +1,5 @@
 import { ViewportScroller } from '@angular/common';
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { HGVPlates } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/hgv/complete';
@@ -27,7 +27,7 @@ export class PlatesComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() techRecord!: TechRecordType<'hgv' | 'trl'>;
 	@Input() isEditing = false;
 
-	@Output() formChange = new EventEmitter();
+	readonly formChange = output();
 
 	form!: CustomFormGroup;
 	pageStart?: number;

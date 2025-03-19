@@ -3,11 +3,10 @@ import {
 	AfterViewInit,
 	ChangeDetectionStrategy,
 	Component,
-	EventEmitter,
 	OnDestroy,
 	OnInit,
-	Output,
 	inject,
+	output,
 	viewChild,
 	viewChildren,
 } from '@angular/core';
@@ -63,8 +62,8 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 	readonly approvalType = viewChild(ApprovalTypeComponent);
 	readonly adr = viewChild(AdrComponent);
 
-	@Output() isFormDirty = new EventEmitter<boolean>();
-	@Output() isFormInvalid = new EventEmitter<boolean>();
+	readonly isFormDirty = output<boolean>();
+	readonly isFormInvalid = output<boolean>();
 
 	techRecordCalculated?: V3TechRecordModel;
 	sectionTemplates: Array<FormNode> = [];

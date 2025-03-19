@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, output } from '@angular/core';
 import { CustomDefect } from '@models/test-results/customDefect';
 import { CustomDefects } from '@models/test-results/customDefects';
 import { DynamicFormService } from '@services/dynamic-forms/dynamic-form.service';
@@ -17,7 +17,7 @@ export class CustomDefectsComponent implements OnInit, OnDestroy {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	@Input() data: any = {};
 
-	@Output() formChange = new EventEmitter();
+	readonly formChange = output();
 	form!: CustomFormGroup;
 
 	private formSubscription = new Subscription();

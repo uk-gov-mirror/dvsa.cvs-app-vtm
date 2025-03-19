@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ApprovalType as approvalType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalType.enum.js';
 import { ApprovalType as approvalTypeHgvOrPsv } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalTypeHgvOrPsv.enum.js';
@@ -27,8 +27,8 @@ import { Subject, debounceTime, takeUntil } from 'rxjs';
 export class ApprovalTypeComponent implements OnInit, OnChanges, OnDestroy {
 	@Input() techRecord!: TechRecordType<'hgv' | 'psv' | 'trl'>;
 	@Input() isEditing = false;
-	@Output() formChange = new EventEmitter();
-	@Output() approvalTypeNumberChange = new EventEmitter<string>();
+	readonly formChange = output();
+	readonly approvalTypeNumberChange = output<string>();
 
 	public form!: CustomFormGroup;
 	private destroy$ = new Subject<void>();

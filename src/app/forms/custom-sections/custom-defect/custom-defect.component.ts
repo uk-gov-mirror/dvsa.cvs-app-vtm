@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input, output } from '@angular/core';
 import { CustomFormGroup } from '@services/dynamic-forms/dynamic-form.types';
 
 @Component({
@@ -12,5 +12,5 @@ export class CustomDefectComponent {
 	@Input() index!: number;
 	@Input() isEditing = false;
 	@Input() templateName?: string;
-	@Output() removeCustomDefect = new EventEmitter<number>();
+	readonly removeCustomDefect = output<number>();
 }

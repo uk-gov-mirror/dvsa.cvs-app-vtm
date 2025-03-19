@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, viewChild } from '@angular/core';
+import { Component, Input, OnInit, output, viewChild } from '@angular/core';
 import { ReferenceDataResourceType } from '@models/reference-data.model';
 import { TestResultModel } from '@models/test-results/test-result.model';
 import { TEST_TYPES_GROUP5_13 } from '@models/testTypeId.enum';
@@ -56,7 +56,7 @@ const ABANDON_FORM = (ReasonsForAbandoning: ReferenceDataResourceType | SpecialR
 export class AbandonDialogComponent extends BaseDialogComponent implements OnInit {
 	readonly dynamicFormGroup = viewChild(DynamicFormGroupComponent);
 	@Input() testResult?: TestResultModel;
-	@Output() newTestResult = new EventEmitter<TestResultModel>();
+	readonly newTestResult = output<TestResultModel>();
 	template?: FormNode;
 	ngOnInit() {
 		this.template = this.getTemplate();

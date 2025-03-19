@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, output } from '@angular/core';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { HgvWeight } from '@forms/templates/hgv/hgv-weight.template';
 import { PsvWeightsTemplate } from '@forms/templates/psv/psv-weight.template';
@@ -26,7 +26,7 @@ import { Subscription } from 'rxjs';
 export class WeightsComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() vehicleTechRecord!: TechRecordType<'psv'> | TechRecordType<'trl'> | TechRecordType<'hgv'>;
 	@Input() isEditing = false;
-	@Output() formChange = new EventEmitter();
+	readonly formChange = output();
 
 	public form!: CustomFormGroup;
 	private _formSubscription = new Subscription();

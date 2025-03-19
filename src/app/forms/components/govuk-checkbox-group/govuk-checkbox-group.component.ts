@@ -1,6 +1,6 @@
 import { CustomTag } from '@/src/app/services/dynamic-forms/dynamic-form.types';
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, forwardRef, inject } from '@angular/core';
+import { Component, Input, forwardRef, inject, output } from '@angular/core';
 import { ControlContainer, ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SharedModule } from '../../../shared/shared.module';
 
@@ -18,8 +18,8 @@ import { SharedModule } from '../../../shared/shared.module';
 	],
 })
 export class GovukCheckboxGroupComponent implements ControlValueAccessor {
-	@Output() blur = new EventEmitter<FocusEvent>();
-	@Output() focus = new EventEmitter<FocusEvent>();
+	readonly blur = output<FocusEvent>();
+	readonly focus = output<FocusEvent>();
 
 	@Input()
 	value: unknown[] | null = null;

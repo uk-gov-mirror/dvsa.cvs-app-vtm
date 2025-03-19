@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import { ViewportScroller } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TechRecordSearchSchema } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/search';
 import { ParagraphIds } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/trl/complete';
@@ -26,7 +26,7 @@ export class LettersComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() techRecord?: TechRecordType<'trl'>;
 	@Input() isEditing = false;
 
-	@Output() formChange = new EventEmitter();
+	readonly formChange = output();
 
 	form!: CustomFormGroup;
 

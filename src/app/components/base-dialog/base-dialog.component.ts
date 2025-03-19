@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, output } from '@angular/core';
 
 @Component({
 	selector: 'app-base-dialog',
@@ -6,7 +6,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 	standalone: false,
 })
 export class BaseDialogComponent {
-	@Output() action = new EventEmitter<string>();
+	readonly action = output<string>();
 
 	handleAction(action: string) {
 		this.action.emit(action);

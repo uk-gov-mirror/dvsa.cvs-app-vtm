@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, output } from '@angular/core';
 import { RouterLinkWithHref } from '@angular/router';
 
 @Component({
@@ -14,5 +14,5 @@ export class ButtonComponent extends RouterLinkWithHref {
 	@Input() type: 'link' | 'button' = 'button';
 	@Input() design: '' | 'secondary' | 'warning' | 'link' = '';
 
-	@Output() clicked = new EventEmitter();
+	readonly clicked = output();
 }

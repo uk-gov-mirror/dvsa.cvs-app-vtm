@@ -1,5 +1,5 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TyreUseCode as HgvTyreUseCode } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/tyreUseCodeHgv.enum.js';
 import { TyreUseCode as TrlTyreUseCode } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/tyreUseCodeTrl.enum.js';
@@ -46,7 +46,7 @@ export class TyresComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() vehicleTechRecord!: TechRecordType<'hgv' | 'psv' | 'trl'>;
 	@Input() isEditing = false;
 
-	@Output() formChange = new EventEmitter();
+	readonly formChange = output();
 
 	private destroy$ = new ReplaySubject<boolean>(1);
 

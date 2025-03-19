@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input, output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BaseControlComponent } from '../base-control/base-control.component';
 
@@ -18,7 +18,7 @@ import { BaseControlComponent } from '../base-control/base-control.component';
 export class TextInputComponent extends BaseControlComponent {
 	@Input() numeric = false;
 	@Input() uppercase?: boolean = false;
-	@Output() blur = new EventEmitter<FocusEvent>();
+	readonly blur = output<FocusEvent>();
 
 	get style(): string {
 		return `govuk-input ${this.width ? `govuk-input--width-${this.width}` : ''}`;

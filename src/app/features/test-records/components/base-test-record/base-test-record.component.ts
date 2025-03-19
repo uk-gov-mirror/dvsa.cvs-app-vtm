@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, Output, inject, viewChild, viewChildren } from '@angular/core';
+import { AfterViewInit, Component, Input, inject, output, viewChild, viewChildren } from '@angular/core';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { DynamicFormGroupComponent } from '@forms/components/dynamic-form-group/dynamic-form-group.component';
@@ -37,7 +37,7 @@ export class BaseTestRecordComponent implements AfterViewInit {
 	@Input() expandSections = false;
 	@Input() isReview = false;
 
-	@Output() newTestResult = new EventEmitter<TestResultModel>();
+	readonly newTestResult = output<TestResultModel>();
 
 	private defectsStore = inject(Store<DefectsState>);
 	private routerService = inject(RouterService);

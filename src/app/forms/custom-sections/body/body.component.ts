@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, output } from '@angular/core';
 import { TechRecordType as TechRecordVehicleType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb';
 import { HgvAndTrlBodyTemplate } from '@forms/templates/general/hgv-trl-body.template';
@@ -50,7 +50,7 @@ export class BodyComponent implements OnInit, OnChanges, OnDestroy {
 	@Input() isEditing = false;
 	@Input() disableLoadOptions = false;
 
-	@Output() formChange = new EventEmitter();
+	readonly formChange = output();
 
 	public form!: CustomFormGroup;
 	private template!: FormNode;

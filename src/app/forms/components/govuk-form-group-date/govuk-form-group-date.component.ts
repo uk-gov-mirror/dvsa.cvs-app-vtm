@@ -3,7 +3,7 @@ import { DateFocusNextDirective } from '@/src/app/directives/date-focus-next/dat
 import { CustomTag } from '@/src/app/services/dynamic-forms/dynamic-form.types';
 import { SharedModule } from '@/src/app/shared/shared.module';
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, forwardRef, inject } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, forwardRef, inject, output } from '@angular/core';
 import {
 	ControlContainer,
 	ControlValueAccessor,
@@ -28,11 +28,9 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 	],
 })
 export class GovukFormGroupDateComponent implements ControlValueAccessor, OnInit, OnDestroy {
-	@Output()
-	blur = new EventEmitter<FocusEvent>();
+	readonly blur = output<FocusEvent>();
 
-	@Output()
-	focus = new EventEmitter<FocusEvent>();
+	readonly focus = output<FocusEvent>();
 
 	@Input()
 	value: string | null = null;

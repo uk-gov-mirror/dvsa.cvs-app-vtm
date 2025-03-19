@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, output } from '@angular/core';
 import { Defect } from '@models/defects/defect.model';
 import { TestResultDefect } from '@models/test-results/test-result-defect.model';
 import { TestResultModel } from '@models/test-results/test-result.model';
@@ -17,7 +17,7 @@ export class DefectsComponent implements OnInit, OnDestroy {
 	@Input() template!: FormNode;
 	@Input() data: Partial<TestResultModel> = {};
 
-	@Output() formChange = new EventEmitter();
+	readonly formChange = output();
 
 	public form!: CustomFormGroup;
 	private formSubscription = new Subscription();
