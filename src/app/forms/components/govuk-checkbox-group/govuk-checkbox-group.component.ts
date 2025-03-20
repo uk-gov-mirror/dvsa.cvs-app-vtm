@@ -1,6 +1,6 @@
 import { CustomTag } from '@/src/app/services/dynamic-forms/dynamic-form.types';
 import { CommonModule } from '@angular/common';
-import { Component, forwardRef, inject, input, output } from '@angular/core';
+import { Component, forwardRef, inject, input, model, output } from '@angular/core';
 import { ControlContainer, ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SharedModule } from '../../../shared/shared.module';
 
@@ -21,9 +21,9 @@ export class GovukCheckboxGroupComponent implements ControlValueAccessor {
 	readonly blur = output<FocusEvent>();
 	readonly focus = output<FocusEvent>();
 
-	readonly value = input<unknown[] | null>(null);
+	value = model<unknown[] | null>(null);
 
-	readonly disabled = input(false);
+	disabled = model(false);
 
 	readonly tags = input<CustomTag[]>([]);
 
@@ -73,7 +73,7 @@ export class GovukCheckboxGroupComponent implements ControlValueAccessor {
 	onTouched = () => {};
 
 	writeValue(obj: any): void {
-		this.value = obj;
+		this.value.set(obj);
 		this.onChange(obj);
 	}
 
@@ -86,21 +86,21 @@ export class GovukCheckboxGroupComponent implements ControlValueAccessor {
 	}
 
 	setDisabledState?(isDisabled: boolean): void {
-		this.disabled = isDisabled;
+		this.disabled.set(isDisabled);
 	}
 
 	toggle(option: any) {
 		const value = this.value();
 
 		if (!value) {
-			this.value = [option];
+			this.value.set([option]);
 			this.onChange(this.value());
 			return;
 		}
 
 		const arr = [...value];
 		arr.includes(option) ? arr.splice(arr.indexOf(option), 1) : arr.push(option);
-		this.value = arr;
+		this.value.set(arr);
 		this.onChange(this.value());
 	}
 

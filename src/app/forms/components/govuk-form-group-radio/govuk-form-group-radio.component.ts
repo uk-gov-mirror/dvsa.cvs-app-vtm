@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, forwardRef, inject, input, output } from '@angular/core';
+import { Component, forwardRef, inject, input, model, output } from '@angular/core';
 import {
 	ControlContainer,
 	ControlValueAccessor,
@@ -28,9 +28,9 @@ export class GovukFormGroupRadioComponent implements ControlValueAccessor {
 	readonly blur = output<FocusEvent>();
 	readonly focus = output<FocusEvent>();
 
-	readonly value = input<string | number | boolean | null>(null);
+	value = model<string | number | boolean | null>(null);
 
-	readonly disabled = input(false);
+	disabled = model(false);
 
 	readonly tags = input<CustomTag[]>([]);
 
@@ -70,11 +70,13 @@ export class GovukFormGroupRadioComponent implements ControlValueAccessor {
 		return this.control?.invalid && this.control?.touched && this.control?.errors;
 	}
 
-	onChange = (_: any) => {};
+	onChange = (event: any) => {
+		this.value.set(event.value);
+	};
 	onTouched = () => {};
 
 	writeValue(obj: any): void {
-		this.value = obj;
+		this.value.set(obj);
 		this.onChange(obj);
 	}
 
@@ -87,6 +89,6 @@ export class GovukFormGroupRadioComponent implements ControlValueAccessor {
 	}
 
 	setDisabledState?(isDisabled: boolean): void {
-		this.disabled = isDisabled;
+		this.disabled.set(isDisabled);
 	}
 }

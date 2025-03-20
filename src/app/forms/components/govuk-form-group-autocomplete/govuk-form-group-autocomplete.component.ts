@@ -8,6 +8,7 @@ import {
 	forwardRef,
 	inject,
 	input,
+	model,
 	output,
 } from '@angular/core';
 import {
@@ -43,9 +44,9 @@ export class GovukFormGroupAutocompleteComponent
 
 	readonly isCreateMode = input(false);
 
-	readonly value = input<string | number | boolean | null>(null);
+	value = model<string | number | boolean | null>(null);
 
-	readonly disabled = input(false);
+	disabled = model(false);
 
 	readonly tags = input<CustomTag[]>([]);
 
@@ -91,8 +92,8 @@ export class GovukFormGroupAutocompleteComponent
 					source: this.options,
 					dropdownArrow: () => `
             <svg class="autocomplete__dropdown-arrow-down"style="height: 17px;" viewBox="0 0 512 512">
-              <path d="M256,298.3L256,298.3L256,298.3l174.2-167.2c4.3-4.2,11.4-4.1,15.8,0.2l30.6,29.9c4.4,4.3,4.5,11.3,0.2,15.5L264.1,380.9  c-2.2,2.2-5.2,3.2-8.1,3c-3,0.1-5.9-0.9-8.1-3L35.2,176.7c-4.3-4.2-4.2-11.2,0.2-15.5L66,131.3c4.4-4.3,11.5-4.4,15.8-0.2L256,298.3  z"/>            
-            </svg>          
+              <path d="M256,298.3L256,298.3L256,298.3l174.2-167.2c4.3-4.2,11.4-4.1,15.8,0.2l30.6,29.9c4.4,4.3,4.5,11.3,0.2,15.5L264.1,380.9  c-2.2,2.2-5.2,3.2-8.1,3c-3,0.1-5.9-0.9-8.1-3L35.2,176.7c-4.3-4.2-4.2-11.2,0.2-15.5L66,131.3c4.4-4.3,11.5-4.4,15.8-0.2L256,298.3  z"/>
+            </svg>
           `,
 					onConfirm: (selected) => {
 						this.handleChangeForOption(selected);
@@ -155,7 +156,7 @@ export class GovukFormGroupAutocompleteComponent
 	onTouched = () => {};
 
 	writeValue(obj: any): void {
-		this.value = obj;
+		this.value.set(obj);
 		this.valueSub.next(obj);
 		this.onChange(obj);
 	}
@@ -169,7 +170,7 @@ export class GovukFormGroupAutocompleteComponent
 	}
 
 	setDisabledState?(isDisabled: boolean): void {
-		this.disabled = isDisabled;
+		this.disabled.set(isDisabled);
 	}
 
 	handleChange(event: Event) {

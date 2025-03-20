@@ -28,7 +28,7 @@
     name="{{ id }}"
     [attr.aria-labelledby]="labelId"
     [attr.data-testid]="id"
-    [(ngModel)]="value()"
+    [ngModel]="value()"
     [disabled]="disabled()"
     (ngModelChange)="onChange($event)"
     (blur)="onTouched();"

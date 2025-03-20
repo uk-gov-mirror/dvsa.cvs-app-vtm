@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, forwardRef, inject, input, output } from '@angular/core';
+import { Component, forwardRef, inject, input, model, output } from '@angular/core';
 import {
 	ControlContainer,
 	ControlValueAccessor,
@@ -28,9 +28,9 @@ export class GovukFormGroupSelectComponent implements ControlValueAccessor {
 	readonly blur = output<FocusEvent>();
 	readonly focus = output<FocusEvent>();
 
-	readonly value = input<string | number | boolean | null>(null);
+	value = model<string | number | boolean | null>(null);
 
-	readonly disabled = input(false);
+	disabled = model(false);
 
 	readonly tags = input<CustomTag[]>([]);
 
@@ -79,7 +79,9 @@ export class GovukFormGroupSelectComponent implements ControlValueAccessor {
 		return `govuk-select ${width ? `govuk-input--width-${width}` : ''}`;
 	}
 
-	onChange = (_: any) => {};
+	onChange = (event: any) => {
+		this.value.set(event.value);
+	};
 	onTouched = () => {};
 
 	onBlur(event: FocusEvent) {
@@ -88,7 +90,7 @@ export class GovukFormGroupSelectComponent implements ControlValueAccessor {
 	}
 
 	writeValue(obj: any): void {
-		this.value = obj;
+		this.value.set(obj);
 		this.onChange(obj);
 	}
 
@@ -101,6 +103,6 @@ export class GovukFormGroupSelectComponent implements ControlValueAccessor {
 	}
 
 	setDisabledState?(isDisabled: boolean): void {
-		this.disabled = isDisabled;
+		this.disabled.set(isDisabled);
 	}
 }

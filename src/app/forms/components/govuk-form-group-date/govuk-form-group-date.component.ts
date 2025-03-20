@@ -3,7 +3,7 @@ import { DateFocusNextDirective } from '@/src/app/directives/date-focus-next/dat
 import { CustomTag } from '@/src/app/services/dynamic-forms/dynamic-form.types';
 import { SharedModule } from '@/src/app/shared/shared.module';
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit, forwardRef, inject, input, output } from '@angular/core';
+import { Component, OnDestroy, OnInit, forwardRef, inject, input, model, output } from '@angular/core';
 import {
 	ControlContainer,
 	ControlValueAccessor,
@@ -32,11 +32,11 @@ export class GovukFormGroupDateComponent implements ControlValueAccessor, OnInit
 
 	readonly focus = output<FocusEvent>();
 
-	readonly value = input<string | null>(null);
+	value = model<string | null>(null);
 
 	readonly tags = input<CustomTag[]>([]);
 
-	readonly disabled = input(false);
+	disabled = model(false);
 
 	readonly mode = input<Format>('yyyy-mm-dd');
 
@@ -66,7 +66,7 @@ export class GovukFormGroupDateComponent implements ControlValueAccessor, OnInit
 	onTouched = () => {};
 
 	writeValue(obj: any): void {
-		this.value = obj;
+		this.value.set(obj);
 
 		if (obj && typeof obj === 'string') {
 			const date = new Date(obj);
@@ -91,7 +91,7 @@ export class GovukFormGroupDateComponent implements ControlValueAccessor, OnInit
 	}
 
 	setDisabledState?(isDisabled: boolean): void {
-		this.disabled = isDisabled;
+		this.disabled.set(isDisabled);
 		isDisabled ? this.form.disable() : this.form.enable();
 	}
 
