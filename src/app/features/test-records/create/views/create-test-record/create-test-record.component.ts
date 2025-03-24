@@ -160,10 +160,8 @@ export class CreateTestRecordComponent implements OnInit, OnDestroy, AfterViewIn
 		const forms = [];
 
 		const baseTestRecordComponent = this.baseTestRecordComponent();
-		if (!baseTestRecordComponent) {
-			return true;
-		}
-		const sectionsbaseTestRecordComponent = baseTestRecordComponent.sections();
+
+		const sectionsbaseTestRecordComponent = baseTestRecordComponent?.sections();
 		if (sectionsbaseTestRecordComponent) {
 			sectionsbaseTestRecordComponent.forEach((section) => forms.push(section.form));
 		}
