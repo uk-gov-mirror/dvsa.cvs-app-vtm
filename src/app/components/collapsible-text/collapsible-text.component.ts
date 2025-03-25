@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, model } from '@angular/core';
 
 @Component({
 	selector: 'collapsible-text',
@@ -9,13 +9,13 @@ import { Component, input } from '@angular/core';
 export class CollapsibleTextComponent {
 	readonly text = input('');
 	readonly maxChars = input(0);
-	readonly isCollapsed = input(true);
+	isCollapsed = model(true);
 
 	open() {
-		this.isCollapsed = false;
+		this.isCollapsed.set(false);
 	}
 
 	close() {
-		this.isCollapsed = true;
+		this.isCollapsed.set(true);
 	}
 }

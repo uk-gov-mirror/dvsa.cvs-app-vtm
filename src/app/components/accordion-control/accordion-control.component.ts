@@ -5,6 +5,7 @@ import {
 	ContentChildren,
 	QueryList,
 	input,
+	model,
 } from '@angular/core';
 import { AccordionComponent } from '../accordion/accordion.component';
 
@@ -29,7 +30,7 @@ export class AccordionControlComponent {
 	set accordions(value: QueryList<AccordionComponent> | undefined) {
 		this.accordionsList = value;
 		if (this.accordionsList?.length === this.sectionState()?.length) {
-			this.isExpanded = true;
+			this.isExpanded.set(true);
 		}
 		if (this.isExpanded()) {
 			this.toggleAccordions();
@@ -37,7 +38,7 @@ export class AccordionControlComponent {
 		this.expandAccordions();
 	}
 
-	readonly isExpanded = input(false);
+	isExpanded = model(false);
 	readonly layout = input<string>();
 	readonly class = input('');
 	readonly sectionState = input<(string | number)[] | undefined | null>([]);
@@ -49,7 +50,7 @@ export class AccordionControlComponent {
 	}
 
 	toggle(): void {
-		this.isExpanded = !this.isExpanded();
+		this.isExpanded.set(!this.isExpanded());
 		this.toggleAccordions();
 		this.cdr.markForCheck();
 	}

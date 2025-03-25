@@ -1,5 +1,5 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, OnDestroy, input, output } from '@angular/core';
+import { Component, OnDestroy, input, model, output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { StatusCodes } from '@models/vehicle-tech-record.model';
@@ -15,7 +15,7 @@ import { Observable, Subject, distinctUntilChanged, map, takeUntil } from 'rxjs'
 	standalone: false,
 })
 export class EditTechRecordButtonComponent implements OnDestroy {
-	readonly isEditing = input(false);
+	isEditing = model(false);
 	readonly isDirty = input(false);
 	readonly customId = input('');
 
@@ -68,7 +68,7 @@ export class EditTechRecordButtonComponent implements OnDestroy {
 	}
 
 	toggleEditMode() {
-		this.isEditing = !this.isEditing();
+		this.isEditing.set(!this.isEditing());
 		this.isEditingChange.emit(this.isEditing());
 	}
 

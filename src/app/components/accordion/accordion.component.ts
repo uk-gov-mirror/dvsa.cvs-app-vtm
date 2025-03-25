@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, input, model } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { addSectionState, removeSectionState } from '@store/technical-records';
 
@@ -13,7 +13,7 @@ export class AccordionComponent {
 	readonly title = input<string | undefined>('');
 	readonly id = input<string | number>('');
 
-	readonly isExpanded = input<boolean | null | undefined>(false);
+	isExpanded = model<boolean | null | undefined>(false);
 
 	constructor(
 		private cdr: ChangeDetectorRef,
@@ -25,13 +25,13 @@ export class AccordionComponent {
 	}
 
 	open(sectionName: string | number | undefined): void {
-		this.isExpanded = true;
+		this.isExpanded.set(true);
 		this.cdr.markForCheck();
 		if (sectionName) this.store.dispatch(addSectionState({ section: sectionName }));
 	}
 
 	close(sectionName: string | number | undefined): void {
-		this.isExpanded = false;
+		this.isExpanded.set(false);
 		this.cdr.markForCheck();
 		if (sectionName) this.store.dispatch(removeSectionState({ section: sectionName }));
 	}
