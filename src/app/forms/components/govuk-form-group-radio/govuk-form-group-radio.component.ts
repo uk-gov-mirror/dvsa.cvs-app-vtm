@@ -70,9 +70,7 @@ export class GovukFormGroupRadioComponent implements ControlValueAccessor {
 		return this.control?.invalid && this.control?.touched && this.control?.errors;
 	}
 
-	onChange = (event: any) => {
-		this.value.set(event.value);
-	};
+	onChange = (event: any) => {};
 	onTouched = () => {};
 
 	writeValue(obj: any): void {

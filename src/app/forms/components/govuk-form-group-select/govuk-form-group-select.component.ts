@@ -79,9 +79,7 @@ export class GovukFormGroupSelectComponent implements ControlValueAccessor {
 		return `govuk-select ${width ? `govuk-input--width-${width}` : ''}`;
 	}
 
-	onChange = (event: any) => {
-		this.value.set(event.value);
-	};
+	onChange = (event: any) => {};
 	onTouched = () => {};
 
 	onBlur(event: FocusEvent) {
