@@ -9,6 +9,7 @@ import { TechnicalRecordService } from '@services/technical-record/technical-rec
 import { ReplaySubject } from 'rxjs';
 
 @Component({
+	standalone: false,
 	selector: 'app-trl-purchasers-section-edit',
 	templateUrl: './trl-purchasers-section-edit.component.html',
 	styleUrls: ['./trl-purchasers-section-edit.component.scss'],

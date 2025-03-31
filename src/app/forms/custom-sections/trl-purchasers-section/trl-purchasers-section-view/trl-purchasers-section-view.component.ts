@@ -5,6 +5,7 @@ import { State } from '@store/index';
 import { techRecord } from '@store/technical-records';
 
 @Component({
+	standalone: false,
 	selector: 'app-trl-purchasers-section-view',
 	templateUrl: './trl-purchasers-section-view.component.html',
 	styleUrls: ['./trl-purchasers-section-view.component.scss'],

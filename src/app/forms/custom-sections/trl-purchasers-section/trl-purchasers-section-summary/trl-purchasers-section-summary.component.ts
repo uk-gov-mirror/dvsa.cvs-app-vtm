@@ -7,6 +7,7 @@ import { editingTechRecord, techRecord } from '@store/technical-records';
 import { isEqual } from 'lodash';
 
 @Component({
+	standalone: false,
 	selector: 'app-trl-purchasers-section-summary',
 	templateUrl: './trl-purchasers-section-summary.component.html',
 	styleUrls: ['./trl-purchasers-section-summary.component.scss'],

@@ -2,6 +2,7 @@ import { Component, input } from '@angular/core';
 import { V3TechRecordModel } from '@models/vehicle-tech-record.model';
 
 @Component({
+	standalone: false,
 	selector: 'app-trl-purchasers-section',
 	templateUrl: './trl-purchasers-section.component.html',
 	styleUrls: ['./trl-purchasers-section.component.scss'],
