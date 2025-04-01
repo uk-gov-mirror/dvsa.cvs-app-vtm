@@ -28,7 +28,6 @@ function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any
 }
 
 @NgModule({
-	declarations: [],
 	imports: [
 		CommonModule,
 		StoreModule.forRoot(reducers, { metaReducers: [localStorageSyncReducer] }),

@@ -24,8 +24,14 @@ describe('AppComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [MsalModule, RouterTestingModule, PageNotFoundComponent, AppRoutingModule, StoreModule.forRoot({})],
-			declarations: [AppComponent],
+			imports: [
+				AppComponent,
+				MsalModule,
+				RouterTestingModule,
+				PageNotFoundComponent,
+				AppRoutingModule,
+				StoreModule.forRoot({}),
+			],
 			providers: [
 				provideMockStore<State>({ initialState: initialAppState }),
 				{ provide: LoadingService, useValue: { showSpinner$: of(false) } },
