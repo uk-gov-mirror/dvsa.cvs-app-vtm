@@ -1,7 +1,5 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
 import {
 	TechRecordPSV,
 	TechRecordType,
@@ -21,8 +19,7 @@ describe('PsvBrakesComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [PsvBrakesComponent],
-			imports: [DynamicFormsModule, FormsModule, HttpClientTestingModule, ReactiveFormsModule, RouterTestingModule],
+			imports: [DynamicFormsModule, FormsModule, PsvBrakesComponent, ReactiveFormsModule],
 			providers: [
 				MultiOptionsService,
 				provideMockStore({ initialState: initialAppState }),
@@ -36,8 +33,8 @@ describe('PsvBrakesComponent', () => {
 		fixture = TestBed.createComponent(PsvBrakesComponent);
 		component = fixture.componentInstance;
 
-		component.vehicleTechRecord = mockVehicleTechnicalRecord('psv') as TechRecordType<'psv'>;
-		component.vehicleTechRecord.techRecord_axles = [
+		const techRecord = mockVehicleTechnicalRecord('psv') as TechRecordType<'psv'>;
+		techRecord.techRecord_axles = [
 			{
 				axleNumber: 1,
 				tyres_tyreSize: '295/80-22.5',
@@ -91,6 +88,8 @@ describe('PsvBrakesComponent', () => {
 			},
 		];
 
+		fixture.componentRef.setInput('vehicleTechRecord', techRecord);
+
 		fixture.detectChanges();
 	});
 
@@ -99,21 +98,21 @@ describe('PsvBrakesComponent', () => {
 	});
 	describe('The brake code value on this.form', () => {
 		it('should match the corresponding values on vehicleTechRecord', () => {
-			expect(component.vehicleTechRecord?.techRecord_brakes_brakeCode).toStrictEqual(
+			expect(component.vehicleTechRecord()?.techRecord_brakes_brakeCode).toStrictEqual(
 				component.form.value.techRecord_brakes_brakeCode
 			);
 		});
 	});
 	describe('The dataTrBrakeOne value on this.form', () => {
 		it('should match the corresponding values on vehicleTechRecord', () => {
-			expect(component.vehicleTechRecord?.techRecord_brakes_retarderBrakeOne).toStrictEqual(
+			expect(component.vehicleTechRecord()?.techRecord_brakes_retarderBrakeOne).toStrictEqual(
 				component.form.value.techRecord_brakes_retarderBrakeOne
 			);
 		});
 	});
 	describe('The brakeCodeOriginal value on this.form', () => {
 		it('should match the corresponding values on vehicleTechRecord', () => {
-			expect(component.vehicleTechRecord?.techRecord_brakes_brakeCodeOriginal).toStrictEqual(
+			expect(component.vehicleTechRecord()?.techRecord_brakes_brakeCodeOriginal).toStrictEqual(
 				component.form.controls['techRecord_brakes_brakeCodeOriginal']?.value
 			);
 		});
@@ -121,7 +120,7 @@ describe('PsvBrakesComponent', () => {
 
 	describe('The axle value on this.form', () => {
 		it('should match the corresponding values on vehicleTechRecord', () => {
-			const axles = component.vehicleTechRecord?.techRecord_axles as NonNullable<TechRecordPSV['techRecord_axles']>;
+			const axles = component.vehicleTechRecord()?.techRecord_axles as NonNullable<TechRecordPSV['techRecord_axles']>;
 			expect(axles[0]).toEqual(expect.objectContaining(component.form.controls['techRecord_axles']?.value[0]));
 		});
 	});

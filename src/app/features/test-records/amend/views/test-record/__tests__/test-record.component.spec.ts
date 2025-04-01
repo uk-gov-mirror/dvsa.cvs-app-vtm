@@ -1,9 +1,9 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Params } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { Params, provideRouter } from '@angular/router';
 import { DynamicFormsModule } from '@forms/dynamic-forms.module';
 import { masterTpl } from '@forms/templates/test-records/master.template';
 import { TestModeEnum } from '@models/test-results/test-result-view.enum';
@@ -35,15 +35,19 @@ describe('TestRecordComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [
+			imports: [
+				DynamicFormsModule,
 				BaseTestRecordComponent,
 				TestAmendmentHistoryComponent,
 				TestRecordComponent,
 				VehicleHeaderComponent,
+				SharedModule,
 			],
-			imports: [DynamicFormsModule, HttpClientTestingModule, RouterTestingModule, SharedModule],
 			providers: [
 				TestRecordsService,
+				provideRouter([]),
+				provideHttpClient(),
+				provideHttpClientTesting(),
 				provideMockStore({ initialState: initialAppState }),
 				RouterService,
 				provideMockActions(() => actions$),

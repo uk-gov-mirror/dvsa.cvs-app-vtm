@@ -1,13 +1,20 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, input, model } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { ReplaySubject, Subject, map, takeUntil } from 'rxjs';
+import { NgIf, NgFor, NgClass } from '@angular/common';
 
 @Component({
-	selector: 'app-pagination[tableName]',
-	templateUrl: './pagination.component.html',
-	styleUrls: ['./pagination.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: false,
+    selector: 'app-pagination[tableName]',
+    templateUrl: './pagination.component.html',
+    styleUrls: ['./pagination.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        NgIf,
+        RouterLink,
+        NgFor,
+        NgClass,
+        RouterLinkActive,
+    ],
 })
 export class PaginationComponent implements OnInit, OnDestroy {
 	readonly tableName = input.required<string>();

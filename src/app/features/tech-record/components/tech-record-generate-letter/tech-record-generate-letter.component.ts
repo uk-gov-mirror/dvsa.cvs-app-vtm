@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { ApprovalType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalType.enum.js';
@@ -20,12 +20,24 @@ import { UserService } from '@services/user-service/user-service';
 import { generateLetter, generateLetterSuccess } from '@store/technical-records';
 import { TechnicalRecordServiceState } from '@store/technical-records/technical-record-service.reducer';
 import { take } from 'rxjs';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { RadioGroupComponent } from '../../../../forms/components/radio-group/radio-group.component';
+import { ButtonGroupComponent } from '../../../../components/button-group/button-group.component';
+import { ButtonComponent } from '../../../../components/button/button.component';
 
 @Component({
-	selector: 'app-generate-letter',
-	templateUrl: './tech-record-generate-letter.component.html',
-	styleUrls: ['./tech-record-generate-letter.component.scss'],
-	standalone: false,
+    selector: 'app-generate-letter',
+    templateUrl: './tech-record-generate-letter.component.html',
+    styleUrls: ['./tech-record-generate-letter.component.scss'],
+    imports: [
+        NgIf,
+        FormsModule,
+        ReactiveFormsModule,
+        RadioGroupComponent,
+        ButtonGroupComponent,
+        ButtonComponent,
+        AsyncPipe,
+    ],
 })
 export class GenerateLetterComponent implements OnInit {
 	techRecord?: V3TechRecordModel;

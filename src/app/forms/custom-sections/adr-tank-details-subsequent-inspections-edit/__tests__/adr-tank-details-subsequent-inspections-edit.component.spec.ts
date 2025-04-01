@@ -28,14 +28,16 @@ describe('AdrTankDetailsSubsequentInspectionsEditComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [
+			imports: [
+				DynamicFormsModule,
+				FormsModule,
+				ReactiveFormsModule,
 				AdrTankDetailsSubsequentInspectionsEditComponent,
 				SelectComponent,
 				FieldErrorMessageComponent,
 				DateComponent,
 				TextInputComponent,
 			],
-			imports: [DynamicFormsModule, FormsModule, ReactiveFormsModule],
 			providers: [
 				provideMockStore<State>({ initialState: initialAppState }),
 				{ provide: NG_VALUE_ACCESSOR, useExisting: AdrTankDetailsSubsequentInspectionsEditComponent, multi: true },

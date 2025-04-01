@@ -28,16 +28,15 @@ describe('ViewCombinationComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [ViewCombinationComponent],
-			imports: [SharedModule],
+			imports: [ViewCombinationComponent, SharedModule],
 		}).compileComponents();
 	});
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(ViewCombinationComponent);
 		component = fixture.componentInstance;
-		component.formNode = formNode;
-		component.formGroup = formGroup;
+		fixture.componentRef.setInput('formNode', formNode);
+		fixture.componentRef.setInput('formGroup', formGroup);
 		fixture.detectChanges();
 	});
 

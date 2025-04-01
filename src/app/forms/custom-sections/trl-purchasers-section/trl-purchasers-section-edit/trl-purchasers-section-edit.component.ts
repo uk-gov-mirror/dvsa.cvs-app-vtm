@@ -1,18 +1,27 @@
 import { FormNodeWidth, TagTypeLabels } from '@/src/app/services/dynamic-forms/dynamic-form.types';
 import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
-import { ControlContainer, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ControlContainer, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TagType } from '@components/tag/tag.component';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
 import { V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { ReplaySubject } from 'rxjs';
+import { NgIf } from '@angular/common';
+import { GovukFormGroupInputComponent } from '../../../components/govuk-form-group-input/govuk-form-group-input.component';
+import { GovukFormGroupTextareaComponent } from '../../../components/govuk-form-group-textarea/govuk-form-group-textarea.component';
 
 @Component({
-	standalone: false,
-	selector: 'app-trl-purchasers-section-edit',
-	templateUrl: './trl-purchasers-section-edit.component.html',
-	styleUrls: ['./trl-purchasers-section-edit.component.scss'],
+    selector: 'app-trl-purchasers-section-edit',
+    templateUrl: './trl-purchasers-section-edit.component.html',
+    styleUrls: ['./trl-purchasers-section-edit.component.scss'],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NgIf,
+        GovukFormGroupInputComponent,
+        GovukFormGroupTextareaComponent,
+    ],
 })
 export class TRLPurchasersSectionEditComponent implements OnInit, OnDestroy {
 	private readonly fb = inject(FormBuilder);

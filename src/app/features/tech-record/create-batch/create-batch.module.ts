@@ -14,21 +14,19 @@ import { SelectVehicleTypeComponent } from './components/select-vehicle-type/sel
 import { CreateBatchRoutingModule } from './create-batch-routing.module';
 
 @NgModule({
-	declarations: [
-		BatchVehicleTemplateComponent,
-		BatchVehicleDetailsComponent,
-		BatchVehicleResultsComponent,
-		SelectVehicleTypeComponent,
-	],
-	imports: [
-		CommonModule,
-		CreateBatchRoutingModule,
-		SharedTechRecordsModule,
-		ReactiveFormsModule,
-		DynamicFormsModule,
-		RouterModule,
-		SharedModule,
-		CreateTechRecordsModule,
-	],
+    imports: [
+        CommonModule,
+        CreateBatchRoutingModule,
+        SharedTechRecordsModule,
+        ReactiveFormsModule,
+        DynamicFormsModule,
+        RouterModule,
+        SharedModule,
+        CreateTechRecordsModule,
+        BatchVehicleTemplateComponent,
+        BatchVehicleDetailsComponent,
+        BatchVehicleResultsComponent,
+        SelectVehicleTypeComponent,
+    ],
 })
 export class CreateBatchModule {}

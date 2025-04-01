@@ -180,7 +180,7 @@ describe('DynamicFormGroupComponent', () => {
 		it('should generate the correct number of input elements', inject(
 			[DynamicFormService],
 			(dfs: DynamicFormService) => {
-				component.edit = true;
+				fixture.componentRef.setInput('edit', true);
 				component.form = dfs.createForm(template, data);
 
 				fixture.detectChanges();
@@ -273,7 +273,7 @@ describe('DynamicFormGroupComponent', () => {
 		it('should generate the correct number of input elements', inject(
 			[DynamicFormService],
 			(dfs: DynamicFormService) => {
-				component.edit = true;
+				fixture.componentRef.setInput('edit', true);
 				component.form = dfs.createForm(template, data);
 
 				fixture.detectChanges();
@@ -297,7 +297,7 @@ describe('DynamicFormGroupComponent', () => {
 						],
 					},
 				};
-				component.edit = true;
+				fixture.componentRef.setInput('edit', true);
 				component.form = dfs.createForm(template, newData);
 
 				fixture.detectChanges();
@@ -329,7 +329,7 @@ describe('DynamicFormGroupComponent', () => {
 						],
 					},
 				};
-				component.edit = true;
+				fixture.componentRef.setInput('edit', true);
 				component.form = dfs.createForm(template, newData);
 
 				fixture.detectChanges();
@@ -416,7 +416,7 @@ describe('DynamicFormGroupComponent', () => {
 		it('should generate the correct number of input elements', inject(
 			[DynamicFormService],
 			(dfs: DynamicFormService) => {
-				component.edit = true;
+				fixture.componentRef.setInput('edit', true);
 				component.form = dfs.createForm(template, data);
 
 				fixture.detectChanges();
@@ -442,7 +442,7 @@ describe('DynamicFormGroupComponent', () => {
 						],
 					},
 				};
-				component.edit = true;
+				fixture.componentRef.setInput('edit', true);
 				component.form = dfs.createForm(template, newData);
 
 				fixture.detectChanges();
@@ -476,7 +476,7 @@ describe('DynamicFormGroupComponent', () => {
 						],
 					},
 				};
-				component.edit = true;
+				fixture.componentRef.setInput('edit', true);
 				component.form = dfs.createForm(template, newData);
 
 				fixture.detectChanges();
@@ -507,7 +507,7 @@ describe('DynamicFormGroupComponent', () => {
 		};
 		it('should output an event when the value of the control changes', fakeAsync(
 			inject([DynamicFormService], (dfs: DynamicFormService) => {
-				component.edit = true;
+				fixture.componentRef.setInput('edit', true);
 				component.form = dfs.createForm(template, data);
 
 				fixture.detectChanges();

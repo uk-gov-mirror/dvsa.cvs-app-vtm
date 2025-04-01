@@ -1,7 +1,7 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { Router, provideRouter } from '@angular/router';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { Roles } from '@models/roles.enum';
@@ -24,9 +24,15 @@ describe('SearchComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [SearchComponent],
-			imports: [HttpClientTestingModule, RouterTestingModule],
-			providers: [GlobalErrorService, TechnicalRecordService, provideMockStore({ initialState: initialAppState })],
+			imports: [SearchComponent],
+			providers: [
+				GlobalErrorService,
+				TechnicalRecordService,
+				provideRouter([]),
+				provideHttpClient(),
+				provideHttpClientTesting(),
+				provideMockStore({ initialState: initialAppState }),
+			],
 		}).compileComponents();
 	});
 

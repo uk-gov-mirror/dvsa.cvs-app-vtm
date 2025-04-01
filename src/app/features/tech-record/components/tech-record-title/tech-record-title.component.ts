@@ -10,12 +10,32 @@ import { Store } from '@ngrx/store';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { selectTechRecord } from '@store/technical-records';
 import { Observable, take } from 'rxjs';
+import { NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault, AsyncPipe, UpperCasePipe } from '@angular/common';
+import { IconComponent } from '../../../../components/icon/icon.component';
+import { RoleRequiredDirective } from '../../../../directives/app-role-required/app-role-required.directive';
+import { ButtonComponent } from '../../../../components/button/button.component';
+import { NumberPlateComponent } from '../../../../components/number-plate/number-plate.component';
+import { TagComponent } from '../../../../components/tag/tag.component';
+import { DefaultNullOrEmpty } from '../../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
 
 @Component({
-	selector: 'app-tech-record-title[vehicle]',
-	templateUrl: './tech-record-title.component.html',
-	styleUrls: ['./tech-record-title.component.scss'],
-	standalone: false,
+    selector: 'app-tech-record-title[vehicle]',
+    templateUrl: './tech-record-title.component.html',
+    styleUrls: ['./tech-record-title.component.scss'],
+    imports: [
+        NgIf,
+        IconComponent,
+        RoleRequiredDirective,
+        ButtonComponent,
+        NgSwitch,
+        NgSwitchCase,
+        NgSwitchDefault,
+        NumberPlateComponent,
+        TagComponent,
+        AsyncPipe,
+        UpperCasePipe,
+        DefaultNullOrEmpty,
+    ],
 })
 export class TechRecordTitleComponent implements OnInit {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

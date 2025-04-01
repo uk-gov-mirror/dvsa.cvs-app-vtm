@@ -37,8 +37,7 @@ describe('LastApplicantSectionEditComponent', () => {
 		const mockTechRecord = mockVehicleTechnicalRecord('hgv');
 
 		await TestBed.configureTestingModule({
-			declarations: [LastApplicantSectionEditComponent],
-			imports: [DynamicFormsModule, FormsModule, ReactiveFormsModule],
+			imports: [DynamicFormsModule, FormsModule, ReactiveFormsModule, LastApplicantSectionEditComponent],
 			providers: [
 				provideMockStore({ initialState: initialAppState }),
 				provideHttpClient(),

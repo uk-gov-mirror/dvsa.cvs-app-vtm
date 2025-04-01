@@ -20,8 +20,7 @@ describe('AdrNewCertificateRequiredViewComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [AdrNewCertificateRequiredViewComponent],
-			imports: [SharedModule],
+			imports: [SharedModule, AdrNewCertificateRequiredViewComponent],
 			providers: [
 				provideMockStore<State>({ initialState: initialAppState }),
 				{ provide: NG_VALUE_ACCESSOR, useExisting: AdrTankDetailsM145ViewComponent, multi: true },

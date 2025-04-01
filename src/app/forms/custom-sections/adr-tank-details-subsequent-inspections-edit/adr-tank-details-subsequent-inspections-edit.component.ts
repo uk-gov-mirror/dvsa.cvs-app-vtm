@@ -1,5 +1,5 @@
 import { AfterContentInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { FormArray, NG_VALUE_ACCESSOR, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TC3Types } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/tc3Types.enum.js';
 import { getOptionsFromEnum } from '@forms/utils/enum-map';
 import { CustomValidators } from '@forms/validators/custom-validators/custom-validators';
@@ -13,15 +13,27 @@ import {
 } from '@services/dynamic-forms/dynamic-form.types';
 import { ReplaySubject, takeUntil } from 'rxjs';
 import { CustomFormControlComponent } from '../custom-form-control/custom-form-control.component';
+import { NgIf, NgFor } from '@angular/common';
+import { SelectComponent } from '../../components/select/select.component';
+import { TextInputComponent } from '../../components/text-input/text-input.component';
+import { DateComponent } from '../../components/date/date.component';
 
 @Component({
-	selector: 'app-adr-tank-details-subsequent-inspections',
-	templateUrl: './adr-tank-details-subsequent-inspections-edit.component.html',
-	styleUrls: ['./adr-tank-details-subsequent-inspections-edit.component.scss'],
-	providers: [
-		{ provide: NG_VALUE_ACCESSOR, useExisting: AdrTankDetailsSubsequentInspectionsEditComponent, multi: true },
-	],
-	standalone: false,
+    selector: 'app-adr-tank-details-subsequent-inspections',
+    templateUrl: './adr-tank-details-subsequent-inspections-edit.component.html',
+    styleUrls: ['./adr-tank-details-subsequent-inspections-edit.component.scss'],
+    providers: [
+        { provide: NG_VALUE_ACCESSOR, useExisting: AdrTankDetailsSubsequentInspectionsEditComponent, multi: true },
+    ],
+    imports: [
+        NgIf,
+        NgFor,
+        FormsModule,
+        ReactiveFormsModule,
+        SelectComponent,
+        TextInputComponent,
+        DateComponent,
+    ],
 })
 export class AdrTankDetailsSubsequentInspectionsEditComponent
 	extends CustomFormControlComponent

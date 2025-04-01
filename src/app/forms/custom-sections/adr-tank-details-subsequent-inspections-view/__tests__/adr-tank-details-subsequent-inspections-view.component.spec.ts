@@ -18,8 +18,7 @@ describe('AdrTankDetailsSubsequentInspectionsViewComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [AdrTankDetailsSubsequentInspectionsViewComponent],
-			imports: [DynamicFormsModule, FormsModule, ReactiveFormsModule],
+			imports: [DynamicFormsModule, FormsModule, ReactiveFormsModule, AdrTankDetailsSubsequentInspectionsViewComponent],
 			providers: [
 				provideMockStore<State>({ initialState: initialAppState }),
 				{ provide: NG_VALUE_ACCESSOR, useExisting: AdrTankDetailsSubsequentInspectionsViewComponent, multi: true },

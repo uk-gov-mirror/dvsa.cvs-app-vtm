@@ -18,8 +18,7 @@ describe('AdrSectionComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [AdrSectionComponent],
-			imports: [SharedModule, DynamicFormsModule],
+			imports: [SharedModule, DynamicFormsModule, AdrSectionComponent],
 			providers: [
 				ControlContainer,
 				provideHttpClient(),

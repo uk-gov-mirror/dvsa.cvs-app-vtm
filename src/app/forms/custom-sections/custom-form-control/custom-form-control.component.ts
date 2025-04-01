@@ -6,16 +6,15 @@ import { FORM_INJECTION_TOKEN } from '@forms/components/dynamic-form-field/dynam
 import { CustomControl } from '@services/dynamic-forms/dynamic-form.types';
 
 @Component({
-	selector: 'app-custom-form-control',
-	templateUrl: './custom-form-control.component.html',
-	providers: [
-		{
-			provide: NG_VALUE_ACCESSOR,
-			useExisting: CustomFormControlComponent,
-			multi: true,
-		},
-	],
-	standalone: false,
+    selector: 'app-custom-form-control',
+    templateUrl: './custom-form-control.component.html',
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: CustomFormControlComponent,
+            multi: true,
+        },
+    ],
 })
 export class CustomFormControlComponent extends BaseControlComponent {
 	protected form?: FormGroup;

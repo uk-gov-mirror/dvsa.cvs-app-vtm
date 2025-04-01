@@ -14,13 +14,42 @@ import { Store } from '@ngrx/store';
 import { techRecord } from '@store/technical-records';
 import { selectAllTestTypes } from '@store/test-types/test-types.selectors';
 import { Observable, map } from 'rxjs';
+import { NgSwitch, NgSwitchCase, NgIf, NgSwitchDefault, AsyncPipe, UpperCasePipe, DatePipe } from '@angular/common';
+import { IconComponent } from '../../../../components/icon/icon.component';
+import { FieldWarningMessageComponent } from '../../../../forms/components/field-warning-message/field-warning-message.component';
+import { NumberPlateComponent } from '../../../../components/number-plate/number-plate.component';
+import { TagComponent } from '../../../../components/tag/tag.component';
+import { TestCertificateComponent } from '../../../../components/test-certificate/test-certificate.component';
+import { RetrieveDocumentDirective } from '../../../../directives/retrieve-document/retrieve-document.directive';
+import { DefaultNullOrEmpty } from '../../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
+import { TestTypeNamePipe } from '../../../../pipes/test-type-name/test-type-name.pipe';
+import { DigitGroupSeparatorPipe } from '../../../../pipes/digit-group-separator/digit-group-separator.pipe';
+import { RefDataDecodePipe } from '../../../../pipes/ref-data-decode/ref-data-decode.pipe';
 
 @Component({
-	selector: 'app-vehicle-header',
-	templateUrl: './vehicle-header.component.html',
-	styleUrls: ['./vehicle-header.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: false,
+    selector: 'app-vehicle-header',
+    templateUrl: './vehicle-header.component.html',
+    styleUrls: ['./vehicle-header.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        NgSwitch,
+        NgSwitchCase,
+        IconComponent,
+        NgIf,
+        FieldWarningMessageComponent,
+        NgSwitchDefault,
+        NumberPlateComponent,
+        TagComponent,
+        TestCertificateComponent,
+        RetrieveDocumentDirective,
+        AsyncPipe,
+        UpperCasePipe,
+        DatePipe,
+        DefaultNullOrEmpty,
+        TestTypeNamePipe,
+        DigitGroupSeparatorPipe,
+        RefDataDecodePipe,
+    ],
 })
 export class VehicleHeaderComponent {
 	readonly isEditing = input(false);

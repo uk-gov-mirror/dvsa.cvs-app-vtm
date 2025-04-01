@@ -3,6 +3,9 @@ import { Roles } from '@models/roles.enum';
 import { TestResultStatus } from '@models/test-results/test-result-status.enum';
 import { TestResultModel } from '@models/test-results/test-result.model';
 import { resultOfTestEnum } from '@models/test-types/test-type.model';
+import { NgIf, NgFor, DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { PaginationComponent } from '../../../../components/pagination/pagination.component';
 
 interface TestField {
 	testTypeStartTimestamp: string | Date;
@@ -14,10 +17,16 @@ interface TestField {
 }
 
 @Component({
-	selector: 'app-test-record-summary',
-	templateUrl: './test-record-summary.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: false,
+    selector: 'app-test-record-summary',
+    templateUrl: './test-record-summary.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        NgIf,
+        NgFor,
+        RouterLink,
+        PaginationComponent,
+        DatePipe,
+    ],
 })
 export class TestRecordSummaryComponent {
 	readonly isEditing = input(false);

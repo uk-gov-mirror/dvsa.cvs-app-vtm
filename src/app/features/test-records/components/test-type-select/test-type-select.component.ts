@@ -6,12 +6,18 @@ import { TestTypesTaxonomy } from '@models/test-types/testTypesTaxonomy';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { TestTypesService } from '@services/test-types/test-types.service';
 import { Observable } from 'rxjs';
+import { NgIf, NgClass, NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
-	selector: 'app-test-type-select',
-	templateUrl: './test-type-select.component.html',
-	styleUrls: ['./test-type-select.component.scss'],
-	standalone: false,
+    selector: 'app-test-type-select',
+    templateUrl: './test-type-select.component.html',
+    styleUrls: ['./test-type-select.component.scss'],
+    imports: [
+        NgIf,
+        NgClass,
+        NgFor,
+        AsyncPipe,
+    ],
 })
 export class TestTypeSelectComponent implements OnInit {
 	readonly testTypeSelected = output<TestType>();

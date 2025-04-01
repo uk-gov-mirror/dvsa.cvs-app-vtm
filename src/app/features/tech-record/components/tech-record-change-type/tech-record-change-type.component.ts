@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { EUVehicleCategory } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/euVehicleCategoryTrl.enum.js';
@@ -14,12 +14,26 @@ import { TechnicalRecordService } from '@services/technical-record/technical-rec
 import { changeVehicleType } from '@store/technical-records';
 import { TechnicalRecordServiceState } from '@store/technical-records/technical-record-service.reducer';
 import { take } from 'rxjs';
+import { NgIf, UpperCasePipe } from '@angular/common';
+import { NumberPlateComponent } from '../../../../components/number-plate/number-plate.component';
+import { SelectComponent } from '../../../../forms/components/select/select.component';
+import { ButtonComponent } from '../../../../components/button/button.component';
+import { DefaultNullOrEmpty } from '../../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
 
 @Component({
-	selector: 'app-change-vehicle-type',
-	templateUrl: './tech-record-change-type.component.html',
-	styleUrls: ['./tech-record-change-type.component.scss'],
-	standalone: false,
+    selector: 'app-change-vehicle-type',
+    templateUrl: './tech-record-change-type.component.html',
+    styleUrls: ['./tech-record-change-type.component.scss'],
+    imports: [
+        NgIf,
+        NumberPlateComponent,
+        FormsModule,
+        ReactiveFormsModule,
+        SelectComponent,
+        ButtonComponent,
+        UpperCasePipe,
+        DefaultNullOrEmpty,
+    ],
 })
 export class ChangeVehicleTypeComponent implements OnInit {
 	techRecord?: V3TechRecordModel;

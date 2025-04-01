@@ -41,8 +41,7 @@ describe('weightsSectionEditComponent', () => {
 		const mockTechRecord = mockVehicleTechnicalRecord('psv');
 
 		await TestBed.configureTestingModule({
-			declarations: [WeightsSectionEditComponent],
-			imports: [DynamicFormsModule, FormsModule, ReactiveFormsModule],
+			imports: [DynamicFormsModule, FormsModule, ReactiveFormsModule, WeightsSectionEditComponent],
 			providers: [
 				provideMockStore({ initialState: initialAppState }),
 				provideHttpClient(),

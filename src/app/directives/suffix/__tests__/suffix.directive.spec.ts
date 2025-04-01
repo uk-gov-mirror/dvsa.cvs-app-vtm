@@ -4,7 +4,7 @@ import { SuffixDirective } from '../suffix.directive';
 
 @Component({
 	template: '<ng-template appSuffix></ng-template>',
-	standalone: false,
+	imports: [SuffixDirective],
 })
 class TestComponent {}
 
@@ -14,7 +14,7 @@ describe('SuffixDirective', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [SuffixDirective, TestComponent],
+			imports: [TestComponent],
 			providers: [TemplateRef],
 		}).compileComponents();
 

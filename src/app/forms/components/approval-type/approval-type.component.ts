@@ -1,3 +1,4 @@
+import { NgFor, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import {
 	AfterContentInit,
 	ChangeDetectorRef,
@@ -8,12 +9,15 @@ import {
 	OnInit,
 	input,
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { ApprovalType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalType.enum.js';
 import { FormNodeWidth } from '@services/dynamic-forms/dynamic-form.types';
 import { BehaviorSubject, Observable, Subscription, combineLatest } from 'rxjs';
+import { TagComponent } from '../../../components/tag/tag.component';
+import { ApprovalTypeFocusNextDirective } from '../../../directives/approval-type-focus-next/approval-type-focus-next.directive';
 import { BaseControlComponent } from '../base-control/base-control.component';
+import { FieldErrorMessageComponent } from '../field-error-message/field-error-message.component';
 
 const patterns: Record<string, RegExp> = {
 	NTA: /^(.+)$/i, // 25
@@ -115,15 +119,24 @@ const characterLimitGeneric: Record<string, number> = {
 			multi: true,
 		},
 	],
-	standalone: false,
+	imports: [
+		NgSwitch,
+		NgSwitchCase,
+		NgIf,
+		FieldErrorMessageComponent,
+		NgFor,
+		TagComponent,
+		FormsModule,
+		ApprovalTypeFocusNextDirective,
+	],
 })
 export class ApprovalTypeInputComponent
 	extends BaseControlComponent
 	implements OnChanges, OnInit, OnDestroy, AfterContentInit
 {
-	readonly isEditing = input(false);
-	readonly approvalType = input<string>();
-	readonly approvalTypeChange = input<boolean>();
+	isEditing = input(false);
+	approvalType = input<string>();
+	approvalTypeChange = input<boolean>();
 
 	private approvalTypeNumber_1: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(
 		undefined

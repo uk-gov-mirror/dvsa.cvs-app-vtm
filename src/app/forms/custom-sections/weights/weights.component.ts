@@ -16,12 +16,26 @@ import {
 import { addAxle, removeAxle, updateBrakeForces } from '@store/technical-records';
 import { TechnicalRecordServiceState } from '@store/technical-records/technical-record-service.reducer';
 import { Subscription } from 'rxjs';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgSwitch, NgSwitchCase, NgIf, NgFor, NgTemplateOutlet } from '@angular/common';
+import { TagComponent } from '../../../components/tag/tag.component';
+import { SwitchableInputComponent } from '../../components/switchable-input/switchable-input.component';
 
 @Component({
-	selector: 'app-weights[vehicleTechRecord]',
-	templateUrl: './weights.component.html',
-	styleUrls: ['./weights.component.scss'],
-	standalone: false,
+    selector: 'app-weights[vehicleTechRecord]',
+    templateUrl: './weights.component.html',
+    styleUrls: ['./weights.component.scss'],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NgSwitch,
+        NgSwitchCase,
+        TagComponent,
+        NgIf,
+        NgFor,
+        NgTemplateOutlet,
+        SwitchableInputComponent,
+    ],
 })
 export class WeightsComponent implements OnInit, OnDestroy, OnChanges {
 	readonly vehicleTechRecord = input.required<TechRecordType<'psv'> | TechRecordType<'trl'> | TechRecordType<'hgv'>>();

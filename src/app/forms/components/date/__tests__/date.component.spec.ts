@@ -16,8 +16,14 @@ import { DateComponent } from '../date.component';
 	template: `<form [formGroup]="form">
     <app-date name="foo" label="Foo" formControlName="foo"></app-date>
   </form> `,
-	styles: [],
-	standalone: false,
+	imports: [
+		BaseControlComponent,
+		DateComponent,
+		FieldErrorMessageComponent,
+		FormsModule,
+		ReactiveFormsModule,
+		DateFocusNextDirective,
+	],
 })
 class HostComponent {
 	@ViewChild(DateComponent, { static: true }) dateComponent?: DateComponent;
@@ -32,8 +38,7 @@ describe('DateComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [BaseControlComponent, DateComponent, FieldErrorMessageComponent, HostComponent],
-			imports: [FormsModule, ReactiveFormsModule, DateFocusNextDirective],
+			imports: [HostComponent],
 			providers: [GlobalErrorService, provideMockStore({ initialState: initialAppState })],
 		}).compileComponents();
 	});
@@ -76,7 +81,7 @@ describe('DateComponent', () => {
 			) => {
 				if (component.dateComponent) {
 					component.dateComponent.originalDate = '2022-01-01T01:06:00.000';
-					component.dateComponent.displayTime = displayTime;
+					fixture.componentRef.setInput('displayTime', displayTime);
 				}
 
 				fixture.detectChanges();
@@ -115,8 +120,8 @@ describe('DateComponent', () => {
 			) => {
 				if (component.dateComponent) {
 					component.dateComponent.originalDate = '2022-01-01T01:06:00.000';
-					component.dateComponent.displayTime = displayTime;
-					component.dateComponent.isoDate = false;
+					fixture.componentRef.setInput('displayTime', displayTime);
+					fixture.componentRef.setInput('isoDate', false);
 				}
 
 				fixture.detectChanges();

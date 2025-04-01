@@ -3,10 +3,7 @@ import { Roles } from '@models/roles.enum';
 import { UserService } from '@services/user-service/user-service';
 import { take } from 'rxjs';
 
-@Directive({
-	selector: '[appRoleRequired]',
-	standalone: false,
-})
+@Directive({ selector: '[appRoleRequired]', })
 export class RoleRequiredDirective implements OnInit {
 	constructor(
 		private templateRef: TemplateRef<HTMLElement>,

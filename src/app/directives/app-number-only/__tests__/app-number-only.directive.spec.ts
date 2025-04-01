@@ -5,7 +5,7 @@ import { NumberOnlyDirective } from '../app-number-only.directive';
 
 @Component({
 	template: ' <input type="number" appNumberOnly />',
-	standalone: false,
+	imports: [NumberOnlyDirective],
 })
 class TestComponent {}
 
@@ -15,8 +15,7 @@ describe('NumberOnlyDirective', () => {
 
 	beforeEach(() => {
 		fixture = TestBed.configureTestingModule({
-			imports: [NumberOnlyDirective],
-			declarations: [TestComponent],
+			imports: [TestComponent],
 		}).createComponent(TestComponent);
 		fixture.detectChanges();
 

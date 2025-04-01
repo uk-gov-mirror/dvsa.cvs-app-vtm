@@ -6,13 +6,15 @@ import { FeatureToggleService } from '@services/feature-toggle-service/feature-t
 import { State } from '@store/index';
 import { isTestTypeOldIvaOrMsva, toEditOrNotToEdit } from '@store/test-records';
 import { Subject, combineLatest, takeUntil } from 'rxjs';
+import { RetrieveDocumentDirective } from '../../directives/retrieve-document/retrieve-document.directive';
+import { NgClass } from '@angular/common';
 
 @Component({
-	selector: 'app-test-certificate[testNumber][vin]',
-	templateUrl: './test-certificate.component.html',
-	styleUrls: ['./test-certificate.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: false,
+    selector: 'app-test-certificate[testNumber][vin]',
+    templateUrl: './test-certificate.component.html',
+    styleUrls: ['./test-certificate.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [RetrieveDocumentDirective, NgClass],
 })
 export class TestCertificateComponent implements OnInit, OnDestroy {
 	store: Store<State> = inject(Store<State>);

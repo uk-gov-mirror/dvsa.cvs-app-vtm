@@ -1,9 +1,8 @@
 import { Component, output } from '@angular/core';
 
 @Component({
-	selector: 'app-base-dialog',
-	template: '',
-	standalone: false,
+    selector: 'app-base-dialog',
+    template: '',
 })
 export class BaseDialogComponent {
 	readonly action = output<string>();

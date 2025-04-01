@@ -21,8 +21,7 @@ describe('AdrTankStatementUnNumberViewComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [DynamicFormsModule, SharedModule, FormsModule],
-			declarations: [AdrTankStatementUnNumberViewComponent],
+			imports: [DynamicFormsModule, SharedModule, FormsModule, AdrTankStatementUnNumberViewComponent],
 			providers: [
 				provideMockStore<State>({ initialState: initialAppState }),
 				{ provide: NG_VALUE_ACCESSOR, useExisting: AdrTankStatementUnNumberViewComponent, multi: true },

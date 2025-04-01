@@ -8,8 +8,7 @@ import { TestTypeSelectComponent } from './components/test-type-select/test-type
 import { VehicleHeaderComponent } from './components/vehicle-header/vehicle-header.component';
 
 @NgModule({
-	declarations: [BaseTestRecordComponent, TestTypeSelectComponent, VehicleHeaderComponent],
-	imports: [CommonModule, SharedModule, DynamicFormsModule, RouterModule],
-	exports: [BaseTestRecordComponent, TestTypeSelectComponent, VehicleHeaderComponent],
+    imports: [CommonModule, SharedModule, DynamicFormsModule, RouterModule, BaseTestRecordComponent, TestTypeSelectComponent, VehicleHeaderComponent],
+    exports: [BaseTestRecordComponent, TestTypeSelectComponent, VehicleHeaderComponent],
 })
 export class TestRecordsModule {}

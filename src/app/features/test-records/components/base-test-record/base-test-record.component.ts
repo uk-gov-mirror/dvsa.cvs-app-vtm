@@ -19,12 +19,47 @@ import { TestRecordsService } from '@services/test-records/test-records.service'
 import { DefectsState, filteredDefects } from '@store/defects';
 import merge from 'lodash.merge';
 import { Observable, map } from 'rxjs';
+import { VehicleHeaderComponent } from '../vehicle-header/vehicle-header.component';
+import { NgIf, NgFor, NgSwitch, NgSwitchCase, NgStyle, NgSwitchDefault, AsyncPipe } from '@angular/common';
+import { ButtonGroupComponent } from '../../../../components/button-group/button-group.component';
+import { RoleRequiredDirective } from '../../../../directives/app-role-required/app-role-required.directive';
+import { ButtonComponent } from '../../../../components/button/button.component';
+import { RouterLink } from '@angular/router';
+import { AccordionControlComponent } from '../../../../components/accordion-control/accordion-control.component';
+import { AccordionComponent } from '../../../../components/accordion/accordion.component';
+import { DefectsComponent as DefectsComponent_1 } from '../../../../forms/custom-sections/defects/defects.component';
+import { FeatureToggleDirective } from '../../../../directives/feature-toggle/feature-toggle.directive';
+import { RequiredStandardsComponent as RequiredStandardsComponent_1 } from '../../../../forms/custom-sections/required-standards/required-standards.component';
+import { CustomDefectsComponent as CustomDefectsComponent_1 } from '../../../../forms/custom-sections/custom-defects/custom-defects.component';
+import { DynamicFormGroupComponent as DynamicFormGroupComponent_1 } from '../../../../forms/components/dynamic-form-group/dynamic-form-group.component';
+import { BannerComponent } from '../../../../components/banner/banner.component';
 
 @Component({
-	selector: 'app-base-test-record[testResult]',
-	templateUrl: './base-test-record.component.html',
-	styleUrls: ['./base-test-record.component.scss'],
-	standalone: false,
+    selector: 'app-base-test-record[testResult]',
+    templateUrl: './base-test-record.component.html',
+    styleUrls: ['./base-test-record.component.scss'],
+    imports: [
+        VehicleHeaderComponent,
+        NgIf,
+        ButtonGroupComponent,
+        RoleRequiredDirective,
+        ButtonComponent,
+        RouterLink,
+        AccordionControlComponent,
+        NgFor,
+        NgSwitch,
+        NgSwitchCase,
+        AccordionComponent,
+        DefectsComponent_1,
+        FeatureToggleDirective,
+        RequiredStandardsComponent_1,
+        CustomDefectsComponent_1,
+        DynamicFormGroupComponent_1,
+        NgStyle,
+        NgSwitchDefault,
+        BannerComponent,
+        AsyncPipe,
+    ],
 })
 export class BaseTestRecordComponent implements AfterViewInit {
 	readonly sections = viewChildren(DynamicFormGroupComponent);

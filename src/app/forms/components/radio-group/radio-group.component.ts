@@ -1,20 +1,30 @@
 import { Component, input } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { FormNodeOption } from '@services/dynamic-forms/dynamic-form.types';
 import { BaseControlComponent } from '../base-control/base-control.component';
+import { NgClass, NgFor, NgIf } from '@angular/common';
+import { TagComponent } from '../../../components/tag/tag.component';
+import { FieldErrorMessageComponent } from '../field-error-message/field-error-message.component';
 
 @Component({
-	selector: 'app-radio-group',
-	templateUrl: './radio-group.component.html',
-	providers: [
-		{
-			provide: NG_VALUE_ACCESSOR,
-			useExisting: RadioGroupComponent,
-			multi: true,
-		},
-	],
-	styleUrls: ['./radio-group.component.scss'],
-	standalone: false,
+    selector: 'app-radio-group',
+    templateUrl: './radio-group.component.html',
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: RadioGroupComponent,
+            multi: true,
+        },
+    ],
+    styleUrls: ['./radio-group.component.scss'],
+    imports: [
+        NgClass,
+        NgFor,
+        TagComponent,
+        NgIf,
+        FieldErrorMessageComponent,
+        FormsModule,
+    ],
 })
 export class RadioGroupComponent extends BaseControlComponent {
 	readonly options = input<FormNodeOption<string | number | boolean | null>[]>([]);

@@ -3,13 +3,29 @@ import { TagType } from '@components/tag/tag.component';
 import { TechRecordSearchSchema } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/search';
 import { Roles } from '@models/roles.enum';
 import { StatusCodes } from '@models/vehicle-tech-record.model';
+import { RoleRequiredDirective } from '../../../directives/app-role-required/app-role-required.directive';
+import { RouterLink } from '@angular/router';
+import { TagComponent } from '../../../components/tag/tag.component';
+import { NgIf, UpperCasePipe } from '@angular/common';
+import { NumberPlateComponent } from '../../../components/number-plate/number-plate.component';
+import { DefaultNullOrEmpty } from '../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
+import { FormatVehicleTypePipe } from '../../../pipes/format-vehicle-type/format-vehicle-type.pipe';
 
 @Component({
-	selector: 'app-single-search-result[searchResult]',
-	templateUrl: './single-search-result.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	styleUrls: ['./single-search-result.component.scss'],
-	standalone: false,
+    selector: 'app-single-search-result[searchResult]',
+    templateUrl: './single-search-result.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./single-search-result.component.scss'],
+    imports: [
+        RoleRequiredDirective,
+        RouterLink,
+        TagComponent,
+        NgIf,
+        NumberPlateComponent,
+        UpperCasePipe,
+        DefaultNullOrEmpty,
+        FormatVehicleTypePipe,
+    ],
 })
 export class SingleSearchResultComponent {
 	readonly searchResult = input.required<TechRecordSearchSchema>();

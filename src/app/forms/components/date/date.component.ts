@@ -10,13 +10,18 @@ import {
 	output,
 	viewChild,
 } from '@angular/core';
-import { AbstractControlDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractControlDirective, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { ValidatorNames } from '@models/validators.enum';
 import { BehaviorSubject, Observable, Subscription, combineLatest } from 'rxjs';
 import validateDate from 'validate-govuk-date';
 import { DateValidators } from '../../validators/date/date.validators';
 import { BaseControlComponent } from '../base-control/base-control.component';
+import { NgIf, NgFor, NgClass } from '@angular/common';
+import { TagComponent } from '../../../components/tag/tag.component';
+import { FieldErrorMessageComponent } from '../field-error-message/field-error-message.component';
+import { NumberOnlyDirective } from '../../../directives/app-number-only/app-number-only.directive';
+import { DateFocusNextDirective } from '../../../directives/date-focus-next/date-focus-next.directive';
 
 type Segments = {
 	day: Observable<number | undefined>;
@@ -26,16 +31,25 @@ type Segments = {
 	minute?: Observable<number | undefined | string>;
 };
 @Component({
-	selector: 'app-date',
-	templateUrl: './date.component.html',
-	providers: [
-		{
-			provide: NG_VALUE_ACCESSOR,
-			useExisting: DateComponent,
-			multi: true,
-		},
-	],
-	standalone: false,
+    selector: 'app-date',
+    templateUrl: './date.component.html',
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: DateComponent,
+            multi: true,
+        },
+    ],
+    imports: [
+        NgIf,
+        NgFor,
+        TagComponent,
+        FieldErrorMessageComponent,
+        FormsModule,
+        NumberOnlyDirective,
+        DateFocusNextDirective,
+        NgClass,
+    ],
 })
 export class DateComponent extends BaseControlComponent implements OnInit, OnDestroy, AfterContentInit {
 	readonly displayTime = input(false);

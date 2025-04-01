@@ -1,14 +1,6 @@
 import { updateVehicleConfiguration } from '@/src/app/store/technical-records';
 import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
-import {
-	AbstractControl,
-	ControlContainer,
-	FormBuilder,
-	FormControl,
-	FormGroup,
-	ValidationErrors,
-	ValidatorFn,
-} from '@angular/forms';
+import { AbstractControl, ControlContainer, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TagType } from '@components/tag/tag.component';
 import { VehicleClassDescription } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/vehicleClassDescription.enum.js';
 import { FuelPropulsionSystem } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/hgv/complete';
@@ -46,14 +38,30 @@ import { Store } from '@ngrx/store';
 import { FormNodeWidth, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { ReplaySubject, takeUntil } from 'rxjs';
+import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { GovukFormGroupInputComponent } from '../../../components/govuk-form-group-input/govuk-form-group-input.component';
+import { GovukFormGroupDateComponent } from '../../../components/govuk-form-group-date/govuk-form-group-date.component';
+import { GovukFormGroupSelectComponent } from '../../../components/govuk-form-group-select/govuk-form-group-select.component';
+import { GovukFormGroupRadioComponent } from '../../../components/govuk-form-group-radio/govuk-form-group-radio.component';
+import { GovukCheckboxGroupComponent } from '../../../components/govuk-checkbox-group/govuk-checkbox-group.component';
 
 type VehicleSectionForm = Partial<Record<keyof TechRecordType<'hgv' | 'car' | 'psv' | 'lgv' | 'trl'>, FormControl>>;
 
 @Component({
-	selector: 'app-vehicle-section-edit',
-	templateUrl: './vehicle-section-edit.component.html',
-	styleUrls: ['./vehicle-section-edit.component.scss'],
-	standalone: false,
+    selector: 'app-vehicle-section-edit',
+    templateUrl: './vehicle-section-edit.component.html',
+    styleUrls: ['./vehicle-section-edit.component.scss'],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NgIf,
+        GovukFormGroupInputComponent,
+        GovukFormGroupDateComponent,
+        GovukFormGroupSelectComponent,
+        GovukFormGroupRadioComponent,
+        NgTemplateOutlet,
+        GovukCheckboxGroupComponent,
+    ],
 })
 export class VehicleSectionEditComponent implements OnInit, OnDestroy {
 	readonly CouplingTypeOptions = CouplingTypeOptions;

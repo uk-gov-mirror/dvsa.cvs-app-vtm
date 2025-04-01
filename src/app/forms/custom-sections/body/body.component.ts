@@ -38,12 +38,20 @@ import {
 	take,
 	takeUntil,
 } from 'rxjs';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { SwitchableInputComponent } from '../../components/switchable-input/switchable-input.component';
+import { TrimWhitespaceDirective } from '../../../directives/app-trim-whitespace/app-trim-whitespace.directive';
 
 @Component({
-	selector: 'app-body',
-	templateUrl: './body.component.html',
-	styleUrls: ['./body.component.scss'],
-	standalone: false,
+    selector: 'app-body',
+    templateUrl: './body.component.html',
+    styleUrls: ['./body.component.scss'],
+    imports: [
+        NgIf,
+        SwitchableInputComponent,
+        TrimWhitespaceDirective,
+        AsyncPipe,
+    ],
 })
 export class BodyComponent implements OnInit, OnChanges, OnDestroy {
 	readonly techRecord = input.required<V3TechRecordModel>();

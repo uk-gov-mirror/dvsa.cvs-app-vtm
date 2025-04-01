@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute, Router, provideRouter } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { ApprovalType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalType.enum.js';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
@@ -44,9 +43,9 @@ describe('TechRecordGenerateLetterComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [GenerateLetterComponent],
 			providers: [
 				GlobalErrorService,
+				provideRouter([]),
 				provideMockActions(() => actions$),
 				provideMockStore({ initialState: initialAppState }),
 				{ provide: ActivatedRoute, useValue: { params: of([{ id: 1 }]) } },
@@ -60,7 +59,7 @@ describe('TechRecordGenerateLetterComponent', () => {
 				},
 			],
 			imports: [
-				RouterTestingModule,
+				GenerateLetterComponent,
 				SharedModule,
 				ReactiveFormsModule,
 				DynamicFormsModule,

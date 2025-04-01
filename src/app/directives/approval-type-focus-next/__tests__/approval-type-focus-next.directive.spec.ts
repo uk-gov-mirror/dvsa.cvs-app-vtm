@@ -8,7 +8,7 @@ import { ApprovalTypeFocusNextDirective } from '../approval-type-focus-next.dire
     <input id="first" [characterLimit]="20" appFocusNextApprovalType="next" />
     <input id='next' />
   `,
-	standalone: false,
+	imports: [ApprovalTypeFocusNextDirective],
 })
 class TestComponent {}
 
@@ -18,8 +18,7 @@ describe('ApprovalTypeFocusNext', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [ApprovalTypeFocusNextDirective],
-			declarations: [TestComponent],
+			imports: [TestComponent],
 			providers: [TemplateRef],
 		}).compileComponents();
 

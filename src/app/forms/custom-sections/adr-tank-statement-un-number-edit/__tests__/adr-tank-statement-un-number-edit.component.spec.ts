@@ -23,8 +23,7 @@ describe('AdrTankStatementUnNumberEditComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [DynamicFormsModule, SharedModule],
-			declarations: [AdrTankStatementUnNumberEditComponent],
+			imports: [DynamicFormsModule, SharedModule, AdrTankStatementUnNumberEditComponent],
 			providers: [
 				FormBuilder,
 				provideMockStore({ initialState: initialAppState }),

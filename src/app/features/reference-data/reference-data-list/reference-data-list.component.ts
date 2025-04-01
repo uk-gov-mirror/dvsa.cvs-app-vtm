@@ -17,12 +17,30 @@ import {
 	selectReferenceDataByResourceKey,
 } from '@store/reference-data';
 import { Observable, Subject, catchError, filter, map, of, switchMap, take } from 'rxjs';
+import { RoleRequiredDirective } from '../../../directives/app-role-required/app-role-required.directive';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SelectComponent } from '../../../forms/components/select/select.component';
+import { ButtonGroupComponent } from '../../../components/button-group/button-group.component';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { PaginationComponent } from '../../../components/pagination/pagination.component';
 
 @Component({
-	selector: 'app-reference-data-list',
-	templateUrl: './reference-data-list.component.html',
-	styleUrls: ['./reference-data-list.component.scss'],
-	standalone: false,
+    selector: 'app-reference-data-list',
+    templateUrl: './reference-data-list.component.html',
+    styleUrls: ['./reference-data-list.component.scss'],
+    imports: [
+        RoleRequiredDirective,
+        NgIf,
+        FormsModule,
+        ReactiveFormsModule,
+        SelectComponent,
+        ButtonGroupComponent,
+        ButtonComponent,
+        NgFor,
+        PaginationComponent,
+        AsyncPipe,
+    ],
 })
 export class ReferenceDataListComponent implements OnInit, OnDestroy {
 	type!: ReferenceDataResourceType;

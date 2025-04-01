@@ -5,12 +5,14 @@ import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/
 import { Store } from '@ngrx/store';
 import { editingTechRecord, techRecord } from '@store/technical-records';
 import { isEqual } from 'lodash';
+import { NgIf } from '@angular/common';
+import { DefaultNullOrEmpty } from '../../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
 
 @Component({
-	standalone: false,
-	selector: 'app-trl-purchasers-section-summary',
-	templateUrl: './trl-purchasers-section-summary.component.html',
-	styleUrls: ['./trl-purchasers-section-summary.component.scss'],
+    selector: 'app-trl-purchasers-section-summary',
+    templateUrl: './trl-purchasers-section-summary.component.html',
+    styleUrls: ['./trl-purchasers-section-summary.component.scss'],
+    imports: [NgIf, DefaultNullOrEmpty],
 })
 export class TRLPurchasersSectionSummaryComponent {
 	store = inject(Store);

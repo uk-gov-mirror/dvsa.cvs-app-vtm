@@ -12,26 +12,23 @@ import { ServerErrorComponent } from './components/server-error/server-error.com
 import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
-	declarations: [
-		FooterComponent,
-		HeaderComponent,
-		GlobalErrorComponent,
-		GlobalWarningComponent,
-		SpinnerComponent,
-		BreadcrumbsComponent,
-		PageNotFoundComponent,
-		ServerErrorComponent,
-		PhaseBannerComponent,
-	],
-	imports: [CommonModule, RouterModule],
-	exports: [
-		FooterComponent,
-		HeaderComponent,
-		GlobalErrorComponent,
-		GlobalWarningComponent,
-		SpinnerComponent,
-		BreadcrumbsComponent,
-		PhaseBannerComponent,
-	],
+    imports: [CommonModule, RouterModule, FooterComponent,
+        HeaderComponent,
+        GlobalErrorComponent,
+        GlobalWarningComponent,
+        SpinnerComponent,
+        BreadcrumbsComponent,
+        PageNotFoundComponent,
+        ServerErrorComponent,
+        PhaseBannerComponent],
+    exports: [
+        FooterComponent,
+        HeaderComponent,
+        GlobalErrorComponent,
+        GlobalWarningComponent,
+        SpinnerComponent,
+        BreadcrumbsComponent,
+        PhaseBannerComponent,
+    ],
 })
 export class CoreModule {}

@@ -25,8 +25,7 @@ describe('AdrSectionEditComponent', () => {
 		formGroupDirective.form = new FormGroup({});
 
 		await TestBed.configureTestingModule({
-			declarations: [AdrSectionEditComponent],
-			imports: [DynamicFormsModule, FormsModule, ReactiveFormsModule],
+			imports: [DynamicFormsModule, FormsModule, ReactiveFormsModule, AdrSectionEditComponent],
 			providers: [
 				provideMockStore({ initialState: initialAppState }),
 				provideHttpClient(),

@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute, Router, provideRouter } from '@angular/router';
 import { DynamicFormsModule } from '@forms/dynamic-forms.module';
 import { TestAmendReasonComponent } from '../test-amend-reason.component';
 
@@ -13,8 +12,8 @@ describe('TestAmendReasonComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [TestAmendReasonComponent],
-			imports: [RouterTestingModule, DynamicFormsModule, ReactiveFormsModule],
+			imports: [TestAmendReasonComponent, DynamicFormsModule, ReactiveFormsModule],
+			providers: [provideRouter([])],
 		}).compileComponents();
 
 		router = TestBed.inject(Router);

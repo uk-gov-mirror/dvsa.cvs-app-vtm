@@ -5,12 +5,18 @@ import { VehicleTypes } from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
 import { editingTechRecord, techRecord } from '@store/technical-records';
 import { isEqual } from 'lodash';
+import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { DefaultNullOrEmpty } from '../../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
 
 @Component({
-	selector: 'app-body-section-summary',
-	templateUrl: './body-section-summary.component.html',
-	styleUrls: ['./body-section-summary.component.scss'],
-	standalone: false,
+    selector: 'app-body-section-summary',
+    templateUrl: './body-section-summary.component.html',
+    styleUrls: ['./body-section-summary.component.scss'],
+    imports: [
+        NgIf,
+        NgTemplateOutlet,
+        DefaultNullOrEmpty,
+    ],
 })
 export class BodySectionSummaryComponent {
 	protected readonly VehicleTypes = VehicleTypes;

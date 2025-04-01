@@ -13,12 +13,18 @@ import {
 	FormNodeWidth,
 } from '@services/dynamic-forms/dynamic-form.types';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
+import { NgIf, NgFor } from '@angular/common';
+import { SwitchableInputComponent } from '../../components/switchable-input/switchable-input.component';
 
 @Component({
-	selector: 'app-dimensions',
-	templateUrl: './dimensions.component.html',
-	styleUrls: ['./dimensions.component.scss'],
-	standalone: false,
+    selector: 'app-dimensions',
+    templateUrl: './dimensions.component.html',
+    styleUrls: ['./dimensions.component.scss'],
+    imports: [
+        NgIf,
+        SwitchableInputComponent,
+        NgFor,
+    ],
 })
 export class DimensionsComponent implements OnInit, OnChanges, OnDestroy {
 	readonly techRecord = input.required<TechRecordType<'trl'> | TechRecordType<'psv'> | TechRecordType<'hgv'>>();

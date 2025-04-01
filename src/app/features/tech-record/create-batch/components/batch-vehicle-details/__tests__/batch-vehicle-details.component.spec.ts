@@ -1,7 +1,8 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { DynamicFormsModule } from '@forms/dynamic-forms.module';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -21,11 +22,13 @@ describe('BatchVehicleDetailsComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [BatchVehicleDetailsComponent],
-			imports: [DynamicFormsModule, ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule, SharedModule],
+			imports: [DynamicFormsModule, ReactiveFormsModule, BatchVehicleDetailsComponent, SharedModule],
 			providers: [
 				FormBuilder,
 				{ provide: GlobalErrorService, useValue: mockGlobalErrorService },
+				provideRouter([]),
+				provideHttpClient(),
+				provideHttpClientTesting(),
 				provideMockStore({ initialState: initialAppState }),
 			],
 		}).compileComponents();

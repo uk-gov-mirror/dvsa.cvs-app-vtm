@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Validators } from '@angular/forms';
+import { Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb';
@@ -15,11 +15,20 @@ import {
 	promoteTechRecordSuccess,
 } from '@store/technical-records';
 import { Subject, takeUntil } from 'rxjs';
+import { TechRecordTitleComponent } from '../tech-record-title/tech-record-title.component';
+import { TextAreaComponent } from '../../../../forms/components/text-area/text-area.component';
+import { ButtonComponent } from '../../../../components/button/button.component';
 
 @Component({
-	selector: 'app-tech-record-change-status',
-	templateUrl: './tech-record-change-status.component.html',
-	standalone: false,
+    selector: 'app-tech-record-change-status',
+    templateUrl: './tech-record-change-status.component.html',
+    imports: [
+        TechRecordTitleComponent,
+        FormsModule,
+        ReactiveFormsModule,
+        TextAreaComponent,
+        ButtonComponent,
+    ],
 })
 export class TechRecordChangeStatusComponent implements OnInit, OnDestroy {
 	techRecord: TechRecordType<'get'> | undefined;

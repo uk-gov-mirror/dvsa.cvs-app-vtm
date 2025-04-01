@@ -13,12 +13,20 @@ import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/
 import { Store } from '@ngrx/store';
 import { editingTechRecord, techRecord } from '@store/technical-records';
 import { isEqual } from 'lodash';
+import { NgIf, DatePipe } from '@angular/common';
+import { DefaultNullOrEmpty } from '../../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
+import { MultiOptionPipe } from '../../../../pipes/multi-option/multi-option.pipe';
 
 @Component({
-	selector: 'app-vehicle-section-summary',
-	templateUrl: './vehicle-section-summary.component.html',
-	styleUrls: ['./vehicle-section-summary.component.scss'],
-	standalone: false,
+    selector: 'app-vehicle-section-summary',
+    templateUrl: './vehicle-section-summary.component.html',
+    styleUrls: ['./vehicle-section-summary.component.scss'],
+    imports: [
+        NgIf,
+        DatePipe,
+        DefaultNullOrEmpty,
+        MultiOptionPipe,
+    ],
 })
 export class VehicleSectionSummaryComponent {
 	readonly VehicleTypes = VehicleTypes;

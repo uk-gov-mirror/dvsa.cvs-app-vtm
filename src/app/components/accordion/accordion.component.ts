@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, input, model } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { addSectionState, removeSectionState } from '@store/technical-records';
+import { NgClass } from '@angular/common';
 
 @Component({
-	selector: 'app-accordion[id]',
-	templateUrl: './accordion.component.html',
-	styleUrls: ['./accordion.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: false,
+    selector: 'app-accordion[id]',
+    templateUrl: './accordion.component.html',
+    styleUrls: ['./accordion.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [NgClass],
 })
 export class AccordionComponent {
 	readonly title = input<string | undefined>('');

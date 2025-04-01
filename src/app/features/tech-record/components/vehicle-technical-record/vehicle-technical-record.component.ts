@@ -1,4 +1,4 @@
-import { ViewportScroller } from '@angular/common';
+import { ViewportScroller, NgIf, AsyncPipe } from '@angular/common';
 import { Component, OnDestroy, OnInit, input, viewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
@@ -24,12 +24,26 @@ import { clearScrollPosition, updateTechRecordSuccess } from '@store/technical-r
 import { TechnicalRecordServiceState } from '@store/technical-records/technical-record-service.reducer';
 import { Observable, Subject, take, takeUntil } from 'rxjs';
 import { TechRecordSummaryComponent } from '../tech-record-summary/tech-record-summary.component';
+import { TechRecordTitleComponent } from '../tech-record-title/tech-record-title.component';
+import { RoleRequiredDirective } from '../../../../directives/app-role-required/app-role-required.directive';
+import { EditTechRecordButtonComponent } from '../edit-tech-record-button/edit-tech-record-button.component';
+import { TechRecordHistoryComponent } from '../tech-record-history/tech-record-history.component';
+import { TestRecordSummaryComponent } from '../test-record-summary/test-record-summary.component';
 
 @Component({
-	selector: 'app-vehicle-technical-record',
-	templateUrl: './vehicle-technical-record.component.html',
-	styleUrls: ['./vehicle-technical-record.component.scss'],
-	standalone: false,
+    selector: 'app-vehicle-technical-record',
+    templateUrl: './vehicle-technical-record.component.html',
+    styleUrls: ['./vehicle-technical-record.component.scss'],
+    imports: [
+        NgIf,
+        TechRecordTitleComponent,
+        RoleRequiredDirective,
+        EditTechRecordButtonComponent,
+        TechRecordHistoryComponent,
+        TestRecordSummaryComponent,
+        TechRecordSummaryComponent,
+        AsyncPipe,
+    ],
 })
 export class VehicleTechnicalRecordComponent implements OnInit, OnDestroy {
 	readonly summary = viewChild.required(TechRecordSummaryComponent);

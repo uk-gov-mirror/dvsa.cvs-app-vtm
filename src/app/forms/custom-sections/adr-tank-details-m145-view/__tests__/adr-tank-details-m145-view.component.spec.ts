@@ -18,8 +18,7 @@ describe('AdrTankDetailsM145ViewComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [AdrTankDetailsM145ViewComponent],
-			imports: [DynamicFormsModule, FormsModule, ReactiveFormsModule],
+			imports: [DynamicFormsModule, FormsModule, ReactiveFormsModule, AdrTankDetailsM145ViewComponent],
 			providers: [
 				provideMockStore<State>({ initialState: initialAppState }),
 				{ provide: NG_VALUE_ACCESSOR, useExisting: AdrTankDetailsM145ViewComponent, multi: true },

@@ -10,7 +10,6 @@ describe('CustomDefectComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [],
 			imports: [SharedModule, DynamicFormsModule],
 		}).compileComponents();
 	});

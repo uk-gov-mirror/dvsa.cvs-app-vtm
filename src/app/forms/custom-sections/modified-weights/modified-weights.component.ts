@@ -8,12 +8,17 @@ import { vehicleTemplateMap } from '@forms/utils/tech-record-constants';
 import { VehicleTypes } from '@models/vehicle-tech-record.model';
 import { FormNode } from '@services/dynamic-forms/dynamic-form.types';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
+import { NgIf, NgFor, KeyValuePipe } from '@angular/common';
 
 @Component({
-	selector: 'app-modified-weights',
-	templateUrl: './modified-weights.component.html',
-	styleUrls: ['./modified-weights.component.scss'],
-	standalone: false,
+    selector: 'app-modified-weights',
+    templateUrl: './modified-weights.component.html',
+    styleUrls: ['./modified-weights.component.scss'],
+    imports: [
+        NgIf,
+        NgFor,
+        KeyValuePipe,
+    ],
 })
 export class ModifiedWeightsComponent implements OnInit {
 	readonly vehicleType = input.required<VehicleTypes>();

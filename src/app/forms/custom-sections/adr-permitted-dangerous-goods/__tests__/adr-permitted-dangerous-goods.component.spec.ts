@@ -19,8 +19,7 @@ describe('AdrPermittedDangerousGoodsComponent', () => {
 	});
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [AdrPermittedDangerousGoodsComponent],
-			imports: [SharedModule],
+			imports: [SharedModule, AdrPermittedDangerousGoodsComponent],
 			providers: [
 				provideMockStore<State>({ initialState: initialAppState }),
 				{ provide: NgControl, useValue: { control } },

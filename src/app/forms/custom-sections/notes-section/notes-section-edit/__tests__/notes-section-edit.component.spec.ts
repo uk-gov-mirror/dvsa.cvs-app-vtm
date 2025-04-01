@@ -37,8 +37,7 @@ describe('NotesSectionEditComponent', () => {
 		const mockTechRecord = mockVehicleTechnicalRecord('hgv');
 
 		await TestBed.configureTestingModule({
-			declarations: [NotesSectionEditComponent],
-			imports: [DynamicFormsModule, FormsModule, ReactiveFormsModule],
+			imports: [DynamicFormsModule, FormsModule, ReactiveFormsModule, NotesSectionEditComponent],
 			providers: [
 				provideMockStore({ initialState: initialAppState }),
 				provideHttpClient(),

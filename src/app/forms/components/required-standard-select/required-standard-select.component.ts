@@ -10,12 +10,19 @@ import { Store } from '@ngrx/store';
 import { RequiredStandardState } from '@store/required-standards/required-standards.reducer';
 import { getRequiredStandardsState } from '@store/required-standards/required-standards.selector';
 import { Subject, takeUntil } from 'rxjs';
+import { NgIf, NgClass, NgFor } from '@angular/common';
+import { DefaultNullOrEmpty } from '../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
 
 @Component({
-	selector: 'app-required-standard-select',
-	templateUrl: './required-standard-select.component.html',
-	styleUrls: ['./required-standard-select.component.scss'],
-	standalone: false,
+    selector: 'app-required-standard-select',
+    templateUrl: './required-standard-select.component.html',
+    styleUrls: ['./required-standard-select.component.scss'],
+    imports: [
+        NgIf,
+        NgClass,
+        NgFor,
+        DefaultNullOrEmpty,
+    ],
 })
 export class RequiredStandardSelectComponent implements OnInit, OnDestroy {
 	requiredStandards?: RequiredStandardTaxonomySection[];

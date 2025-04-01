@@ -1,12 +1,13 @@
 import { APP_BASE_HREF } from '@angular/common';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 import { DynamicFormsModule } from '@forms/dynamic-forms.module';
 import { Roles } from '@models/roles.enum';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Action, StoreModule } from '@ngrx/store';
+import { Action } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { UserService } from '@services/user-service/user-service';
 import { SharedModule } from '@shared/shared.module';
@@ -24,16 +25,17 @@ describe('TechRecordUnarchiveComponent', () => {
 		actions$ = new ReplaySubject<Action>();
 
 		await TestBed.configureTestingModule({
-			declarations: [TechRecordUnarchiveComponent, TechRecordTitleComponent],
 			imports: [
+				TechRecordUnarchiveComponent,
+				TechRecordTitleComponent,
 				DynamicFormsModule,
-				HttpClientTestingModule,
 				ReactiveFormsModule,
-				RouterTestingModule,
 				SharedModule,
-				StoreModule.forRoot({}),
 			],
 			providers: [
+				provideRouter([]),
+				provideHttpClient(),
+				provideHttpClientTesting(),
 				provideMockActions(() => actions$),
 				provideMockStore({ initialState: initialAppState }),
 				{ provide: APP_BASE_HREF, useValue: '/' },

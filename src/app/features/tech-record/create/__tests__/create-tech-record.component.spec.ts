@@ -1,8 +1,8 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute, Router, provideRouter } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { DynamicFormsModule } from '@forms/dynamic-forms.module';
 import { SEARCH_TYPES } from '@models/search-types-enum';
@@ -24,10 +24,12 @@ describe('CreateNewVehicleRecordComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [CreateTechRecordComponent],
-			imports: [DynamicFormsModule, HttpClientTestingModule, ReactiveFormsModule, RouterTestingModule, SharedModule],
+			imports: [DynamicFormsModule, CreateTechRecordComponent, ReactiveFormsModule, SharedModule],
 			providers: [
 				GlobalErrorService,
+				provideRouter([]),
+				provideHttpClient(),
+				provideHttpClientTesting(),
 				provideMockStore({ initialState: initialAppState }),
 				{ provide: ActivatedRoute, useValue: { params: of([{ id: 1 }]) } },
 			],

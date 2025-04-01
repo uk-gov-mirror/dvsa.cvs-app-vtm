@@ -1,8 +1,8 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute, Router, provideRouter } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { DynamicFormsModule } from '@forms/dynamic-forms.module';
 import { V3TechRecordModel } from '@models/vehicle-tech-record.model';
@@ -34,9 +34,11 @@ describe('TechRecordGeneratePlateComponent', () => {
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			declarations: [GeneratePlateComponent],
 			providers: [
 				GlobalErrorService,
+				provideRouter([]),
+				provideHttpClient(),
+				provideHttpClientTesting(),
 				provideMockActions(() => actions$),
 				provideMockStore({ initialState: initialAppState }),
 				{ provide: ActivatedRoute, useValue: { params: of([{ id: 1 }]) } },
@@ -49,7 +51,7 @@ describe('TechRecordGeneratePlateComponent', () => {
 					},
 				},
 			],
-			imports: [RouterTestingModule, SharedModule, ReactiveFormsModule, DynamicFormsModule, HttpClientTestingModule],
+			imports: [GeneratePlateComponent, SharedModule, ReactiveFormsModule, DynamicFormsModule],
 		}).compileComponents();
 	});
 

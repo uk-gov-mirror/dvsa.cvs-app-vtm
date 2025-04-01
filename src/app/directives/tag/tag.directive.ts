@@ -1,10 +1,7 @@
 import { Directive, ElementRef, OnDestroy, OnInit, inject } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 
-@Directive({
-	selector: '[tag]',
-	standalone: false,
-})
+@Directive({ selector: '[tag]', })
 export class TagDirective implements OnInit, OnDestroy {
 	elementRef = inject<ElementRef<HTMLInputElement>>(ElementRef);
 	destroy$ = new ReplaySubject<boolean>(1);

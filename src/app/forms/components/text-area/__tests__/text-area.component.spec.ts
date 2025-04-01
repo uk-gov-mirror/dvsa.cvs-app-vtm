@@ -9,8 +9,7 @@ import { TextAreaComponent } from '../text-area.component';
 	template: `<form [formGroup]="form">
     <app-text-area name="foo" formControlName="foo"></app-text-area>
   </form> `,
-	styles: [],
-	standalone: false,
+	imports: [TextAreaComponent],
 })
 class HostComponent {
 	form = new FormGroup({
@@ -24,7 +23,7 @@ describe('TextAreaComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [TextAreaComponent],
+			imports: [HostComponent],
 		}).compileComponents();
 	});
 

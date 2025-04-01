@@ -1,7 +1,7 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute, Router, provideRouter } from '@angular/router';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { DynamicFormsModule } from '@forms/dynamic-forms.module';
@@ -52,15 +52,16 @@ describe('TechRecordSearchTyresComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [TechRecordSearchTyresComponent],
 			imports: [
+				TechRecordSearchTyresComponent,
 				DynamicFormsModule,
-				RouterTestingModule,
 				SharedModule,
-				HttpClientTestingModule,
 				FixNavigationTriggeredOutsideAngularZoneNgModule,
 			],
 			providers: [
+				provideRouter([]),
+				provideHttpClient(),
+				provideHttpClientTesting(),
 				provideMockActions(() => actions$),
 				provideMockStore({ initialState: initialAppState }),
 				{ provide: ReferenceDataService, useValue: mockReferenceDataService },

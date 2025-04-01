@@ -23,7 +23,7 @@ import { RoleRequiredDirective } from '../app-role-required.directive';
       <h1>This is an error case</h1>
     </div>
   `,
-	standalone: false,
+	imports: [RoleRequiredDirective],
 })
 class TestComponent {
 	public get Roles() {
@@ -37,7 +37,7 @@ describe('RoleRequiredDirective', () => {
 
 	beforeEach(() => {
 		fixture = TestBed.configureTestingModule({
-			declarations: [RoleRequiredDirective, TestComponent],
+			imports: [TestComponent],
 			providers: [
 				provideMockStore({ initialState: initialAppState }),
 				{ provide: UserService, useValue: { roles$: of(userRoles) } },
@@ -68,7 +68,7 @@ describe('RoleRequiredDirective with multiple optional roles', () => {
 		'should show the element when either role is present',
 		(user) => {
 			const fixture: ComponentFixture<TestComponent> = TestBed.configureTestingModule({
-				declarations: [RoleRequiredDirective, TestComponent],
+				imports: [TestComponent],
 				providers: [
 					provideMockStore({ initialState: initialAppState }),
 					{ provide: UserService, useValue: { roles$: of(user) } },
@@ -86,7 +86,7 @@ describe('RoleRequiredDirective with multiple optional roles', () => {
 describe('RoleRequiredDirective without roles', () => {
 	it('should hide the element when no roles are available', () => {
 		const fixture: ComponentFixture<TestComponent> = TestBed.configureTestingModule({
-			declarations: [RoleRequiredDirective, TestComponent],
+			imports: [TestComponent],
 			providers: [
 				provideMockStore({ initialState: initialAppState }),
 				{ provide: UserService, useValue: { roles$: of(null) } },

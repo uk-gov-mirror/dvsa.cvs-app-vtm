@@ -1,9 +1,9 @@
 import { ViewportScroller } from '@angular/common';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { Router, provideRouter } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { ADRCertificateDetails } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/hgv/complete';
 import { createMockHgv } from '@mocks/hgv-record.mock';
@@ -21,9 +21,13 @@ describe('TechRecordAdrCertificateHistoryComponent', () => {
 	let viewportScroller: ViewportScroller;
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [AdrCertificateHistoryComponent],
-			providers: [provideMockStore({ initialState: initialAppState })],
-			imports: [RouterTestingModule, HttpClientTestingModule],
+			providers: [
+				provideRouter([]),
+				provideHttpClient(),
+				provideHttpClientTesting(),
+				provideMockStore({ initialState: initialAppState }),
+			],
+			imports: [AdrCertificateHistoryComponent],
 			schemas: [NO_ERRORS_SCHEMA],
 		}).compileComponents();
 	});
@@ -31,7 +35,7 @@ describe('TechRecordAdrCertificateHistoryComponent', () => {
 		fixture = TestBed.createComponent(AdrCertificateHistoryComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
-		component.currentTechRecord = createMockHgv(0);
+		fixture.componentRef.setInput('techRecord', createMockHgv(0));
 		globalErrorService = TestBed.inject(GlobalErrorService);
 		adrService = TestBed.inject(AdrService);
 		router = TestBed.inject(Router);
@@ -46,15 +50,15 @@ describe('TechRecordAdrCertificateHistoryComponent', () => {
 			expect(component.showTable()).toBe(false);
 		});
 		it('should return false if numberOfADRCertificates returns 0', () => {
-			component.currentTechRecord = createMockHgv(0);
+			const mockTechRecord = createMockHgv(0);
+			mockTechRecord.techRecord_adrPassCertificateDetails = [];
+			fixture.componentRef.setInput('techRecord', mockTechRecord);
 			component.isEditing = false;
-			component.currentTechRecord.techRecord_adrPassCertificateDetails = [];
 			expect(component.showTable()).toBe(false);
 		});
 		it('should return true if numberOfADRCertificates returns > 0', () => {
-			component.currentTechRecord = createMockHgv(0);
-			component.isEditing = false;
-			component.currentTechRecord.techRecord_adrPassCertificateDetails = [
+			const mockTechRecord = createMockHgv(0);
+			mockTechRecord.techRecord_adrPassCertificateDetails = [
 				{
 					createdByName: '',
 					certificateType: 'PASS',
@@ -62,6 +66,8 @@ describe('TechRecordAdrCertificateHistoryComponent', () => {
 					certificateId: '',
 				} as unknown as ADRCertificateDetails,
 			];
+			fixture.componentRef.setInput('techRecord', mockTechRecord);
+
 			expect(component.showTable()).toBe(true);
 		});
 	});
@@ -69,8 +75,9 @@ describe('TechRecordAdrCertificateHistoryComponent', () => {
 	describe('validateADRDetailsAndNavigate', () => {
 		it('should navigate when carriesDangerousGoodsSpy returns true', () => {
 			fixture.ngZone?.run(() => {
-				component.currentTechRecord = createMockHgv(0);
-				component.currentTechRecord.techRecord_adrDetails_dangerousGoods = true;
+				const mockTechRecord = createMockHgv(0);
+				mockTechRecord.techRecord_adrDetails_dangerousGoods = true;
+				fixture.componentRef.setInput('techRecord', mockTechRecord);
 				const clearErrorsSpy = jest.spyOn(globalErrorService, 'clearErrors');
 				const carriesDangerousGoodsSpy = jest.spyOn(adrService, 'carriesDangerousGoods');
 				const routerSpy = jest.spyOn(router, 'navigate');
@@ -81,8 +88,9 @@ describe('TechRecordAdrCertificateHistoryComponent', () => {
 			});
 		});
 		it('should not navigate when carriesDangerousGoods returns false', () => {
-			component.currentTechRecord = createMockHgv(0);
-			component.currentTechRecord.techRecord_adrDetails_dangerousGoods = false;
+			const mockTechRecord = createMockHgv(0);
+			mockTechRecord.techRecord_adrDetails_dangerousGoods = false;
+			fixture.componentRef.setInput('techRecord', mockTechRecord);
 			const clearErrorsSpy = jest.spyOn(globalErrorService, 'clearErrors');
 			const addErrorSpy = jest.spyOn(globalErrorService, 'addError');
 			const carriesDangerousGoodsSpy = jest.spyOn(adrService, 'carriesDangerousGoods');

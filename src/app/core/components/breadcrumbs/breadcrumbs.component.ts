@@ -1,12 +1,19 @@
 import { Component } from '@angular/core';
 import { RouterService } from '@services/router/router.service';
 import { distinctUntilChanged, map } from 'rxjs';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
-	selector: 'app-breadcrumbs',
-	templateUrl: './breadcrumbs.component.html',
-	styleUrls: ['./breadcrumbs.component.scss'],
-	standalone: false,
+    selector: 'app-breadcrumbs',
+    templateUrl: './breadcrumbs.component.html',
+    styleUrls: ['./breadcrumbs.component.scss'],
+    imports: [
+        NgIf,
+        RouterLink,
+        NgFor,
+        AsyncPipe,
+    ],
 })
 export class BreadcrumbsComponent {
 	constructor(private routerService: RouterService) {}

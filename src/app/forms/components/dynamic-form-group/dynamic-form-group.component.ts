@@ -8,7 +8,7 @@ import {
 	input,
 	output,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DynamicFormService } from '@services/dynamic-forms/dynamic-form.service';
 import {
 	CustomFormArray,
@@ -18,13 +18,31 @@ import {
 	FormNodeViewTypes,
 } from '@services/dynamic-forms/dynamic-form.types';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
+import { NgTemplateOutlet, NgIf, NgSwitch, NgSwitchCase, NgFor, NgClass } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { ViewListItemComponent } from '../view-list-item/view-list-item.component';
+import { DynamicFormFieldComponent } from '../dynamic-form-field/dynamic-form-field.component';
+import { ViewCombinationComponent } from '../view-combination/view-combination.component';
 
 @Component({
-	selector: 'app-dynamic-form-group',
-	templateUrl: './dynamic-form-group.component.html',
-	styleUrls: ['./dynamic-form-group.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: false,
+    selector: 'app-dynamic-form-group',
+    templateUrl: './dynamic-form-group.component.html',
+    styleUrls: ['./dynamic-form-group.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        NgTemplateOutlet,
+        NgIf,
+        NgSwitch,
+        NgSwitchCase,
+        RouterLink,
+        NgFor,
+        FormsModule,
+        ReactiveFormsModule,
+        ViewListItemComponent,
+        DynamicFormFieldComponent,
+        NgClass,
+        ViewCombinationComponent,
+    ],
 })
 export class DynamicFormGroupComponent implements OnChanges, OnInit, OnDestroy {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

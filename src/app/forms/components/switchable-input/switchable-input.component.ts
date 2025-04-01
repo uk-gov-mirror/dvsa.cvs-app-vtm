@@ -1,13 +1,48 @@
 import { Component, OnInit, input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MultiOptions } from '@models/options.model';
 import { FormNodeEditTypes, FormNodeWidth } from '@services/dynamic-forms/dynamic-form.types';
 import { Observable, of } from 'rxjs';
+import { NgIf, NgSwitch, NgSwitchCase, NgTemplateOutlet, NgSwitchDefault } from '@angular/common';
+import { AutocompleteComponent } from '../autocomplete/autocomplete.component';
+import { PrefixDirective } from '../../../directives/prefix/prefix.directive';
+import { CheckboxComponent } from '../checkbox/checkbox.component';
+import { CheckboxGroupComponent } from '../checkbox-group/checkbox-group.component';
+import { DateComponent } from '../date/date.component';
+import { ApprovalTypeInputComponent } from '../approval-type/approval-type.component';
+import { NumberInputComponent } from '../number-input/number-input.component';
+import { SuffixDirective } from '../../../directives/suffix/suffix.directive';
+import { RadioGroupComponent } from '../radio-group/radio-group.component';
+import { SelectComponent } from '../select/select.component';
+import { TextAreaComponent } from '../text-area/text-area.component';
+import { TextInputComponent } from '../text-input/text-input.component';
+import { ReadOnlyComponent } from '../read-only/read-only.component';
 
 @Component({
-	selector: 'app-switchable-input[form][type][name][isEditing]',
-	templateUrl: './switchable-input.component.html',
-	standalone: false,
+    selector: 'app-switchable-input[form][type][name][isEditing]',
+    templateUrl: './switchable-input.component.html',
+    imports: [
+        NgIf,
+        NgSwitch,
+        FormsModule,
+        ReactiveFormsModule,
+        NgSwitchCase,
+        AutocompleteComponent,
+        PrefixDirective,
+        CheckboxComponent,
+        CheckboxGroupComponent,
+        NgTemplateOutlet,
+        DateComponent,
+        ApprovalTypeInputComponent,
+        NumberInputComponent,
+        SuffixDirective,
+        RadioGroupComponent,
+        SelectComponent,
+        TextAreaComponent,
+        NgSwitchDefault,
+        TextInputComponent,
+        ReadOnlyComponent,
+    ],
 })
 export class SwitchableInputComponent implements OnInit {
 	readonly type = input.required<FormNodeEditTypes>();

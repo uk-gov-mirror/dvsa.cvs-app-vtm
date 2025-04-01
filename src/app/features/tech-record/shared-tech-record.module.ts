@@ -6,8 +6,7 @@ import { SharedModule } from '@shared/shared.module';
 import { TechRecordSummaryComponent } from './components/tech-record-summary/tech-record-summary.component';
 
 @NgModule({
-	declarations: [TechRecordSummaryComponent],
-	imports: [CommonModule, FormsModule, ReactiveFormsModule, DynamicFormsModule, SharedModule],
-	exports: [TechRecordSummaryComponent],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, DynamicFormsModule, SharedModule, TechRecordSummaryComponent],
+    exports: [TechRecordSummaryComponent],
 })
 export class SharedTechRecordsModule {}

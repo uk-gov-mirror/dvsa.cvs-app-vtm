@@ -1,18 +1,19 @@
 import { Component, OnInit, model } from '@angular/core';
 import { FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CustomFormControl, FormNode, FormNodeCombinationOptions } from '@services/dynamic-forms/dynamic-form.types';
+import { DefaultNullOrEmpty } from '../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
 
 @Component({
-	selector: '[app-view-combination]',
-	templateUrl: './view-combination.component.html',
-	providers: [
-		{
-			provide: NG_VALUE_ACCESSOR,
-			useExisting: ViewCombinationComponent,
-			multi: true,
-		},
-	],
-	standalone: false,
+    selector: '[app-view-combination]',
+    templateUrl: './view-combination.component.html',
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: ViewCombinationComponent,
+            multi: true,
+        },
+    ],
+    imports: [DefaultNullOrEmpty],
 })
 export class ViewCombinationComponent implements OnInit {
 	formNode = model<FormNode>();

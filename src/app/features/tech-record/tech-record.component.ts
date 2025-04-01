@@ -5,11 +5,19 @@ import { GlobalErrorService } from '@core/components/global-error/global-error.s
 import { Roles } from '@models/roles.enum';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { take } from 'rxjs';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { RoleRequiredDirective } from '../../directives/app-role-required/app-role-required.directive';
+import { VehicleTechnicalRecordComponent } from './components/vehicle-technical-record/vehicle-technical-record.component';
 
 @Component({
-	selector: 'app-tech-record',
-	templateUrl: './tech-record.component.html',
-	standalone: false,
+    selector: 'app-tech-record',
+    templateUrl: './tech-record.component.html',
+    imports: [
+        NgIf,
+        RoleRequiredDirective,
+        VehicleTechnicalRecordComponent,
+        AsyncPipe,
+    ],
 })
 export class TechRecordComponent implements OnInit {
 	systemNumber?: string;

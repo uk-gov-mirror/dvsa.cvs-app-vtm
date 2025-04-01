@@ -5,13 +5,25 @@ import { V3TechRecordModel } from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
 import { getBySystemNumber, selectTechRecordHistory } from '@store/technical-records';
 import { Observable, map } from 'rxjs';
+import { NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
+import { ButtonComponent } from '../../../../components/button/button.component';
+import { RouterLink } from '@angular/router';
+import { PaginationComponent } from '../../../../components/pagination/pagination.component';
 
 @Component({
-	selector: 'app-tech-record-history',
-	templateUrl: './tech-record-history.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	styleUrls: ['./tech-record-history.component.scss'],
-	standalone: false,
+    selector: 'app-tech-record-history',
+    templateUrl: './tech-record-history.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./tech-record-history.component.scss'],
+    imports: [
+        NgIf,
+        NgFor,
+        ButtonComponent,
+        RouterLink,
+        PaginationComponent,
+        AsyncPipe,
+        DatePipe,
+    ],
 })
 export class TechRecordHistoryComponent implements OnInit {
 	readonly currentTechRecord = input<V3TechRecordModel>();

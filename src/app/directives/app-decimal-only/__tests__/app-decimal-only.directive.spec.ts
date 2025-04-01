@@ -5,7 +5,7 @@ import { DecimalOnlyDirective } from '../app-decimal-only.directive';
 
 @Component({
 	template: ' <input type="number" appDecimalOnly />',
-	standalone: false,
+	imports: [DecimalOnlyDirective],
 })
 class TestComponent {}
 
@@ -15,7 +15,7 @@ describe('DecimalOnlyDirective', () => {
 
 	beforeEach(() => {
 		fixture = TestBed.configureTestingModule({
-			declarations: [DecimalOnlyDirective, TestComponent],
+			imports: [TestComponent],
 		}).createComponent(TestComponent);
 		fixture.detectChanges();
 

@@ -1,6 +1,7 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 import { TestType, resultOfTestEnum } from '@models/test-types/test-type.model';
 import { V3TechRecordModel, VehicleConfigurations, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -24,10 +25,12 @@ describe('VehicleHeaderComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [VehicleHeaderComponent],
-			imports: [SharedModule, HttpClientTestingModule, RouterTestingModule],
+			imports: [SharedModule, VehicleHeaderComponent],
 			providers: [
 				HttpService,
+				provideRouter([]),
+				provideHttpClient(),
+				provideHttpClientTesting(),
 				provideMockStore({ initialState: initialAppState }),
 				ResultOfTestService,
 				{ provide: TechnicalRecordService, useValue: mockTechnicalRecordService },

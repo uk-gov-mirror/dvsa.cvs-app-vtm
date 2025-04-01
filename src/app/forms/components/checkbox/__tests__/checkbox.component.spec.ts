@@ -9,8 +9,7 @@ import { CheckboxComponent } from '../checkbox.component';
 	template: `<form [formGroup]="form">
     <app-checkbox name="foo" formControlName="foo"></app-checkbox>
   </form> `,
-	styles: [],
-	standalone: false,
+	imports: [CheckboxComponent],
 })
 class HostComponent {
 	form = new FormGroup({
@@ -24,7 +23,7 @@ describe('CheckboxComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [CheckboxComponent],
+			imports: [HostComponent],
 		}).compileComponents();
 	});
 

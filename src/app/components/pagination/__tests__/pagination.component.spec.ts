@@ -1,15 +1,14 @@
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute, Router, provideRouter } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { PaginationComponent } from '../pagination.component';
 
 @Component({
 	selector: 'app-host',
 	template: '<app-pagination [tableName]="tableName" [numberOfItems]="numberOfItems"></app-pagination>',
-	standalone: false,
+	imports: [PaginationComponent],
 })
 class HostComponent {
 	tableName = 'test-pagination';
@@ -33,8 +32,8 @@ describe('PaginationComponent', () => {
 
 	beforeEach(waitForAsync(() => {
 		TestBed.configureTestingModule({
-			declarations: [HostComponent, PaginationComponent],
-			imports: [RouterTestingModule.withRoutes([{ path: '', component: PaginationComponent }])],
+			imports: [HostComponent],
+			providers: [provideRouter([{ path: '', component: PaginationComponent }])],
 		}).compileComponents();
 	}));
 
@@ -58,7 +57,7 @@ describe('PaginationComponent', () => {
 		[5, 10],
 	])('should return an array length of %d when items per page is %d', (arrayLength: number, itemsPerPage: number) => {
 		hostComponent.numberOfItems = 50;
-		component.itemsPerPage = itemsPerPage;
+		fixture.componentRef.setInput('itemsPerPage', itemsPerPage);
 		fixture.detectChanges();
 		expect(component.pages).toHaveLength(arrayLength);
 	});
@@ -119,13 +118,13 @@ describe('PaginationComponent', () => {
 			done
 		) => {
 			component.paginationOptions.subscribe((opts) => {
-				expect(opts.currentPage).toBe(currentPage);
-				expect(opts.start).toBe(start);
-				expect(opts.end).toBe(end);
+				expect(opts?.currentPage).toBe(currentPage);
+				expect(opts?.start).toBe(start);
+				expect(opts?.end).toBe(end);
 				done();
 			});
 
-			component.itemsPerPage = itemsPerPage;
+			fixture.componentRef.setInput('itemsPerPage', itemsPerPage);
 			component.currentPageSubject.next(currentPage);
 		}
 	);

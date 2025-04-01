@@ -1,11 +1,21 @@
 import { Component, input } from '@angular/core';
 import { V3TechRecordModel } from '@models/vehicle-tech-record.model';
+import { NgSwitch, NgSwitchCase } from '@angular/common';
+import { TypeApprovalSectionViewComponent } from './type-approval-section-view/type-approval-section-view.component';
+import { TypeApprovalSectionEditComponent } from './type-approval-section-edit/type-approval-section-edit.component';
+import { TypeApprovalSectionSummaryComponent } from './type-approval-section-summary/type-approval-section-summary.component';
 
 @Component({
-	selector: 'app-type-approval-section',
-	templateUrl: './type-approval-section.component.html',
-	styleUrls: ['./type-approval-section.component.scss'],
-	standalone: false,
+    selector: 'app-type-approval-section',
+    templateUrl: './type-approval-section.component.html',
+    styleUrls: ['./type-approval-section.component.scss'],
+    imports: [
+        NgSwitch,
+        NgSwitchCase,
+        TypeApprovalSectionViewComponent,
+        TypeApprovalSectionEditComponent,
+        TypeApprovalSectionSummaryComponent,
+    ],
 })
 export class TypeApprovalSectionComponent {
 	mode = input<Mode>('edit');

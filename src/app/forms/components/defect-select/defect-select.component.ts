@@ -11,12 +11,19 @@ import { DefectsState, filteredDefects } from '@store/defects';
 import { toEditOrNotToEdit } from '@store/test-records';
 import { TestResultsState } from '@store/test-records/test-records.reducer';
 import { Subject, filter, takeUntil } from 'rxjs';
+import { NgIf, NgClass, NgFor } from '@angular/common';
+import { TagComponent } from '../../../components/tag/tag.component';
 
 @Component({
-	selector: 'app-defect-select',
-	templateUrl: './defect-select.component.html',
-	styleUrls: ['./defect-select.component.scss'],
-	standalone: false,
+    selector: 'app-defect-select',
+    templateUrl: './defect-select.component.html',
+    styleUrls: ['./defect-select.component.scss'],
+    imports: [
+        NgIf,
+        NgClass,
+        NgFor,
+        TagComponent,
+    ],
 })
 export class DefectSelectComponent implements OnInit, OnDestroy {
 	defects: Defect[] = [];

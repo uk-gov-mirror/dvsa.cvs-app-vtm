@@ -1,10 +1,11 @@
 import { Component, input, model } from '@angular/core';
+import { NgIf, SlicePipe } from '@angular/common';
 
 @Component({
-	selector: 'collapsible-text',
-	templateUrl: './collapsible-text.component.html',
-	styleUrls: ['./collapsible-text.component.scss'],
-	standalone: false,
+    selector: 'collapsible-text',
+    templateUrl: './collapsible-text.component.html',
+    styleUrls: ['./collapsible-text.component.scss'],
+    imports: [NgIf, SlicePipe],
 })
 export class CollapsibleTextComponent {
 	readonly text = input('');

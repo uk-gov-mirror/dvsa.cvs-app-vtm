@@ -1,4 +1,4 @@
-import { ViewportScroller } from '@angular/common';
+import { ViewportScroller, NgIf, AsyncPipe } from '@angular/common';
 import { Component, OnDestroy, input, model, output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
@@ -8,11 +8,18 @@ import { RouterService } from '@services/router/router.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { clearAllSectionStates, clearScrollPosition, updateEditingTechRecordCancel } from '@store/technical-records';
 import { Observable, Subject, distinctUntilChanged, map, takeUntil } from 'rxjs';
+import { ButtonComponent } from '../../../../components/button/button.component';
+import { ButtonGroupComponent } from '../../../../components/button-group/button-group.component';
 
 @Component({
-	selector: 'app-edit-tech-record-button',
-	templateUrl: './edit-tech-record-button.component.html',
-	standalone: false,
+    selector: 'app-edit-tech-record-button',
+    templateUrl: './edit-tech-record-button.component.html',
+    imports: [
+        NgIf,
+        ButtonComponent,
+        ButtonGroupComponent,
+        AsyncPipe,
+    ],
 })
 export class EditTechRecordButtonComponent implements OnDestroy {
 	isEditing = model(false);

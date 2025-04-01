@@ -16,11 +16,10 @@ import { CustomControl, FormNodeViewTypes, FormNodeWidth } from '@services/dynam
 import { ErrorMessageMap } from '../../utils/error-message-map';
 
 @Component({
-	selector: 'app-base-control',
-	template: '',
-	styles: [],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: false,
+    selector: 'app-base-control',
+    template: '',
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BaseControlComponent implements ControlValueAccessor, AfterContentInit {
 	readonly prefix = contentChild(PrefixDirective);

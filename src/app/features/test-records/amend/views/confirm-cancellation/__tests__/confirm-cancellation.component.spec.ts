@@ -1,7 +1,8 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 import { DynamicFormsModule } from '@forms/dynamic-forms.module';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
@@ -19,9 +20,17 @@ describe('ConfirmCancellationComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [ConfirmCancellationComponent, VehicleHeaderComponent],
-			imports: [DynamicFormsModule, HttpClientTestingModule, ReactiveFormsModule, RouterTestingModule, SharedModule],
+			imports: [
+				DynamicFormsModule,
+				ConfirmCancellationComponent,
+				VehicleHeaderComponent,
+				ReactiveFormsModule,
+				SharedModule,
+			],
 			providers: [
+				provideRouter([]),
+				provideHttpClient(),
+				provideHttpClientTesting(),
 				provideMockStore({ initialState: initialAppState }),
 				provideMockActions(() => new ReplaySubject<Action>()),
 				{

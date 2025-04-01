@@ -2,10 +2,7 @@ import { Directive, ElementRef, OnDestroy, OnInit, inject, input } from '@angula
 import { ControlContainer } from '@angular/forms';
 import { ReplaySubject, takeUntil } from 'rxjs';
 
-@Directive({
-	selector: '[govukTextarea]',
-	standalone: false,
-})
+@Directive({ selector: '[govukTextarea]', })
 export class GovukTextareaDirective implements OnInit, OnDestroy {
 	elementRef = inject<ElementRef<HTMLInputElement>>(ElementRef);
 	controlContainer = inject(ControlContainer);

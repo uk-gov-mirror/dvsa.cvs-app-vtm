@@ -19,13 +19,30 @@ import {
 	updateRequiredStandard,
 } from '@store/test-records';
 import { Subject, distinctUntilChanged, takeUntil, withLatestFrom } from 'rxjs';
+import { NgTemplateOutlet, NgIf } from '@angular/common';
+import { TagComponent } from '../../../components/tag/tag.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TextAreaComponent } from '../../components/text-area/text-area.component';
+import { ButtonGroupComponent } from '../../../components/button-group/button-group.component';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { DefaultNullOrEmpty as DefaultNullOrEmpty_1 } from '../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
 
 @Component({
-	selector: 'app-required-standard',
-	templateUrl: './required-standard.component.html',
-	providers: [DefaultNullOrEmpty],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: false,
+    selector: 'app-required-standard',
+    templateUrl: './required-standard.component.html',
+    providers: [DefaultNullOrEmpty],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        NgTemplateOutlet,
+        NgIf,
+        TagComponent,
+        FormsModule,
+        ReactiveFormsModule,
+        TextAreaComponent,
+        ButtonGroupComponent,
+        ButtonComponent,
+        DefaultNullOrEmpty_1,
+    ],
 })
 export class RequiredStandardComponent implements OnInit, OnDestroy {
 	form!: CustomFormGroup;

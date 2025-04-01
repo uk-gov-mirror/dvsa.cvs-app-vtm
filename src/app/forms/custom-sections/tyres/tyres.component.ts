@@ -1,4 +1,4 @@
-import { ViewportScroller } from '@angular/common';
+import { ViewportScroller, NgIf, NgSwitch, NgSwitchCase, NgFor, NgTemplateOutlet } from '@angular/common';
 import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges, input, model, output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TyreUseCode as HgvTyreUseCode } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/tyreUseCodeHgv.enum.js';
@@ -35,12 +35,27 @@ import { addAxle, removeAxle, updateScrollPosition } from '@store/technical-reco
 import { TechnicalRecordServiceState } from '@store/technical-records/technical-record-service.reducer';
 import { cloneDeep } from 'lodash';
 import { Observable, ReplaySubject, filter, takeUntil } from 'rxjs';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SwitchableInputComponent } from '../../components/switchable-input/switchable-input.component';
+import { TagComponent } from '../../../components/tag/tag.component';
+import { FieldWarningMessageComponent } from '../../components/field-warning-message/field-warning-message.component';
 
 @Component({
-	selector: 'app-tyres',
-	templateUrl: './tyres.component.html',
-	styleUrls: ['./tyres.component.scss'],
-	standalone: false,
+    selector: 'app-tyres',
+    templateUrl: './tyres.component.html',
+    styleUrls: ['./tyres.component.scss'],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NgIf,
+        SwitchableInputComponent,
+        NgSwitch,
+        NgSwitchCase,
+        TagComponent,
+        FieldWarningMessageComponent,
+        NgFor,
+        NgTemplateOutlet,
+    ],
 })
 export class TyresComponent implements OnInit, OnDestroy, OnChanges {
 	readonly vehicleTechRecord = model.required<TechRecordType<'hgv' | 'psv' | 'trl'>>();

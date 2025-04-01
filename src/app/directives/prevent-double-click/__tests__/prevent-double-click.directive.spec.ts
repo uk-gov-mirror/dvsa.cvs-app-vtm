@@ -6,7 +6,7 @@ import { PreventDoubleClickDirective } from '../prevent-double-click.directive';
 @Component({
 	selector: 'app-host',
 	template: '<button appPreventDoubleClick (clicked)="clicked.emit()"></button>',
-	standalone: false,
+	imports: [PreventDoubleClickDirective],
 })
 class HostComponent {
 	clicked = new EventEmitter();
@@ -18,7 +18,7 @@ describe('PreventDoubleClickDirective', () => {
 
 	beforeEach(waitForAsync(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [HostComponent, PreventDoubleClickDirective],
+			imports: [HostComponent],
 		}).compileComponents();
 	}));
 

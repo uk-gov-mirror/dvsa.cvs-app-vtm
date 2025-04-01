@@ -1,10 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { ReferenceDataTyreLoadIndex } from '@models/reference-data.model';
 
-@Pipe({
-	name: 'tyreAxleLoad',
-	standalone: false,
-})
+@Pipe({ name: 'tyreAxleLoad', })
 export class TyreAxleLoadPipe implements PipeTransform {
 	transform(
 		axleLoad: string | undefined,

@@ -1,6 +1,6 @@
-import { KeyValue } from '@angular/common';
+import { KeyValue, NgIf, NgSwitch, NgSwitchCase, NgComponentOutlet, NgSwitchDefault, AsyncPipe } from '@angular/common';
 import { AfterContentInit, Component, InjectionToken, Injector, OnInit, input } from '@angular/core';
-import { FormGroup, NgControl } from '@angular/forms';
+import { FormGroup, NgControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 // eslint-disable-next-line import/no-cycle
 import {
 	CustomFormControl,
@@ -10,12 +10,41 @@ import {
 } from '@services/dynamic-forms/dynamic-form.types';
 import { MultiOptionsService } from '@services/multi-options/multi-options.service';
 import { Observable, map, of } from 'rxjs';
+import { AutocompleteComponent } from '../autocomplete/autocomplete.component';
+import { DateComponent } from '../date/date.component';
+import { NumberInputComponent } from '../number-input/number-input.component';
+import { SuffixDirective } from '../../../directives/suffix/suffix.directive';
+import { RadioGroupComponent } from '../radio-group/radio-group.component';
+import { SelectComponent } from '../select/select.component';
+import { TextAreaComponent } from '../text-area/text-area.component';
+import { CheckboxComponent } from '../checkbox/checkbox.component';
+import { CheckboxGroupComponent } from '../checkbox-group/checkbox-group.component';
+import { TextInputComponent } from '../text-input/text-input.component';
 
 @Component({
-	selector: 'app-dynamic-form-field',
-	templateUrl: './dynamic-form-field.component.html',
-	providers: [MultiOptionsService],
-	standalone: false,
+    selector: 'app-dynamic-form-field',
+    templateUrl: './dynamic-form-field.component.html',
+    providers: [MultiOptionsService],
+    imports: [
+        NgIf,
+        NgSwitch,
+        FormsModule,
+        ReactiveFormsModule,
+        NgSwitchCase,
+        AutocompleteComponent,
+        DateComponent,
+        NumberInputComponent,
+        SuffixDirective,
+        RadioGroupComponent,
+        SelectComponent,
+        TextAreaComponent,
+        CheckboxComponent,
+        CheckboxGroupComponent,
+        TextInputComponent,
+        NgComponentOutlet,
+        NgSwitchDefault,
+        AsyncPipe,
+    ],
 })
 export class DynamicFormFieldComponent implements OnInit, AfterContentInit {
 	readonly control = input<KeyValue<string, CustomFormControl>>();

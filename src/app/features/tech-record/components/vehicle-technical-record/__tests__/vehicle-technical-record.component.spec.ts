@@ -1,13 +1,11 @@
 import { APP_BASE_HREF } from '@angular/common';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterModule } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 import { DynamicFormsModule } from '@forms/dynamic-forms.module';
 import { StatusCodes, TechRecordModel, V3TechRecordModel } from '@models/vehicle-tech-record.model';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { MultiOptionsService } from '@services/multi-options/multi-options.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
@@ -38,14 +36,7 @@ describe('VehicleTechnicalRecordComponent', () => {
 		await TestBed.configureTestingModule({
 			imports: [
 				DynamicFormsModule,
-				EffectsModule.forRoot(),
-				HttpClientTestingModule,
-				RouterModule.forRoot([]),
-				RouterTestingModule,
 				SharedModule,
-				StoreModule.forRoot({}),
-			],
-			declarations: [
 				EditTechRecordButtonComponent,
 				TechRecordHistoryComponent,
 				TechRecordSummaryComponent,
@@ -56,6 +47,9 @@ describe('VehicleTechnicalRecordComponent', () => {
 			],
 			providers: [
 				MultiOptionsService,
+				provideRouter([]),
+				provideHttpClient(),
+				provideHttpClientTesting(),
 				provideMockStore({ initialState: initialAppState }),
 				{ provide: APP_BASE_HREF, useValue: '/' },
 				{
@@ -94,7 +88,11 @@ describe('VehicleTechnicalRecordComponent', () => {
 	beforeEach(() => {
 		fixture = TestBed.createComponent(VehicleTechnicalRecordComponent);
 		component = fixture.componentInstance;
-		component.techRecord = { systemNumber: 'foo', createdTimestamp: 'bar', vin: 'testVin' } as V3TechRecordModel;
+		fixture.componentRef.setInput('techRecord', {
+			systemNumber: 'foo',
+			createdTimestamp: 'bar',
+			vin: 'testVin',
+		} as V3TechRecordModel);
 	});
 
 	it('should create', () => {

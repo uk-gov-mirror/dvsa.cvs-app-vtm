@@ -1,11 +1,16 @@
 import { Component } from '@angular/core';
 import { GlobalError } from './global-error.interface';
 import { GlobalErrorService } from './global-error.service';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
-	selector: 'app-global-error',
-	templateUrl: './global-error.component.html',
-	standalone: false,
+    selector: 'app-global-error',
+    templateUrl: './global-error.component.html',
+    imports: [
+        NgIf,
+        NgFor,
+        AsyncPipe,
+    ],
 })
 export class GlobalErrorComponent {
 	constructor(public globalErrorService: GlobalErrorService) {}

@@ -47,8 +47,7 @@ describe('TyresSectionEditComponent', () => {
 		const mockTechRecord = mockVehicleTechnicalRecord('hgv');
 
 		await TestBed.configureTestingModule({
-			declarations: [TyresSectionEditComponent],
-			imports: [DynamicFormsModule, FormsModule, ReactiveFormsModule],
+			imports: [DynamicFormsModule, FormsModule, ReactiveFormsModule, TyresSectionEditComponent],
 			providers: [
 				provideMockStore({ initialState: initialAppState }),
 				provideMockActions(() => actions$),

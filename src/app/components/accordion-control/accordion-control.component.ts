@@ -8,13 +8,14 @@ import {
 	model,
 } from '@angular/core';
 import { AccordionComponent } from '../accordion/accordion.component';
+import { NgClass } from '@angular/common';
 
 @Component({
-	selector: 'app-accordion-control',
-	templateUrl: './accordion-control.component.html',
-	styleUrls: ['accordion-control.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: false,
+    selector: 'app-accordion-control',
+    templateUrl: './accordion-control.component.html',
+    styleUrls: ['accordion-control.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [NgClass],
 })
 export class AccordionControlComponent {
 	private accordionsList?: QueryList<AccordionComponent>;

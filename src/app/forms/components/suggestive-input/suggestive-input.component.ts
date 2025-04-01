@@ -1,23 +1,33 @@
 import { AfterContentInit, ChangeDetectionStrategy, Component, OnInit, input } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { CustomValidators } from '@forms/validators/custom-validators/custom-validators';
 import { MultiOption } from '@models/options.model';
 import { Observable, firstValueFrom, skipWhile, take } from 'rxjs';
 import { BaseControlComponent } from '../base-control/base-control.component';
+import { NgClass, NgIf, NgTemplateOutlet, NgFor, AsyncPipe } from '@angular/common';
+import { FieldErrorMessageComponent } from '../field-error-message/field-error-message.component';
 
 @Component({
-	selector: 'app-suggestive-input',
-	templateUrl: './suggestive-input.component.html',
-	styleUrls: ['./suggestive-input.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [
-		{
-			provide: NG_VALUE_ACCESSOR,
-			useExisting: SuggestiveInputComponent,
-			multi: true,
-		},
-	],
-	standalone: false,
+    selector: 'app-suggestive-input',
+    templateUrl: './suggestive-input.component.html',
+    styleUrls: ['./suggestive-input.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: SuggestiveInputComponent,
+            multi: true,
+        },
+    ],
+    imports: [
+        NgClass,
+        NgIf,
+        FieldErrorMessageComponent,
+        NgTemplateOutlet,
+        FormsModule,
+        NgFor,
+        AsyncPipe,
+    ],
 })
 export class SuggestiveInputComponent extends BaseControlComponent implements AfterContentInit, OnInit {
 	readonly options$ = input.required<Observable<MultiOption[]>>();

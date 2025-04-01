@@ -1,4 +1,4 @@
-import { ViewportScroller } from '@angular/common';
+import { ViewportScroller, NgIf, NgFor, DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, inject, input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
@@ -12,12 +12,26 @@ import { Store } from '@ngrx/store';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { canGeneratePlate, updateScrollPosition } from '@store/technical-records';
 import { cloneDeep } from 'lodash';
+import { RetrieveDocumentDirective } from '../../../../directives/retrieve-document/retrieve-document.directive';
+import { PaginationComponent } from '../../../../components/pagination/pagination.component';
+import { RoleRequiredDirective } from '../../../../directives/app-role-required/app-role-required.directive';
+import { ButtonComponent } from '../../../../components/button/button.component';
+import { DefaultNullOrEmpty } from '../../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
 
 @Component({
-	selector: 'app-plates-section-view',
-	templateUrl: './plates-section-view.component.html',
-	styleUrls: ['./plates-section-view.component.scss'],
-	standalone: false,
+    selector: 'app-plates-section-view',
+    templateUrl: './plates-section-view.component.html',
+    styleUrls: ['./plates-section-view.component.scss'],
+    imports: [
+        NgIf,
+        NgFor,
+        RetrieveDocumentDirective,
+        PaginationComponent,
+        RoleRequiredDirective,
+        ButtonComponent,
+        DatePipe,
+        DefaultNullOrEmpty,
+    ],
 })
 export class PlatesSectionViewComponent {
 	protected readonly VehicleTypes = VehicleTypes;

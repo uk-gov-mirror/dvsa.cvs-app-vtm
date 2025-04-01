@@ -7,12 +7,20 @@ import {
 import { Store, select } from '@ngrx/store';
 import { ReferenceDataState, fetchReferenceDataByKeySearch, selectSearchReturn } from '@store/reference-data';
 import { Observable, map } from 'rxjs';
+import { NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
+import { PaginationComponent } from '../../../components/pagination/pagination.component';
 
 @Component({
-	selector: 'app-reference-data-amend-history',
-	templateUrl: './reference-data-amend-history.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: false,
+    selector: 'app-reference-data-amend-history',
+    templateUrl: './reference-data-amend-history.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        NgIf,
+        NgFor,
+        PaginationComponent,
+        AsyncPipe,
+        DatePipe,
+    ],
 })
 export class ReferenceDataAmendHistoryComponent implements OnInit {
 	readonly type = input('');

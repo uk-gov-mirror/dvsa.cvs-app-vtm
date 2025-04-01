@@ -1,7 +1,7 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { Router, provideRouter } from '@angular/router';
 import { ButtonGroupComponent } from '@components/button-group/button-group.component';
 import { ButtonComponent } from '@components/button/button.component';
 import { IconComponent } from '@components/icon/icon.component';
@@ -55,7 +55,8 @@ describe('CreateTestRecordComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [
+			imports: [
+				DynamicFormsModule,
 				CreateTestRecordComponent,
 				BaseTestRecordComponent,
 				DefaultNullOrEmpty,
@@ -66,14 +67,17 @@ describe('CreateTestRecordComponent', () => {
 				NumberPlateComponent,
 				VehicleHeaderComponent,
 				RoleRequiredDirective,
+				SharedModule,
 			],
-			imports: [DynamicFormsModule, HttpClientTestingModule, RouterTestingModule, SharedModule],
 			providers: [
 				GlobalErrorService,
 				RouterService,
 				TestRecordsService,
 				HttpService,
 				{ provide: UserService, useValue: MockUserService },
+				provideRouter([]),
+				provideHttpClient(),
+				provideHttpClientTesting(),
 				provideMockStore({ initialState: initialAppState }),
 				provideMockActions(() => actions$),
 				{ provide: TechnicalRecordService, useValue: mockTechnicalRecordService },

@@ -1,4 +1,4 @@
-import { KeyValue } from '@angular/common';
+import { KeyValue, NgTemplateOutlet, NgIf, NgFor, KeyValuePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
@@ -21,14 +21,36 @@ import { State } from '@store/index';
 import { selectRouteParam } from '@store/router/router.selectors';
 import { createDefect, removeDefect, testResultInEdit, toEditOrNotToEdit, updateDefect } from '@store/test-records';
 import { Subject, filter, take, takeUntil, withLatestFrom } from 'rxjs';
+import { TagComponent } from '../../../components/tag/tag.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RadioGroupComponent } from '../../components/radio-group/radio-group.component';
+import { SelectComponent } from '../../components/select/select.component';
+import { TextAreaComponent } from '../../components/text-area/text-area.component';
+import { ButtonGroupComponent } from '../../../components/button-group/button-group.component';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { DefaultNullOrEmpty as DefaultNullOrEmpty_1 } from '../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
 
 @Component({
-	selector: 'app-defect',
-	templateUrl: './defect.component.html',
-	styleUrls: ['./defect.component.scss'],
-	providers: [DefaultNullOrEmpty],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: false,
+    selector: 'app-defect',
+    templateUrl: './defect.component.html',
+    styleUrls: ['./defect.component.scss'],
+    providers: [DefaultNullOrEmpty],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        NgTemplateOutlet,
+        NgIf,
+        TagComponent,
+        FormsModule,
+        ReactiveFormsModule,
+        NgFor,
+        RadioGroupComponent,
+        SelectComponent,
+        TextAreaComponent,
+        ButtonGroupComponent,
+        ButtonComponent,
+        KeyValuePipe,
+        DefaultNullOrEmpty_1,
+    ],
 })
 export class DefectComponent implements OnInit, OnDestroy {
 	form!: CustomFormGroup;

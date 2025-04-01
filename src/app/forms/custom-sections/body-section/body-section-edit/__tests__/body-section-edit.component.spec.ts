@@ -57,8 +57,7 @@ describe('BodySectionEditComponent', () => {
 		const mockTechRecord = mockVehicleTechnicalRecord('hgv');
 
 		await TestBed.configureTestingModule({
-			declarations: [BodySectionEditComponent],
-			imports: [DynamicFormsModule, FormsModule, ReactiveFormsModule],
+			imports: [DynamicFormsModule, FormsModule, ReactiveFormsModule, BodySectionEditComponent],
 			providers: [
 				provideMockStore({ initialState: initialAppState }),
 				provideHttpClient(),

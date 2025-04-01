@@ -1,6 +1,6 @@
 import { updateVehicleConfiguration } from '@/src/app/store/technical-records';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, inject, input } from '@angular/core';
-import { ControlContainer, FormBuilder, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
+import { ControlContainer, FormBuilder, FormControl, FormGroup, ValidatorFn, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TagType } from '@components/tag/tag.component';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { getOptionsFromEnum } from '@forms/utils/enum-map';
@@ -22,12 +22,24 @@ import { ReferenceDataService } from '@services/reference-data/reference-data.se
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { selectReferenceDataByResourceKey } from '@store/reference-data';
 import { Observable, ReplaySubject, combineLatest, map, skipWhile, switchMap, take, takeUntil } from 'rxjs';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { GovukFormGroupInputComponent } from '../../../components/govuk-form-group-input/govuk-form-group-input.component';
+import { GovukFormGroupSelectComponent } from '../../../components/govuk-form-group-select/govuk-form-group-select.component';
+import { GovukFormGroupAutocompleteComponent } from '../../../components/govuk-form-group-autocomplete/govuk-form-group-autocomplete.component';
 
 @Component({
-	selector: 'app-body-section-edit',
-	templateUrl: './body-section-edit.component.html',
-	styleUrls: ['./body-section-edit.component.scss'],
-	standalone: false,
+    selector: 'app-body-section-edit',
+    templateUrl: './body-section-edit.component.html',
+    styleUrls: ['./body-section-edit.component.scss'],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NgIf,
+        GovukFormGroupInputComponent,
+        GovukFormGroupSelectComponent,
+        GovukFormGroupAutocompleteComponent,
+        AsyncPipe,
+    ],
 })
 export class BodySectionEditComponent implements OnInit, OnDestroy {
 	fb = inject(FormBuilder);

@@ -1,4 +1,4 @@
-import { KeyValue, ViewportScroller } from '@angular/common';
+import { KeyValue, ViewportScroller, NgIf, NgFor, DatePipe } from '@angular/common';
 import { AfterContentInit, Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormArray, NgControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,12 +12,22 @@ import { TechnicalRecordService } from '@services/technical-record/technical-rec
 import { updateScrollPosition } from '@store/technical-records';
 import { TechnicalRecordServiceState } from '@store/technical-records/technical-record-service.reducer';
 import { ReplaySubject, takeUntil } from 'rxjs';
+import { CollapsibleTextComponent } from '../../../components/collapsible-text/collapsible-text.component';
+import { PaginationComponent } from '../../../components/pagination/pagination.component';
+import { DefaultNullOrEmpty } from '../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
 
 @Component({
-	selector: 'app-adr-examiner-notes-history',
-	templateUrl: './adr-examiner-notes-history-edit.component.html',
-	styleUrls: ['adr-examiner-notes-history.component-edit.scss'],
-	standalone: false,
+    selector: 'app-adr-examiner-notes-history',
+    templateUrl: './adr-examiner-notes-history-edit.component.html',
+    styleUrls: ['adr-examiner-notes-history.component-edit.scss'],
+    imports: [
+        NgIf,
+        NgFor,
+        CollapsibleTextComponent,
+        PaginationComponent,
+        DatePipe,
+        DefaultNullOrEmpty,
+    ],
 })
 export class AdrExaminerNotesHistoryEditComponent
 	extends BaseControlComponent

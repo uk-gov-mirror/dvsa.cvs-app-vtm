@@ -3,10 +3,7 @@ import { ControlContainer } from '@angular/forms';
 import { FormNodeWidth } from '@services/dynamic-forms/dynamic-form.types';
 import { ReplaySubject, takeUntil } from 'rxjs';
 
-@Directive({
-	selector: '[govukSelect]',
-	standalone: false,
-})
+@Directive({ selector: '[govukSelect]', })
 export class GovukSelectDirective {
 	elementRef = inject<ElementRef<HTMLSelectElement>>(ElementRef);
 	controlContainer = inject(ControlContainer);

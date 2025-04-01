@@ -1,9 +1,6 @@
 import { Directive, ElementRef, HostListener, inject } from '@angular/core';
 
-@Directive({
-	selector: '[appDecimalOnly]',
-	standalone: false,
-})
+@Directive({ selector: '[appDecimalOnly]', })
 export class DecimalOnlyDirective {
 	elementRef = inject<ElementRef<HTMLInputElement>>(ElementRef<HTMLInputElement>);
 

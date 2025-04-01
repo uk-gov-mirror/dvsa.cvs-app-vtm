@@ -62,7 +62,6 @@ describe('DefectComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [],
 			imports: [SharedModule, DynamicFormsModule, RouterTestingModule, HttpClientTestingModule],
 			providers: [
 				{ provide: ActivatedRoute, useValue: fakeActivatedRoute },

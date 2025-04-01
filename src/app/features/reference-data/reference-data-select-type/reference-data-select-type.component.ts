@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { ReferenceDataResourceType } from '@models/reference-data.model';
@@ -16,11 +16,25 @@ import {
 import { ReferenceDataService } from '@services/reference-data/reference-data.service';
 import { ReferenceDataState, selectAllReferenceDataByResourceType } from '@store/reference-data';
 import { Observable, map, take } from 'rxjs';
+import { RoleRequiredDirective } from '../../../directives/app-role-required/app-role-required.directive';
+import { RadioGroupComponent } from '../../../forms/components/radio-group/radio-group.component';
+import { ButtonGroupComponent } from '../../../components/button-group/button-group.component';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
-	selector: 'app-reference-data-select-type',
-	templateUrl: './reference-data-select-type.component.html',
-	standalone: false,
+    selector: 'app-reference-data-select-type',
+    templateUrl: './reference-data-select-type.component.html',
+    imports: [
+        RoleRequiredDirective,
+        FormsModule,
+        ReactiveFormsModule,
+        RadioGroupComponent,
+        ButtonGroupComponent,
+        ButtonComponent,
+        RouterOutlet,
+        AsyncPipe,
+    ],
 })
 export class ReferenceDataSelectTypeComponent {
 	form: CustomFormGroup = new CustomFormGroup(

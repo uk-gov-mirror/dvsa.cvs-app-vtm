@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { NgClass } from '@angular/common';
 
 export type TagTypes = 'blue' | 'green' | 'orange' | 'red' | 'yellow' | 'purple' | 'grey';
 export const TagType = {
@@ -12,10 +13,10 @@ export const TagType = {
 };
 
 @Component({
-	selector: 'app-tag',
-	templateUrl: './tag.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: false,
+    selector: 'app-tag',
+    templateUrl: './tag.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [NgClass],
 })
 export class TagComponent {
 	readonly type = input<string>(TagType.BLUE);

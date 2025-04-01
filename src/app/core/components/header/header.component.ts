@@ -2,10 +2,9 @@ import { Component, input, output } from '@angular/core';
 import packageInfo from '../../../../../package.json';
 
 @Component({
-	selector: 'app-header',
-	templateUrl: './header.component.html',
-	styleUrls: ['./header.component.scss'],
-	standalone: false,
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
 	readonly logOutEvent = output<void>();

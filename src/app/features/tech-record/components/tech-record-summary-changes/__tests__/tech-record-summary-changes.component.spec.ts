@@ -1,7 +1,7 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { Router, provideRouter } from '@angular/router';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb';
 import { DynamicFormsModule } from '@forms/dynamic-forms.module';
 import { TechRecordReasonForCreationSection } from '@forms/templates/general/reason-for-creation.template';
@@ -34,9 +34,11 @@ describe('TechRecordSummaryChangesComponent', () => {
 	beforeEach(async () => {
 		actions$ = new ReplaySubject<Action>();
 		await TestBed.configureTestingModule({
-			declarations: [TechRecordSummaryChangesComponent],
-			imports: [DynamicFormsModule, HttpClientTestingModule, RouterTestingModule, SharedModule],
+			imports: [DynamicFormsModule, TechRecordSummaryChangesComponent, SharedModule],
 			providers: [
+				provideRouter([]),
+				provideHttpClient(),
+				provideHttpClientTesting(),
 				provideMockActions(() => actions$),
 				provideMockStore({ initialState: initialAppState }),
 				{

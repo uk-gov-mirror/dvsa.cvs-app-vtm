@@ -17,12 +17,14 @@ import {
 	FormNodeWidth,
 } from '@services/dynamic-forms/dynamic-form.types';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
+import { NgIf } from '@angular/common';
+import { SwitchableInputComponent } from '../../components/switchable-input/switchable-input.component';
 
 @Component({
-	selector: 'app-approval-type[techRecord]',
-	templateUrl: './approval-type.component.html',
-	styleUrls: ['./approval-type.component.scss'],
-	standalone: false,
+    selector: 'app-approval-type[techRecord]',
+    templateUrl: './approval-type.component.html',
+    styleUrls: ['./approval-type.component.scss'],
+    imports: [NgIf, SwitchableInputComponent],
 })
 export class ApprovalTypeComponent implements OnInit, OnChanges, OnDestroy {
 	readonly techRecord = input.required<TechRecordType<'hgv' | 'psv' | 'trl'>>();

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-import { ViewportScroller } from '@angular/common';
+import { ViewportScroller, NgIf, DatePipe } from '@angular/common';
 import { Component, OnChanges, OnDestroy, OnInit, input, output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TechRecordSearchSchema } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/search';
@@ -15,12 +15,26 @@ import { CustomFormGroup, FormNodeEditTypes } from '@services/dynamic-forms/dyna
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { updateScrollPosition } from '@store/technical-records';
 import { ReplaySubject, Subscription, debounceTime, takeUntil } from 'rxjs';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RetrieveDocumentDirective } from '../../../directives/retrieve-document/retrieve-document.directive';
+import { RoleRequiredDirective } from '../../../directives/app-role-required/app-role-required.directive';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { DefaultNullOrEmpty } from '../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
 
 @Component({
-	selector: 'app-letters[techRecord]',
-	templateUrl: './letters.component.html',
-	styleUrls: ['./letters.component.scss'],
-	standalone: false,
+    selector: 'app-letters[techRecord]',
+    templateUrl: './letters.component.html',
+    styleUrls: ['./letters.component.scss'],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NgIf,
+        RetrieveDocumentDirective,
+        RoleRequiredDirective,
+        ButtonComponent,
+        DatePipe,
+        DefaultNullOrEmpty,
+    ],
 })
 export class LettersComponent implements OnInit, OnDestroy, OnChanges {
 	readonly techRecord = input<TechRecordType<'trl'>>();

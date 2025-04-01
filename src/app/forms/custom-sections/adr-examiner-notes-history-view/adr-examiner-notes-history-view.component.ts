@@ -6,19 +6,31 @@ import { BaseControlComponent } from '@forms/components/base-control/base-contro
 import { RouterService } from '@services/router/router.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { Observable, Subject, map, takeUntil } from 'rxjs';
+import { NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
+import { CollapsibleTextComponent } from '../../../components/collapsible-text/collapsible-text.component';
+import { PaginationComponent } from '../../../components/pagination/pagination.component';
+import { DefaultNullOrEmpty } from '../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
 
 @Component({
-	selector: 'app-adr-examiner-notes-history-view',
-	templateUrl: './adr-examiner-notes-history-view.component.html',
-	styleUrls: ['./adr-examiner-notes-history-view.component.scss'],
-	providers: [
-		{
-			provide: NG_VALUE_ACCESSOR,
-			useExisting: AdrExaminerNotesHistoryViewComponent,
-			multi: true,
-		},
-	],
-	standalone: false,
+    selector: 'app-adr-examiner-notes-history-view',
+    templateUrl: './adr-examiner-notes-history-view.component.html',
+    styleUrls: ['./adr-examiner-notes-history-view.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: AdrExaminerNotesHistoryViewComponent,
+            multi: true,
+        },
+    ],
+    imports: [
+        NgIf,
+        NgFor,
+        CollapsibleTextComponent,
+        PaginationComponent,
+        AsyncPipe,
+        DatePipe,
+        DefaultNullOrEmpty,
+    ],
 })
 export class AdrExaminerNotesHistoryViewComponent extends BaseControlComponent implements OnInit, OnDestroy {
 	technicalRecordService = inject(TechnicalRecordService);
