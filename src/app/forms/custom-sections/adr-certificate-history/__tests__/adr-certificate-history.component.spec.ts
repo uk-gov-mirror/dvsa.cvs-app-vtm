@@ -1,3 +1,4 @@
+import { UserService } from '@/src/app/services/user-service/user-service';
 import { ViewportScroller } from '@angular/common';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
@@ -10,6 +11,7 @@ import { createMockHgv } from '@mocks/hgv-record.mock';
 import { provideMockStore } from '@ngrx/store/testing';
 import { AdrService } from '@services/adr/adr.service';
 import { initialAppState } from '@store/index';
+import { of } from 'rxjs';
 import { AdrCertificateHistoryComponent } from '../adr-certificate-history.component';
 
 describe('TechRecordAdrCertificateHistoryComponent', () => {
@@ -26,6 +28,7 @@ describe('TechRecordAdrCertificateHistoryComponent', () => {
 				provideHttpClient(),
 				provideHttpClientTesting(),
 				provideMockStore({ initialState: initialAppState }),
+				{ provide: UserService, useValue: { roles$: of(['TechRecord.View']) } },
 			],
 			imports: [AdrCertificateHistoryComponent],
 			schemas: [NO_ERRORS_SCHEMA],
@@ -35,7 +38,7 @@ describe('TechRecordAdrCertificateHistoryComponent', () => {
 		fixture = TestBed.createComponent(AdrCertificateHistoryComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
-		fixture.componentRef.setInput('techRecord', createMockHgv(0));
+		fixture.componentRef.setInput('currentTechRecord', createMockHgv(0));
 		globalErrorService = TestBed.inject(GlobalErrorService);
 		adrService = TestBed.inject(AdrService);
 		router = TestBed.inject(Router);
@@ -52,7 +55,7 @@ describe('TechRecordAdrCertificateHistoryComponent', () => {
 		it('should return false if numberOfADRCertificates returns 0', () => {
 			const mockTechRecord = createMockHgv(0);
 			mockTechRecord.techRecord_adrPassCertificateDetails = [];
-			fixture.componentRef.setInput('techRecord', mockTechRecord);
+			fixture.componentRef.setInput('currentTechRecord', mockTechRecord);
 			component.isEditing = false;
 			expect(component.showTable()).toBe(false);
 		});
@@ -66,7 +69,7 @@ describe('TechRecordAdrCertificateHistoryComponent', () => {
 					certificateId: '',
 				} as unknown as ADRCertificateDetails,
 			];
-			fixture.componentRef.setInput('techRecord', mockTechRecord);
+			fixture.componentRef.setInput('currentTechRecord', mockTechRecord);
 
 			expect(component.showTable()).toBe(true);
 		});
@@ -77,7 +80,7 @@ describe('TechRecordAdrCertificateHistoryComponent', () => {
 			fixture.ngZone?.run(() => {
 				const mockTechRecord = createMockHgv(0);
 				mockTechRecord.techRecord_adrDetails_dangerousGoods = true;
-				fixture.componentRef.setInput('techRecord', mockTechRecord);
+				fixture.componentRef.setInput('currentTechRecord', mockTechRecord);
 				const clearErrorsSpy = jest.spyOn(globalErrorService, 'clearErrors');
 				const carriesDangerousGoodsSpy = jest.spyOn(adrService, 'carriesDangerousGoods');
 				const routerSpy = jest.spyOn(router, 'navigate');
@@ -90,7 +93,7 @@ describe('TechRecordAdrCertificateHistoryComponent', () => {
 		it('should not navigate when carriesDangerousGoods returns false', () => {
 			const mockTechRecord = createMockHgv(0);
 			mockTechRecord.techRecord_adrDetails_dangerousGoods = false;
-			fixture.componentRef.setInput('techRecord', mockTechRecord);
+			fixture.componentRef.setInput('currentTechRecord', mockTechRecord);
 			const clearErrorsSpy = jest.spyOn(globalErrorService, 'clearErrors');
 			const addErrorSpy = jest.spyOn(globalErrorService, 'addError');
 			const carriesDangerousGoodsSpy = jest.spyOn(adrService, 'carriesDangerousGoods');

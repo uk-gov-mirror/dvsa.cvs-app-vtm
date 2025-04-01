@@ -57,7 +57,7 @@ describe('PaginationComponent', () => {
 		[5, 10],
 	])('should return an array length of %d when items per page is %d', (arrayLength: number, itemsPerPage: number) => {
 		hostComponent.numberOfItems = 50;
-		fixture.componentRef.setInput('itemsPerPage', itemsPerPage);
+		jest.spyOn(component, 'itemsPerPage').mockReturnValue(itemsPerPage);
 		fixture.detectChanges();
 		expect(component.pages).toHaveLength(arrayLength);
 	});
@@ -124,7 +124,7 @@ describe('PaginationComponent', () => {
 				done();
 			});
 
-			fixture.componentRef.setInput('itemsPerPage', itemsPerPage);
+			jest.spyOn(component, 'itemsPerPage').mockReturnValue(itemsPerPage);
 			component.currentPageSubject.next(currentPage);
 		}
 	);
@@ -138,13 +138,13 @@ describe('PaginationComponent', () => {
 				router.initialNavigation();
 			});
 
-			const next: HTMLLinkElement = el.query(By.css(`#${component.tableName}-next-page`)).nativeElement;
+			const next: HTMLLinkElement = el.query(By.css(`#${component.tableName()}-next-page`)).nativeElement;
 			next.click();
 
 			tick();
 			fixture.detectChanges();
 
-			expect(router.url).toBe(`/?${component.tableName}-page=2`);
+			expect(router.url).toBe(`/?${component.tableName()}-page=2`);
 		}));
 
 		it('should not render "next" link when already on last page', fakeAsync(() => {
@@ -158,7 +158,7 @@ describe('PaginationComponent', () => {
 				fixture.detectChanges();
 			});
 
-			const next = el.query(By.css(`#${component.tableName}-next-page`));
+			const next = el.query(By.css(`#${component.tableName()}-next-page`));
 
 			expect(next).toBeNull();
 		}));
@@ -176,13 +176,13 @@ describe('PaginationComponent', () => {
 				fixture.detectChanges();
 			});
 
-			const prev: HTMLLinkElement = el.query(By.css(`#${component.tableName}-prev-page`)).nativeElement;
+			const prev: HTMLLinkElement = el.query(By.css(`#${component.tableName()}-prev-page`)).nativeElement;
 			prev.click();
 
 			tick();
 			fixture.detectChanges();
 
-			expect(router.url).toBe(`/?${component.tableName}-page=3`);
+			expect(router.url).toBe(`/?${component.tableName()}-page=3`);
 		}));
 
 		it('should not render "prev" link when already on first page', fakeAsync(() => {
@@ -193,7 +193,7 @@ describe('PaginationComponent', () => {
 				router.initialNavigation();
 			});
 
-			const prev = el.query(By.css(`#${component.tableName}-prev-page`));
+			const prev = el.query(By.css(`#${component.tableName()}-prev-page`));
 
 			expect(prev).toBeNull();
 		}));

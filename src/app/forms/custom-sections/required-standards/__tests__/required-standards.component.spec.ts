@@ -42,6 +42,8 @@ describe('RequiredStandardsComponent', () => {
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(RequiredStandardsComponent);
+		fixture.componentRef.setInput('template', {});
+		fixture.detectChanges();
 		router = TestBed.inject(Router);
 		component = fixture.componentInstance;
 		el = fixture.debugElement;

@@ -257,7 +257,7 @@ describe('EditTechRecordButtonComponent', () => {
 						expect(navigateSpy).toHaveBeenCalled();
 						expect(cancelSpy).toHaveBeenCalled();
 						expect(toggleEditModeSpy).toHaveBeenCalled();
-						expect(component.isEditing).toBeFalsy();
+						expect(component.isEditing()).toBeFalsy();
 						expect(window.confirm).toHaveBeenCalledTimes(1);
 						expect(window.confirm).toHaveBeenCalledWith('Your changes will not be saved. Are you sure?');
 						expect(dispatchSpy).toHaveBeenNthCalledWith(1, clearError());
@@ -296,7 +296,7 @@ describe('EditTechRecordButtonComponent', () => {
 
 					expect(cancelSpy).toHaveBeenCalled();
 					expect(toggleSpy).toHaveBeenCalled();
-					expect(component.isEditing).toBeFalsy();
+					expect(component.isEditing()).toBeFalsy();
 					expect(dispatchSpy).toHaveBeenNthCalledWith(1, clearError());
 					expect(dispatchSpy).toHaveBeenNthCalledWith(2, updateEditingTechRecordCancel());
 				}));

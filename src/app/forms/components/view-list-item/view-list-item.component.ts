@@ -1,38 +1,47 @@
+import {
+	AsyncPipe,
+	DatePipe,
+	NgClass,
+	NgComponentOutlet,
+	NgIf,
+	NgSwitch,
+	NgSwitchCase,
+	NgSwitchDefault,
+} from '@angular/common';
 import { Component, Injector } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { FormNodeViewTypes } from '@services/dynamic-forms/dynamic-form.types';
-import { BaseControlComponent } from '../base-control/base-control.component';
-import { NgIf, NgClass, NgSwitch, NgSwitchCase, NgComponentOutlet, NgSwitchDefault, AsyncPipe, DatePipe } from '@angular/common';
 import { NumberPlateComponent } from '../../../components/number-plate/number-plate.component';
 import { DefaultNullOrEmpty } from '../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
-import { RefDataDecodePipe } from '../../../pipes/ref-data-decode/ref-data-decode.pipe';
 import { GetControlLabelPipe } from '../../../pipes/get-control-label/get-control-label.pipe';
+import { RefDataDecodePipe } from '../../../pipes/ref-data-decode/ref-data-decode.pipe';
+import { BaseControlComponent } from '../base-control/base-control.component';
 
 @Component({
-    selector: '[app-view-list-item]',
-    templateUrl: './view-list-item.component.html',
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: ViewListItemComponent,
-            multi: true,
-        },
-    ],
-    styleUrls: ['./view-list-item.component.scss'],
-    imports: [
-        NgIf,
-        NgClass,
-        NgSwitch,
-        NgSwitchCase,
-        NumberPlateComponent,
-        NgComponentOutlet,
-        NgSwitchDefault,
-        AsyncPipe,
-        DatePipe,
-        DefaultNullOrEmpty,
-        RefDataDecodePipe,
-        GetControlLabelPipe,
-    ],
+	selector: '[app-view-list-item]',
+	templateUrl: './view-list-item.component.html',
+	providers: [
+		{
+			provide: NG_VALUE_ACCESSOR,
+			useExisting: ViewListItemComponent,
+			multi: true,
+		},
+	],
+	styleUrls: ['./view-list-item.component.scss'],
+	imports: [
+		NgIf,
+		NgClass,
+		NgSwitch,
+		NgSwitchCase,
+		NumberPlateComponent,
+		NgComponentOutlet,
+		NgSwitchDefault,
+		AsyncPipe,
+		DatePipe,
+		DefaultNullOrEmpty,
+		RefDataDecodePipe,
+		GetControlLabelPipe,
+	],
 })
 export class ViewListItemComponent extends BaseControlComponent {
 	customFormControlInjector?: Injector;

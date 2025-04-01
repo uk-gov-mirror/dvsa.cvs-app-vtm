@@ -1,5 +1,5 @@
-import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient } from '@angular/common/http';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { Router, provideRouter } from '@angular/router';
@@ -8,7 +8,6 @@ import { ErrorInterceptor } from '../error-handling.interceptor';
 @Component({
 	selector: 'app-dummy-component',
 	template: '',
-	standalone: false,
 })
 class DummyComponent {}
 
@@ -19,7 +18,7 @@ describe('ErrorInterceptor', () => {
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			imports: [DummyComponent],
+			imports: [DummyComponent, HttpClientTestingModule],
 			providers: [
 				provideRouter([
 					{
@@ -31,8 +30,6 @@ describe('ErrorInterceptor', () => {
 						component: DummyComponent,
 					},
 				]),
-				provideHttpClient(),
-				provideHttpClientTesting(),
 				ErrorInterceptor,
 				{
 					provide: HTTP_INTERCEPTORS,
