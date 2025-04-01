@@ -29,7 +29,14 @@ import { GoogleTagManagerModule } from 'angular-google-tag-manager';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CoreModule } from './core/core.module';
+
+import { BreadcrumbsComponent } from './core/components/breadcrumbs/breadcrumbs.component';
+import { FooterComponent } from './core/components/footer/footer.component';
+import { GlobalErrorComponent } from './core/components/global-error/global-error.component';
+import { GlobalWarningComponent } from './core/components/global-warning/global-warning.component';
+import { HeaderComponent } from './core/components/header/header.component';
+import { PhaseBannerComponent } from './core/components/phase-banner/phase-banner.component';
+import { SpinnerComponent } from './core/components/spinner/spinner.component';
 import { InterceptorModule } from './interceptors/interceptor.module';
 import { UserService } from './services/user-service/user-service';
 import { AppStoreModule } from './store/app-store.module';
@@ -80,7 +87,13 @@ const featureFactory = (featureFlagsService: FeatureToggleService) => () => feat
 		MsalModule,
 		AppStoreModule,
 		InterceptorModule,
-		CoreModule,
+		HeaderComponent,
+		FooterComponent,
+		PhaseBannerComponent,
+		BreadcrumbsComponent,
+		GlobalErrorComponent,
+		GlobalWarningComponent,
+		SpinnerComponent,
 		GoogleTagManagerModule.forRoot({
 			id: environment.VTM_GTM_CONTAINER_ID,
 		}),

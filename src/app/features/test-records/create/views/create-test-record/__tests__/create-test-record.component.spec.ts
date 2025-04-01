@@ -10,7 +10,7 @@ import { NumberPlateComponent } from '@components/number-plate/number-plate.comp
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { RoleRequiredDirective } from '@directives/app-role-required/app-role-required.directive';
 import { AbandonDialogComponent } from '@forms/custom-sections/abandon-dialog/abandon-dialog.component';
-import { DynamicFormsModule } from '@forms/dynamic-forms.module';
+
 import { contingencyTestTemplates } from '@forms/templates/test-records/create-master.template';
 import { mockTestResult } from '@mocks/mock-test-result';
 import { Roles } from '@models/roles.enum';
@@ -28,7 +28,7 @@ import { RouterService } from '@services/router/router.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { TestRecordsService } from '@services/test-records/test-records.service';
 import { UserService } from '@services/user-service/user-service';
-import { SharedModule } from '@shared/shared.module';
+
 import { State, initialAppState } from '@store/index';
 import { sectionTemplates, testResultInEdit, toEditOrNotToEdit } from '@store/test-records';
 import { Observable, ReplaySubject, of } from 'rxjs';
@@ -57,7 +57,6 @@ describe('CreateTestRecordComponent', () => {
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			imports: [
-				DynamicFormsModule,
 				CreateTestRecordComponent,
 				BaseTestRecordComponent,
 				DefaultNullOrEmpty,
@@ -68,7 +67,6 @@ describe('CreateTestRecordComponent', () => {
 				NumberPlateComponent,
 				VehicleHeaderComponent,
 				RoleRequiredDirective,
-				SharedModule,
 			],
 			providers: [
 				GlobalErrorService,

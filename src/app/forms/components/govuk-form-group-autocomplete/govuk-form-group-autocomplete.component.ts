@@ -19,16 +19,18 @@ import {
 	ReactiveFormsModule,
 } from '@angular/forms';
 import { CustomTag, FormNodeWidth } from '@services/dynamic-forms/dynamic-form.types';
-import { SharedModule } from '@shared/shared.module';
+
+import { TagDirective } from '@directives/tag/tag.directive';
 import {
 	AutocompleteEnhanceParams,
 	enhanceSelectElement,
 } from 'accessible-autocomplete/dist/accessible-autocomplete.min';
 import { BehaviorSubject, Observable, ReplaySubject, combineLatest, takeUntil, takeWhile } from 'rxjs';
+import { TagComponent } from '../../../components/tag/tag.component';
 import { CommonValidatorsService } from '../../validators/common-validators.service';
 @Component({
 	selector: 'govuk-form-group-autocomplete',
-	imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule],
+	imports: [CommonModule, FormsModule, ReactiveFormsModule, TagComponent, TagDirective],
 	templateUrl: './govuk-form-group-autocomplete.component.html',
 	styleUrls: ['./govuk-form-group-autocomplete.component.scss'],
 	providers: [

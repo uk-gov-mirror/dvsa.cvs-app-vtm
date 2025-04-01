@@ -7,7 +7,7 @@ import {
 	TechRecordPSV,
 	TechRecordType,
 } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
-import { DynamicFormsModule } from '@forms/dynamic-forms.module';
+
 import { mockVehicleTechnicalRecord } from '@mocks/mock-vehicle-technical-record.mock';
 import { provideMockStore } from '@ngrx/store/testing';
 import { MultiOptionsService } from '@services/multi-options/multi-options.service';
@@ -22,7 +22,7 @@ describe('PsvBrakesComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [DynamicFormsModule, FormsModule, PsvBrakesComponent, ReactiveFormsModule],
+			imports: [FormsModule, PsvBrakesComponent, ReactiveFormsModule],
 			providers: [
 				MultiOptionsService,
 				provideRouter([]),

@@ -8,14 +8,14 @@ import { GlobalErrorService } from '@core/components/global-error/global-error.s
 import { VehicleConfiguration } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/vehicleConfigurationHgvPsv.enum.js';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { PlatesSectionViewComponent } from '@forms/custom-sections/plates-section/plates-section-view/plates-section-view.component';
-import { DynamicFormsModule } from '@forms/dynamic-forms.module';
+
 import { mockVehicleTechnicalRecord } from '@mocks/mock-vehicle-technical-record.mock';
 import { hgvRequiredFields } from '@models/plateRequiredFields.model';
 import { Roles } from '@models/roles.enum';
 import { VehicleConfigurations } from '@models/vehicle-tech-record.model';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { UserService } from '@services/user-service/user-service';
-import { SharedModule } from '@shared/shared.module';
+
 import { State, initialAppState } from '@store/index';
 import { canGeneratePlate } from '@store/technical-records';
 import { of } from 'rxjs';
@@ -32,7 +32,7 @@ describe('PlatesComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [DynamicFormsModule, SharedModule, PlatesSectionViewComponent],
+			imports: [PlatesSectionViewComponent],
 			providers: [
 				provideRouter([]),
 				provideHttpClient(),

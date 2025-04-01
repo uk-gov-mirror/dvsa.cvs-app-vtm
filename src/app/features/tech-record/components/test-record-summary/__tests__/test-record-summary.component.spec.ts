@@ -5,7 +5,7 @@ import { createMockTestResult } from '@mocks/test-result.mock';
 import { createMockTestType } from '@mocks/test-type.mock';
 import { TestResultModel } from '@models/test-results/test-result.model';
 import { resultOfTestEnum } from '@models/test-types/test-type.model';
-import { SharedModule } from '@shared/shared.module';
+
 import { TestRecordSummaryComponent } from '../test-record-summary.component';
 
 describe('TestRecordSummaryComponent', () => {
@@ -14,7 +14,7 @@ describe('TestRecordSummaryComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [TestRecordSummaryComponent, SharedModule],
+			imports: [TestRecordSummaryComponent],
 			providers: [provideRouter([])],
 		}).compileComponents();
 	});

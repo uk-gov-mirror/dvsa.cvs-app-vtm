@@ -4,7 +4,7 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Params, provideRouter } from '@angular/router';
-import { DynamicFormsModule } from '@forms/dynamic-forms.module';
+
 import { masterTpl } from '@forms/templates/test-records/master.template';
 import { TestModeEnum } from '@models/test-results/test-result-view.enum';
 import { TestResultModel } from '@models/test-results/test-result.model';
@@ -15,7 +15,7 @@ import { RouterService } from '@services/router/router.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { TestRecordsService } from '@services/test-records/test-records.service';
 import { UserService } from '@services/user-service/user-service';
-import { SharedModule } from '@shared/shared.module';
+
 import { State, initialAppState } from '@store/index';
 import { routeEditable, selectRouteData, selectRouteNestedParams } from '@store/router/router.selectors';
 import { initialTestResultsState, isTestTypeKeySame, sectionTemplates, testResultInEdit } from '@store/test-records';
@@ -35,14 +35,7 @@ describe('TestRecordComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [
-				DynamicFormsModule,
-				BaseTestRecordComponent,
-				TestAmendmentHistoryComponent,
-				TestRecordComponent,
-				VehicleHeaderComponent,
-				SharedModule,
-			],
+			imports: [BaseTestRecordComponent, TestAmendmentHistoryComponent, TestRecordComponent, VehicleHeaderComponent],
 			providers: [
 				TestRecordsService,
 				provideRouter([]),

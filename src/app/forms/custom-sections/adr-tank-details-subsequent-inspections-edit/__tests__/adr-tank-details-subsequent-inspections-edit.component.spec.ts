@@ -1,12 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { FormsModule, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { DateComponent } from '@forms/components/date/date.component';
 import { FORM_INJECTION_TOKEN } from '@forms/components/dynamic-form-field/dynamic-form-field.component';
 import { FieldErrorMessageComponent } from '@forms/components/field-error-message/field-error-message.component';
 import { SelectComponent } from '@forms/components/select/select.component';
 import { TextInputComponent } from '@forms/components/text-input/text-input.component';
-import { DynamicFormsModule } from '@forms/dynamic-forms.module';
+
 import { provideMockStore } from '@ngrx/store/testing';
 import {
 	CustomFormControl,
@@ -29,7 +28,6 @@ describe('AdrTankDetailsSubsequentInspectionsEditComponent', () => {
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			imports: [
-				DynamicFormsModule,
 				FormsModule,
 				ReactiveFormsModule,
 				AdrTankDetailsSubsequentInspectionsEditComponent,

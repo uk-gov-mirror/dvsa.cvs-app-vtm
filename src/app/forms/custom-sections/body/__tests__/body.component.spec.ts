@@ -1,7 +1,7 @@
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DynamicFormsModule } from '@forms/dynamic-forms.module';
+
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { MultiOptionsService } from '@services/multi-options/multi-options.service';
 import { initialAppState } from '@store/index';
@@ -34,7 +34,7 @@ describe('BodyComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [DynamicFormsModule, FormsModule, BodyComponent, ReactiveFormsModule],
+			imports: [FormsModule, BodyComponent, ReactiveFormsModule],
 			providers: [
 				provideRouter([]),
 				provideHttpClient(),

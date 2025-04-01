@@ -3,7 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, provideRouter } from '@angular/router';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { AdrExaminerNotesHistoryEditComponent } from '@forms/custom-sections/adr-examiner-notes-history-edit/adr-examiner-notes-history.component-edit';
-import { DynamicFormsModule } from '@forms/dynamic-forms.module';
+
 import { mockVehicleTechnicalRecord } from '@mocks/mock-vehicle-technical-record.mock';
 import { VehicleTypes } from '@models/vehicle-tech-record.model';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -23,7 +23,7 @@ describe('AdrExaminerNotesHistoryEditComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [DynamicFormsModule, FormsModule, ReactiveFormsModule, AdrExaminerNotesHistoryEditComponent],
+			imports: [FormsModule, ReactiveFormsModule, AdrExaminerNotesHistoryEditComponent],
 			providers: [
 				{ provide: TechnicalRecordService, useValue: mockTechRecordService },
 				provideRouter([]),

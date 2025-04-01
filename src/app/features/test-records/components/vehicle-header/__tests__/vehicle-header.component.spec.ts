@@ -8,7 +8,6 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { HttpService } from '@services/http/http.service';
 import { ResultOfTestService } from '@services/result-of-test/result-of-test.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
-import { SharedModule } from '@shared/shared.module';
 import { initialAppState } from '@store/index';
 import { of } from 'rxjs';
 import { VehicleHeaderComponent } from '../vehicle-header.component';
@@ -25,7 +24,7 @@ describe('VehicleHeaderComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [SharedModule, VehicleHeaderComponent],
+			imports: [VehicleHeaderComponent],
 			providers: [
 				HttpService,
 				provideRouter([]),

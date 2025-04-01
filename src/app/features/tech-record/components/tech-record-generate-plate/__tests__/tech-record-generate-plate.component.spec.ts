@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testin
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, provideRouter } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
-import { DynamicFormsModule } from '@forms/dynamic-forms.module';
+
 import { V3TechRecordModel } from '@models/vehicle-tech-record.model';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
@@ -12,7 +12,7 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { DynamicFormService } from '@services/dynamic-forms/dynamic-form.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { UserService } from '@services/user-service/user-service';
-import { SharedModule } from '@shared/shared.module';
+
 import { initialAppState } from '@store/index';
 import { generatePlate, generatePlateSuccess } from '@store/technical-records';
 import { ReplaySubject, of } from 'rxjs';
@@ -51,7 +51,7 @@ describe('TechRecordGeneratePlateComponent', () => {
 					},
 				},
 			],
-			imports: [GeneratePlateComponent, SharedModule, ReactiveFormsModule, DynamicFormsModule],
+			imports: [GeneratePlateComponent, ReactiveFormsModule],
 		}).compileComponents();
 	});
 

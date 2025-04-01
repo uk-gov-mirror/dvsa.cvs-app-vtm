@@ -4,9 +4,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { provideRouter } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
-import { DynamicFormsModule } from '@forms/dynamic-forms.module';
+
 import { provideMockStore } from '@ngrx/store/testing';
-import { SharedModule } from '@shared/shared.module';
+
 import { initialAppState } from '@store/index';
 import { of } from 'rxjs';
 import { BatchVehicleDetailsComponent } from '../batch-vehicle-details.component';
@@ -22,7 +22,7 @@ describe('BatchVehicleDetailsComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [DynamicFormsModule, ReactiveFormsModule, BatchVehicleDetailsComponent, SharedModule],
+			imports: [ReactiveFormsModule, BatchVehicleDetailsComponent],
 			providers: [
 				FormBuilder,
 				{ provide: GlobalErrorService, useValue: mockGlobalErrorService },

@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { SharedModule } from '@shared/shared.module';
+
 import { FeatureToggleRoutingModule } from './feature-toggle-routing.module';
 import { FeatureToggleComponent } from './feature-toggle/feature-toggle.component';
 
 @NgModule({
-	imports: [CommonModule, SharedModule, FeatureToggleRoutingModule, FeatureToggleComponent],
+	imports: [CommonModule, FeatureToggleRoutingModule, FeatureToggleComponent],
 })
 export class FeatureToggleModule {}

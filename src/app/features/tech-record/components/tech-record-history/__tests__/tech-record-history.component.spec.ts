@@ -5,7 +5,7 @@ import { provideRouter } from '@angular/router';
 import { V3TechRecordModel } from '@models/vehicle-tech-record.model';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
-import { SharedModule } from '@shared/shared.module';
+
 import { initialAppState } from '@store/index';
 import { TechRecordHistoryComponent } from '../tech-record-history.component';
 
@@ -15,7 +15,7 @@ describe('TechRecordHistoryComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [TechRecordHistoryComponent, SharedModule],
+			imports: [TechRecordHistoryComponent],
 			providers: [
 				TechnicalRecordService,
 				provideRouter([]),

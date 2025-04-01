@@ -9,11 +9,13 @@ import {
 } from '@angular/forms';
 import { MultiOption } from '@models/options.model';
 import { CustomTag } from '@services/dynamic-forms/dynamic-form.types';
-import { SharedModule } from '@shared/shared.module';
+
+import { TagDirective } from '@directives/tag/tag.directive';
+import { TagComponent } from '../../../components/tag/tag.component';
 
 @Component({
 	selector: 'govuk-form-group-radio',
-	imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule],
+	imports: [CommonModule, FormsModule, ReactiveFormsModule, TagComponent, TagDirective],
 	templateUrl: './govuk-form-group-radio.component.html',
 	styleUrls: ['./govuk-form-group-radio.component.scss'],
 	providers: [

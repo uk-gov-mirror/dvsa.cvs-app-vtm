@@ -4,7 +4,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { DynamicFormsModule } from '@forms/dynamic-forms.module';
+
 import { StatusCodes, TechRecordModel, V3TechRecordModel } from '@models/vehicle-tech-record.model';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
@@ -12,7 +12,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { MultiOptionsService } from '@services/multi-options/multi-options.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { UserService } from '@services/user-service/user-service';
-import { SharedModule } from '@shared/shared.module';
+
 import { initialAppState } from '@store/index';
 import { ReplaySubject, of } from 'rxjs';
 import { EditTechRecordButtonComponent } from '../../edit-tech-record-button/edit-tech-record-button.component';
@@ -38,8 +38,6 @@ describe('VehicleTechnicalRecordComponent', () => {
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			imports: [
-				DynamicFormsModule,
-				SharedModule,
 				EditTechRecordButtonComponent,
 				TechRecordHistoryComponent,
 				TechRecordSummaryComponent,

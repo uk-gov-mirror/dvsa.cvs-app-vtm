@@ -9,11 +9,13 @@ import {
 } from '@angular/forms';
 import { NumberOnlyDirective } from '@directives/app-number-only/app-number-only.directive';
 import { CustomTag, FormNodeWidth } from '@services/dynamic-forms/dynamic-form.types';
-import { SharedModule } from '@shared/shared.module';
+
+import { TagDirective } from '@directives/tag/tag.directive';
+import { TagComponent } from '../../../components/tag/tag.component';
 
 @Component({
 	selector: 'govuk-form-group-input',
-	imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule, NumberOnlyDirective],
+	imports: [CommonModule, FormsModule, ReactiveFormsModule, TagComponent, TagDirective, NumberOnlyDirective],
 	templateUrl: './govuk-form-group-input.component.html',
 	styleUrls: ['./govuk-form-group-input.component.scss'],
 	providers: [

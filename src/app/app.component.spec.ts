@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MsalModule } from '@azure/msal-angular';
 import { PageNotFoundComponent } from '@core/components/page-not-found/page-not-found.component';
-import { CoreModule } from '@core/core.module';
 import { GoogleAnalyticsServiceMock } from '@mocks/google-analytics-service.mock';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -25,14 +24,7 @@ describe('AppComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [
-				CoreModule,
-				MsalModule,
-				RouterTestingModule,
-				PageNotFoundComponent,
-				AppRoutingModule,
-				StoreModule.forRoot({}),
-			],
+			imports: [MsalModule, RouterTestingModule, PageNotFoundComponent, AppRoutingModule, StoreModule.forRoot({})],
 			declarations: [AppComponent],
 			providers: [
 				provideMockStore<State>({ initialState: initialAppState }),

@@ -1,6 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DynamicFormsModule } from '@forms/dynamic-forms.module';
-import { SharedModule } from '@shared/shared.module';
 
 import { CustomDefectComponent } from '../custom-defect.component';
 
@@ -10,7 +8,7 @@ describe('CustomDefectComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [SharedModule, DynamicFormsModule],
+			imports: [CustomDefectComponent],
 		}).compileComponents();
 	});
 

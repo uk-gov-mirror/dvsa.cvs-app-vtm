@@ -20,21 +20,14 @@ import {
 } from '@angular/forms';
 import { ApprovalType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalType.enum.js';
 import { FormNodeWidth } from '@services/dynamic-forms/dynamic-form.types';
-import { SharedModule } from '@shared/shared.module';
+
 import { ReplaySubject, takeUntil } from 'rxjs';
 
 @Component({
 	selector: 'approval-type-number-input',
 	templateUrl: 'approval-type-number.html',
 	styleUrls: ['./approval-type-number.scss'],
-	imports: [
-		FormsModule,
-		SharedModule,
-		KeyValuePipe,
-		ReactiveFormsModule,
-		ReactiveFormsModule,
-		ApprovalTypeFocusNextDirective,
-	],
+	imports: [FormsModule, KeyValuePipe, ReactiveFormsModule, ReactiveFormsModule, ApprovalTypeFocusNextDirective],
 	providers: [
 		{
 			provide: NG_VALUE_ACCESSOR,

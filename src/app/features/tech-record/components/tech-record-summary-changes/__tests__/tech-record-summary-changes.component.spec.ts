@@ -3,7 +3,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router, provideRouter } from '@angular/router';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb';
-import { DynamicFormsModule } from '@forms/dynamic-forms.module';
+
 import { TechRecordReasonForCreationSection } from '@forms/templates/general/reason-for-creation.template';
 import { V3TechRecordModel } from '@models/vehicle-tech-record.model';
 import { provideMockActions } from '@ngrx/effects/testing';
@@ -12,7 +12,7 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { FormNode, FormNodeViewTypes } from '@services/dynamic-forms/dynamic-form.types';
 import { RouterService } from '@services/router/router.service';
 import { UserService } from '@services/user-service/user-service';
-import { SharedModule } from '@shared/shared.module';
+
 import { initialAppState } from '@store/index';
 import {
 	amendVrmSuccess,
@@ -34,7 +34,7 @@ describe('TechRecordSummaryChangesComponent', () => {
 	beforeEach(async () => {
 		actions$ = new ReplaySubject<Action>();
 		await TestBed.configureTestingModule({
-			imports: [DynamicFormsModule, TechRecordSummaryChangesComponent, SharedModule],
+			imports: [TechRecordSummaryChangesComponent],
 			providers: [
 				provideRouter([]),
 				provideHttpClient(),

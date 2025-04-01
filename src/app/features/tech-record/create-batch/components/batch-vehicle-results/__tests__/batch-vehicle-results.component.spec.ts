@@ -5,7 +5,7 @@ import { initialAppState } from '@store/index';
 
 import { provideHttpClient } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
-import { SharedModule } from '@shared/shared.module';
+
 import { BatchVehicleResultsComponent } from '../batch-vehicle-results.component';
 
 describe('BatchVehicleResultsComponent', () => {
@@ -14,7 +14,7 @@ describe('BatchVehicleResultsComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [BatchVehicleResultsComponent, SharedModule],
+			imports: [BatchVehicleResultsComponent],
 			providers: [
 				provideRouter([]),
 				provideHttpClient(),

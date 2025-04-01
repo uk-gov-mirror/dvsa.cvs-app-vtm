@@ -12,7 +12,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
-import { DynamicFormsModule } from '@forms/dynamic-forms.module';
+
 import { mockVehicleTechnicalRecord } from '@mocks/mock-vehicle-technical-record.mock';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
@@ -47,7 +47,7 @@ describe('TyresSectionEditComponent', () => {
 		const mockTechRecord = mockVehicleTechnicalRecord('hgv');
 
 		await TestBed.configureTestingModule({
-			imports: [DynamicFormsModule, FormsModule, ReactiveFormsModule, TyresSectionEditComponent],
+			imports: [FormsModule, ReactiveFormsModule, TyresSectionEditComponent],
 			providers: [
 				provideMockStore({ initialState: initialAppState }),
 				provideMockActions(() => actions$),

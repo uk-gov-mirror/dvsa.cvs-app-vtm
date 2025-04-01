@@ -10,7 +10,6 @@ import { ReferenceDataService } from '@services/reference-data/reference-data.se
 import { TestStationsService } from '@services/test-stations/test-stations.service';
 import { UserService } from '@services/user-service/user-service';
 import { initialAppState } from '@store/index';
-import { DynamicFormsModule } from '../../../dynamic-forms.module';
 import { DynamicFormGroupComponent } from '../dynamic-form-group.component';
 
 describe('DynamicFormGroupComponent', () => {
@@ -19,7 +18,7 @@ describe('DynamicFormGroupComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [DynamicFormsModule, HttpClientTestingModule, RouterTestingModule],
+			imports: [HttpClientTestingModule, RouterTestingModule],
 			providers: [
 				provideMockStore({ initialState: initialAppState }),
 				ReferenceDataService,

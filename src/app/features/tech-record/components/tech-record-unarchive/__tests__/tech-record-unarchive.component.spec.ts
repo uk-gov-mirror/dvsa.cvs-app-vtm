@@ -4,13 +4,13 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideRouter } from '@angular/router';
-import { DynamicFormsModule } from '@forms/dynamic-forms.module';
+
 import { Roles } from '@models/roles.enum';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { UserService } from '@services/user-service/user-service';
-import { SharedModule } from '@shared/shared.module';
+
 import { initialAppState } from '@store/index';
 import { ReplaySubject, of } from 'rxjs';
 import { TechRecordTitleComponent } from '../../tech-record-title/tech-record-title.component';
@@ -25,13 +25,7 @@ describe('TechRecordUnarchiveComponent', () => {
 		actions$ = new ReplaySubject<Action>();
 
 		await TestBed.configureTestingModule({
-			imports: [
-				TechRecordUnarchiveComponent,
-				TechRecordTitleComponent,
-				DynamicFormsModule,
-				ReactiveFormsModule,
-				SharedModule,
-			],
+			imports: [TechRecordUnarchiveComponent, TechRecordTitleComponent, ReactiveFormsModule],
 			providers: [
 				provideRouter([]),
 				provideHttpClient(),

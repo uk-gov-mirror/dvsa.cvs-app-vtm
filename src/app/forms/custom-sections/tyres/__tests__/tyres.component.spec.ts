@@ -3,7 +3,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { SimpleChanges } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { DynamicFormsModule } from '@forms/dynamic-forms.module';
+
 import { mockVehicleTechnicalRecord } from '@mocks/mock-vehicle-technical-record.mock';
 import { Axles, Tyres } from '@models/vehicle-tech-record.model';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -30,7 +30,7 @@ describe('TyresComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [TyresComponent, DynamicFormsModule],
+			imports: [TyresComponent],
 			providers: [
 				provideRouter([]),
 				provideHttpClient(),

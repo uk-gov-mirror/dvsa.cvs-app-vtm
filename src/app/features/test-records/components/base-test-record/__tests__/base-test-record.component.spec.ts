@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { DynamicFormGroupComponent } from '@forms/components/dynamic-form-group/dynamic-form-group.component';
-import { DynamicFormsModule } from '@forms/dynamic-forms.module';
+
 import { Roles } from '@models/roles.enum';
 import { TestResultModel } from '@models/test-results/test-result.model';
 import { resultOfTestEnum } from '@models/test-types/test-type.model';
@@ -17,7 +17,7 @@ import { RouterService } from '@services/router/router.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { TestTypesService } from '@services/test-types/test-types.service';
 import { UserService } from '@services/user-service/user-service';
-import { SharedModule } from '@shared/shared.module';
+
 import { initialAppState } from '@store/index';
 import { of } from 'rxjs';
 import { VehicleHeaderComponent } from '../../vehicle-header/vehicle-header.component';
@@ -29,7 +29,7 @@ describe('BaseTestRecordComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [DynamicFormsModule, BaseTestRecordComponent, DefaultNullOrEmpty, VehicleHeaderComponent, SharedModule],
+			imports: [BaseTestRecordComponent, DefaultNullOrEmpty, VehicleHeaderComponent],
 			providers: [
 				RouterService,
 				GlobalErrorService,

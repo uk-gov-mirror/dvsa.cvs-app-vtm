@@ -6,13 +6,13 @@ import { ActivatedRoute, Router, provideRouter } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { VehicleConfiguration } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/vehicleConfigurationHgvPsv.enum.js';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
-import { DynamicFormsModule } from '@forms/dynamic-forms.module';
+
 import { hgvRequiredFields } from '@models/plateRequiredFields.model';
 import { Roles } from '@models/roles.enum';
 import { VehicleConfigurations } from '@models/vehicle-tech-record.model';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { UserService } from '@services/user-service/user-service';
-import { SharedModule } from '@shared/shared.module';
+
 import { State, initialAppState } from '@store/index';
 import { canGeneratePlate } from '@store/technical-records';
 import { of } from 'rxjs';
@@ -29,7 +29,7 @@ describe('PlatesComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [DynamicFormsModule, SharedModule, PlatesComponent],
+			imports: [PlatesComponent],
 			providers: [
 				provideRouter([]),
 				provideHttpClient(),

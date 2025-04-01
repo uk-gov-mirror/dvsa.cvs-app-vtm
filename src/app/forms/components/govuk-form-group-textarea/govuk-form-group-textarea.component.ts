@@ -8,11 +8,13 @@ import {
 	ReactiveFormsModule,
 } from '@angular/forms';
 import { CustomTag, FormNodeWidth } from '@services/dynamic-forms/dynamic-form.types';
-import { SharedModule } from '@shared/shared.module';
+
+import { TagDirective } from '@directives/tag/tag.directive';
+import { TagComponent } from '../../../components/tag/tag.component';
 
 @Component({
 	selector: 'govuk-form-group-textarea',
-	imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule],
+	imports: [CommonModule, FormsModule, ReactiveFormsModule, TagComponent, TagDirective],
 	templateUrl: './govuk-form-group-textarea.component.html',
 	styleUrls: ['./govuk-form-group-textarea.component.scss'],
 	providers: [

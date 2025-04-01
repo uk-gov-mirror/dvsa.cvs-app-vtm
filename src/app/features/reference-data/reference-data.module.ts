@@ -2,8 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { DynamicFormsModule } from '@forms/dynamic-forms.module';
-import { SharedModule } from '@shared/shared.module';
+
 import { ReferenceDataCreateComponent } from './reference-data-add/reference-data-add.component';
 import { ReferenceDataAmendHistoryComponent } from './reference-data-amend-history/reference-data-amend-history.component';
 import { ReferenceDataAmendComponent } from './reference-data-amend/reference-data-amend.component';
@@ -16,11 +15,9 @@ import { ReferenceDataSelectTypeComponent } from './reference-data-select-type/r
 @NgModule({
 	imports: [
 		CommonModule,
-		DynamicFormsModule,
 		RouterModule,
 		ReactiveFormsModule,
 		ReferenceDataRoutingModule,
-		SharedModule,
 		ReferenceDataSelectTypeComponent,
 		ReferenceDataListComponent,
 		ReferenceDataDeletedListComponent,

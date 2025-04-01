@@ -1,6 +1,6 @@
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DynamicFormsModule } from '@forms/dynamic-forms.module';
+
 import { provideMockStore } from '@ngrx/store/testing';
 import { initialAppState } from '@store/index';
 
@@ -19,7 +19,7 @@ describe('BrakesComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [DynamicFormsModule, TrlBrakesComponent],
+			imports: [TrlBrakesComponent],
 			providers: [
 				provideRouter([]),
 				provideHttpClient(),

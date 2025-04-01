@@ -9,11 +9,13 @@ import {
 } from '@angular/forms';
 import { MultiOptions } from '@models/options.model';
 import { CustomTag, FormNodeWidth } from '@services/dynamic-forms/dynamic-form.types';
-import { SharedModule } from '@shared/shared.module';
+
+import { TagDirective } from '@directives/tag/tag.directive';
+import { TagComponent } from '../../../components/tag/tag.component';
 
 @Component({
 	selector: 'govuk-form-group-select',
-	imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule],
+	imports: [CommonModule, FormsModule, ReactiveFormsModule, TagComponent, TagDirective],
 	templateUrl: './govuk-form-group-select.component.html',
 	styleUrls: ['./govuk-form-group-select.component.scss'],
 	providers: [

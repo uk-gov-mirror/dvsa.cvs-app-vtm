@@ -7,7 +7,7 @@ import { EUVehicleCategory } from '@dvsa/cvs-type-definitions/types/v3/tech-reco
 import { TechRecordType as TechRecordTypeByVehicle } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb';
 import { LettersComponent } from '@forms/custom-sections/letters/letters.component';
-import { DynamicFormsModule } from '@forms/dynamic-forms.module';
+
 import { Roles } from '@models/roles.enum';
 import { V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
@@ -15,7 +15,7 @@ import { FeatureToggleService } from '@services/feature-toggle-service/feature-t
 import { MultiOptionsService } from '@services/multi-options/multi-options.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { UserService } from '@services/user-service/user-service';
-import { SharedModule } from '@shared/shared.module';
+
 import { State, initialAppState } from '@store/index';
 import { updateEditingTechRecord } from '@store/technical-records';
 import { of } from 'rxjs';
@@ -32,7 +32,7 @@ describe('TechRecordSummaryComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [DynamicFormsModule, TechRecordSummaryComponent, SharedModule],
+			imports: [TechRecordSummaryComponent],
 			providers: [
 				MultiOptionsService,
 				provideRouter([]),

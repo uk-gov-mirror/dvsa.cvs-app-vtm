@@ -1,7 +1,7 @@
 import { NumberOnlyDirective } from '@/src/app/directives/app-number-only/app-number-only.directive';
 import { DateFocusNextDirective } from '@/src/app/directives/date-focus-next/date-focus-next.directive';
 import { CustomTag } from '@/src/app/services/dynamic-forms/dynamic-form.types';
-import { SharedModule } from '@/src/app/shared/shared.module';
+
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, forwardRef, inject, input, model, output } from '@angular/core';
 import {
@@ -12,11 +12,21 @@ import {
 	NG_VALUE_ACCESSOR,
 	ReactiveFormsModule,
 } from '@angular/forms';
+import { TagDirective } from '@directives/tag/tag.directive';
 import { ReplaySubject, takeUntil } from 'rxjs';
+import { TagComponent } from '../../../components/tag/tag.component';
 
 @Component({
 	selector: 'govuk-form-group-date',
-	imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule, DateFocusNextDirective, NumberOnlyDirective],
+	imports: [
+		CommonModule,
+		FormsModule,
+		ReactiveFormsModule,
+		TagComponent,
+		TagDirective,
+		DateFocusNextDirective,
+		NumberOnlyDirective,
+	],
 	templateUrl: './govuk-form-group-date.component.html',
 	styleUrls: ['./govuk-form-group-date.component.scss'],
 	providers: [
