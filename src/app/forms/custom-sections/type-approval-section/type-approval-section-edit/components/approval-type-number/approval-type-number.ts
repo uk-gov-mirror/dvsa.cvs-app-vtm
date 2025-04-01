@@ -7,7 +7,7 @@ import {
 	APPROVAL_TYPE_NUMBER_REGEX_GENERIC_PARTIAL_MATCH,
 	APPROVAL_TYPE_NUMBER_REGEX_PARTIAL_MATCH,
 } from '@/src/app/models/approval-type.model';
-import { KeyValuePipe, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+import { KeyValuePipe } from '@angular/common';
 import { Component, OnChanges, OnDestroy, SimpleChanges, forwardRef, inject, input, model } from '@angular/core';
 import {
 	AbstractControl,
@@ -29,11 +29,8 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 	styleUrls: ['./approval-type-number.scss'],
 	imports: [
 		FormsModule,
-		NgSwitchCase,
 		SharedModule,
 		KeyValuePipe,
-		NgIf,
-		NgSwitch,
 		ReactiveFormsModule,
 		ReactiveFormsModule,
 		ApprovalTypeFocusNextDirective,

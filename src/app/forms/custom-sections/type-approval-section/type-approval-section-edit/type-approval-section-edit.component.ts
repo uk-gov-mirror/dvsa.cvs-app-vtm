@@ -1,6 +1,16 @@
 import { FormNodeWidth, TagTypeLabels } from '@/src/app/services/dynamic-forms/dynamic-form.types';
 import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
-import { AbstractControl, ControlContainer, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+	AbstractControl,
+	ControlContainer,
+	FormBuilder,
+	FormControl,
+	FormGroup,
+	FormsModule,
+	ReactiveFormsModule,
+	ValidationErrors,
+	ValidatorFn,
+} from '@angular/forms';
 import { TagType } from '@components/tag/tag.component';
 import { ApprovalType as TRLApprovalTypes } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalType.enum.js';
 import { ApprovalType as HGVAndPSVApprovalTypes } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalTypeHgvOrPsv.enum.js';
@@ -10,27 +20,26 @@ import { CommonValidatorsService } from '@forms/validators/common-validators.ser
 import { V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { ReplaySubject } from 'rxjs';
-import { NgIf } from '@angular/common';
+
+import { GovukFormGroupDateComponent } from '../../../components/govuk-form-group-date/govuk-form-group-date.component';
+import { GovukFormGroupInputComponent } from '../../../components/govuk-form-group-input/govuk-form-group-input.component';
 import { GovukFormGroupSelectComponent } from '../../../components/govuk-form-group-select/govuk-form-group-select.component';
 import { ApprovalTypeNumber } from './components/approval-type-number/approval-type-number';
-import { GovukFormGroupInputComponent } from '../../../components/govuk-form-group-input/govuk-form-group-input.component';
-import { GovukFormGroupDateComponent } from '../../../components/govuk-form-group-date/govuk-form-group-date.component';
 
 type TypeApprovalSectionForm = Partial<Record<keyof TechRecordType<'hgv' | 'psv' | 'trl'>, FormControl>>;
 
 @Component({
-    selector: 'app-type-approval-section-edit',
-    templateUrl: './type-approval-section-edit.component.html',
-    styleUrls: ['./type-approval-section-edit.component.scss'],
-    imports: [
-        NgIf,
-        FormsModule,
-        ReactiveFormsModule,
-        GovukFormGroupSelectComponent,
-        ApprovalTypeNumber,
-        GovukFormGroupInputComponent,
-        GovukFormGroupDateComponent,
-    ],
+	selector: 'app-type-approval-section-edit',
+	templateUrl: './type-approval-section-edit.component.html',
+	styleUrls: ['./type-approval-section-edit.component.scss'],
+	imports: [
+		FormsModule,
+		ReactiveFormsModule,
+		GovukFormGroupSelectComponent,
+		ApprovalTypeNumber,
+		GovukFormGroupInputComponent,
+		GovukFormGroupDateComponent,
+	],
 })
 export class TypeApprovalSectionEditComponent implements OnInit, OnDestroy {
 	private readonly fb = inject(FormBuilder);

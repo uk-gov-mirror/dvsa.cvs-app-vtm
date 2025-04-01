@@ -1,10 +1,10 @@
+import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Roles } from '@models/roles.enum';
 import { TestResultStatus } from '@models/test-results/test-result-status.enum';
 import { TestResultModel } from '@models/test-results/test-result.model';
 import { resultOfTestEnum } from '@models/test-types/test-type.model';
-import { NgIf, NgFor, DatePipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { PaginationComponent } from '../../../../components/pagination/pagination.component';
 
 interface TestField {
@@ -17,16 +17,10 @@ interface TestField {
 }
 
 @Component({
-    selector: 'app-test-record-summary',
-    templateUrl: './test-record-summary.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        NgIf,
-        NgFor,
-        RouterLink,
-        PaginationComponent,
-        DatePipe,
-    ],
+	selector: 'app-test-record-summary',
+	templateUrl: './test-record-summary.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [RouterLink, PaginationComponent, DatePipe],
 })
 export class TestRecordSummaryComponent {
 	readonly isEditing = input(false);
@@ -77,10 +71,6 @@ export class TestRecordSummaryComponent {
 
 	getTestTypeResults(testResult: TestResultModel): string {
 		return testResult.testTypes.map((t) => t.testResult).join(',');
-	}
-
-	trackByFn(i: number, t: TestField): string {
-		return t.testNumber;
 	}
 
 	handlePaginationChange(event?: { start: number; end: number }): void {

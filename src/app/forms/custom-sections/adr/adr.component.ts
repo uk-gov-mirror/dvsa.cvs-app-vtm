@@ -10,19 +10,15 @@ import { GlobalErrorService } from '@core/components/global-error/global-error.s
 import { AdrSummaryTemplate } from '@forms/templates/general/adr-summary.template';
 import { AdrService } from '@services/adr/adr.service';
 import { ReplaySubject, skipWhile, takeUntil } from 'rxjs';
-import { NgIf } from '@angular/common';
+
 import { RetrieveDocumentDirective } from '../../../directives/retrieve-document/retrieve-document.directive';
 import { DynamicFormGroupComponent } from '../../components/dynamic-form-group/dynamic-form-group.component';
 
 @Component({
-    selector: 'app-adr',
-    templateUrl: './adr.component.html',
-    styleUrls: ['./adr.component.scss'],
-    imports: [
-        NgIf,
-        RetrieveDocumentDirective,
-        DynamicFormGroupComponent,
-    ],
+	selector: 'app-adr',
+	templateUrl: './adr.component.html',
+	styleUrls: ['./adr.component.scss'],
+	imports: [RetrieveDocumentDirective, DynamicFormGroupComponent],
 })
 export class AdrComponent implements OnInit, OnDestroy {
 	techRecord = model.required<TechRecordType<'hgv' | 'lgv' | 'trl'>>();

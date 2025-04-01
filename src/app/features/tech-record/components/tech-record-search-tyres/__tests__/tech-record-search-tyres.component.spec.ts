@@ -229,12 +229,6 @@ describe('TechRecordSearchTyresComponent', () => {
 		});
 	});
 
-	describe('trackByFn', () => {
-		it('should return the resourceKey', () => {
-			expect(component.trackByFn(12, { resourceKey: 'foo' } as unknown as ReferenceDataTyre)).toBe('foo');
-		});
-	});
-
 	describe('OnInit', () => {
 		it('should patch the form with the search criteria and the search return', () => {
 			const mockForm = {

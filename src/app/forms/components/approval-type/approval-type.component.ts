@@ -1,4 +1,3 @@
-import { NgFor, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import {
 	AfterContentInit,
 	ChangeDetectorRef,
@@ -119,16 +118,7 @@ const characterLimitGeneric: Record<string, number> = {
 			multi: true,
 		},
 	],
-	imports: [
-		NgSwitch,
-		NgSwitchCase,
-		NgIf,
-		FieldErrorMessageComponent,
-		NgFor,
-		TagComponent,
-		FormsModule,
-		ApprovalTypeFocusNextDirective,
-	],
+	imports: [FieldErrorMessageComponent, TagComponent, FormsModule, ApprovalTypeFocusNextDirective],
 })
 export class ApprovalTypeInputComponent
 	extends BaseControlComponent

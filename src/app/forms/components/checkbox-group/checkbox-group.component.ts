@@ -1,29 +1,23 @@
 import { Component, input } from '@angular/core';
-import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FormNodeOption } from '@services/dynamic-forms/dynamic-form.types';
 import { BaseControlComponent } from '../base-control/base-control.component';
-import { NgIf, NgFor } from '@angular/common';
+
 import { TagComponent } from '../../../components/tag/tag.component';
 import { FieldErrorMessageComponent } from '../field-error-message/field-error-message.component';
 
 type OptionsType = string | number | boolean;
 @Component({
-    selector: 'app-checkbox-group',
-    templateUrl: './checkbox-group.component.html',
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: CheckboxGroupComponent,
-            multi: true,
-        },
-    ],
-    imports: [
-        NgIf,
-        NgFor,
-        TagComponent,
-        FieldErrorMessageComponent,
-        FormsModule,
-    ],
+	selector: 'app-checkbox-group',
+	templateUrl: './checkbox-group.component.html',
+	providers: [
+		{
+			provide: NG_VALUE_ACCESSOR,
+			useExisting: CheckboxGroupComponent,
+			multi: true,
+		},
+	],
+	imports: [TagComponent, FieldErrorMessageComponent, FormsModule],
 })
 export class CheckboxGroupComponent extends BaseControlComponent {
 	readonly options = input<FormNodeOption<OptionsType>[]>([]);
@@ -81,9 +75,5 @@ export class CheckboxGroupComponent extends BaseControlComponent {
 
 		this.value = newValue;
 		this.onChange(this.value);
-	}
-
-	trackByFn(i: number) {
-		return i;
 	}
 }

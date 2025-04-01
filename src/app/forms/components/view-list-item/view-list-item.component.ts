@@ -1,13 +1,4 @@
-import {
-	AsyncPipe,
-	DatePipe,
-	NgClass,
-	NgComponentOutlet,
-	NgIf,
-	NgSwitch,
-	NgSwitchCase,
-	NgSwitchDefault,
-} from '@angular/common';
+import { AsyncPipe, DatePipe, NgClass, NgComponentOutlet } from '@angular/common';
 import { Component, Injector } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { FormNodeViewTypes } from '@services/dynamic-forms/dynamic-form.types';
@@ -29,13 +20,9 @@ import { BaseControlComponent } from '../base-control/base-control.component';
 	],
 	styleUrls: ['./view-list-item.component.scss'],
 	imports: [
-		NgIf,
 		NgClass,
-		NgSwitch,
-		NgSwitchCase,
 		NumberPlateComponent,
 		NgComponentOutlet,
-		NgSwitchDefault,
 		AsyncPipe,
 		DatePipe,
 		DefaultNullOrEmpty,

@@ -1,36 +1,34 @@
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { AfterContentInit, Component, input } from '@angular/core';
-import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
-import { BaseControlComponent } from '../base-control/base-control.component';
-import { NgClass, NgIf, NgFor, NgTemplateOutlet } from '@angular/common';
+import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { TagComponent } from '../../../components/tag/tag.component';
+import { DecimalOnlyDirective } from '../../../directives/app-decimal-only/app-decimal-only.directive';
+import { NumberOnlyDirective } from '../../../directives/app-number-only/app-number-only.directive';
+import { BaseControlComponent } from '../base-control/base-control.component';
 import { FieldErrorMessageComponent } from '../field-error-message/field-error-message.component';
 import { FieldWarningMessageComponent } from '../field-warning-message/field-warning-message.component';
-import { NumberOnlyDirective } from '../../../directives/app-number-only/app-number-only.directive';
-import { DecimalOnlyDirective } from '../../../directives/app-decimal-only/app-decimal-only.directive';
 
 @Component({
-    selector: 'app-number-input',
-    templateUrl: './number-input.component.html',
-    styleUrls: ['./number-input.component.scss'],
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: NumberInputComponent,
-            multi: true,
-        },
-    ],
-    imports: [
-        NgClass,
-        NgIf,
-        NgFor,
-        TagComponent,
-        FieldErrorMessageComponent,
-        FieldWarningMessageComponent,
-        NgTemplateOutlet,
-        FormsModule,
-        NumberOnlyDirective,
-        DecimalOnlyDirective,
-    ],
+	selector: 'app-number-input',
+	templateUrl: './number-input.component.html',
+	styleUrls: ['./number-input.component.scss'],
+	providers: [
+		{
+			provide: NG_VALUE_ACCESSOR,
+			useExisting: NumberInputComponent,
+			multi: true,
+		},
+	],
+	imports: [
+		NgClass,
+		TagComponent,
+		FieldErrorMessageComponent,
+		FieldWarningMessageComponent,
+		NgTemplateOutlet,
+		FormsModule,
+		NumberOnlyDirective,
+		DecimalOnlyDirective,
+	],
 })
 export class NumberInputComponent extends BaseControlComponent implements AfterContentInit {
 	readonly vehicleType = input<string | null>();

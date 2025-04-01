@@ -1,27 +1,31 @@
 <div class="govuk-form-group-input">
-  <h1 *ngIf="controlLabel()">
-    <label tag >
-      {{ controlLabel() }}
-      <ng-container *ngIf="tags()?.length">
-        <div>
-          <app-tag *ngFor="let tag of tags()" [type]="tag.colour">{{ tag.label }}</app-tag>
-        </div>
-      </ng-container>
-    </label>
-  </h1>
+  @if (controlLabel()) {
+    <h1>
+      <label tag >
+        {{ controlLabel() }}
+        @if (tags()?.length) {
+          <div>
+            @for (tag of tags(); track tag) {
+              <app-tag [type]="tag.colour">{{ tag.label }}</app-tag>
+            }
+          </div>
+        }
+      </label>
+    </h1>
+  }
 
-  <ng-container *ngIf="controlHint()">
+  @if (controlHint()) {
     <div class="govuk-hint" id="{{ hintId }}"> {{ controlHint() }} </div>
-  </ng-container>
+  }
 
-  <ng-container *ngIf="hasError">
+  @if (hasError) {
     <p class="govuk-error-message" id="{{ errorId }}">
       <span class="govuk-visually-hidden">Error: </span>
       <span>{{ (control?.errors | keyvalue)?.[0]?.value }}</span>
     </p>
-  </ng-container>
+  }
 
-  <ng-container *ngIf="controlType() === 'text'">
+  @if (controlType() === 'text') {
     <input
       id="{{ id }}"
       name="{{ id }}"
@@ -35,10 +39,10 @@
       [class]="style"
       [disabled]="control?.disabled || false"
       [maxlength]="maxlength()"
-    />
-  </ng-container>
+      />
+  }
 
-  <ng-container *ngIf="controlType() === 'number'">
+  @if (controlType() === 'number') {
     <input
       id="{{ id }}"
       name="{{ id }}"
@@ -54,10 +58,10 @@
       (blur)="onTouched(); onBlur($event)"
       [class]="style"
       [disabled]="control?.disabled || false"
-    />
-  </ng-container>
+      />
+  }
 
-  <ng-container *ngIf="controlType() === 'numericString'">
+  @if (controlType() === 'numericString') {
     <input
       id="{{ id }}"
       name="{{ id }}"
@@ -71,10 +75,10 @@
       (blur)="onTouched(); onBlur($event)"
       [class]="style"
       [disabled]="control?.disabled || false"
-    />
-  </ng-container>
+      />
+  }
 
-  <ng-container *ngIf="controlType() === 'decimal'">
+  @if (controlType() === 'decimal') {
     <div class="govuk-input__wrapper">
       <input
         id="{{ id }}"
@@ -91,9 +95,11 @@
         (blur)="onTouched(); onBlur($event)"
         [class]="style"
         [disabled]="control?.disabled || false"
-      />
-      <div class="govuk-input__suffix" aria-hidden="true" *ngIf="suffix()">{{ suffix() }}</div>
+        />
+      @if (suffix()) {
+        <div class="govuk-input__suffix" aria-hidden="true">{{ suffix() }}</div>
+      }
     </div>
-  </ng-container>
+  }
 
 </div>

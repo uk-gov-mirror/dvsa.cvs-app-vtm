@@ -1,4 +1,4 @@
-import { ViewportScroller, NgIf, NgFor, DatePipe } from '@angular/common';
+import { DatePipe, ViewportScroller } from '@angular/common';
 import { Component, inject, input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
@@ -11,22 +11,15 @@ import { FeatureToggleService } from '@services/feature-toggle-service/feature-t
 import { RouterService } from '@services/router/router.service';
 import { cloneDeep } from 'lodash';
 import { Observable, Subject, map, takeUntil } from 'rxjs';
-import { RetrieveDocumentDirective } from '../../../directives/retrieve-document/retrieve-document.directive';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { RoleRequiredDirective } from '../../../directives/app-role-required/app-role-required.directive';
+import { RetrieveDocumentDirective } from '../../../directives/retrieve-document/retrieve-document.directive';
 
 @Component({
-    selector: 'app-adr-certificate-history',
-    templateUrl: './adr-certificate-history.html',
-    styleUrls: ['./adr-certificate-history.scss'],
-    imports: [
-        NgIf,
-        NgFor,
-        RetrieveDocumentDirective,
-        PaginationComponent,
-        RoleRequiredDirective,
-        DatePipe,
-    ],
+	selector: 'app-adr-certificate-history',
+	templateUrl: './adr-certificate-history.html',
+	styleUrls: ['./adr-certificate-history.scss'],
+	imports: [RetrieveDocumentDirective, PaginationComponent, RoleRequiredDirective, DatePipe],
 })
 export class AdrCertificateHistoryComponent extends CustomFormControlComponent {
 	readonly currentTechRecord = input<TechRecordType<'hgv' | 'lgv' | 'trl'>>();
@@ -66,10 +59,6 @@ export class AdrCertificateHistoryComponent extends CustomFormControlComponent {
 
 	get adrCertificateHistory(): ADRCertificateDetails[] {
 		return this.sortedCertificates?.slice(this.pageStart, this.pageEnd) || [];
-	}
-
-	trackByFn(i: number, tr: ADRCertificateDetails) {
-		return tr.generatedTimestamp;
 	}
 
 	get numberOfADRCertificates(): number {

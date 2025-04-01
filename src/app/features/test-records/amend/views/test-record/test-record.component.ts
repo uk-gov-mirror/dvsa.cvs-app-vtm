@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, OnDestroy, OnInit, viewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,29 +15,25 @@ import { TestRecordsService } from '@services/test-records/test-records.service'
 import { updateTestResultSuccess } from '@store/test-records';
 import cloneDeep from 'lodash.clonedeep';
 import { Observable, Subject, combineLatest, filter, firstValueFrom, map, of, switchMap, take, takeUntil } from 'rxjs';
-import { BaseTestRecordComponent } from '../../../components/base-test-record/base-test-record.component';
-import { NgSwitch, NgSwitchCase, NgIf, AsyncPipe } from '@angular/common';
 import { BannerComponent } from '../../../../../components/banner/banner.component';
-import { RoleRequiredDirective } from '../../../../../directives/app-role-required/app-role-required.directive';
 import { ButtonGroupComponent } from '../../../../../components/button-group/button-group.component';
 import { ButtonComponent } from '../../../../../components/button/button.component';
+import { RoleRequiredDirective } from '../../../../../directives/app-role-required/app-role-required.directive';
+import { BaseTestRecordComponent } from '../../../components/base-test-record/base-test-record.component';
 import { VehicleHeaderComponent } from '../../../components/vehicle-header/vehicle-header.component';
 
 @Component({
-    selector: 'app-test-records',
-    templateUrl: './test-record.component.html',
-    imports: [
-        NgSwitch,
-        NgSwitchCase,
-        NgIf,
-        BannerComponent,
-        BaseTestRecordComponent,
-        RoleRequiredDirective,
-        ButtonGroupComponent,
-        ButtonComponent,
-        VehicleHeaderComponent,
-        AsyncPipe,
-    ],
+	selector: 'app-test-records',
+	templateUrl: './test-record.component.html',
+	imports: [
+		BannerComponent,
+		BaseTestRecordComponent,
+		RoleRequiredDirective,
+		ButtonGroupComponent,
+		ButtonComponent,
+		VehicleHeaderComponent,
+		AsyncPipe,
+	],
 })
 export class TestRecordComponent implements OnInit, OnDestroy {
 	readonly baseTestRecordComponent = viewChild(BaseTestRecordComponent);

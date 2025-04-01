@@ -1,4 +1,6 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
@@ -19,30 +21,27 @@ import {
 	updateRequiredStandard,
 } from '@store/test-records';
 import { Subject, distinctUntilChanged, takeUntil, withLatestFrom } from 'rxjs';
-import { NgTemplateOutlet, NgIf } from '@angular/common';
-import { TagComponent } from '../../../components/tag/tag.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TextAreaComponent } from '../../components/text-area/text-area.component';
 import { ButtonGroupComponent } from '../../../components/button-group/button-group.component';
 import { ButtonComponent } from '../../../components/button/button.component';
+import { TagComponent } from '../../../components/tag/tag.component';
 import { DefaultNullOrEmpty as DefaultNullOrEmpty_1 } from '../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
+import { TextAreaComponent } from '../../components/text-area/text-area.component';
 
 @Component({
-    selector: 'app-required-standard',
-    templateUrl: './required-standard.component.html',
-    providers: [DefaultNullOrEmpty],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        NgTemplateOutlet,
-        NgIf,
-        TagComponent,
-        FormsModule,
-        ReactiveFormsModule,
-        TextAreaComponent,
-        ButtonGroupComponent,
-        ButtonComponent,
-        DefaultNullOrEmpty_1,
-    ],
+	selector: 'app-required-standard',
+	templateUrl: './required-standard.component.html',
+	providers: [DefaultNullOrEmpty],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [
+		NgTemplateOutlet,
+		TagComponent,
+		FormsModule,
+		ReactiveFormsModule,
+		TextAreaComponent,
+		ButtonGroupComponent,
+		ButtonComponent,
+		DefaultNullOrEmpty_1,
+	],
 })
 export class RequiredStandardComponent implements OnInit, OnDestroy {
 	form!: CustomFormGroup;

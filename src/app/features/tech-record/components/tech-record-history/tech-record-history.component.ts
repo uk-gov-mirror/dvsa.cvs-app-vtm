@@ -1,29 +1,21 @@
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { TechRecordSearchSchema } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/search';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb';
 import { V3TechRecordModel } from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
 import { getBySystemNumber, selectTechRecordHistory } from '@store/technical-records';
 import { Observable, map } from 'rxjs';
-import { NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
 import { ButtonComponent } from '../../../../components/button/button.component';
-import { RouterLink } from '@angular/router';
 import { PaginationComponent } from '../../../../components/pagination/pagination.component';
 
 @Component({
-    selector: 'app-tech-record-history',
-    templateUrl: './tech-record-history.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    styleUrls: ['./tech-record-history.component.scss'],
-    imports: [
-        NgIf,
-        NgFor,
-        ButtonComponent,
-        RouterLink,
-        PaginationComponent,
-        AsyncPipe,
-        DatePipe,
-    ],
+	selector: 'app-tech-record-history',
+	templateUrl: './tech-record-history.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	styleUrls: ['./tech-record-history.component.scss'],
+	imports: [ButtonComponent, RouterLink, PaginationComponent, AsyncPipe, DatePipe],
 })
 export class TechRecordHistoryComponent implements OnInit {
 	readonly currentTechRecord = input<V3TechRecordModel>();
@@ -66,10 +58,6 @@ export class TechRecordHistoryComponent implements OnInit {
 		this.pageStart = event.start;
 		this.pageEnd = event.end;
 		this.cdr.detectChanges();
-	}
-
-	trackByFn(i: number, tr: TechRecordSearchSchema) {
-		return tr.createdTimestamp;
 	}
 
 	summaryLinkUrl(searchResult: TechRecordSearchSchema) {

@@ -1,20 +1,14 @@
+import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, input, model } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { ReplaySubject, Subject, map, takeUntil } from 'rxjs';
-import { NgIf, NgFor, NgClass } from '@angular/common';
 
 @Component({
-    selector: 'app-pagination[tableName]',
-    templateUrl: './pagination.component.html',
-    styleUrls: ['./pagination.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        NgIf,
-        RouterLink,
-        NgFor,
-        NgClass,
-        RouterLinkActive,
-    ],
+	selector: 'app-pagination[tableName]',
+	templateUrl: './pagination.component.html',
+	styleUrls: ['./pagination.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [RouterLink, NgClass, RouterLinkActive],
 })
 export class PaginationComponent implements OnInit, OnDestroy {
 	readonly tableName = input.required<string>();
@@ -82,10 +76,6 @@ export class PaginationComponent implements OnInit, OnDestroy {
 	}
 	prevPage() {
 		return this.pageQuery(this.currentPage - 1);
-	}
-
-	trackByFn(index: number, page: number) {
-		return page || index;
 	}
 
 	get pages() {

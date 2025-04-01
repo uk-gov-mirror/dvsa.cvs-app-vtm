@@ -6,20 +6,15 @@ import { getOptionsFromEnum } from '@forms/utils/enum-map';
 import { MultiOptions } from '@models/options.model';
 import { CustomFormGroup } from '@services/dynamic-forms/dynamic-form.types';
 import { ReplaySubject, takeUntil } from 'rxjs';
-import { NgIf } from '@angular/common';
-import { CheckboxGroupComponent } from '../../components/checkbox-group/checkbox-group.component';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CheckboxGroupComponent } from '../../components/checkbox-group/checkbox-group.component';
 
 @Component({
-    selector: 'app-adr-permitted-dangerous-goods',
-    templateUrl: './adr-permitted-dangerous-goods.component.html',
-    styleUrls: ['./adr-permitted-dangerous-goods.component.scss'],
-    imports: [
-        NgIf,
-        CheckboxGroupComponent,
-        FormsModule,
-        ReactiveFormsModule,
-    ],
+	selector: 'app-adr-permitted-dangerous-goods',
+	templateUrl: './adr-permitted-dangerous-goods.component.html',
+	styleUrls: ['./adr-permitted-dangerous-goods.component.scss'],
+	imports: [CheckboxGroupComponent, FormsModule, ReactiveFormsModule],
 })
 export class AdrPermittedDangerousGoodsComponent
 	extends BaseControlComponent

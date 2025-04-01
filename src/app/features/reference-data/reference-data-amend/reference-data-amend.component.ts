@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, viewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
@@ -11,25 +12,23 @@ import { CustomFormGroup } from '@services/dynamic-forms/dynamic-form.types';
 import { ReferenceDataService } from '@services/reference-data/reference-data.service';
 import { ReferenceDataState, amendReferenceDataItem, selectReferenceDataByResourceKey } from '@store/reference-data';
 import { Observable, first } from 'rxjs';
-import { NgIf, AsyncPipe } from '@angular/common';
-import { RoleRequiredDirective } from '../../../directives/app-role-required/app-role-required.directive';
-import { DynamicFormGroupComponent as DynamicFormGroupComponent_1 } from '../../../forms/components/dynamic-form-group/dynamic-form-group.component';
 import { ButtonGroupComponent } from '../../../components/button-group/button-group.component';
 import { ButtonComponent } from '../../../components/button/button.component';
+import { RoleRequiredDirective } from '../../../directives/app-role-required/app-role-required.directive';
+import { DynamicFormGroupComponent as DynamicFormGroupComponent_1 } from '../../../forms/components/dynamic-form-group/dynamic-form-group.component';
 import { ReferenceDataAmendHistoryComponent } from '../reference-data-amend-history/reference-data-amend-history.component';
 
 @Component({
-    selector: 'app-reference-data-amend',
-    templateUrl: './reference-data-amend.component.html',
-    imports: [
-        NgIf,
-        RoleRequiredDirective,
-        DynamicFormGroupComponent_1,
-        ButtonGroupComponent,
-        ButtonComponent,
-        ReferenceDataAmendHistoryComponent,
-        AsyncPipe,
-    ],
+	selector: 'app-reference-data-amend',
+	templateUrl: './reference-data-amend.component.html',
+	imports: [
+		RoleRequiredDirective,
+		DynamicFormGroupComponent_1,
+		ButtonGroupComponent,
+		ButtonComponent,
+		ReferenceDataAmendHistoryComponent,
+		AsyncPipe,
+	],
 })
 export class ReferenceDataAmendComponent implements OnInit {
 	type!: ReferenceDataResourceType;

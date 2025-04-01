@@ -1,5 +1,6 @@
+import { AsyncPipe, UpperCasePipe } from '@angular/common';
 import { Component, viewChild } from '@angular/core';
-import { Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
@@ -19,29 +20,27 @@ import { TechnicalRecordService } from '@services/technical-record/technical-rec
 import { createVehicleRecord, selectTechRecord, updateTechRecord } from '@store/technical-records';
 import { TechnicalRecordServiceState, nullADRDetails } from '@store/technical-records/technical-record-service.reducer';
 import { Observable, map, take, withLatestFrom } from 'rxjs';
-import { TechRecordSummaryComponent } from '../../../components/tech-record-summary/tech-record-summary.component';
-import { NgIf, AsyncPipe, UpperCasePipe } from '@angular/common';
-import { SelectComponent } from '../../../../../forms/components/select/select.component';
-import { ButtonComponent } from '../../../../../components/button/button.component';
 import { ButtonGroupComponent } from '../../../../../components/button-group/button-group.component';
+import { ButtonComponent } from '../../../../../components/button/button.component';
+import { SelectComponent } from '../../../../../forms/components/select/select.component';
 import { DefaultNullOrEmpty } from '../../../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
+import { TechRecordSummaryComponent } from '../../../components/tech-record-summary/tech-record-summary.component';
 
 @Component({
-    selector: 'app-batch-vehicle-template',
-    templateUrl: './batch-vehicle-template.component.html',
-    imports: [
-        NgIf,
-        FormsModule,
-        ReactiveFormsModule,
-        SelectComponent,
-        ButtonComponent,
-        RouterLink,
-        ButtonGroupComponent,
-        TechRecordSummaryComponent,
-        AsyncPipe,
-        UpperCasePipe,
-        DefaultNullOrEmpty,
-    ],
+	selector: 'app-batch-vehicle-template',
+	templateUrl: './batch-vehicle-template.component.html',
+	imports: [
+		FormsModule,
+		ReactiveFormsModule,
+		SelectComponent,
+		ButtonComponent,
+		RouterLink,
+		ButtonGroupComponent,
+		TechRecordSummaryComponent,
+		AsyncPipe,
+		UpperCasePipe,
+		DefaultNullOrEmpty,
+	],
 })
 export class BatchVehicleTemplateComponent {
 	summary = viewChild(TechRecordSummaryComponent);

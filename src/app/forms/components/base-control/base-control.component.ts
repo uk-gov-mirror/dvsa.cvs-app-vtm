@@ -16,10 +16,10 @@ import { CustomControl, FormNodeViewTypes, FormNodeWidth } from '@services/dynam
 import { ErrorMessageMap } from '../../utils/error-message-map';
 
 @Component({
-    selector: 'app-base-control',
-    template: '',
-    styles: [],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+	selector: 'app-base-control',
+	template: '',
+	styles: [],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BaseControlComponent implements ControlValueAccessor, AfterContentInit {
 	readonly prefix = contentChild(PrefixDirective);
@@ -114,9 +114,5 @@ export class BaseControlComponent implements ControlValueAccessor, AfterContentI
 
 	registerOnTouched(fn: () => void): void {
 		this.onTouched = fn;
-	}
-
-	trackBy(i: number) {
-		return i;
 	}
 }

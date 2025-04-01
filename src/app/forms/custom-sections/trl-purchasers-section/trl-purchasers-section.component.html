@@ -1,5 +1,12 @@
-<ng-container [ngSwitch]="mode()">
-  <app-trl-purchasers-section-view *ngSwitchCase="'view'"/>
-  <app-trl-purchasers-section-edit *ngSwitchCase="'edit'" [techRecord]="techRecord()"/>
-  <app-trl-purchasers-section-summary *ngSwitchCase="'summary'"/>
-</ng-container>
+
+@switch (mode()) {
+  @case ('view') {
+    <app-trl-purchasers-section-view/>
+  }
+  @case ('edit') {
+    <app-trl-purchasers-section-edit [techRecord]="techRecord()"/>
+  }
+  @case ('summary') {
+    <app-trl-purchasers-section-summary/>
+  }
+}

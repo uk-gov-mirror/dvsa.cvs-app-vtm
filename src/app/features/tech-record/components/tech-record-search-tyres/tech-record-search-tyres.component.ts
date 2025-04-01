@@ -1,4 +1,6 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
@@ -18,30 +20,26 @@ import { fetchReferenceDataByKeySearchSuccess, fetchTyreReferenceDataByKeySearch
 import { selectSearchReturn } from '@store/reference-data/reference-data.selectors';
 import { TechnicalRecordServiceState } from '@store/technical-records/technical-record-service.reducer';
 import { Observable, mergeMap, take } from 'rxjs';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 import { NumberPlateComponent } from '../../../../components/number-plate/number-plate.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SelectComponent } from '../../../../forms/components/select/select.component';
 import { PaginationComponent } from '../../../../components/pagination/pagination.component';
+import { SelectComponent } from '../../../../forms/components/select/select.component';
 import { DefaultNullOrEmpty } from '../../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
 import { TyreAxleLoadPipe } from '../../../../pipes/tyre-axle-load/tyre-axle-load.pipe';
 
 @Component({
-    selector: 'app-tyres-search',
-    templateUrl: './tech-record-search-tyres.component.html',
-    styleUrls: ['./tech-record-search-tyres.component.scss'],
-    imports: [
-        NgIf,
-        NumberPlateComponent,
-        FormsModule,
-        ReactiveFormsModule,
-        SelectComponent,
-        NgFor,
-        PaginationComponent,
-        AsyncPipe,
-        DefaultNullOrEmpty,
-        TyreAxleLoadPipe,
-    ],
+	selector: 'app-tyres-search',
+	templateUrl: './tech-record-search-tyres.component.html',
+	styleUrls: ['./tech-record-search-tyres.component.scss'],
+	imports: [
+		NumberPlateComponent,
+		FormsModule,
+		ReactiveFormsModule,
+		SelectComponent,
+		PaginationComponent,
+		AsyncPipe,
+		DefaultNullOrEmpty,
+		TyreAxleLoadPipe,
+	],
 })
 export class TechRecordSearchTyresComponent implements OnInit {
 	options?: MultiOptions = [
@@ -204,9 +202,7 @@ export class TechRecordSearchTyresComponent implements OnInit {
 	getErrorByName(errors: GlobalError[], name: string): GlobalError | undefined {
 		return errors.find((error) => error.anchorLink === name);
 	}
-	trackByFn(i: number, r: ReferenceDataTyre) {
-		return r.resourceKey;
-	}
+
 	cancel() {
 		this.globalErrorService.clearErrors();
 		void this.router.navigate(['../..'], { relativeTo: this.route });

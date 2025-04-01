@@ -1,19 +1,14 @@
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { RouterService } from '@services/router/router.service';
 import { distinctUntilChanged, map } from 'rxjs';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
 
 @Component({
-    selector: 'app-breadcrumbs',
-    templateUrl: './breadcrumbs.component.html',
-    styleUrls: ['./breadcrumbs.component.scss'],
-    imports: [
-        NgIf,
-        RouterLink,
-        NgFor,
-        AsyncPipe,
-    ],
+	selector: 'app-breadcrumbs',
+	templateUrl: './breadcrumbs.component.html',
+	styleUrls: ['./breadcrumbs.component.scss'],
+	imports: [RouterLink, AsyncPipe],
 })
 export class BreadcrumbsComponent {
 	constructor(private routerService: RouterService) {}
@@ -41,9 +36,5 @@ export class BreadcrumbsComponent {
 				return breadcrumbs;
 			})
 		);
-	}
-
-	trackByFn(index: number, breadcrumb: { label: string; path: string }) {
-		return breadcrumb.path || index;
 	}
 }

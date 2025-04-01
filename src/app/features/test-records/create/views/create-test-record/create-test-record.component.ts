@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, viewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
@@ -21,28 +22,24 @@ import { selectTechRecord } from '@store/technical-records';
 import { createTestResultSuccess } from '@store/test-records';
 import cloneDeep from 'lodash.clonedeep';
 import { BehaviorSubject, Observable, Subject, filter, firstValueFrom, of, take, takeUntil, tap } from 'rxjs';
-import { BaseTestRecordComponent } from '../../../components/base-test-record/base-test-record.component';
-import { NgIf, NgSwitch, NgSwitchCase, AsyncPipe } from '@angular/common';
 import { BannerComponent } from '../../../../../components/banner/banner.component';
-import { ButtonComponent } from '../../../../../components/button/button.component';
 import { ButtonGroupComponent } from '../../../../../components/button-group/button-group.component';
+import { ButtonComponent } from '../../../../../components/button/button.component';
 import { AbandonDialogComponent as AbandonDialogComponent_1 } from '../../../../../forms/custom-sections/abandon-dialog/abandon-dialog.component';
+import { BaseTestRecordComponent } from '../../../components/base-test-record/base-test-record.component';
 
 @Component({
-    selector: 'app-create-test-record',
-    templateUrl: './create-test-record.component.html',
-    imports: [
-        NgIf,
-        BannerComponent,
-        ButtonComponent,
-        RouterLink,
-        NgSwitch,
-        NgSwitchCase,
-        BaseTestRecordComponent,
-        ButtonGroupComponent,
-        AbandonDialogComponent_1,
-        AsyncPipe,
-    ],
+	selector: 'app-create-test-record',
+	templateUrl: './create-test-record.component.html',
+	imports: [
+		BannerComponent,
+		ButtonComponent,
+		RouterLink,
+		BaseTestRecordComponent,
+		ButtonGroupComponent,
+		AbandonDialogComponent_1,
+		AsyncPipe,
+	],
 })
 export class CreateTestRecordComponent implements OnInit, OnDestroy, AfterViewInit {
 	baseTestRecordComponent = viewChild(BaseTestRecordComponent);

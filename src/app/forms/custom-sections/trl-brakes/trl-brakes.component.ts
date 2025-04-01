@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges, input, output } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
@@ -6,18 +7,13 @@ import { MultiOptions } from '@models/options.model';
 import { DynamicFormService } from '@services/dynamic-forms/dynamic-form.service';
 import { CustomFormGroup, FormNodeEditTypes } from '@services/dynamic-forms/dynamic-form.types';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
-import { NgFor, NgTemplateOutlet } from '@angular/common';
 import { SwitchableInputComponent } from '../../components/switchable-input/switchable-input.component';
 
 @Component({
-    selector: 'app-trl-brakes[vehicleTechRecord]',
-    templateUrl: './trl-brakes.component.html',
-    styleUrls: ['./trl-brakes.component.scss'],
-    imports: [
-        NgFor,
-        SwitchableInputComponent,
-        NgTemplateOutlet,
-    ],
+	selector: 'app-trl-brakes[vehicleTechRecord]',
+	templateUrl: './trl-brakes.component.html',
+	styleUrls: ['./trl-brakes.component.scss'],
+	imports: [SwitchableInputComponent, NgTemplateOutlet],
 })
 export class TrlBrakesComponent implements OnInit, OnChanges, OnDestroy {
 	readonly vehicleTechRecord = input.required<TechRecordType<'trl'>>();

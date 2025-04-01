@@ -3,14 +3,14 @@ import { VehicleTypes } from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
 import { State } from '@store/index';
 import { techRecord } from '@store/technical-records';
-import { NgIf } from '@angular/common';
+
 import { DefaultNullOrEmpty } from '../../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
 
 @Component({
-    selector: 'app-trl-purchasers-section-view',
-    templateUrl: './trl-purchasers-section-view.component.html',
-    styleUrls: ['./trl-purchasers-section-view.component.scss'],
-    imports: [NgIf, DefaultNullOrEmpty],
+	selector: 'app-trl-purchasers-section-view',
+	templateUrl: './trl-purchasers-section-view.component.html',
+	styleUrls: ['./trl-purchasers-section-view.component.scss'],
+	imports: [DefaultNullOrEmpty],
 })
 export class TRLPurchasersSectionViewComponent {
 	protected readonly VehicleTypes = VehicleTypes;

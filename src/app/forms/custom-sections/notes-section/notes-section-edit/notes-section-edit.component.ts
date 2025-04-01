@@ -7,19 +7,14 @@ import { Store } from '@ngrx/store';
 import { FormNodeWidth, TagTypeLabels } from '@services/dynamic-forms/dynamic-form.types';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { ReplaySubject } from 'rxjs';
-import { NgIf } from '@angular/common';
+
 import { GovukFormGroupTextareaComponent } from '../../../components/govuk-form-group-textarea/govuk-form-group-textarea.component';
 
 @Component({
-    selector: 'app-notes-section-edit',
-    templateUrl: './notes-section-edit.component.html',
-    styleUrls: ['./notes-section-edit.component.scss'],
-    imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        NgIf,
-        GovukFormGroupTextareaComponent,
-    ],
+	selector: 'app-notes-section-edit',
+	templateUrl: './notes-section-edit.component.html',
+	styleUrls: ['./notes-section-edit.component.scss'],
+	imports: [FormsModule, ReactiveFormsModule, GovukFormGroupTextareaComponent],
 })
 export class NotesSectionEditComponent implements OnInit, OnDestroy {
 	fb = inject(FormBuilder);

@@ -1,5 +1,6 @@
-import { Location, NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe, Location } from '@angular/common';
 import { Component, OnDestroy, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { TechRecordSearchSchema } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/search';
 import { Roles } from '@models/roles.enum';
@@ -10,20 +11,12 @@ import { selectQueryParams } from '@store/router/router.selectors';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { RoleRequiredDirective } from '../../../directives/app-role-required/app-role-required.directive';
 import { SingleSearchResultComponent } from '../single-search-result/single-search-result.component';
-import { RouterLink } from '@angular/router';
 
 @Component({
-    selector: 'app-multiple-search-results',
-    templateUrl: './multiple-search-results.component.html',
-    styleUrls: ['multiple-search-results.component.scss'],
-    imports: [
-        NgIf,
-        NgFor,
-        RoleRequiredDirective,
-        SingleSearchResultComponent,
-        RouterLink,
-        AsyncPipe,
-    ],
+	selector: 'app-multiple-search-results',
+	templateUrl: './multiple-search-results.component.html',
+	styleUrls: ['multiple-search-results.component.scss'],
+	imports: [RoleRequiredDirective, SingleSearchResultComponent, RouterLink, AsyncPipe],
 })
 export class MultipleSearchResultsComponent implements OnDestroy {
 	searchResults$: Observable<TechRecordSearchSchema[] | undefined>;

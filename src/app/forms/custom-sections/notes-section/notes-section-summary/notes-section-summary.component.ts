@@ -5,13 +5,12 @@ import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/
 import { Store } from '@ngrx/store';
 import { editingTechRecord, techRecord } from '@store/technical-records';
 import { isEqual } from 'lodash';
-import { NgIf } from '@angular/common';
 
 @Component({
-    selector: 'app-notes-section-summary',
-    templateUrl: './notes-section-summary.component.html',
-    styleUrls: ['./notes-section-summary.component.scss'],
-    imports: [NgIf],
+	selector: 'app-notes-section-summary',
+	templateUrl: './notes-section-summary.component.html',
+	styleUrls: ['./notes-section-summary.component.scss'],
+	imports: [],
 })
 export class NotesSectionSummaryComponent {
 	store = inject(Store);

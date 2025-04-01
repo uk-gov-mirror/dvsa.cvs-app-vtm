@@ -1,4 +1,4 @@
-import { ViewportScroller, NgFor, NgIf, NgTemplateOutlet, NgSwitch, NgSwitchCase, NgSwitchDefault, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgTemplateOutlet, ViewportScroller } from '@angular/common';
 import {
 	AfterViewInit,
 	ChangeDetectionStrategy,
@@ -44,71 +44,66 @@ import { cloneDeep, mergeWith } from 'lodash';
 import { Observable, Subject, debounceTime, map, skipWhile, take, takeUntil } from 'rxjs';
 import { AccordionControlComponent } from '../../../../components/accordion-control/accordion-control.component';
 import { AccordionComponent } from '../../../../components/accordion/accordion.component';
-import { NotesSectionComponent } from '../../../../forms/custom-sections/notes-section/notes-section.component';
 import { DynamicFormGroupComponent as DynamicFormGroupComponent_1 } from '../../../../forms/components/dynamic-form-group/dynamic-form-group.component';
-import { VehicleSectionComponent } from '../../../../forms/custom-sections/vehicle-section/vehicle-section.component';
-import { BodySectionComponent } from '../../../../forms/custom-sections/body-section/body-section.component';
-import { BodyComponent as BodyComponent_1 } from '../../../../forms/custom-sections/body/body.component';
-import { TRLPurchasersSectionComponent } from '../../../../forms/custom-sections/trl-purchasers-section/trl-purchasers-section.component';
-import { DimensionsSectionComponent } from '../../../../forms/custom-sections/dimensions-section/dimensions-section.component';
-import { DimensionsComponent as DimensionsComponent_1 } from '../../../../forms/custom-sections/dimensions/dimensions.component';
-import { TypeApprovalSectionComponent } from '../../../../forms/custom-sections/type-approval-section/type-approval-section.component';
-import { ApprovalTypeComponent as ApprovalTypeComponent_1 } from '../../../../forms/custom-sections/approval-type/approval-type.component';
-import { PsvBrakesComponent as PsvBrakesComponent_1 } from '../../../../forms/custom-sections/psv-brakes/psv-brakes.component';
-import { TrlBrakesComponent as TrlBrakesComponent_1 } from '../../../../forms/custom-sections/trl-brakes/trl-brakes.component';
-import { TyresSectionComponent } from '../../../../forms/custom-sections/tyres-section/tyres-section.component';
-import { TyresComponent as TyresComponent_1 } from '../../../../forms/custom-sections/tyres/tyres.component';
-import { WeightsSectionComponent } from '../../../../forms/custom-sections/weights-section/weights-section.component';
-import { WeightsComponent as WeightsComponent_1 } from '../../../../forms/custom-sections/weights/weights.component';
-import { LettersComponent as LettersComponent_1 } from '../../../../forms/custom-sections/letters/letters.component';
-import { PlatesSectionComponent } from '../../../../forms/custom-sections/plates-section/plates-section.component';
-import { PlatesComponent } from '../../../../forms/custom-sections/plates/plates.component';
+import { AdrCertificateHistoryComponent } from '../../../../forms/custom-sections/adr-certificate-history/adr-certificate-history.component';
 import { AdrSectionComponent } from '../../../../forms/custom-sections/adr-section/adr-section.component';
 import { AdrComponent as AdrComponent_1 } from '../../../../forms/custom-sections/adr/adr.component';
-import { AdrCertificateHistoryComponent } from '../../../../forms/custom-sections/adr-certificate-history/adr-certificate-history.component';
+import { ApprovalTypeComponent as ApprovalTypeComponent_1 } from '../../../../forms/custom-sections/approval-type/approval-type.component';
+import { BodySectionComponent } from '../../../../forms/custom-sections/body-section/body-section.component';
+import { BodyComponent as BodyComponent_1 } from '../../../../forms/custom-sections/body/body.component';
+import { DimensionsSectionComponent } from '../../../../forms/custom-sections/dimensions-section/dimensions-section.component';
+import { DimensionsComponent as DimensionsComponent_1 } from '../../../../forms/custom-sections/dimensions/dimensions.component';
 import { LastApplicantSectionComponent } from '../../../../forms/custom-sections/last-applicant-section/last-applicant-section.component';
+import { LettersComponent as LettersComponent_1 } from '../../../../forms/custom-sections/letters/letters.component';
+import { NotesSectionComponent } from '../../../../forms/custom-sections/notes-section/notes-section.component';
+import { PlatesSectionComponent } from '../../../../forms/custom-sections/plates-section/plates-section.component';
+import { PlatesComponent } from '../../../../forms/custom-sections/plates/plates.component';
+import { PsvBrakesComponent as PsvBrakesComponent_1 } from '../../../../forms/custom-sections/psv-brakes/psv-brakes.component';
+import { TrlBrakesComponent as TrlBrakesComponent_1 } from '../../../../forms/custom-sections/trl-brakes/trl-brakes.component';
+import { TRLPurchasersSectionComponent } from '../../../../forms/custom-sections/trl-purchasers-section/trl-purchasers-section.component';
+import { TypeApprovalSectionComponent } from '../../../../forms/custom-sections/type-approval-section/type-approval-section.component';
+import { TyresSectionComponent } from '../../../../forms/custom-sections/tyres-section/tyres-section.component';
+import { TyresComponent as TyresComponent_1 } from '../../../../forms/custom-sections/tyres/tyres.component';
+import { VehicleSectionComponent } from '../../../../forms/custom-sections/vehicle-section/vehicle-section.component';
+import { WeightsSectionComponent } from '../../../../forms/custom-sections/weights-section/weights-section.component';
+import { WeightsComponent as WeightsComponent_1 } from '../../../../forms/custom-sections/weights/weights.component';
 
 @Component({
-    selector: 'app-tech-record-summary',
-    templateUrl: './tech-record-summary.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    styleUrls: ['./tech-record-summary.component.scss'],
-    imports: [
-        AccordionControlComponent,
-        NgFor,
-        NgIf,
-        AccordionComponent,
-        NgTemplateOutlet,
-        FormsModule,
-        ReactiveFormsModule,
-        NgSwitch,
-        NgSwitchCase,
-        NotesSectionComponent,
-        DynamicFormGroupComponent_1,
-        VehicleSectionComponent,
-        BodySectionComponent,
-        BodyComponent_1,
-        TRLPurchasersSectionComponent,
-        DimensionsSectionComponent,
-        DimensionsComponent_1,
-        TypeApprovalSectionComponent,
-        ApprovalTypeComponent_1,
-        PsvBrakesComponent_1,
-        TrlBrakesComponent_1,
-        TyresSectionComponent,
-        TyresComponent_1,
-        WeightsSectionComponent,
-        WeightsComponent_1,
-        LettersComponent_1,
-        PlatesSectionComponent,
-        PlatesComponent,
-        AdrSectionComponent,
-        AdrComponent_1,
-        AdrCertificateHistoryComponent,
-        LastApplicantSectionComponent,
-        NgSwitchDefault,
-        AsyncPipe,
-    ],
+	selector: 'app-tech-record-summary',
+	templateUrl: './tech-record-summary.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	styleUrls: ['./tech-record-summary.component.scss'],
+	imports: [
+		AccordionControlComponent,
+		AccordionComponent,
+		NgTemplateOutlet,
+		FormsModule,
+		ReactiveFormsModule,
+		NotesSectionComponent,
+		DynamicFormGroupComponent_1,
+		VehicleSectionComponent,
+		BodySectionComponent,
+		BodyComponent_1,
+		TRLPurchasersSectionComponent,
+		DimensionsSectionComponent,
+		DimensionsComponent_1,
+		TypeApprovalSectionComponent,
+		ApprovalTypeComponent_1,
+		PsvBrakesComponent_1,
+		TrlBrakesComponent_1,
+		TyresSectionComponent,
+		TyresComponent_1,
+		WeightsSectionComponent,
+		WeightsComponent_1,
+		LettersComponent_1,
+		PlatesSectionComponent,
+		PlatesComponent,
+		AdrSectionComponent,
+		AdrComponent_1,
+		AdrCertificateHistoryComponent,
+		LastApplicantSectionComponent,
+		AsyncPipe,
+	],
 })
 export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewInit {
 	readonly sections = viewChildren(DynamicFormGroupComponent);

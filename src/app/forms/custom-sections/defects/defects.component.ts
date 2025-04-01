@@ -5,26 +5,17 @@ import { TestResultModel } from '@models/test-results/test-result.model';
 import { DynamicFormService } from '@services/dynamic-forms/dynamic-form.service';
 import { CustomFormArray, CustomFormGroup, FormNode } from '@services/dynamic-forms/dynamic-form.types';
 import { Subscription, debounceTime } from 'rxjs';
-import { NgIf, NgFor } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { TagComponent } from '../../../components/tag/tag.component';
-import { ButtonComponent } from '../../../components/button/button.component';
 import { TruncatePipe } from '@pipes/truncate/truncate.pipe';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { TagComponent } from '../../../components/tag/tag.component';
 
 @Component({
-    selector: 'app-defects[defects][template]',
-    templateUrl: './defects.component.html',
-    imports: [
-        NgIf,
-        FormsModule,
-        ReactiveFormsModule,
-        NgFor,
-        RouterLink,
-        TagComponent,
-        ButtonComponent,
-        TruncatePipe,
-    ],
+	selector: 'app-defects[defects][template]',
+	templateUrl: './defects.component.html',
+	imports: [FormsModule, ReactiveFormsModule, RouterLink, TagComponent, ButtonComponent, TruncatePipe],
 })
 export class DefectsComponent implements OnInit, OnDestroy {
 	readonly isEditing = input(false);

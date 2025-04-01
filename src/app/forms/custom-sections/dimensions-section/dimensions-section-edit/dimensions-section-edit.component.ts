@@ -10,22 +10,15 @@ import { CommonValidatorsService } from '@forms/validators/common-validators.ser
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { ReplaySubject, takeUntil, withLatestFrom } from 'rxjs';
-import { NgIf, NgFor } from '@angular/common';
-import { GovukFormGroupInputComponent } from '../../../components/govuk-form-group-input/govuk-form-group-input.component';
+
 import { FieldWarningMessageComponent } from '../../../components/field-warning-message/field-warning-message.component';
+import { GovukFormGroupInputComponent } from '../../../components/govuk-form-group-input/govuk-form-group-input.component';
 
 @Component({
-    selector: 'app-dimensions-section-edit',
-    templateUrl: './dimensions-section-edit.component.html',
-    styleUrls: ['./dimensions-section-edit.component.scss'],
-    imports: [
-        NgIf,
-        FormsModule,
-        ReactiveFormsModule,
-        GovukFormGroupInputComponent,
-        NgFor,
-        FieldWarningMessageComponent,
-    ],
+	selector: 'app-dimensions-section-edit',
+	templateUrl: './dimensions-section-edit.component.html',
+	styleUrls: ['./dimensions-section-edit.component.scss'],
+	imports: [FormsModule, ReactiveFormsModule, GovukFormGroupInputComponent, FieldWarningMessageComponent],
 })
 export class DimensionsSectionEditComponent implements OnInit, OnDestroy {
 	readonly VehicleTypes = VehicleTypes;
