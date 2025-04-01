@@ -44,6 +44,9 @@ describe('DefectsComponent', () => {
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(DefectsComponent);
+		fixture.componentRef.setInput('defects', null);
+		fixture.componentRef.setInput('template', {});
+		fixture.detectChanges();
 		component = fixture.componentInstance;
 		el = fixture.debugElement;
 	});

@@ -1,3 +1,4 @@
+import { UserService } from '@/src/app/services/user-service/user-service';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -28,6 +29,7 @@ describe('SearchComponent', () => {
 			providers: [
 				GlobalErrorService,
 				TechnicalRecordService,
+				{ provide: UserService, useValue: {} },
 				provideRouter([]),
 				provideHttpClient(),
 				provideHttpClientTesting(),

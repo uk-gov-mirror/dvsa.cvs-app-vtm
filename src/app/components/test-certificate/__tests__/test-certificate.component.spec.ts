@@ -35,6 +35,8 @@ describe('TestCertificateComponent', () => {
 		component = fixture.componentInstance;
 		store = TestBed.inject(MockStore);
 		featureToggleService = TestBed.inject(FeatureToggleService);
+		fixture.componentRef.setInput('testNumber', 'testNumber');
+		fixture.componentRef.setInput('vin', 'vin');
 		fixture.detectChanges();
 	});
 

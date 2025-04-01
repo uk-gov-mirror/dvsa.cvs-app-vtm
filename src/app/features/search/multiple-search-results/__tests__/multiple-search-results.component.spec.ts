@@ -2,6 +2,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { provideRouter } from '@angular/router';
 import { RoleRequiredDirective } from '@directives/app-role-required/app-role-required.directive';
 import { TechRecordSearchSchema } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/search';
 import { provideMockActions } from '@ngrx/effects/testing';
@@ -32,6 +33,7 @@ describe('MultipleSearchResultsComponent', () => {
 				FormatVehicleTypePipe,
 			],
 			providers: [
+				provideRouter([]),
 				provideHttpClient(),
 				provideHttpClientTesting(),
 				provideMockStore({ initialState: initialAppState }),

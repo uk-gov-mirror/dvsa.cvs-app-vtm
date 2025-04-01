@@ -25,12 +25,9 @@ describe('ListItemOutputComponent', () => {
 		await TestBed.configureTestingModule({
 			imports: [HostComponent],
 		}).compileComponents();
-	});
 
-	beforeEach(() => {
 		fixture = TestBed.createComponent(HostComponent);
 		component = fixture.componentInstance;
-		fixture.detectChanges();
 	});
 
 	it('should create', () => {

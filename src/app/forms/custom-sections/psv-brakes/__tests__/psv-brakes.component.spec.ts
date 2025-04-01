@@ -1,5 +1,8 @@
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { provideRouter } from '@angular/router';
 import {
 	TechRecordPSV,
 	TechRecordType,
@@ -22,6 +25,9 @@ describe('PsvBrakesComponent', () => {
 			imports: [DynamicFormsModule, FormsModule, PsvBrakesComponent, ReactiveFormsModule],
 			providers: [
 				MultiOptionsService,
+				provideRouter([]),
+				provideHttpClient(),
+				provideHttpClientTesting(),
 				provideMockStore({ initialState: initialAppState }),
 				ReferenceDataService,
 				{ provide: UserService, useValue: {} },

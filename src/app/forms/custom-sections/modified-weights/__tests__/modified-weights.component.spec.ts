@@ -26,6 +26,7 @@ describe('ModifiedWeightsComponent', () => {
 
 		fixture = TestBed.createComponent(ModifiedWeightsComponent);
 		component = fixture.componentInstance;
+		fixture.componentRef.setInput('vehicleType', 'hgv');
 		fixture.componentRef.setInput('changes', {});
 		fixture.detectChanges();
 	});

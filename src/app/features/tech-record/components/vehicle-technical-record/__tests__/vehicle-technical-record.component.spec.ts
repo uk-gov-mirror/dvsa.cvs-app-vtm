@@ -6,13 +6,15 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { DynamicFormsModule } from '@forms/dynamic-forms.module';
 import { StatusCodes, TechRecordModel, V3TechRecordModel } from '@models/vehicle-tech-record.model';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { Action } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { MultiOptionsService } from '@services/multi-options/multi-options.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { UserService } from '@services/user-service/user-service';
 import { SharedModule } from '@shared/shared.module';
 import { initialAppState } from '@store/index';
-import { of } from 'rxjs';
+import { ReplaySubject, of } from 'rxjs';
 import { EditTechRecordButtonComponent } from '../../edit-tech-record-button/edit-tech-record-button.component';
 import { TechRecordHistoryComponent } from '../../tech-record-history/tech-record-history.component';
 import { TechRecordSummaryComponent } from '../../tech-record-summary/tech-record-summary.component';
@@ -25,9 +27,10 @@ global.scrollTo = jest.fn();
 describe('VehicleTechnicalRecordComponent', () => {
 	let component: VehicleTechnicalRecordComponent;
 	let fixture: ComponentFixture<VehicleTechnicalRecordComponent>;
-	@Component({
-		standalone: false,
-	})
+
+	const actions$ = new ReplaySubject<Action>();
+
+	@Component({})
 	class TechRecordSummaryStubComponent {
 		checkForms() {}
 	}
@@ -51,6 +54,7 @@ describe('VehicleTechnicalRecordComponent', () => {
 				provideHttpClient(),
 				provideHttpClientTesting(),
 				provideMockStore({ initialState: initialAppState }),
+				provideMockActions(() => actions$),
 				{ provide: APP_BASE_HREF, useValue: '/' },
 				{
 					provide: UserService,

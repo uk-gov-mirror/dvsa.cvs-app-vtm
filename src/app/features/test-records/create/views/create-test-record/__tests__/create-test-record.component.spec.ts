@@ -1,5 +1,6 @@
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { signal } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 import { Router, provideRouter } from '@angular/router';
 import { ButtonGroupComponent } from '@components/button-group/button-group.component';
@@ -151,11 +152,8 @@ describe('CreateTestRecordComponent', () => {
 
 		it('should return true if some forms are invalid', () => {
 			jest.spyOn(component, 'abandonDialog').mockReturnValue({
-				dynamicFormGroup: { form: { controls: { errors: 'foo' }, invalid: true } },
+				dynamicFormGroup: signal({ form: { controls: { errors: 'foo' }, invalid: true } }),
 			} as unknown as AbandonDialogComponent);
-			// component.abandonDialog = {
-			// 	dynamicFormGroup: { form: { controls: { errors: 'foo' }, invalid: true } },
-			// } as unknown as AbandonDialogComponent;
 			component.testMode = TestModeEnum.Abandon;
 			DynamicFormService.validate = jest.fn();
 			expect(component.isAnyFormInvalid()).toBe(true);
