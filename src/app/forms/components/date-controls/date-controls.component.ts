@@ -3,16 +3,16 @@ import { ControlContainer, ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR 
 import { ReplaySubject, takeUntil } from 'rxjs';
 
 @Component({
-    selector: 'app-date-controls',
-    templateUrl: './date-controls.component.html',
-    styleUrls: ['./date-controls.component.scss'],
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            multi: true,
-            useExisting: DateControlsComponent,
-        },
-    ],
+	selector: 'app-date-controls',
+	templateUrl: './date-controls.component.html',
+	styleUrls: ['./date-controls.component.scss'],
+	providers: [
+		{
+			provide: NG_VALUE_ACCESSOR,
+			multi: true,
+			useExisting: DateControlsComponent,
+		},
+	],
 })
 export class DateControlsComponent implements ControlValueAccessor, OnInit, OnDestroy {
 	fb = inject(FormBuilder);

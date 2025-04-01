@@ -1,6 +1,6 @@
-import { Location, AsyncPipe } from '@angular/common';
+import { AsyncPipe, Location } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
-import { Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { TestResultModel } from '@models/test-results/test-result.model';
@@ -11,21 +11,14 @@ import { TestRecordsService } from '@services/test-records/test-records.service'
 import { selectRouteNestedParams } from '@store/router/router.selectors';
 import { selectedTestResultState, updateTestResultSuccess } from '@store/test-records';
 import { Observable, Subject, map, takeUntil } from 'rxjs';
-import { VehicleHeaderComponent } from '../../../components/vehicle-header/vehicle-header.component';
-import { TextAreaComponent } from '../../../../../forms/components/text-area/text-area.component';
 import { ButtonComponent } from '../../../../../components/button/button.component';
+import { TextAreaComponent } from '../../../../../forms/components/text-area/text-area.component';
+import { VehicleHeaderComponent } from '../../../components/vehicle-header/vehicle-header.component';
 
 @Component({
-    selector: 'app-confirm-cancellation',
-    templateUrl: './confirm-cancellation.component.html',
-    imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        VehicleHeaderComponent,
-        TextAreaComponent,
-        ButtonComponent,
-        AsyncPipe,
-    ],
+	selector: 'app-confirm-cancellation',
+	templateUrl: './confirm-cancellation.component.html',
+	imports: [FormsModule, ReactiveFormsModule, VehicleHeaderComponent, TextAreaComponent, ButtonComponent, AsyncPipe],
 })
 export class ConfirmCancellationComponent implements OnDestroy {
 	form = new CustomFormGroup(

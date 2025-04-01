@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject, input } from '@angular/core';
 import { resultOfTestEnum } from '@models/test-types/test-type.model';
 import { TEST_TYPES_GROUP1_SPEC_TEST, TEST_TYPES_GROUP5_SPEC_TEST } from '@models/testTypeId.enum';
@@ -7,14 +8,13 @@ import { State } from '@store/index';
 import { isTestTypeOldIvaOrMsva, toEditOrNotToEdit } from '@store/test-records';
 import { Subject, combineLatest, takeUntil } from 'rxjs';
 import { RetrieveDocumentDirective } from '../../directives/retrieve-document/retrieve-document.directive';
-import { NgClass } from '@angular/common';
 
 @Component({
-    selector: 'app-test-certificate[testNumber][vin]',
-    templateUrl: './test-certificate.component.html',
-    styleUrls: ['./test-certificate.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [RetrieveDocumentDirective, NgClass],
+	selector: 'app-test-certificate[testNumber][vin]',
+	templateUrl: './test-certificate.component.html',
+	styleUrls: ['./test-certificate.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [RetrieveDocumentDirective, NgClass],
 })
 export class TestCertificateComponent implements OnInit, OnDestroy {
 	store: Store<State> = inject(Store<State>);

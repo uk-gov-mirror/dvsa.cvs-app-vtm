@@ -11,10 +11,10 @@ import { take } from 'rxjs';
 import { TestTypeSelectComponent } from '../../../components/test-type-select/test-type-select.component';
 
 @Component({
-    selector: 'app-create-test-type',
-    templateUrl: './create-test-type.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [TestTypeSelectComponent],
+	selector: 'app-create-test-type',
+	templateUrl: './create-test-type.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [TestTypeSelectComponent],
 })
 export class CreateTestTypeComponent implements AfterContentInit {
 	constructor(

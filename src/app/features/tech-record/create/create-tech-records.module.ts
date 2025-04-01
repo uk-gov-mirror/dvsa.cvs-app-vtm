@@ -11,16 +11,17 @@ import { CreateTechRecordComponent } from './create-tech-record.component';
 import { CreateTechRecordsRoutingModule } from './create-tech-records-routing.module';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        CreateTechRecordsRoutingModule,
-        ReactiveFormsModule,
-        DynamicFormsModule,
-        RouterModule,
-        SharedModule,
-        TechRecordsModule,
-        SharedTechRecordsModule,
-        CreateTechRecordComponent, HydrateNewVehicleRecordComponent,
-    ],
+	imports: [
+		CommonModule,
+		CreateTechRecordsRoutingModule,
+		ReactiveFormsModule,
+		DynamicFormsModule,
+		RouterModule,
+		SharedModule,
+		TechRecordsModule,
+		SharedTechRecordsModule,
+		CreateTechRecordComponent,
+		HydrateNewVehicleRecordComponent,
+	],
 })
 export class CreateTechRecordsModule {}

@@ -6,9 +6,6 @@ import { Roles } from '@models/roles.enum';
 import { TechRecordCreateRoutes } from '@models/routes.enum';
 import { techRecordDataResolver } from 'src/app/resolvers/tech-record-data/tech-record-data.resolver';
 
-
-
-
 const routes: Routes = [
 	{
 		path: '',
@@ -17,7 +14,7 @@ const routes: Routes = [
 		children: [
 			{
 				path: '',
-				loadComponent: () => import('./create-tech-record.component').then(m => m.CreateTechRecordComponent),
+				loadComponent: () => import('./create-tech-record.component').then((m) => m.CreateTechRecordComponent),
 				data: { roles: Roles.TechRecordCreate },
 			},
 			{
@@ -25,7 +22,10 @@ const routes: Routes = [
 				children: [
 					{
 						path: '',
-						loadComponent: () => import('./components/hydrate-new-vehicle-record/hydrate-new-vehicle-record.component').then(m => m.HydrateNewVehicleRecordComponent),
+						loadComponent: () =>
+							import('./components/hydrate-new-vehicle-record/hydrate-new-vehicle-record.component').then(
+								(m) => m.HydrateNewVehicleRecordComponent
+							),
 						data: {
 							title: 'New record details',
 							roles: Roles.TechRecordCreate,
@@ -35,7 +35,10 @@ const routes: Routes = [
 					},
 					{
 						path: TechRecordCreateRoutes.TYRE_SEARCH,
-						loadComponent: () => import('../components/tech-record-search-tyres/tech-record-search-tyres.component').then(m => m.TechRecordSearchTyresComponent),
+						loadComponent: () =>
+							import('../components/tech-record-search-tyres/tech-record-search-tyres.component').then(
+								(m) => m.TechRecordSearchTyresComponent
+							),
 						data: { title: 'Tyre search', roles: Roles.TechRecordCreate, isEditing: true },
 					},
 				],

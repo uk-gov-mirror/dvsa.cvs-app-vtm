@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({ name: 'defaultNullOrEmpty', })
+@Pipe({ name: 'defaultNullOrEmpty' })
 export class DefaultNullOrEmpty implements PipeTransform {
 	titleCaseFirstWord(value: string) {
 		return value[0].toUpperCase() + value.substring(1);

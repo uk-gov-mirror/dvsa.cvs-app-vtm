@@ -1,6 +1,6 @@
 import { Directive, HostListener, input } from '@angular/core';
 
-@Directive({ selector: '[appToUppercase]', })
+@Directive({ selector: '[appToUppercase]' })
 export class ToUppercaseDirective {
 	readonly uppercase = input<boolean | undefined>(true);
 

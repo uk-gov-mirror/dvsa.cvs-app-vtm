@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component, Input, input } from '@angular/core';
 import { NgClass } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Input, input } from '@angular/core';
 import { DefaultNullOrEmpty } from '../../pipes/default-null-or-empty/default-null-or-empty.pipe';
 
 @Component({
-    selector: 'app-number-plate',
-    templateUrl: './number-plate.component.html',
-    styleUrls: ['./number-plate.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [NgClass, DefaultNullOrEmpty],
+	selector: 'app-number-plate',
+	templateUrl: './number-plate.component.html',
+	styleUrls: ['./number-plate.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [NgClass, DefaultNullOrEmpty],
 })
 export class NumberPlateComponent {
 	private vrmToDisplay: string | undefined;

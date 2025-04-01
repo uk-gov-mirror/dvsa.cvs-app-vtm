@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
@@ -13,14 +13,10 @@ import {
 import { RadioGroupComponent } from '../../../../forms/components/radio-group/radio-group.component';
 
 @Component({
-    selector: 'app-tech-amend-reason',
-    templateUrl: './tech-record-amend-reason.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        RadioGroupComponent,
-    ],
+	selector: 'app-tech-amend-reason',
+	templateUrl: './tech-record-amend-reason.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [FormsModule, ReactiveFormsModule, RadioGroupComponent],
 })
 export class TechRecordAmendReasonComponent {
 	reasons: Array<FormNodeOption<string>> = [

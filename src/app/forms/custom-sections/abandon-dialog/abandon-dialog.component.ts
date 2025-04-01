@@ -8,9 +8,9 @@ import { SpecialRefData } from '@services/multi-options/multi-options.service';
 import { TestRecordsService } from '@services/test-records/test-records.service';
 import merge from 'lodash.merge';
 import { BaseDialogComponent } from '../../../components/base-dialog/base-dialog.component';
-import { DynamicFormGroupComponent } from '../../components/dynamic-form-group/dynamic-form-group.component';
 import { ButtonGroupComponent } from '../../../components/button-group/button-group.component';
 import { ButtonComponent } from '../../../components/button/button.component';
+import { DynamicFormGroupComponent } from '../../components/dynamic-form-group/dynamic-form-group.component';
 
 const ABANDON_FORM = (ReasonsForAbandoning: ReferenceDataResourceType | SpecialRefData): FormNode => ({
 	name: 'abandonSection',
@@ -51,13 +51,9 @@ const ABANDON_FORM = (ReasonsForAbandoning: ReferenceDataResourceType | SpecialR
 });
 
 @Component({
-    selector: 'app-abandon-dialog',
-    templateUrl: './abandon-dialog.component.html',
-    imports: [
-        DynamicFormGroupComponent,
-        ButtonGroupComponent,
-        ButtonComponent,
-    ],
+	selector: 'app-abandon-dialog',
+	templateUrl: './abandon-dialog.component.html',
+	imports: [DynamicFormGroupComponent, ButtonGroupComponent, ButtonComponent],
 })
 export class AbandonDialogComponent extends BaseDialogComponent implements OnInit {
 	readonly dynamicFormGroup = viewChild(DynamicFormGroupComponent);

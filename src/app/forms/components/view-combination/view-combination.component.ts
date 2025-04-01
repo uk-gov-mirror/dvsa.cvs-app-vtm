@@ -4,16 +4,16 @@ import { CustomFormControl, FormNode, FormNodeCombinationOptions } from '@servic
 import { DefaultNullOrEmpty } from '../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
 
 @Component({
-    selector: '[app-view-combination]',
-    templateUrl: './view-combination.component.html',
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: ViewCombinationComponent,
-            multi: true,
-        },
-    ],
-    imports: [DefaultNullOrEmpty],
+	selector: '[app-view-combination]',
+	templateUrl: './view-combination.component.html',
+	providers: [
+		{
+			provide: NG_VALUE_ACCESSOR,
+			useExisting: ViewCombinationComponent,
+			multi: true,
+		},
+	],
+	imports: [DefaultNullOrEmpty],
 })
 export class ViewCombinationComponent implements OnInit {
 	formNode = model<FormNode>();
