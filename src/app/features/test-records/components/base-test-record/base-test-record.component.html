@@ -1,5 +1,5 @@
 <app-vehicle-header [isEditing]="isEditing()" [testResult]="testResult()" [testNumber]="testNumber$ | async" [isReview]="isReview()">
-  @if (!isReview() && testResult()?.testStatus !== statuses.CANCELLED) {
+  @if (!isReview() && testResult().testStatus !== statuses.CANCELLED) {
     <app-button-group class="page-actions">
       <ng-container *appRoleRequired="roles.TestResultAmend">
         @if (isTestTypeGroupEditable$ | async) {

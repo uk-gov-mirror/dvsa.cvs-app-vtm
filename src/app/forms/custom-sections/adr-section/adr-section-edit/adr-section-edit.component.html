@@ -807,7 +807,7 @@
   </div>
   <!-- ADR Additional Examiner Note History -->
   <h2 class="govuk-heading-m">Additional Examiner Notes History</h2>
-  @if (form.controls.techRecord_adrDetails_additionalExaminerNotes?.value; as notes) {
+  @if (form.controls.techRecord_adrDetails_additionalExaminerNotes.value; as notes) {
     @if (notes?.length; as notesCount) {
       <table class="govuk-table">
         <tbody class="govuk-table__body">

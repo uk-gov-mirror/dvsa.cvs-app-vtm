@@ -56,7 +56,7 @@
   }
 
   @if (!isPsv && hasAxleSpacings) {
-    @for (axle of axleSpacings?.controls; track i; let i = $index) {
+    @for (axle of axleSpacings.controls; track i; let i = $index) {
       <app-switchable-input
         [form]="getAxleSpacing(i)"
         [type]="types.NUMBER"

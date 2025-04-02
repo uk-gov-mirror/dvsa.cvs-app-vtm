@@ -1,7 +1,7 @@
 @if (control) {
   @if (getAdditionalExaminerNotes(); as adrNotes) {
     <section class="govuk-!-margin-top-4">
-      @if (control.meta?.label) {
+      @if (control.meta.label) {
         <label class="govuk-label govuk-label--m">
           {{ control.meta.label }}
         </label>

@@ -1,4 +1,4 @@
-@if (control()?.invalid && control()?.touched && control()?.errors) {
+@if (control().invalid && control().touched && control().errors) {
   <p class="govuk-error-message" [id]="elementId()">
     <span class="govuk-visually-hidden">Error: </span>
     <span>{{ (control().errors | keyvalue)?.[0]?.value }}</span>

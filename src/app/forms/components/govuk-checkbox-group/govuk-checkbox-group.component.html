@@ -5,7 +5,7 @@
       <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
         <h1 tag class="govuk-fieldset__heading" id="{{ labelId }}">
           {{ controlLabel() }}
-          @if (tags()?.length) {
+          @if (tags().length) {
             <div>
               @for (tag of tags(); track tag) {
                 <app-tag [type]="tag.colour">{{ tag.label }}</app-tag>

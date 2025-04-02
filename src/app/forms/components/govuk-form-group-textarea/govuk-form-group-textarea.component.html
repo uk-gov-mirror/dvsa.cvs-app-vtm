@@ -2,7 +2,7 @@
   <h1>
     <label id="{{ labelId}}" for="{{ id }}" tag>
       {{ controlLabel() }}
-      @if (tags()?.length) {
+      @if (tags().length) {
         <div>
           @for (tag of tags(); track tag) {
             <app-tag [type]="tag.colour">{{ tag.label }}</app-tag>

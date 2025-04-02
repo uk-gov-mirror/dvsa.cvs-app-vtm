@@ -1,7 +1,7 @@
 <div [class]="style">
   <label tag for="{{ id }}" [id]="labelId" class="govuk-label govuk-label--m">
     {{ controlLabel() }}
-    @if (tags()?.length) {
+    @if (tags().length) {
       <div class="flex gap-2">
         @for (tag of tags(); track tag) {
           <app-tag [type]="tag.colour">{{ tag.label }}</app-tag>
