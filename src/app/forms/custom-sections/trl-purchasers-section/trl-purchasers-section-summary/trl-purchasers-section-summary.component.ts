@@ -6,10 +6,13 @@ import { Store } from '@ngrx/store';
 import { editingTechRecord, techRecord } from '@store/technical-records';
 import { isEqual } from 'lodash';
 
+import { DefaultNullOrEmpty } from '../../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
+
 @Component({
 	selector: 'app-trl-purchasers-section-summary',
 	templateUrl: './trl-purchasers-section-summary.component.html',
 	styleUrls: ['./trl-purchasers-section-summary.component.scss'],
+	imports: [DefaultNullOrEmpty],
 })
 export class TRLPurchasersSectionSummaryComponent {
 	store = inject(Store);
