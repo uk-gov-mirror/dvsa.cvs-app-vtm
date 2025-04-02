@@ -5,13 +5,13 @@ import { State } from '@store/index';
 import { techRecord } from '@store/technical-records';
 
 @Component({
-  selector: 'app-brakes-section-view',
-  templateUrl: './brakes-section-view.component.html',
-  styleUrls: ['./brakes-section-view.component.scss'],
+	selector: 'app-brakes-section-view',
+	templateUrl: './brakes-section-view.component.html',
+	styleUrls: ['./brakes-section-view.component.scss'],
 })
 export class BrakesSectionViewComponent {
-  protected readonly VehicleTypes = VehicleTypes;
-  protected readonly store = inject<Store<State>>(Store);
+	protected readonly VehicleTypes = VehicleTypes;
+	protected readonly store = inject<Store<State>>(Store);
 
-  techRecord = this.store.selectSignal(techRecord);
+	techRecord = this.store.selectSignal(techRecord);
 }

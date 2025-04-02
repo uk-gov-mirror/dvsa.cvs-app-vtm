@@ -10,6 +10,7 @@ import {
 	TechRecordGETPSV,
 	TechRecordGETTRL,
 } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb-vehicle-type';
+import { BrakesSectionComponent } from '@forms/custom-sections/brakes-section/brakes-section.component';
 import { vehicleTemplateMap } from '@forms/utils/tech-record-constants';
 import { Axles, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { Actions, ofType } from '@ngrx/effects';
@@ -61,46 +62,45 @@ import { WeightsSectionComponent } from '../../../../forms/custom-sections/weigh
 import { WeightsComponent } from '../../../../forms/custom-sections/weights/weights.component';
 import { DefaultNullOrEmpty } from '../../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
 import { FormatVehicleTypePipe } from '../../../../pipes/format-vehicle-type/format-vehicle-type.pipe';
-import { BrakesSectionComponent } from '@forms/custom-sections/brakes-section/brakes-section.component';
 
 @Component({
 	selector: 'app-tech-record-summary-changes',
 	templateUrl: './tech-record-summary-changes.component.html',
 	styleUrls: ['./tech-record-summary-changes.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    BannerComponent,
-    IconComponent,
-    AccordionControlComponent,
-    AccordionComponent,
-    NgTemplateOutlet,
-    NotesSectionComponent,
-    DynamicFormGroupComponent,
-    VehicleSectionComponent,
-    BodySectionComponent,
-    BodyComponent,
-    DimensionsSectionComponent,
-    DimensionsComponent,
-    TRLPurchasersSectionComponent,
-    TypeApprovalSectionComponent,
-    ApprovalTypeComponent,
-    PsvBrakesComponent,
-    TrlBrakesComponent,
-    TyresSectionComponent,
-    TyresComponent,
-    WeightsSectionComponent,
-    WeightsComponent,
-    ModifiedWeightsComponent,
-    AdrSectionComponent,
-    AdrComponent,
-    LastApplicantSectionComponent,
-    ButtonGroupComponent,
-    ButtonComponent,
-    AsyncPipe,
-    DefaultNullOrEmpty,
-    FormatVehicleTypePipe,
-    BrakesSectionComponent,
-  ],
+	imports: [
+		BannerComponent,
+		IconComponent,
+		AccordionControlComponent,
+		AccordionComponent,
+		NgTemplateOutlet,
+		NotesSectionComponent,
+		DynamicFormGroupComponent,
+		VehicleSectionComponent,
+		BodySectionComponent,
+		BodyComponent,
+		DimensionsSectionComponent,
+		DimensionsComponent,
+		TRLPurchasersSectionComponent,
+		TypeApprovalSectionComponent,
+		ApprovalTypeComponent,
+		PsvBrakesComponent,
+		TrlBrakesComponent,
+		TyresSectionComponent,
+		TyresComponent,
+		WeightsSectionComponent,
+		WeightsComponent,
+		ModifiedWeightsComponent,
+		AdrSectionComponent,
+		AdrComponent,
+		LastApplicantSectionComponent,
+		ButtonGroupComponent,
+		ButtonComponent,
+		AsyncPipe,
+		DefaultNullOrEmpty,
+		FormatVehicleTypePipe,
+		BrakesSectionComponent,
+	],
 })
 export class TechRecordSummaryChangesComponent implements OnInit, OnDestroy {
 	destroy$ = new Subject<void>();

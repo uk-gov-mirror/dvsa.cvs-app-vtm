@@ -22,6 +22,7 @@ import { DynamicFormGroupComponent } from '@forms/components/dynamic-form-group/
 import { AdrComponent } from '@forms/custom-sections/adr/adr.component';
 import { ApprovalTypeComponent } from '@forms/custom-sections/approval-type/approval-type.component';
 import { BodyComponent } from '@forms/custom-sections/body/body.component';
+import { BrakesSectionComponent } from '@forms/custom-sections/brakes-section/brakes-section.component';
 import { DimensionsComponent } from '@forms/custom-sections/dimensions/dimensions.component';
 import { LettersComponent } from '@forms/custom-sections/letters/letters.component';
 import { PsvBrakesComponent } from '@forms/custom-sections/psv-brakes/psv-brakes.component';
@@ -67,45 +68,44 @@ import { TyresComponent as TyresComponent_1 } from '../../../../forms/custom-sec
 import { VehicleSectionComponent } from '../../../../forms/custom-sections/vehicle-section/vehicle-section.component';
 import { WeightsSectionComponent } from '../../../../forms/custom-sections/weights-section/weights-section.component';
 import { WeightsComponent as WeightsComponent_1 } from '../../../../forms/custom-sections/weights/weights.component';
-import { BrakesSectionComponent } from '@forms/custom-sections/brakes-section/brakes-section.component';
 
 @Component({
 	selector: 'app-tech-record-summary',
 	templateUrl: './tech-record-summary.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	styleUrls: ['./tech-record-summary.component.scss'],
-  imports: [
-    AccordionControlComponent,
-    AccordionComponent,
-    NgTemplateOutlet,
-    FormsModule,
-    ReactiveFormsModule,
-    NotesSectionComponent,
-    DynamicFormGroupComponent_1,
-    VehicleSectionComponent,
-    BodySectionComponent,
-    BodyComponent_1,
-    TRLPurchasersSectionComponent,
-    DimensionsSectionComponent,
-    DimensionsComponent_1,
-    TypeApprovalSectionComponent,
-    ApprovalTypeComponent_1,
-    PsvBrakesComponent_1,
-    TrlBrakesComponent_1,
-    TyresSectionComponent,
-    TyresComponent_1,
-    WeightsSectionComponent,
-    WeightsComponent_1,
-    LettersComponent_1,
-    PlatesSectionComponent,
-    PlatesComponent,
-    AdrSectionComponent,
-    AdrComponent_1,
-    AdrCertificateHistoryComponent,
-    LastApplicantSectionComponent,
-    AsyncPipe,
-    BrakesSectionComponent,
-  ],
+	imports: [
+		AccordionControlComponent,
+		AccordionComponent,
+		NgTemplateOutlet,
+		FormsModule,
+		ReactiveFormsModule,
+		NotesSectionComponent,
+		DynamicFormGroupComponent_1,
+		VehicleSectionComponent,
+		BodySectionComponent,
+		BodyComponent_1,
+		TRLPurchasersSectionComponent,
+		DimensionsSectionComponent,
+		DimensionsComponent_1,
+		TypeApprovalSectionComponent,
+		ApprovalTypeComponent_1,
+		PsvBrakesComponent_1,
+		TrlBrakesComponent_1,
+		TyresSectionComponent,
+		TyresComponent_1,
+		WeightsSectionComponent,
+		WeightsComponent_1,
+		LettersComponent_1,
+		PlatesSectionComponent,
+		PlatesComponent,
+		AdrSectionComponent,
+		AdrComponent_1,
+		AdrCertificateHistoryComponent,
+		LastApplicantSectionComponent,
+		AsyncPipe,
+		BrakesSectionComponent,
+	],
 })
 export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewInit {
 	readonly sections = viewChildren(DynamicFormGroupComponent);
