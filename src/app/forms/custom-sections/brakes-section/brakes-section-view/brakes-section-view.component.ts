@@ -27,7 +27,7 @@ export class BrakesSectionViewComponent {
 	}
 
 	getTRLAxles(axles: unknown): TRLAxles[] {
-		return axles as PSVAxles[];
+		return axles as TRLAxles[];
 	}
 
 	round(n: number): number {
