@@ -1,26 +1,46 @@
-import { FormNodeWidth, TagTypeLabels } from '@/src/app/services/dynamic-forms/dynamic-form.types';
+import { FormNodeEditTypes, FormNodeWidth, TagTypeLabels } from '@/src/app/services/dynamic-forms/dynamic-form.types';
 import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
-import { ControlContainer, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TagType } from '@components/tag/tag.component';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
-import { V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
+import { GovukFormGroupAutocompleteComponent } from '@forms/components/govuk-form-group-autocomplete/govuk-form-group-autocomplete.component';
+import { GovukFormGroupCheckboxComponent } from '@forms/components/govuk-form-group-checkbox/govuk-form-group-checkbox.component';
+import { GovukFormGroupInputComponent } from '@forms/components/govuk-form-group-input/govuk-form-group-input.component';
+import { GovukFormGroupRadioComponent } from '@forms/components/govuk-form-group-radio/govuk-form-group-radio.component';
+import { getOptionsFromEnum } from '@forms/utils/enum-map';
+import { EXEMPT_OR_NOT_OPTIONS, MultiOptions, YES_NO_OPTIONS } from '@models/options.model';
+import { ReferenceDataResourceType } from '@models/reference-data.model';
+import { Retarders, V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
+import { MultiOptionsService } from '@services/multi-options/multi-options.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
-import { ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject, of } from 'rxjs';
 
 @Component({
 	selector: 'app-brakes-section-edit',
 	templateUrl: './brakes-section-edit.component.html',
 	styleUrls: ['./brakes-section-edit.component.scss'],
+	imports: [
+		ReactiveFormsModule,
+		GovukFormGroupAutocompleteComponent,
+		GovukFormGroupInputComponent,
+		GovukFormGroupRadioComponent,
+		GovukFormGroupCheckboxComponent,
+	],
 })
 export class BrakesSectionEditComponent implements OnInit, OnDestroy {
-	private readonly fb = inject(FormBuilder);
-	private readonly controlContainer = inject(ControlContainer);
-	private readonly technicalRecordService = inject(TechnicalRecordService);
+	fb = inject(FormBuilder);
+	controlContainer = inject(ControlContainer);
+	technicalRecordService = inject(TechnicalRecordService);
+	optionsService = inject(MultiOptionsService);
 
-	protected readonly FormNodeWidth = FormNodeWidth;
-	protected readonly VehicleTypes = VehicleTypes;
-	protected readonly TagType = TagType;
-	protected readonly TagTypeLabels = TagTypeLabels;
+	FormNodeWidth = FormNodeWidth;
+	VehicleTypes = VehicleTypes;
+	TagType = TagType;
+	TagTypeLabels = TagTypeLabels;
+	brakeCodeOptions$ = of<MultiOptions>([]);
+
+	booleanOptions = YES_NO_OPTIONS;
+	booleanOptions$ = of(YES_NO_OPTIONS);
 
 	techRecord = input.required<V3TechRecordModel>();
 
@@ -29,6 +49,7 @@ export class BrakesSectionEditComponent implements OnInit, OnDestroy {
 	form = this.fb.group({});
 
 	ngOnInit(): void {
+		this.loadBrakeCodeOptions();
 		this.addControlsBasedOffVehicleType();
 
 		// Attach all form controls to parent
@@ -89,4 +110,38 @@ export class BrakesSectionEditComponent implements OnInit, OnDestroy {
 	private get trlOnlyFields(): Partial<Record<keyof TechRecordType<'trl'>, FormControl>> {
 		return {};
 	}
+
+	get retarderOptions(): MultiOptions {
+		return getOptionsFromEnum(Retarders);
+	}
+
+	loadBrakeCodeOptions() {
+		this.brakeCodeOptions$ = this.optionsService.getOptions(
+			ReferenceDataResourceType.Brakes
+		) as Observable<MultiOptions>;
+	}
+
+	get editTypes(): typeof FormNodeEditTypes {
+		return FormNodeEditTypes;
+	}
+
+	get widths(): typeof FormNodeWidth {
+		return FormNodeWidth;
+	}
+
+	get brakeCodePrefix(): string {
+		const vehicleTechRecord = this.techRecord();
+		if (vehicleTechRecord.techRecord_vehicleType !== 'psv' || !vehicleTechRecord?.techRecord_grossLadenWeight) {
+			return '';
+		}
+		const prefix = `${Math.round(vehicleTechRecord.techRecord_grossLadenWeight / 100)}`;
+
+		return prefix.length <= 2 ? `0${prefix}` : prefix;
+	}
+
+	get axles(): FormArray {
+		return this.form.get(['techRecord_axles']) as FormArray;
+	}
+
+	protected readonly EXEMPT_OR_NOT_OPTIONS = EXEMPT_OR_NOT_OPTIONS;
 }

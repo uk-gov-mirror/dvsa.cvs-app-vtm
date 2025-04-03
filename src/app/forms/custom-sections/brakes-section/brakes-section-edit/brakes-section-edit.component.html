@@ -1,1 +1,87 @@
-<h1>EDIT MODE</h1>
+@if (techRecord(); as tr) {
+  <div [formGroup]="form">
+    @if(techRecord().techRecord_vehicleType === VehicleTypes.PSV) {
+      <govuk-form-group-autocomplete
+        type="text"
+        formControlName="techRecord_brakes_dtpNumber"
+        label="Brake code"
+        [tags]="[{ label: TagTypeLabels.PLATES, colour: TagType.PURPLE }]"
+        [options$]="brakeCodeOptions$"></govuk-form-group-autocomplete>
+    }
+    @if(techRecord().techRecord_vehicleType === VehicleTypes.TRL) {
+      <table class="govuk-table">
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header"></th>
+            <th scope="col" class="govuk-table__header">Brake actuator</th>
+            <th scope="col" class="govuk-table__header">Lever length</th>
+            <th scope="col" class="govuk-table__header">Spring brake parking</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          <ng-container formArrayName="techRecord_axles">
+            @for(axle of axles.controls; track axle; let i = $index) {
+              <tr class="govuk-table__row" formGroupName="{{ i }}">
+                <th class="govuk-table__header" scope="row">Axle {{ axle.value.axleNumber }}</th>
+                <td class="govuk-table__cell">
+                  <govuk-form-group-input
+                    id="brakes_brakeActuator-{{ i + 1 }}"
+                    type="number"
+                    formControlName="brakes_brakeActuator"
+                  ></govuk-form-group-input>
+                </td>
+                <td class="govuk-table__cell">
+                  <govuk-form-group-input
+                    id="brakes_leverLength-{{ i + 1 }}"
+                    type="number"
+                    formControlName="brakes_leverLength"
+                  ></govuk-form-group-input>
+                </td>
+                <td class="govuk-table__cell">
+                  <govuk-form-group-autocomplete
+                    id="brakes_springBrakeParking-{{ i + 1 }}"
+                    type="text"
+                    formControlName="brakes_springBrakeParking"
+                    label="Spring brake parking"
+                    [options$]="booleanOptions$"></govuk-form-group-autocomplete>
+                </td>
+              </tr>
+            }
+          </ng-container>
+        </tbody>
+      </table>
+
+      <div class="radio-buttons">
+        <govuk-form-group-radio
+          label="Load sensing valve"
+          formControlName="techRecord_brakes_loadSensingValve"
+          [options]="booleanOptions">
+        </govuk-form-group-radio>
+
+        <govuk-form-group-radio
+          label="Antilock braking system"
+          formControlName="techRecord_brakes_antilockBrakingSystem"
+          [options]="booleanOptions">
+        </govuk-form-group-radio>
+      </div>
+
+      <div class="checkboxes">
+        <label class="govuk-label govuk-label--m" for="parking-brake">Parking Brake</label>
+
+        <div id="parking-brake" class="govuk-checkboxes" formControlName="techRecord_axles">
+
+          @for (axle of axles.controls; track axle; let i = $index) {
+            <ng-container formGroupName="{{ i }}">
+              <govuk-form-group-checkbox
+                formControlName="brakes_parkingBrake"
+                id="techRecord_brakes_parkingBrake-{{ axle.value }}-checkbox"
+                [value]="true"
+                label="Axle {{ i+1 }}"
+              ></govuk-form-group-checkbox>
+            </ng-container>
+          }
+        </div>
+      </div>
+    }
+  </div>
+}
