@@ -99,7 +99,7 @@ export class BrakesSectionEditComponent implements OnInit, OnDestroy {
 
 	getAxleForm() {
 		const techRecord = this.techRecord();
-		// if (techRecord.techRecord_vehicleType === VehicleTypes.PSV) return this.addPsvAxleWeights();
+		if (techRecord.techRecord_vehicleType === VehicleTypes.PSV) return this.addPsvAxleBrakesInformation();
 		return this.addTrlAxleBrakesInformation();
 	}
 
@@ -116,6 +116,13 @@ export class BrakesSectionEditComponent implements OnInit, OnDestroy {
 			axleNumber: this.fb.control<number | null>(null, []),
 		});
 	}
+
+  addPsvAxleBrakesInformation() {
+    return this.fb.group({
+      parkingBrakeMrk: this.fb.control<boolean | null>(false, []),
+      axleNumber: this.fb.control<number | null>(null, []),
+    });
+  }
 
 	getPSV(techRecord: TechRecordType<'trl' | 'psv'>) {
 		return techRecord as TechRecordType<'psv'>;
@@ -138,6 +145,12 @@ export class BrakesSectionEditComponent implements OnInit, OnDestroy {
 	private get psvOnlyFields(): Partial<Record<keyof TechRecordType<'psv'>, FormControl | FormArray>> {
 		return {
 			techRecord_axles: this.fb.array([]),
+      techRecord_brakes_brakeCodeOriginal: this.fb.control<string | null>(null, []),
+      techRecord_brakes_dataTrBrakeOne: this.fb.control<string | null>(null, []),
+      techRecord_brakes_dataTrBrakeTwo: this.fb.control<string | null>(null, []),
+      techRecord_brakes_dataTrBrakeThree: this.fb.control<string | null>(null, []),
+      techRecord_brakes_retarderBrakeOne: this.fb.control<string | null>(null, []),
+      techRecord_brakes_retarderBrakeTwo: this.fb.control<string | null>(null, []),
 		};
 	}
 
