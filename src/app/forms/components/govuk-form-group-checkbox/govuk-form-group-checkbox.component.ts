@@ -40,6 +40,8 @@ export class GovukFormGroupCheckboxComponent implements ControlValueAccessor {
 
 	readonly controlLabel = input('', { alias: 'label' });
 
+	readonly controlTitle = input('', { alias: 'title' });
+
 	readonly controlId = input('', { alias: 'id' });
 
 	readonly controlType = input('text', { alias: 'type' });

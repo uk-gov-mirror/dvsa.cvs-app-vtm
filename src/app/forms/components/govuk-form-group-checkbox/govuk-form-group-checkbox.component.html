@@ -1,10 +1,10 @@
 
 <div class="govuk-form-group" id="{{ id }}">
   <fieldset class="govuk-fieldset">
-    @if (controlLabel()) {
+    @if (controlTitle()) {
       <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
         <h1 tag class="govuk-fieldset__heading" id="{{ labelId }}">
-          {{ controlLabel() }}
+          {{ controlTitle() }}
           @if (tags().length) {
             <div>
               @for (tag of tags(); track tag) {
