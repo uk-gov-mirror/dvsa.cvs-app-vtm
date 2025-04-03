@@ -1,12 +1,12 @@
 @if (techRecord(); as tr) {
   <div [formGroup]="form">
     @if(techRecord().techRecord_vehicleType === VehicleTypes.PSV) {
-      <govuk-form-group-autocomplete
-        type="text"
-        formControlName="techRecord_brakes_dtpNumber"
-        label="Brake code"
-        [tags]="[{ label: TagTypeLabels.PLATES, colour: TagType.PURPLE }]"
-        [options$]="brakeCodeOptions$"></govuk-form-group-autocomplete>
+<!--      <govuk-form-group-autocomplete-->
+<!--        type="text"-->
+<!--        formControlName="techRecord_brakes_dtpNumber"-->
+<!--        label="Brake code"-->
+<!--        [tags]="[{ label: TagTypeLabels.PLATES, colour: TagType.PURPLE }]"-->
+<!--        [options$]="brakeCodeOptions$"></govuk-form-group-autocomplete>-->
     }
     @if(techRecord().techRecord_vehicleType === VehicleTypes.TRL) {
       <table class="govuk-table">

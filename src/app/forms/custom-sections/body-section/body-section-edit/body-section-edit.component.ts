@@ -235,7 +235,7 @@ export class BodySectionEditComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	get hgvAndTrailerFields(): Partial<Record<keyof TechRecordType<'hgv'>, FormControl>> {
+	get hgvAndTrailerFields(): Partial<Record<keyof TechRecordType<'hgv' | 'trl'>, FormControl>> {
 		return {
 			techRecord_make: this.fb.control<string | null>(null, [
 				this.commonValidators.maxLength(50, 'Body make must be less than or equal to 50 characters'),
