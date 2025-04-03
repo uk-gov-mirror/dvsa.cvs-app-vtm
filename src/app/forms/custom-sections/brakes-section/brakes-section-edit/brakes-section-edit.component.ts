@@ -117,6 +117,10 @@ export class BrakesSectionEditComponent implements OnInit, OnDestroy {
 		});
 	}
 
+	getPSV(techRecord: TechRecordType<'trl' | 'psv'>) {
+		return techRecord as TechRecordType<'psv'>;
+	}
+
 	get vehicleType(): VehicleTypes {
 		return this.technicalRecordService.getVehicleTypeWithSmallTrl(this.techRecord());
 	}
