@@ -68,6 +68,8 @@ export class GovukFormGroupAutocompleteComponent
 
 	readonly options$ = input.required<Observable<any[]>>();
 
+	readonly prefix = input<string>();
+
 	document = inject(DOCUMENT);
 	cdr = inject(ChangeDetectorRef);
 	controlContainer = inject(ControlContainer);

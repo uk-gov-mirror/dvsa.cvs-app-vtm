@@ -3,13 +3,14 @@ import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TagType } from '@components/tag/tag.component';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
+import { GovukFormGroupAutocompleteComponent } from '@forms/components/govuk-form-group-autocomplete/govuk-form-group-autocomplete.component';
 import { GovukFormGroupCheckboxComponent } from '@forms/components/govuk-form-group-checkbox/govuk-form-group-checkbox.component';
 import { GovukFormGroupInputComponent } from '@forms/components/govuk-form-group-input/govuk-form-group-input.component';
 import { GovukFormGroupRadioComponent } from '@forms/components/govuk-form-group-radio/govuk-form-group-radio.component';
 import { GovukFormGroupSelectComponent } from '@forms/components/govuk-form-group-select/govuk-form-group-select.component';
 import { getOptionsFromEnum } from '@forms/utils/enum-map';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
-import { EXEMPT_OR_NOT_OPTIONS, MultiOptions, YES_NO_OPTIONS } from '@models/options.model';
+import { MultiOptions, YES_NO_OPTIONS } from '@models/options.model';
 import { ReferenceDataResourceType } from '@models/reference-data.model';
 import { Retarders, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { MultiOptionsService } from '@services/multi-options/multi-options.service';
@@ -26,6 +27,7 @@ import { Observable, ReplaySubject, of } from 'rxjs';
 		GovukFormGroupRadioComponent,
 		GovukFormGroupCheckboxComponent,
 		GovukFormGroupSelectComponent,
+		GovukFormGroupAutocompleteComponent,
 	],
 })
 export class BrakesSectionEditComponent implements OnInit, OnDestroy {
@@ -115,10 +117,6 @@ export class BrakesSectionEditComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	shouldDisplayFormControl(formControlName: string) {
-		return !!this.form.get(formControlName);
-	}
-
 	get vehicleType(): VehicleTypes {
 		return this.technicalRecordService.getVehicleTypeWithSmallTrl(this.techRecord());
 	}
@@ -179,5 +177,7 @@ export class BrakesSectionEditComponent implements OnInit, OnDestroy {
 		return this.form.get('techRecord_axles') as FormArray;
 	}
 
-	protected readonly EXEMPT_OR_NOT_OPTIONS = EXEMPT_OR_NOT_OPTIONS;
+	round(n: number): number {
+		return Math.round(n);
+	}
 }

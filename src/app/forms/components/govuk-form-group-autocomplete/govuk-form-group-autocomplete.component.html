@@ -1,4 +1,7 @@
 <div [class]="style">
+  @if (prefix()) {
+    <div class="govuk-input__prefix" aria-hidden="true">{{ prefix() }}</div>
+  }
   <label tag for="{{ id }}" [id]="labelId" class="govuk-label govuk-label--m">
     {{ controlLabel() }}
     @if (tags().length) {
