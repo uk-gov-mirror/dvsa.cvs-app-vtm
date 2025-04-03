@@ -1,6 +1,5 @@
 import { VehicleTypes } from '@/src/app/models/vehicle-tech-record.model';
 import { DefaultNullOrEmpty } from '@/src/app/pipes/default-null-or-empty/default-null-or-empty.pipe';
-import { TechnicalRecordChangesService } from '@/src/app/services/technical-record/technical-record-change.service';
 import { TechnicalRecordService } from '@/src/app/services/technical-record/technical-record.service';
 import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -14,7 +13,6 @@ import { editingTechRecord, techRecord } from '@store/technical-records';
 })
 export class BrakesSectionSummaryComponent {
 	store = inject(Store);
-	tcs = inject(TechnicalRecordChangesService);
 	technicalRecordService = inject(TechnicalRecordService);
 
 	currentTechRecord = this.store.selectSignal(techRecord);

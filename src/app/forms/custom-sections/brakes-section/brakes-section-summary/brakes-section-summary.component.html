@@ -2,59 +2,47 @@
   <!-- PSV only fields -->
   @if (vm.techRecord_vehicleType === VehicleTypes.PSV) {
     <dl class="govuk-summary-list">
-      @if (tcs.hasChanged('techRecord_brakeCode')) {
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">Brake code</dt>
-          <dd class="govuk-summary-list__value" id="test-techRecord_brakeCode">
-            {{ technicalRecordService.getBrakeCode(vm) }}
-          </dd>
-        </div>
-      }
-      @if (tcs.hasChanged('techRecord_brakes_dataTrBrakeOne')) {
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">Service</dt>
-          <dd class="govuk-summary-list__value" id="test-techRecord_brakes_dataTrBrakeOne">
-            {{ vm.techRecord_brakes_dataTrBrakeOne | defaultNullOrEmpty }}
-          </dd>
-        </div>
-      }
-      @if (tcs.hasChanged('techRecord_brakes_dataTrBrakeTwo')) {
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">Secondary</dt>
-          <dd class="govuk-summary-list__value" id="test-techRecord_brakes_dataTrBrakeTwo">
-            {{ vm.techRecord_brakes_dataTrBrakeTwo | defaultNullOrEmpty }}
-          </dd>
-        </div>
-      }
-      @if (tcs.hasChanged('techRecord_brakes_dataTrBrakeThree')) {
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">Parking</dt>
-          <dd class="govuk-summary-list__value" id="test-techRecord_brakes_dataTrBrakeThree">            
-            {{ vm.techRecord_brakes_dataTrBrakeThree | defaultNullOrEmpty }}
-          </dd>
-        </div>
-      }
-      @if (tcs.hasChanged('techRecord_brakes_retarderBrakeOne')) {
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">Retarder 1</dt>
-          <dd class="govuk-summary-list__value" id="test-techRecord_brakes_retarderBrakeOne">
-            {{ vm.techRecord_brakes_retarderBrakeOne | defaultNullOrEmpty }}
-          </dd>
-        </div>
-      }
-      @if (tcs.hasChanged('techRecord_brakes_retarderBrakeTwo')) {
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">Retarder 2</dt>
-          <dd class="govuk-summary-list__value" id="test-techRecord_brakes_retarderBrakeTwo">
-            {{ vm.techRecord_brakes_retarderBrakeTwo | defaultNullOrEmpty }}
-          </dd>
-        </div>
-      }   
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Brake code</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_brakeCode">
+          {{ technicalRecordService.getBrakeCode(vm) }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Service</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_brakes_dataTrBrakeOne">
+          {{ vm.techRecord_brakes_dataTrBrakeOne | defaultNullOrEmpty }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Secondary</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_brakes_dataTrBrakeTwo">
+          {{ vm.techRecord_brakes_dataTrBrakeTwo | defaultNullOrEmpty }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Parking</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_brakes_dataTrBrakeThree">            
+          {{ vm.techRecord_brakes_dataTrBrakeThree | defaultNullOrEmpty }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Retarder 1</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_brakes_retarderBrakeOne">
+          {{ vm.techRecord_brakes_retarderBrakeOne | defaultNullOrEmpty }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Retarder 2</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_brakes_retarderBrakeTwo">
+          {{ vm.techRecord_brakes_retarderBrakeTwo | defaultNullOrEmpty }}
+        </dd>
+      </div> 
     </dl>
   }
 
   <!-- PSV Axle table -->
-  @if (vm.techRecord_vehicleType === VehicleTypes.PSV && tcs.hasChanged('techRecord_grossLadenWeight', 'techRecord_grossKerbWeight')) {
+  @if (vm.techRecord_vehicleType === VehicleTypes.PSV) {
     <table class="govuk-table">
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
@@ -99,7 +87,7 @@
   }
 
   <!-- TRL Axle table -->
-  @if (vm.techRecord_vehicleType === VehicleTypes.TRL && tcs.hasChanged('techRecord_axles')) {
+  @if (vm.techRecord_vehicleType === VehicleTypes.TRL) {
     <table class="govuk-table">
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
@@ -132,28 +120,24 @@
   <!-- TRL only fields -->
   @if (vm.techRecord_vehicleType === VehicleTypes.TRL) {
     <dl class="govuk-summary-list">
-      @if (tcs.hasChanged('techRecord_brakes_loadSensingValve')) {
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">Load sensing valve</dt>
-          <dd class="govuk-summary-list__value" id="test-techRecord_brakes_loadSensingValve">
-            {{ vm.techRecord_brakes_loadSensingValve | defaultNullOrEmpty }}
-          </dd>
-        </div>
-      }
-      @if (tcs.hasChanged('techRecord_brakes_antilockBrakingSystem')) {
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">Antilock braking system</dt>
-          <dd class="govuk-summary-list__value" id="test-techRecord_brakes_antilockBrakingSystem">
-            {{ vm.techRecord_brakes_antilockBrakingSystem | defaultNullOrEmpty }}
-          </dd>
-        </div>
-      }
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Load sensing valve</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_brakes_loadSensingValve">
+          {{ vm.techRecord_brakes_loadSensingValve | defaultNullOrEmpty }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Antilock braking system</dt>
+        <dd class="govuk-summary-list__value" id="test-techRecord_brakes_antilockBrakingSystem">
+          {{ vm.techRecord_brakes_antilockBrakingSystem | defaultNullOrEmpty }}
+        </dd>
+      </div>
     </dl>
   }
 
   <!-- Parking brake states -->
   @if (vm.techRecord_vehicleType === VehicleTypes.PSV || vm.techRecord_vehicleType === VehicleTypes.TRL) {
-    @if (vm.techRecord_axles?.length && tcs.hasChanged('techRecord_axles')) {
+    @if (vm.techRecord_axles?.length) {
       <h3 class="govuk-heading-m govuk-!-margin-bottom-4">Parking Brake</h3>
       
       <dl class="govuk-summary-list">
