@@ -151,11 +151,6 @@ export class GovukFormGroupAutocompleteComponent
 		return `autocomplete__wrapper${this.noBottomMargin() ? '' : ' extra-margin'}`;
 	}
 
-	get innerStyle(): string {
-		const width = this.width();
-		return width ? ` govuk-input--width-${width}` : ' internal-wrapper';
-	}
-
 	onChange = (_: any) => {};
 	onTouched = () => {};
 
