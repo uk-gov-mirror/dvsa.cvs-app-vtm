@@ -44,6 +44,7 @@ export class BrakesSectionEditComponent implements OnInit, OnDestroy {
 	brakeCodeOptions$ = of<MultiOptions>([]);
 
 	booleanOptions = YES_NO_OPTIONS;
+	retarderOptions = getOptionsFromEnum(Retarders);
 
 	techRecord = input.required<TechRecordType<'trl' | 'psv'>>();
 
@@ -117,12 +118,12 @@ export class BrakesSectionEditComponent implements OnInit, OnDestroy {
 		});
 	}
 
-  addPsvAxleBrakesInformation() {
-    return this.fb.group({
-      parkingBrakeMrk: this.fb.control<boolean | null>(false, []),
-      axleNumber: this.fb.control<number | null>(null, []),
-    });
-  }
+	addPsvAxleBrakesInformation() {
+		return this.fb.group({
+			parkingBrakeMrk: this.fb.control<boolean | null>(false, []),
+			axleNumber: this.fb.control<number | null>(null, []),
+		});
+	}
 
 	getPSV(techRecord: TechRecordType<'trl' | 'psv'>) {
 		return techRecord as TechRecordType<'psv'>;
@@ -145,12 +146,13 @@ export class BrakesSectionEditComponent implements OnInit, OnDestroy {
 	private get psvOnlyFields(): Partial<Record<keyof TechRecordType<'psv'>, FormControl | FormArray>> {
 		return {
 			techRecord_axles: this.fb.array([]),
-      techRecord_brakes_brakeCodeOriginal: this.fb.control<string | null>(null, []),
-      techRecord_brakes_dataTrBrakeOne: this.fb.control<string | null>(null, []),
-      techRecord_brakes_dataTrBrakeTwo: this.fb.control<string | null>(null, []),
-      techRecord_brakes_dataTrBrakeThree: this.fb.control<string | null>(null, []),
-      techRecord_brakes_retarderBrakeOne: this.fb.control<string | null>(null, []),
-      techRecord_brakes_retarderBrakeTwo: this.fb.control<string | null>(null, []),
+			techRecord_brakes_brakeCode: this.fb.control<string | null>(null, []),
+			techRecord_brakes_brakeCodeOriginal: this.fb.control<string | null>(null, []),
+			techRecord_brakes_dataTrBrakeOne: this.fb.control<string | null>({ value: null, disabled: true }, []),
+			techRecord_brakes_dataTrBrakeTwo: this.fb.control<string | null>({ value: null, disabled: true }, []),
+			techRecord_brakes_dataTrBrakeThree: this.fb.control<string | null>({ value: null, disabled: true }, []),
+			techRecord_brakes_retarderBrakeOne: this.fb.control<string | null>(null, []),
+			techRecord_brakes_retarderBrakeTwo: this.fb.control<string | null>(null, []),
 		};
 	}
 
@@ -160,10 +162,6 @@ export class BrakesSectionEditComponent implements OnInit, OnDestroy {
 			techRecord_brakes_antilockBrakingSystem: this.fb.control<boolean | null>(null, []),
 			techRecord_axles: this.fb.array([]),
 		};
-	}
-
-	get retarderOptions(): MultiOptions {
-		return getOptionsFromEnum(Retarders);
 	}
 
 	loadBrakeCodeOptions() {

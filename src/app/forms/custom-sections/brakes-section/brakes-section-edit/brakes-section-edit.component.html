@@ -62,6 +62,7 @@
     @if (tr.techRecord_vehicleType === VehicleTypes.PSV) {
       @let psv = getPSV(tr);
 
+
       <govuk-form-group-autocomplete
         formControlName="techRecord_brakes_brakeCodeOriginal"
         label="Brake code"
@@ -72,32 +73,28 @@
       />
 
       <govuk-form-group-input
-        id="techRecord_brakes_dataTrBrakeOne"
         formControlName="techRecord_brakes_dataTrBrakeOne"
         label="Service"
         [width]="FormNodeWidth.XL"
-      />
-
+        />
+      
       <govuk-form-group-input
-        id="techRecord_brakes_dataTrBrakeTwo"
         formControlName="techRecord_brakes_dataTrBrakeTwo"
         label="Secondary"
         [width]="FormNodeWidth.XL"
-      />
-
+        />
+      
       <govuk-form-group-input
-        id="techRecord_brakes_dataTrBrakeThree"
         formControlName="techRecord_brakes_dataTrBrakeThree"
         label="Parking"
         [width]="FormNodeWidth.XL"
-      />
-
+        />
+      
       <div class="radio-buttons">
         <govuk-form-group-radio
           label="Retarder 1"
           formControlName="techRecord_brakes_retarderBrakeOne"
           [options]="retarderOptions"/>
-
 
         <govuk-form-group-radio
           label="Retarder 2"
@@ -147,6 +144,7 @@
         </tbody>
       </table>
     }
+
     <div class="checkboxes">
       <label class="govuk-label govuk-label--m" for="parking-brake">Parking Brake</label>
 
