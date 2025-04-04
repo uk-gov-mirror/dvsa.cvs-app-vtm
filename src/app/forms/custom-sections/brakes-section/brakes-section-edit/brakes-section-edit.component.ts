@@ -1,7 +1,10 @@
 import { FormNodeEditTypes, FormNodeWidth, TagTypeLabels } from '@/src/app/services/dynamic-forms/dynamic-form.types';
+import { selectBrakeByCode } from '@/src/app/store/reference-data';
+import { updateBrakeForces } from '@/src/app/store/technical-records';
 import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TagType } from '@components/tag/tag.component';
+import { PSVAxles } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/psv/skeleton';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { GovukFormGroupAutocompleteComponent } from '@forms/components/govuk-form-group-autocomplete/govuk-form-group-autocomplete.component';
 import { GovukFormGroupCheckboxComponent } from '@forms/components/govuk-form-group-checkbox/govuk-form-group-checkbox.component';
@@ -10,12 +13,13 @@ import { GovukFormGroupRadioComponent } from '@forms/components/govuk-form-group
 import { GovukFormGroupSelectComponent } from '@forms/components/govuk-form-group-select/govuk-form-group-select.component';
 import { getOptionsFromEnum } from '@forms/utils/enum-map';
 import { CommonValidatorsService } from '@forms/validators/common-validators.service';
-import { MultiOptions, YES_NO_OPTIONS } from '@models/options.model';
+import { YES_NO_OPTIONS } from '@models/options.model';
 import { ReferenceDataResourceType } from '@models/reference-data.model';
 import { Retarders, VehicleTypes } from '@models/vehicle-tech-record.model';
+import { Store } from '@ngrx/store';
 import { MultiOptionsService } from '@services/multi-options/multi-options.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
-import { Observable, ReplaySubject, of } from 'rxjs';
+import { ReplaySubject, debounceTime, distinctUntilChanged, map, switchMap, takeUntil, withLatestFrom } from 'rxjs';
 
 @Component({
 	selector: 'app-brakes-section-edit',
@@ -32,6 +36,7 @@ import { Observable, ReplaySubject, of } from 'rxjs';
 })
 export class BrakesSectionEditComponent implements OnInit, OnDestroy {
 	fb = inject(FormBuilder);
+	store = inject(Store);
 	controlContainer = inject(ControlContainer);
 	technicalRecordService = inject(TechnicalRecordService);
 	optionsService = inject(MultiOptionsService);
@@ -41,7 +46,10 @@ export class BrakesSectionEditComponent implements OnInit, OnDestroy {
 	VehicleTypes = VehicleTypes;
 	TagType = TagType;
 	TagTypeLabels = TagTypeLabels;
-	brakeCodeOptions$ = of<MultiOptions>([]);
+
+	brakeCodeOptions$ = this.optionsService
+		.getOptions(ReferenceDataResourceType.Brakes)
+		.pipe(map((options) => options?.map((option) => option.value) ?? []));
 
 	booleanOptions = YES_NO_OPTIONS;
 	retarderOptions = getOptionsFromEnum(Retarders);
@@ -53,9 +61,11 @@ export class BrakesSectionEditComponent implements OnInit, OnDestroy {
 	form: FormGroup = this.fb.group({});
 
 	ngOnInit(): void {
-		this.loadBrakeCodeOptions();
+		this.optionsService.loadOptions(ReferenceDataResourceType.Brakes);
+
 		this.addControlsBasedOffVehicleType();
 		this.prepopulateAxles();
+		this.handleBrakeCodeChange();
 
 		// Attach all form controls to parent
 		const parent = this.controlContainer.control;
@@ -129,6 +139,59 @@ export class BrakesSectionEditComponent implements OnInit, OnDestroy {
 		return techRecord as TechRecordType<'psv'>;
 	}
 
+	handleBrakeCodeChange() {
+		const techRecord = this.techRecord();
+		if (techRecord.techRecord_vehicleType !== VehicleTypes.PSV) return;
+
+		const brakeCode = this.form.get('techRecord_brakes_brakeCodeOriginal');
+		if (!brakeCode) return;
+
+		brakeCode.valueChanges
+			.pipe(
+				takeUntil(this.destroy$),
+				switchMap((value) => this.store.select(selectBrakeByCode(value))),
+				withLatestFrom(brakeCode.valueChanges),
+				debounceTime(400),
+				distinctUntilChanged()
+			)
+			.subscribe(([selectedBrake, value]) => {
+				// Set the brake details automatically based selection
+				if (selectedBrake && value) {
+					const techRecord_brakeCode = `${this.brakeCodePrefix}${selectedBrake.resourceKey}`;
+					const techRecord_brakes_brakeCode = `${this.brakeCodePrefix}${selectedBrake.resourceKey}`;
+					const techRecord_brakes_dataTrBrakeOne = selectedBrake.service;
+					const techRecord_brakes_dataTrBrakeTwo = selectedBrake.secondary;
+					const techRecord_brakes_dataTrBrakeThree = selectedBrake.parking;
+					this.form.patchValue(
+						{
+							techRecord_brakeCode,
+							techRecord_brakes_brakeCode,
+							techRecord_brakes_dataTrBrakeOne,
+							techRecord_brakes_dataTrBrakeTwo,
+							techRecord_brakes_dataTrBrakeThree,
+						},
+						{ emitEvent: false }
+					);
+				}
+
+				const axlesValue = this.form.get('techRecord_axles')?.value as PSVAxles[];
+
+				if (axlesValue && Array.isArray(axlesValue)) {
+					const techRecord_axles = axlesValue.filter((axle) => !!axle?.axleNumber);
+					this.form.patchValue(
+						{
+							techRecord_axles,
+						},
+						{ emitEvent: false }
+					);
+				}
+
+				if (value) {
+					this.store.dispatch(updateBrakeForces({}));
+				}
+			});
+	}
+
 	get vehicleType(): VehicleTypes {
 		return this.technicalRecordService.getVehicleTypeWithSmallTrl(this.techRecord());
 	}
@@ -162,12 +225,6 @@ export class BrakesSectionEditComponent implements OnInit, OnDestroy {
 			techRecord_brakes_antilockBrakingSystem: this.fb.control<boolean | null>(null, []),
 			techRecord_axles: this.fb.array([]),
 		};
-	}
-
-	loadBrakeCodeOptions() {
-		this.brakeCodeOptions$ = this.optionsService.getOptions(
-			ReferenceDataResourceType.Brakes
-		) as Observable<MultiOptions>;
 	}
 
 	get editTypes(): typeof FormNodeEditTypes {
