@@ -172,7 +172,7 @@
           @if (featureToggleService.isFeatureEnabled('FsDDA')) {
             <app-dda-section
               [techRecord]="techRecordEdited"
-              [mode]="'view'"
+              [mode]="'summary'"
             ></app-dda-section>
           } @else {
             <app-dynamic-form-group

@@ -5,7 +5,7 @@
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">DDA certificate issued</dt>
           <dd class="govuk-summary-list__value whitespace-pre-line" id="test-techRecord_dda_certificateIssued">
-            {{ vm.techRecord_dda_certificateIssued | defaultNullOrEmpty }}
+            {{ vm.techRecord_dda_certificateIssued | multiOption:YES_NO_NULL_OPTIONS }}
           </dd>
         </div>
       }
@@ -32,7 +32,7 @@
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">Wheelchair lift present</dt>
           <dd class="govuk-summary-list__value whitespace-pre-line" id="test-techRecord_dda_wheelchairLiftPresent">
-            {{ vm.techRecord_dda_wheelchairLiftPresent | defaultNullOrEmpty }}
+            {{ vm.techRecord_dda_wheelchairLiftPresent | multiOption:YES_NO_NULL_OPTIONS }}
           </dd>
         </div>
       }
@@ -50,7 +50,7 @@
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">Wheelchair ramp present</dt>
           <dd class="govuk-summary-list__value whitespace-pre-line" id="test-techRecord_dda_wheelchairRampPresent">
-            {{ vm.techRecord_dda_wheelchairRampPresent | defaultNullOrEmpty }}
+            {{ vm.techRecord_dda_wheelchairRampPresent | multiOption:YES_NO_NULL_OPTIONS }}
           </dd>
         </div>
       }
