@@ -8,6 +8,7 @@ import {
 	fetchDefects,
 	fetchDefectsFailed,
 	fetchDefectsSuccess,
+	setDefectsLoading,
 } from './defects.actions';
 
 export interface DefectsState extends EntityState<Defect> {
@@ -34,5 +35,6 @@ export const defectsReducer = createReducer(
 
 	on(fetchDefect, (state) => ({ ...state, loading: true })),
 	on(fetchDefectSuccess, (state, action) => ({ ...defectsAdapter.upsertOne(action.payload, state), loading: false })),
-	on(fetchDefectFailed, (state) => ({ ...defectsAdapter.setAll([], state), loading: false }))
+	on(fetchDefectFailed, (state) => ({ ...defectsAdapter.setAll([], state), loading: false })),
+	on(setDefectsLoading, (state, action) => ({ ...state, loading: action.loading }))
 );

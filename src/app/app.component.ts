@@ -48,7 +48,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
 	constructor(
 		public userService: UserService,
-		private loadingService: LoadingService,
+		public loadingService: LoadingService,
 		private router: Router,
 		private gtmService: GoogleTagManagerService,
 		private store: Store<State>,
@@ -87,10 +87,6 @@ export class AppComponent implements OnInit, OnDestroy {
 			select(selectRouteData),
 			map((routeData) => routeData && !routeData['isCustomLayout'])
 		);
-	}
-
-	get loading() {
-		return this.loadingService.showSpinner$;
 	}
 
 	startSentry() {

@@ -23,6 +23,7 @@ import {
 	fetchTyreReferenceDataByKeySearchFailed,
 	fetchTyreReferenceDataByKeySearchSuccess,
 	removeTyreSearch,
+	setReferenceDataLoading,
 } from './reference-data.actions';
 
 export const STORE_FEATURE_REFERENCE_DATA_KEY = 'referenceData';
@@ -247,6 +248,11 @@ export const referenceDataReducer = createReducer(
 			filter: action.filter,
 			term: action.term,
 		},
+	})),
+	on(setReferenceDataLoading, (state, action) => ({
+		...state,
+		// @ts-ignore
+		[action.resourceType]: { ...state[action.resourceType], loading: action.loading },
 	}))
 );
 

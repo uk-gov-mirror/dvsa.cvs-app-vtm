@@ -4,6 +4,7 @@ import {
 	getRequiredStandards,
 	getRequiredStandardsFailure,
 	getRequiredStandardsSuccess,
+	setRequiredStandardsLoading,
 } from './required-standards.actions';
 
 export interface RequiredStandardState {
@@ -37,7 +38,8 @@ export const requiredStandardsReducer = createReducer(
 		requiredStandards: orderRequiredStandards(action.requiredStandards),
 		loading: false,
 	})),
-	on(getRequiredStandardsFailure, (state) => ({ ...state, loading: false }))
+	on(getRequiredStandardsFailure, (state) => ({ ...state, loading: false })),
+	on(setRequiredStandardsLoading, (state, action) => ({ ...state, loading: action.loading }))
 );
 
 function orderRequiredStandards(requiredStandards: DefectGETRequiredStandards) {

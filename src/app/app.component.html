@@ -3,7 +3,7 @@
 
 <div
   [ngClass]="{
-    'no-scroll': (loading | async),
+    'no-scroll': (loadingService.showSpinner$ | async),
     gutters: (isStandardLayout | async) === false,
     'govuk-width-container': (isStandardLayout | async)
   }"
@@ -12,7 +12,7 @@
     <app-breadcrumbs></app-breadcrumbs>
     <app-global-error></app-global-error>
     <app-global-warning></app-global-warning>
-    <app-spinner [loading]="loading | async"></app-spinner>
+    <app-spinner [loading]="loadingService.showSpinner$ | async"></app-spinner>
     <router-outlet></router-outlet>
   </main>
 </div>

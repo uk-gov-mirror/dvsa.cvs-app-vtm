@@ -9,6 +9,7 @@ export const fetchDefectsFailed = createAction(getTitle(true, 'Failed'), props<G
 export const fetchDefect = createAction(getTitle(), props<{ id: number }>());
 export const fetchDefectSuccess = createAction(getTitle(false, 'Success'), props<{ id: number; payload: Defect }>());
 export const fetchDefectFailed = createAction(getTitle(false, 'Failed'), props<GlobalError>());
+export const setDefectsLoading = createAction(getTitle(true, 'Loading'), props<{ loading: boolean }>());
 
 function getTitle(isPlural = false, suffix = ''): string {
 	const plural = isPlural ? 's' : ' by ID';

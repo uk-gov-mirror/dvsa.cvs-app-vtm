@@ -10,7 +10,7 @@ import { Store, select } from '@ngrx/store';
 import { ReferenceDataService } from '@services/reference-data/reference-data.service';
 import { State } from '@store/index';
 import { testResultInEdit } from '@store/test-records';
-import { catchError, map, mergeMap, of, switchMap, take } from 'rxjs';
+import { catchError, finalize, map, mergeMap, of, switchMap, take } from 'rxjs';
 import { handleNotFound, sortReferenceData } from './operators';
 import {
 	amendReferenceDataItem,
@@ -38,6 +38,7 @@ import {
 	fetchTyreReferenceDataByKeySearch,
 	fetchTyreReferenceDataByKeySearchFailed,
 	fetchTyreReferenceDataByKeySearchSuccess,
+	setReferenceDataLoading,
 } from './reference-data.actions';
 
 @Injectable()
@@ -72,7 +73,8 @@ export class ReferenceDataEffects {
 							})
 						);
 					}),
-					catchError((e) => of(fetchReferenceDataFailed({ error: e.message, resourceType })))
+					catchError((e) => of(fetchReferenceDataFailed({ error: e.message, resourceType }))),
+					finalize(() => this.store.dispatch(setReferenceDataLoading({ resourceType, loading: false })))
 				)
 			)
 		)
@@ -119,7 +121,8 @@ export class ReferenceDataEffects {
 					map((data) =>
 						fetchReferenceDataByKeySuccess({ resourceType, resourceKey, payload: data as ReferenceDataModelBase })
 					),
-					catchError((e) => of(fetchReferenceDataByKeyFailed({ error: e.message, resourceType })))
+					catchError((e) => of(fetchReferenceDataByKeyFailed({ error: e.message, resourceType }))),
+					finalize(() => this.store.dispatch(setReferenceDataLoading({ resourceType, loading: false })))
 				)
 			)
 		)

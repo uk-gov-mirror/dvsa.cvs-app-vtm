@@ -8,6 +8,7 @@ import {
 	fetchTestStations,
 	fetchTestStationsFailed,
 	fetchTestStationsSuccess,
+	setTestStationsLoading,
 } from './test-stations.actions';
 
 export interface TestStationsState extends EntityState<TestStation> {
@@ -40,5 +41,6 @@ export const testStationsReducer = createReducer(
 		...testStationsAdapter.upsertOne(action.payload, state),
 		loading: false,
 	})),
-	on(fetchTestStationFailed, (state) => ({ ...testStationsAdapter.setAll([], state), loading: false }))
+	on(fetchTestStationFailed, (state) => ({ ...testStationsAdapter.setAll([], state), loading: false })),
+	on(setTestStationsLoading, (state, action) => ({ ...state, loading: action.loading }))
 );

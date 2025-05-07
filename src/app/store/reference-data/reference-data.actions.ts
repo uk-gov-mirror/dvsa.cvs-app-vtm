@@ -157,3 +157,8 @@ export const deleteReferenceDataItemFailure = createAction(
 	`${prefix} deleteReferenceDataItemFailure`,
 	props<GlobalError>()
 );
+
+export const setReferenceDataLoading = createAction(
+	`${prefix} setReferenceDataLoading`,
+	props<{ resourceType: string; loading: boolean }>()
+);

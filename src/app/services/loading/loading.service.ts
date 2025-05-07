@@ -27,21 +27,18 @@ export class LoadingService {
 	techRecordSearchLoadingState$: Observable<boolean> = this.store.pipe(select(selectTechRecordSearchLoadingState));
 	requiredStandardsLoadingState$: Observable<boolean> = this.store.pipe(select(requiredStandardsLoadingState));
 
-	private get reduceLoadingStates$() {
-		return combineLatest([
-			this.globalLoadingState$,
-			this.testResultLoadingState$,
-			this.techRecordsLoadingState$,
-			this.testTypesLoadingState$,
-			this.testStationsLoadingState$,
-			this.defectsLoadingState$,
-			this.referenceDataLoadingState$,
-			this.techRecordSearchLoadingState$,
-			this.requiredStandardsLoadingState$,
-		]).pipe(map((states) => states.some((b) => b)));
-	}
+	// TODO: use selector?
+	reduceLoadingStates$ = combineLatest([
+		this.globalLoadingState$,
+		this.testResultLoadingState$,
+		this.techRecordsLoadingState$,
+		this.testTypesLoadingState$,
+		this.testStationsLoadingState$,
+		this.defectsLoadingState$,
+		this.referenceDataLoadingState$,
+		this.techRecordSearchLoadingState$,
+		this.requiredStandardsLoadingState$,
+	]).pipe(map((states) => states.some((b) => b)));
 
-	get showSpinner$(): Observable<boolean> {
-		return this.reduceLoadingStates$;
-	}
+	showSpinner$ = this.reduceLoadingStates$;
 }

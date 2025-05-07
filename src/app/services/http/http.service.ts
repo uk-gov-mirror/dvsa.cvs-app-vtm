@@ -26,6 +26,7 @@ import { CompleteTechRecords } from '@models/vehicle/completeTechRecords';
 import { TechRecordArchiveAndProvisionalPayload } from '@models/vehicle/techRecordArchiveAndProvisionalPayload';
 import { TechRecordPOST } from '@models/vehicle/techRecordPOST';
 import { TechRecordPUT } from '@models/vehicle/techRecordPUT';
+import { CacheBucket, withCache } from '@ngneat/cashew';
 import { cloneDeep } from 'lodash';
 import { lastValueFrom, timeout } from 'rxjs';
 
@@ -36,6 +37,8 @@ export class HttpService {
 	private static readonly gzippedHeader = new HttpHeaders({
 		'x-accept-encoding': 'base64+gzip',
 	});
+
+	readonly bucket = new CacheBucket();
 
 	addProvisionalTechRecord(body: TechRecordArchiveAndProvisionalPayload, systemNumber: string) {
 		if (body === null || body === undefined) {
@@ -108,7 +111,14 @@ export class HttpService {
 	}
 
 	fetchDefects() {
-		return this.http.get<Defect[]>(`${environment.VTM_API_URI}/defects`, { headers: HttpService.gzippedHeader });
+		return this.http.get<Defect[]>(`${environment.VTM_API_URI}/defects`, {
+			headers: HttpService.gzippedHeader,
+			context: withCache({
+				mode: 'stateManagement',
+				bucket: this.bucket,
+				key: CacheKeys.DEFECTS,
+			}),
+		});
 	}
 
 	fetchDefect(id: number) {
@@ -116,13 +126,29 @@ export class HttpService {
 	}
 
 	fetchRequiredStandards(euVehicleCategory: string) {
-		return this.http.get<DefectGETRequiredStandards>(
-			`${environment.VTM_API_URI}/defects/required-standards?euVehicleCategory=${euVehicleCategory}`
-		);
+		const url = `${environment.VTM_API_URI}/defects/required-standards?euVehicleCategory=${euVehicleCategory}`;
+
+		return this.http.get<DefectGETRequiredStandards>(url, {
+			context: withCache({
+				mode: 'stateManagement',
+				bucket: this.bucket,
+				key: CacheKeys.REQUIRED_STANDARDS,
+			}),
+		});
 	}
 
 	fetchTestStations() {
-		return this.http.get<Array<TestStation>>(`${environment.VTM_API_URI}/test-stations`);
+		const url = `${environment.VTM_API_URI}/test-stations`;
+
+		return this.http
+			.get<Array<TestStation>>(url, {
+				context: withCache({
+					mode: 'stateManagement',
+					bucket: this.bucket,
+					key: CacheKeys.TEST_STATIONS,
+				}),
+			})
+			.pipe(timeout(10000));
 	}
 
 	fetchTestStation(id: string) {
@@ -229,6 +255,11 @@ export class HttpService {
 
 		return this.http.request<TestTypesTaxonomy>('get', `${environment.VTM_API_URI}/test-types`, {
 			params,
+			context: withCache({
+				mode: 'stateManagement',
+				bucket: this.bucket,
+				key: CacheKeys.TEST_TYPES,
+			}),
 		});
 	}
 
@@ -331,6 +362,9 @@ export class HttpService {
 			`${environment.VTM_API_URI}/reference/${encodeURIComponent(String(resourceType))}`,
 			{
 				params,
+				context: withCache({
+					mode: 'stateManagement',
+				}),
 			}
 		);
 	}
@@ -351,7 +385,12 @@ export class HttpService {
 		return this.http.get<ReferenceDataItemApiResponse>(
 			`${environment.VTM_API_URI}/reference/${encodeURIComponent(
 				String(resourceType)
-			)}/${encodeURIComponent(String(resourceKey))}`
+			)}/${encodeURIComponent(String(resourceKey))}`,
+			{
+				context: withCache({
+					mode: 'stateManagement',
+				}),
+			}
 		);
 	}
 
@@ -662,4 +701,11 @@ export class HttpService {
 				.pipe(timeout(HttpService.TIMEOUT))
 		);
 	};
+}
+
+export enum CacheKeys {
+	DEFECTS = 'defects',
+	REQUIRED_STANDARDS = 'required-standards',
+	TEST_STATIONS = 'test-stations',
+	TEST_TYPES = 'test-types',
 }
