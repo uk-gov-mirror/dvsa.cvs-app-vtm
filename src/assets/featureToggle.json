@@ -15,5 +15,6 @@
   "FsDDA": false,
   "FsLetters": false,
   "FsDocuments": false,
-  "FsBrakes": true
+  "FsBrakes": true,
+  "FsAuthorisationIntoService": false
 }

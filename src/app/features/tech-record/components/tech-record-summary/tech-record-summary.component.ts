@@ -21,6 +21,7 @@ import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/
 import { TechRecordType as TechRecordVerbVehicleType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb-vehicle-type';
 import { DynamicFormGroupComponent } from '@forms/components/dynamic-form-group/dynamic-form-group.component';
 import { ApprovalTypeComponent } from '@forms/custom-sections/approval-type/approval-type.component';
+import { AuthorisationIntoServiceSectionComponent } from '@forms/custom-sections/authorisation-into-service-section/authorisation-into-service-section.component';
 import { BodyComponent } from '@forms/custom-sections/body/body.component';
 import { BrakesSectionComponent } from '@forms/custom-sections/brakes-section/brakes-section.component';
 import { DDASectionComponent } from '@forms/custom-sections/dda-section/dda-section.component';
@@ -109,6 +110,7 @@ import { WeightsComponent as WeightsComponent_1 } from '../../../../forms/custom
 		DDASectionComponent,
 		LettersSectionComponent,
 		DocumentsSectionComponent,
+		AuthorisationIntoServiceSectionComponent,
 	],
 })
 export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewInit {

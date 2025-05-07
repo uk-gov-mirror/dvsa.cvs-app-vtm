@@ -13,6 +13,7 @@ import {
 	TechRecordGETPSV,
 	TechRecordGETTRL,
 } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb-vehicle-type';
+import { AuthorisationIntoServiceSectionComponent } from '@forms/custom-sections/authorisation-into-service-section/authorisation-into-service-section.component';
 import { BrakesSectionComponent } from '@forms/custom-sections/brakes-section/brakes-section.component';
 import { DDASectionComponent } from '@forms/custom-sections/dda-section/dda-section.component';
 import { DocumentsSectionComponent } from '@forms/custom-sections/documents-section/documents-section.component';
@@ -105,6 +106,7 @@ import { FormatVehicleTypePipe } from '../../../../pipes/format-vehicle-type/for
 		DDASectionComponent,
 		DocumentsSectionComponent,
 		NumberPlateComponent,
+		AuthorisationIntoServiceSectionComponent,
 	],
 })
 export class TechRecordSummaryChangesComponent implements OnInit, OnDestroy {
