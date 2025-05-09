@@ -56,18 +56,7 @@
           }
         }
         @case ('techRecordSummary') {
-          <!-- New Vehicle summary section -->
-          @if (featureToggleService.isFeatureEnabled('FsVehicleSummary')) {
-            <app-vehicle-section [isCreateMode]="isCreateMode()" [techRecord]="techRecordCalculated" [mode]="(isEditing$ | async) ? 'edit' : 'view'"/>
-          } @else {
-            <app-dynamic-form-group
-              [data]="techRecordCalculated"
-              [template]="section"
-              [edit]="(isEditing$ | async) ?? false"
-              (formChange)="handleFormState($event)"
-            ></app-dynamic-form-group>
-          }
-          <!-- Old Vehicle summary section -->
+          <app-vehicle-section [isCreateMode]="isCreateMode()" [techRecord]="techRecordCalculated" [mode]="(isEditing$ | async) ? 'edit' : 'view'"/>
         }
         @case ('bodySection') {
           <!-- New Body section -->
