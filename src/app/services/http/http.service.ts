@@ -28,6 +28,7 @@ import { TechRecordPOST } from '@models/vehicle/techRecordPOST';
 import { TechRecordPUT } from '@models/vehicle/techRecordPUT';
 import { cloneDeep } from 'lodash';
 import { lastValueFrom, timeout } from 'rxjs';
+import { FeatureConfig } from '../feature-toggle-service/feature-toggle-service';
 
 @Injectable({ providedIn: 'root' })
 export class HttpService {
@@ -662,4 +663,8 @@ export class HttpService {
 				.pipe(timeout(HttpService.TIMEOUT))
 		);
 	};
+
+	getFeatureFlags() {
+		return this.http.get<FeatureConfig>(`${environment.VTM_API_URI}/feature-flags/VTM`);
+	}
 }
