@@ -1,12 +1,15 @@
 import { Injectable, inject } from '@angular/core';
+import { HttpCacheManager } from '@ngneat/cashew';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 import { HttpService } from '@services/http/http.service';
-import { catchError, map, mergeMap, of } from 'rxjs';
+import { catchError, filter, map, mergeMap, of, tap } from 'rxjs';
 import {
 	fetchTestStation,
 	fetchTestStationFailed,
 	fetchTestStationSuccess,
 	fetchTestStations,
+	fetchTestStationsComplete,
 	fetchTestStationsFailed,
 	fetchTestStationsSuccess,
 } from './test-stations.actions';
@@ -15,10 +18,18 @@ import {
 export class TestStationsEffects {
 	private actions$ = inject(Actions);
 	private httpService = inject(HttpService);
+	private store$ = inject(Store);
+	private cacheManager = inject(HttpCacheManager);
 
 	fetchTestStations$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(fetchTestStations),
+			tap(() => {
+				if (this.cacheManager.has('testStations')) {
+					this.store$.dispatch(fetchTestStationsComplete());
+				}
+			}),
+			filter(() => !this.cacheManager.has('testStations')),
 			mergeMap(() =>
 				this.httpService.fetchTestStations().pipe(
 					map((testStations) => fetchTestStationsSuccess({ payload: testStations })),

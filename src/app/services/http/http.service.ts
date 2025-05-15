@@ -26,9 +26,9 @@ import { CompleteTechRecords } from '@models/vehicle/completeTechRecords';
 import { TechRecordArchiveAndProvisionalPayload } from '@models/vehicle/techRecordArchiveAndProvisionalPayload';
 import { TechRecordPOST } from '@models/vehicle/techRecordPOST';
 import { TechRecordPUT } from '@models/vehicle/techRecordPUT';
+import { HttpCacheManager, withCache } from '@ngneat/cashew';
 import { cloneDeep } from 'lodash';
 import { lastValueFrom, timeout } from 'rxjs';
-import { withCache } from '@ngneat/cashew';
 
 @Injectable({ providedIn: 'root' })
 export class HttpService {
@@ -37,6 +37,7 @@ export class HttpService {
 	private static readonly gzippedHeader = new HttpHeaders({
 		'x-accept-encoding': 'base64+gzip',
 	});
+	cacheManager = inject(HttpCacheManager);
 
 	addProvisionalTechRecord(body: TechRecordArchiveAndProvisionalPayload, systemNumber: string) {
 		if (body === null || body === undefined) {
@@ -124,10 +125,11 @@ export class HttpService {
 
 	fetchTestStations() {
 		return this.http.get<Array<TestStation>>(`${environment.VTM_API_URI}/test-stations`, {
-      context: withCache({
-        mode: 'stateManagement'
-      })
-    });
+			context: withCache({
+				key: 'testStations',
+				mode: 'stateManagement',
+			}),
+		});
 	}
 
 	fetchTestStation(id: string) {

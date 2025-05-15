@@ -3,6 +3,7 @@ import { TestStation } from '@models/test-stations/test-station.model';
 import { createAction, props } from '@ngrx/store';
 
 export const fetchTestStations = createAction(getTitle(true));
+export const fetchTestStationsComplete = createAction(getTitle(true, 'Complete'));
 export const fetchTestStationsSuccess = createAction(getTitle(true, 'Success'), props<{ payload: TestStation[] }>());
 export const fetchTestStationsFailed = createAction(getTitle(true, 'Failed'), props<GlobalError>());
 
