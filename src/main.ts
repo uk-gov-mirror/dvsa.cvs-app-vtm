@@ -1,4 +1,4 @@
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { APP_INITIALIZER, ErrorHandler, LOCALE_ID, enableProdMode, importProvidersFrom } from '@angular/core';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -30,6 +30,7 @@ import { InterceptorModule } from './app/interceptors/interceptor.module';
 import { UserService } from './app/services/user-service/user-service';
 import { AppStoreModule } from './app/store/app-store.module';
 import { environment } from './environments/environment';
+import { provideHttpCache, withHttpCacheInterceptor } from '@ngneat/cashew';
 
 export function MSALInstanceFactory(): IPublicClientApplication {
 	return new PublicClientApplication({
@@ -81,8 +82,10 @@ bootstrapApplication(AppComponent, {
 			InterceptorModule,
 			GoogleTagManagerModule.forRoot({
 				id: environment.VTM_GTM_CONTAINER_ID,
-			})
+			}),
 		),
+    provideHttpClient(withInterceptors([withHttpCacheInterceptor()]), withInterceptorsFromDi()),
+    provideHttpCache(),
 		{
 			provide: LOCALE_ID,
 			useValue: 'en',
@@ -141,6 +144,5 @@ bootstrapApplication(AppComponent, {
 		MsalGuard,
 		MsalBroadcastService,
 		UserService,
-		provideHttpClient(withInterceptorsFromDi()),
 	],
 }).catch((err) => console.error(err));

@@ -28,6 +28,7 @@ import { TechRecordPOST } from '@models/vehicle/techRecordPOST';
 import { TechRecordPUT } from '@models/vehicle/techRecordPUT';
 import { cloneDeep } from 'lodash';
 import { lastValueFrom, timeout } from 'rxjs';
+import { withCache } from '@ngneat/cashew';
 
 @Injectable({ providedIn: 'root' })
 export class HttpService {
@@ -122,7 +123,11 @@ export class HttpService {
 	}
 
 	fetchTestStations() {
-		return this.http.get<Array<TestStation>>(`${environment.VTM_API_URI}/test-stations`);
+		return this.http.get<Array<TestStation>>(`${environment.VTM_API_URI}/test-stations`, {
+      context: withCache({
+        mode: 'stateManagement'
+      })
+    });
 	}
 
 	fetchTestStation(id: string) {
