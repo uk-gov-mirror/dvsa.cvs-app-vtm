@@ -1,12 +1,16 @@
 import { Injectable, inject } from '@angular/core';
+import { CacheKeys } from '@models/cache-keys.enum';
+import { HttpCacheManager } from '@ngneat/cashew';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 import { HttpService } from '@services/http/http.service';
-import { catchError, map, mergeMap, of } from 'rxjs';
+import { catchError, filter, map, mergeMap, of, tap } from 'rxjs';
 import {
 	fetchDefect,
 	fetchDefectFailed,
 	fetchDefectSuccess,
 	fetchDefects,
+	fetchDefectsComplete,
 	fetchDefectsFailed,
 	fetchDefectsSuccess,
 } from './defects.actions';
@@ -15,10 +19,18 @@ import {
 export class DefectsEffects {
 	private actions$ = inject(Actions);
 	private httpService = inject(HttpService);
+	private store$ = inject(Store);
+	private cacheManager = inject(HttpCacheManager);
 
 	fetchDefects$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(fetchDefects),
+			tap(() => {
+				if (this.cacheManager.has(CacheKeys.DEFECTS)) {
+					this.store$.dispatch(fetchDefectsComplete());
+				}
+			}),
+			filter(() => !this.cacheManager.has(CacheKeys.DEFECTS)),
 			mergeMap(() =>
 				this.httpService.fetchDefects().pipe(
 					map((defects) => fetchDefectsSuccess({ payload: defects })),

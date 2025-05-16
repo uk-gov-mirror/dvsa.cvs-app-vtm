@@ -1,4 +1,5 @@
 import { Injectable, inject } from '@angular/core';
+import { CacheKeys } from '@models/cache-keys.enum';
 import { HttpCacheManager } from '@ngneat/cashew';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -25,11 +26,11 @@ export class TestStationsEffects {
 		this.actions$.pipe(
 			ofType(fetchTestStations),
 			tap(() => {
-				if (this.cacheManager.has('testStations')) {
+				if (this.cacheManager.has(CacheKeys.TEST_STATIONS)) {
 					this.store$.dispatch(fetchTestStationsComplete());
 				}
 			}),
-			filter(() => !this.cacheManager.has('testStations')),
+			filter(() => !this.cacheManager.has(CacheKeys.TEST_STATIONS)),
 			mergeMap(() =>
 				this.httpService.fetchTestStations().pipe(
 					map((testStations) => fetchTestStationsSuccess({ payload: testStations })),

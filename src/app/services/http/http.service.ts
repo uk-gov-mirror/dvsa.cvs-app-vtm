@@ -5,6 +5,7 @@ import { RecallsSchema } from '@dvsa/cvs-type-definitions/types/v1/recalls';
 import { TechRecordSearchSchema } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/search';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb';
 import { environment } from '@environments/environment';
+import { CacheKeys } from '@models/cache-keys.enum';
 import { Defect } from '@models/defects/defect.model';
 import { Log } from '@models/logs/logs.model';
 import {
@@ -110,7 +111,13 @@ export class HttpService {
 	}
 
 	fetchDefects() {
-		return this.http.get<Defect[]>(`${environment.VTM_API_URI}/defects`, { headers: HttpService.gzippedHeader });
+		return this.http.get<Defect[]>(`${environment.VTM_API_URI}/defects`, {
+			headers: HttpService.gzippedHeader,
+			context: withCache({
+				key: CacheKeys.DEFECTS,
+				mode: 'stateManagement',
+			}),
+		});
 	}
 
 	fetchDefect(id: number) {
@@ -126,7 +133,7 @@ export class HttpService {
 	fetchTestStations() {
 		return this.http.get<Array<TestStation>>(`${environment.VTM_API_URI}/test-stations`, {
 			context: withCache({
-				key: 'testStations',
+				key: CacheKeys.TEST_STATIONS,
 				mode: 'stateManagement',
 			}),
 		});

@@ -21,6 +21,7 @@ import {
 	PublicClientApplication,
 } from '@azure/msal-browser';
 import { ResponseLoggerInterceptor } from '@interceptors/response-logger/response-logger.interceptor';
+import { provideHttpCache, withHttpCacheInterceptor } from '@ngneat/cashew';
 import * as Sentry from '@sentry/angular';
 import { FeatureToggleService } from '@services/feature-toggle-service/feature-toggle-service';
 import { GoogleTagManagerModule } from 'angular-google-tag-manager';
@@ -30,7 +31,6 @@ import { InterceptorModule } from './app/interceptors/interceptor.module';
 import { UserService } from './app/services/user-service/user-service';
 import { AppStoreModule } from './app/store/app-store.module';
 import { environment } from './environments/environment';
-import { provideHttpCache, withHttpCacheInterceptor } from '@ngneat/cashew';
 
 export function MSALInstanceFactory(): IPublicClientApplication {
 	return new PublicClientApplication({
@@ -82,10 +82,10 @@ bootstrapApplication(AppComponent, {
 			InterceptorModule,
 			GoogleTagManagerModule.forRoot({
 				id: environment.VTM_GTM_CONTAINER_ID,
-			}),
+			})
 		),
-    provideHttpClient(withInterceptors([withHttpCacheInterceptor()]), withInterceptorsFromDi()),
-    provideHttpCache(),
+		provideHttpClient(withInterceptors([withHttpCacheInterceptor()]), withInterceptorsFromDi()),
+		provideHttpCache(),
 		{
 			provide: LOCALE_ID,
 			useValue: 'en',
