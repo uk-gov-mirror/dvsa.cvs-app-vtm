@@ -185,7 +185,10 @@ export class HttpService {
 	}
 
 	getRecalls(vin: string) {
-		return this.http.get<RecallsSchema>(`${environment.VTM_API_URI}/v3/technical-records/recalls/${vin}`);
+		const timeoutMs = environment.production ? 30000 : 10000;
+		return this.http
+			.get<RecallsSchema>(`${environment.VTM_API_URI}/v3/technical-records/recalls/${vin}`)
+			.pipe(timeout(timeoutMs));
 	}
 
 	getTechRecords(searchIdentifier: string, metadata?: boolean, status?: string, searchCriteria?: string) {
