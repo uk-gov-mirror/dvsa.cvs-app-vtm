@@ -35,8 +35,9 @@
     [disabled]="disabled()"
     (ngModelChange)="onChange($event)"
     (blur)="onTouched();"
-    attr.aria-describedby="{{ id }}"
+    [attr.aria-describedby]="id"
     [ngClass]="{ 'govuk-!-margin-bottom-2': maxLength() }"
+    [class]="style"
   ></textarea>
 
   @if (maxLength(); as maxLength) {

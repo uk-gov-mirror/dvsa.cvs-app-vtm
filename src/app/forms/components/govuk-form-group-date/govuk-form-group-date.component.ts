@@ -124,6 +124,11 @@ export class GovukFormGroupDateComponent implements ControlValueAccessor, OnInit
 		return this.control?.invalid && this.control?.touched && this.control?.errors;
 	}
 
+	get style(): string {
+		const errorClass = this.hasError ? 'govuk-input--error' : '';
+		return errorClass.trim();
+	}
+
 	ngOnInit(): void {
 		// Ensure events of children are propagated to the parent
 		this.form.events.pipe(takeUntil(this.destroy)).subscribe((value) => {

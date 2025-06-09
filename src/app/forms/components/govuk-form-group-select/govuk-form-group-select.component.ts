@@ -77,7 +77,8 @@ export class GovukFormGroupSelectComponent implements ControlValueAccessor {
 
 	get style(): string {
 		const width = this.width();
-		return `govuk-select ${width ? `govuk-input--width-${width}` : ''}`;
+		const errorClass = this.hasError ? 'govuk-select--error' : '';
+		return `govuk-select ${width ? `govuk-input--width-${width}` : ''} ${errorClass}`.trim();
 	}
 
 	onChange = (event: any) => {};
