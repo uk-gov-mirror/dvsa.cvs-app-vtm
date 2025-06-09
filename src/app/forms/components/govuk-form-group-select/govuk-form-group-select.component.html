@@ -1,6 +1,6 @@
-<div class="govuk-form-group-select">
+<div class="govuk-form-group">
   @if (controlLabel()) {
-    <label tag for="{{ id }}" [id]="labelId">
+    <label class="govuk-label govuk-label--m" tag for="{{ id }}" [id]="labelId">
       {{ controlLabel() }}
       @if (tags().length) {
         <div class="flex gap-2">
