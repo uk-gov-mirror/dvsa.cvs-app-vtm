@@ -77,7 +77,8 @@ export class GovukFormGroupTextareaComponent implements ControlValueAccessor {
 
 	get style(): string {
 		const width = this.width();
-		return `govuk-input ${width ? `govuk-input--width-${width}` : ''}`;
+		const errorClass = this.hasError ? 'govuk-textarea--error' : '';
+		return `govuk-textarea ${width ? `govuk-textarea--width-${width}` : ''} ${errorClass}`.trim();
 	}
 
 	onChange = (event: any) => {};
