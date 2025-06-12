@@ -20,7 +20,7 @@ import { MultiOptionsService } from '@services/multi-options/multi-options.servi
 import { ReferenceDataService } from '@services/reference-data/reference-data.service';
 import { selectReferenceDataByResourceKey } from '@store/reference-data';
 import { updateVehicleConfiguration } from '@store/technical-records';
-import { Observable, ReplaySubject, combineLatest, map, of, skipWhile, switchMap, take, takeUntil } from 'rxjs';
+import { ReplaySubject, combineLatest, map, of, skipWhile, switchMap, take, takeUntil } from 'rxjs';
 import { GovukFormGroupAutocompleteComponent } from '../../../components/govuk-form-group-autocomplete/govuk-form-group-autocomplete.component';
 import { GovukFormGroupInputComponent } from '../../../components/govuk-form-group-input/govuk-form-group-input.component';
 import { GovukFormGroupSelectComponent } from '../../../components/govuk-form-group-select/govuk-form-group-select.component';
@@ -50,6 +50,15 @@ export class BodySectionEditComponent extends EditBaseComponent implements OnIni
 	form: FormGroup = this.fb.group({});
 
 	bodyMakes$ = of<MultiOptions | undefined>([]);
+
+	dtpNumbers$ = combineLatest([
+		this.referenceDataService.getAll$(ReferenceDataResourceType.PsvMake),
+		this.referenceDataService.getReferencePsvMakeDataLoading$(),
+	]).pipe(
+		skipWhile(([, loading]) => loading),
+		take(1),
+		map(([data]) => data?.map((option) => option.resourceKey) ?? [])
+	);
 
 	ngOnInit(): void {
 		this.addControls(this.controlsBasedOffVehicleType, this.form);
@@ -170,15 +179,11 @@ export class BodySectionEditComponent extends EditBaseComponent implements OnIni
 		this.destroy$.complete();
 	}
 
-	get dtpNumbers$(): Observable<(string | number)[]> {
-		return combineLatest([
-			this.referenceDataService.getAll$(ReferenceDataResourceType.PsvMake),
-			this.referenceDataService.getReferencePsvMakeDataLoading$(),
-		]).pipe(
-			skipWhile(([, loading]) => loading),
-			take(1),
-			map(([data]) => data?.map((option) => option.resourceKey) ?? [])
-		);
+	addControlsBasedOffVehicleType() {
+		const vehicleControls = this.controlsBasedOffVehicleType;
+		for (const [key, control] of Object.entries(vehicleControls)) {
+			this.form.addControl(key, control, { emitEvent: false });
+		}
 	}
 
 	loadOptions(): void {
