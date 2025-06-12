@@ -1,5 +1,5 @@
 import { DatePipe, ViewportScroller } from '@angular/common';
-import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
+import { Component, OnDestroy, OnInit, Signal, inject, input } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaginationComponent } from '@components/pagination/pagination.component';
@@ -29,7 +29,7 @@ import { getOptionsFromEnum } from '@forms/utils/enum-map';
 import { AdrValidatorsService } from '@forms/validators/adr-validators.service';
 import { DefaultNullOrEmpty } from '@pipes/default-null-or-empty/default-null-or-empty.pipe';
 import { AdrService } from '@services/adr/adr.service';
-import { removeTC3TankInspection, removeUNNumber, updateScrollPosition } from '@store/technical-records';
+import { removeTC3TankInspection, removeUNNumber, techRecord, updateScrollPosition } from '@store/technical-records';
 import { ReplaySubject, takeUntil } from 'rxjs';
 
 @Component({
@@ -63,6 +63,7 @@ export class AdrSectionEditComponent extends EditBaseComponent implements OnInit
 	viewportScroller = inject(ViewportScroller);
 
 	techRecord = input.required<TechRecordType<'hgv' | 'lgv' | 'trl'>>();
+	currentTechRecord = this.store.selectSignal(techRecord) as Signal<TechRecordType<'hgv' | 'trl' | 'lgv'>>;
 
 	destroy$ = new ReplaySubject<boolean>(1);
 
@@ -414,8 +415,16 @@ export class AdrSectionEditComponent extends EditBaseComponent implements OnInit
 	}
 
 	canDisplayDangerousGoodsWarning(value: TechRecordType<'hgv' | 'lgv' | 'trl'>) {
+		// If going from yes to no in amend mode, then always show the warning
+		if (
+			this.currentTechRecord()?.techRecord_adrDetails_dangerousGoods === true &&
+			value.techRecord_adrDetails_dangerousGoods === false
+		) {
+			return true;
+		}
+
 		const touched = Object.entries(this.form.controls).some(([key, control]) => {
-			return key !== 'techRecord_adrDetails_dangerousGoods' && control.touched;
+			return key !== 'techRecord_adrDetails_dangerousGoods' && control.touched && control.dirty;
 		});
 
 		return value.techRecord_adrDetails_dangerousGoods === false && touched;
