@@ -1,8 +1,17 @@
 import { AsyncPipe, NgClass } from '@angular/common';
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="govuk.d.ts">
+// import { initAll } from 'govuk-frontend/govuk/all';
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Event, NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { BreadcrumbsComponent } from '@core/components/breadcrumbs/breadcrumbs.component';
+import { FooterComponent } from '@core/components/footer/footer.component';
+import { GlobalErrorComponent } from '@core/components/global-error/global-error.component';
+import { GlobalWarningComponent } from '@core/components/global-warning/global-warning.component';
+import { HeaderComponent } from '@core/components/header/header.component';
+import { PhaseBannerComponent } from '@core/components/phase-banner/phase-banner.component';
+import { SpinnerComponent } from '@core/components/spinner/spinner.component';
+import { environment } from '@environments/environment';
 import { Store, select } from '@ngrx/store';
 import * as Sentry from '@sentry/angular';
 import { AnalyticsService } from '@services/analytics/analytics.service';
@@ -11,17 +20,8 @@ import { UserService } from '@services/user-service/user-service';
 import { startSendingLogs } from '@store/logs/logs.actions';
 import { selectRouteData } from '@store/router/router.selectors';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { initAll } from 'govuk-frontend/govuk/all';
 import { Subject, map, takeUntil } from 'rxjs';
 import packageInfo from '../../package.json';
-import { environment } from '../environments/environment';
-import { BreadcrumbsComponent } from './core/components/breadcrumbs/breadcrumbs.component';
-import { FooterComponent } from './core/components/footer/footer.component';
-import { GlobalErrorComponent } from './core/components/global-error/global-error.component';
-import { GlobalWarningComponent } from './core/components/global-warning/global-warning.component';
-import { HeaderComponent } from './core/components/header/header.component';
-import { PhaseBannerComponent } from './core/components/phase-banner/phase-banner.component';
-import { SpinnerComponent } from './core/components/spinner/spinner.component';
 import { State } from './store';
 
 @Component({
@@ -79,7 +79,7 @@ export class AppComponent implements OnInit, OnDestroy {
 		await this.gtmService.addGtmToDom();
 		this.analyticsService.pushToDataLayer({ AppVersionDataLayer: packageInfo.version });
 		await this.analyticsService.setUserId();
-		initAll();
+		// initAll();
 		this.checkDateChange();
 	}
 
