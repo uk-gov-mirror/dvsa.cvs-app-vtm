@@ -14,7 +14,7 @@
               {{ testCode | uppercase }}
             </span>
             <app-icon
-              [icon]="(techRecord$ | async)?.techRecord_vehicleType || ''"
+              [icon]="techRecord()?.techRecord_vehicleType || ''"
             ></app-icon>
           </h1>
         </div>
@@ -122,11 +122,11 @@
     <ng-content />
     <div class="vehicle_heading govuk-!-margin-bottom-6">
       <h2 class="govuk-heading-l">
-        @if (techRecord$ | async; as techRecord) {
+        @if (techRecord(); as techRecord) {
           {{ getVehicleDescription(techRecord, testResult()?.vehicleType) }}
         }
         <app-icon
-          [icon]="(techRecord$ | async)?.techRecord_vehicleType || ''"
+          [icon]="techRecord()?.techRecord_vehicleType || ''"
         ></app-icon>
       </h2>
     </div>
@@ -160,7 +160,7 @@
         <dt class="govuk-summary-list__key">Vehicle type</dt>
         <dd id="test-vehicleType" class="govuk-summary-list__value">
           {{
-          (techRecord$ | async)?.techRecord_vehicleType
+          techRecord()?.techRecord_vehicleType
           | defaultNullOrEmpty
           | uppercase
           }}
@@ -200,18 +200,37 @@
         </div>
       }
       @if (resultOfTest !== 'cancelled') {
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">Certificate:</dt>
-          <dd id="test-certificate" class="govuk-summary-list__value">
-            <app-test-certificate
-              [testNumber]="testNumber() || ''"
-              [vin]="testResult()?.vin || ''"
-              [isClickable]="!isReview()"
+        @let adrCertificate = getLinkedADRCertificate();
+        @if (adrCertificate) {
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Certificate:</dt>
+            <dd id="test-certificate" class="govuk-summary-list__value">
+              <button
+                class="link"
+                id="test-certificate-link"
+                appRetrieveDocument
+                [params]="getLinkedADRCertificateDocumentParams(adrCertificate)"
+                [fileName]="adrCertificate.certificateId"
               >
-              {{ test?.certificateNumber | defaultNullOrEmpty }}
-            </app-test-certificate>
-          </dd>
-        </div>
+              {{ testResult()?.testTypes?.[0]?.testNumber }}
+            </button>
+            </dd>
+          </div>
+        }
+        @else {
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Certificate:</dt>
+            <dd id="test-certificate" class="govuk-summary-list__value">
+              <app-test-certificate
+                [testNumber]="testNumber() || ''"
+                [vin]="testResult()?.vin || ''"
+                [isClickable]="!isReview()"
+                >
+                {{ test?.certificateNumber | defaultNullOrEmpty }}
+              </app-test-certificate>
+            </dd>
+          </div>
+        }
       }
       @if (shouldShowAbandonCert) {
         <div class="govuk-summary-list__row">

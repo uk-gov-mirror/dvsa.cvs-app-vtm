@@ -4,6 +4,9 @@ import { ADRDangerousGood } from '@dvsa/cvs-type-definitions/types/v3/tech-recor
 import { ADRTankDetailsTankStatementSelect } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/adrTankDetailsTankStatementSelect.enum.js';
 import { ADRTankStatementSubstancePermitted } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/adrTankStatementSubstancePermitted.js';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
+import { TestResultModel } from '../../models/test-results/test-result.model';
+import { TEST_TYPES_GROUP7 } from '../../models/testTypeId.enum';
+import { V3TechRecordModel, VehicleTypes } from '../../models/vehicle-tech-record.model';
 
 @Injectable({
 	providedIn: 'root',
@@ -124,5 +127,17 @@ export class AdrService {
 		return (
 			this.canDisplayDangerousGoodsSection(techRecord) && explosivesApplicableForBodyType && carriesExplosivesType3
 		);
+	}
+
+	isADRVehicleType(techRecord: V3TechRecordModel): techRecord is TechRecordType<'hgv' | 'lgv' | 'trl'> {
+		return (
+			techRecord.techRecord_vehicleType === VehicleTypes.HGV ||
+			techRecord.techRecord_vehicleType === VehicleTypes.LGV ||
+			techRecord.techRecord_vehicleType === VehicleTypes.TRL
+		);
+	}
+
+	isADRTest(testResult: TestResultModel) {
+		return TEST_TYPES_GROUP7.includes(testResult.testTypes[0].testTypeId as string);
 	}
 }

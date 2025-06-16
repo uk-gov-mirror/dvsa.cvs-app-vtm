@@ -42,6 +42,8 @@ export interface TestType {
 	reapplicationDate?: string;
 
 	centralDocs?: CentralDocs;
+
+	lastUpdatedAt?: string;
 }
 
 export interface CentralDocs {

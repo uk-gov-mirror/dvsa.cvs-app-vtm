@@ -1,3 +1,4 @@
+import { AdrService } from '@/src/app/services/adr/adr.service';
 import { AsyncPipe, DatePipe, UpperCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -7,6 +8,7 @@ import { TagComponent, TagType, TagTypes } from '@components/tag/tag.component';
 import { TestCertificateComponent } from '@components/test-certificate/test-certificate.component';
 import { RetrieveDocumentDirective } from '@directives/retrieve-document/retrieve-document.directive';
 import { RecallsSchema } from '@dvsa/cvs-type-definitions/types/v1/recalls';
+import { ADRCertificateDetails } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/trl/complete';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { FieldWarningMessageComponent } from '@forms/components/field-warning-message/field-warning-message.component';
 import { ReferenceDataResourceType } from '@models/reference-data.model';
@@ -54,9 +56,10 @@ export class VehicleHeaderComponent {
 
 	store = inject(Store);
 	activatedRoute = inject(ActivatedRoute);
+	adrService = inject(AdrService);
 	testRecordsService = inject(TestRecordsService);
 
-	techRecord$ = this.store.select(techRecord);
+	techRecord = this.store.selectSignal(techRecord);
 
 	get test(): TestType | undefined {
 		return this.testResult()?.testTypes?.find((t) => this.testNumber() === t.testNumber);
@@ -165,5 +168,33 @@ export class VehicleHeaderComponent {
 
 	get params(): Map<string, string> {
 		return new Map([['fileName', this.fileName]]);
+	}
+
+	/**
+	 * Determine if the test has an associated ADR certificate by searching its ADR certificate generation history,
+	 * and attempting to find the most recently generated ADR certificate before the modifcation date of the test.
+	 */
+	getLinkedADRCertificate() {
+		const techRecord = this.techRecord();
+		if (!techRecord) return;
+
+		// Do not consider vehicles which cannot carry dangerous goods
+		if (!this.adrService.isADRVehicleType(techRecord) || !this.adrService.carriesDangerousGoods(techRecord)) return;
+
+		const testResult = this.testResult();
+		if (!testResult) return;
+
+		// Do not consider test types which do not generate ADR certificates
+		if (!this.adrService.isADRTest(testResult)) return;
+
+		const modifiedAt = testResult.testTypes[0].lastUpdatedAt as string;
+
+		return techRecord.techRecord_adrPassCertificateDetails
+			?.sort((a, b) => new Date(b.generatedTimestamp).getTime() - new Date(a.generatedTimestamp).getTime())
+			?.find((cert) => cert.generatedTimestamp < modifiedAt);
+	}
+
+	getLinkedADRCertificateDocumentParams(certificate: ADRCertificateDetails) {
+		return new Map([['fileName', certificate.certificateId]]);
 	}
 }
