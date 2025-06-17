@@ -1,4 +1,14 @@
+$govuk-use-legacy-palette: true;
 @import "node_modules/govuk-frontend/dist/govuk/all";
+@import "node_modules/govuk-frontend/dist/govuk/base";
+
+@import "node_modules/govuk-frontend/dist/govuk/core/all";
+@import "node_modules/govuk-frontend/dist/govuk/objects/all";
+@import "node_modules/govuk-frontend/dist/govuk/components/footer/index";
+@import "node_modules/govuk-frontend/dist/govuk/components/header/index";
+@import "node_modules/govuk-frontend/dist/govuk/components/skip-link/index";
+@import "node_modules/govuk-frontend/dist/govuk/utilities/all";
+@import "node_modules/govuk-frontend/dist/govuk/overrides/all";
 
 .no-scroll {
   position: fixed;

@@ -1,3 +1,4 @@
+<div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
 <div class="govuk-accordion__section" [ngClass]="{ 'govuk-accordion__section--expanded': isExpanded() }">
   <div class="govuk-accordion__section-header">
     <h2 class="govuk-accordion__section-heading">
@@ -27,4 +28,5 @@
   <div id="accordion-details-{{ id() }}" class="govuk-accordion__section-content" attr.aria-labelledby="accordion-title-{{ id() }}">
     <ng-content></ng-content>
   </div>
+</div>
 </div>

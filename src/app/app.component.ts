@@ -1,7 +1,6 @@
 import { AsyncPipe, NgClass } from '@angular/common';
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="govuk.d.ts">
-// import { initAll } from 'govuk-frontend/govuk/all';
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Event, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { BreadcrumbsComponent } from '@core/components/breadcrumbs/breadcrumbs.component';
@@ -79,7 +78,6 @@ export class AppComponent implements OnInit, OnDestroy {
 		await this.gtmService.addGtmToDom();
 		this.analyticsService.pushToDataLayer({ AppVersionDataLayer: packageInfo.version });
 		await this.analyticsService.setUserId();
-		// initAll();
 		this.checkDateChange();
 	}
 
