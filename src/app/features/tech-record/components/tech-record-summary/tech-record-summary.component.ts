@@ -1,3 +1,4 @@
+import { ReasonForCreationSectionComponent } from '@/src/app/forms/custom-sections/reason-for-creation-section/reason-for-creation-section.component';
 import { AsyncPipe, NgTemplateOutlet, ViewportScroller } from '@angular/common';
 import {
 	AfterViewInit,
@@ -119,6 +120,7 @@ import { Subject, debounceTime, map, skipWhile, take, takeUntil } from 'rxjs';
 		ManufacturerSectionComponent,
 		AuditSectionComponent,
 		AdrCertsSectionComponent,
+		ReasonForCreationSectionComponent,
 	],
 })
 export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewInit {
@@ -349,7 +351,7 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 		this.technicalRecordService.updateEditingTechRecord(this.techRecordCalculated as TechRecordType<'put'>);
 	}
 
-	checkForms(): void {
+	checkForms(): boolean {
 		const forms: Array<CustomFormGroup | CustomFormArray | FormGroup> = this.sections()
 			?.map((section) => section.form)
 			.concat(this.customSectionForms);
@@ -358,7 +360,10 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 
 		this.setErrors(forms);
 
-		this.isFormInvalid.emit(forms.some((form) => form.invalid || this.form.invalid));
+		const isInvalid = forms.some((form) => form.invalid) || this.form.invalid;
+		this.isFormInvalid.emit(isInvalid);
+
+		return isInvalid;
 	}
 
 	setErrors(forms: Array<CustomFormGroup | CustomFormArray | FormGroup>): void {
