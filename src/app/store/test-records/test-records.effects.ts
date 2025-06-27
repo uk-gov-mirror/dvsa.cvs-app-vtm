@@ -334,7 +334,7 @@ export class TestResultsEffects {
 				if (mergedForms.typeOfTest !== TypeOfTest.CONTINGENCY) {
 					mergedForms.testerName = user.name;
 					mergedForms.testerEmailAddress = user.userEmail;
-					mergedForms.testerStaffId = user.oid;
+					mergedForms.testerStaffId = user.employeeId ?? user.oid;
 					mergedForms.testStartTimestamp = now;
 					mergedForms.testEndTimestamp = now;
 					mergedForms.testTypes[0].testTypeStartTimestamp = now;

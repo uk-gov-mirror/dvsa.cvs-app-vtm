@@ -23,8 +23,8 @@ export class AnalyticsService {
 
 	async createUniqueId(): Promise<string> {
 		if (!environment.production) {
-			const userEmail = await firstValueFrom(this.userService.userEmail$);
-			return createHash('sha256').update(userEmail).digest('hex');
+			// const userEmail = await firstValueFrom(this.userService.userEmail$);
+			return createHash('sha256').update('VtmAdmin1@dvsagov.onmicrosoft.com').digest('hex');
 		}
 		const userId = await firstValueFrom(this.userService.id$);
 		if (environment.production && userId) {

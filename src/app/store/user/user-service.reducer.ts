@@ -10,6 +10,7 @@ export interface UserServiceState {
 	userEmail: string;
 	oid: string;
 	roles: string[] | null;
+  employeeId: string;
 }
 
 export const initialState: UserServiceState = {
@@ -17,6 +18,7 @@ export const initialState: UserServiceState = {
 	userEmail: '',
 	oid: '',
 	roles: null,
+  employeeId: '',
 };
 
 const getUserState = createFeatureSelector<UserServiceState>(STORE_FEATURE_USER_KEY);
@@ -25,6 +27,7 @@ export const name = createSelector(getUserState, (state) => state.name);
 export const userEmail = createSelector(getUserState, (state) => state.userEmail);
 export const id = createSelector(getUserState, (state) => state.oid);
 export const roles = createSelector(getUserState, (state) => state.roles);
+export const employeeId = createSelector(getUserState, (state) => state.employeeId);
 export const user = createSelector(getUserState, (state) => state);
 
 export const userServiceReducer = createReducer(
@@ -38,12 +41,14 @@ export const userServiceReducer = createReducer(
 				name,
 				userEmail,
 				oid,
+        employeeId,
 				roles,
 			}
 		) => ({
 			name,
 			userEmail,
 			oid,
+      employeeId,
 			roles: getRoles(roles),
 		})
 	),

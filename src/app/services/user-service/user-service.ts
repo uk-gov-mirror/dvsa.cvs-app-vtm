@@ -35,7 +35,7 @@ export class UserService implements OnDestroy {
 					payload: {
 						account: {
 							name,
-							idTokenClaims: { oid, preferred_username, email },
+							idTokenClaims: { oid, preferred_username, email, employeeId },
 						},
 						accessToken,
 					},
@@ -45,6 +45,7 @@ export class UserService implements OnDestroy {
 					name,
 					userEmail,
 					oid,
+          employeeId,
 					accessToken,
 				});
 			});
@@ -59,8 +60,9 @@ export class UserService implements OnDestroy {
 		name,
 		userEmail,
 		oid,
+    employeeId,
 		accessToken,
-	}: { name: string; userEmail: string; oid: string; accessToken: string }): void {
+	}: { name: string; userEmail: string; oid: string; employeeId: string; accessToken: string }): void {
 		window.localStorage.setItem('accessToken', accessToken);
 		const decodedJWT = jwtDecode(accessToken);
 		const { roles } = decodedJWT as { roles?: string[] };
@@ -69,6 +71,7 @@ export class UserService implements OnDestroy {
 				name,
 				userEmail,
 				oid,
+        employeeId,
 				roles,
 			})
 		);

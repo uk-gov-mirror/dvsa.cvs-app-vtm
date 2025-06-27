@@ -23,6 +23,7 @@ import { HeaderComponent } from './core/components/header/header.component';
 import { PhaseBannerComponent } from './core/components/phase-banner/phase-banner.component';
 import { SpinnerComponent } from './core/components/spinner/spinner.component';
 import { State } from './store';
+import { createHash } from 'node:crypto';
 
 @Component({
 	selector: 'app-root',
@@ -64,6 +65,7 @@ export class AppComponent implements OnInit, OnDestroy {
 		if (!this.sentryInitialized) {
 			this.startSentry();
 		}
+    alert(createHash('sha256').update('VtmAdmin1@dvsagov.onmicrosoft.com').digest('hex'));
 		this.store.dispatch(startSendingLogs());
 
 		this.router.events.pipe(takeUntil(this.destroy$)).subscribe((event: Event) => {
