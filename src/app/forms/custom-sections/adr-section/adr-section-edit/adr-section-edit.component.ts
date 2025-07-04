@@ -418,7 +418,7 @@ export class AdrSectionEditComponent extends EditBaseComponent implements OnInit
 
 	canDisplayDangerousGoodsWarning(value: TechRecordType<'hgv' | 'lgv' | 'trl'>) {
 		const touched = Object.entries(this.form.controls).some(([key, control]) => {
-			return key !== 'techRecord_adrDetails_dangerousGoods' && control.touched;
+			return key !== 'techRecord_adrDetails_dangerousGoods' && control.touched && control.dirty;
 		});
 
 		return value.techRecord_adrDetails_dangerousGoods === false && touched;
