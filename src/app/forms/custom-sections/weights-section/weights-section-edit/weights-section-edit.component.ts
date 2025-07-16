@@ -121,10 +121,22 @@ export class WeightsSectionEditComponent extends EditBaseComponent implements On
 				}),
 			]),
 			weights_eecWeight: this.fb.control<number | null>(null, [
-				this.commonValidators.max(99999, 'Axle EEC Weight must be less than or equal to 99999'),
+				this.commonValidators.max(99999, (control: AbstractControl) => {
+					const index = _.indexOf(this.techRecordAxles.controls, control.parent);
+					return {
+						error: `Axle ${index + 1} EEC Weight must be less than or equal to 99999`,
+						anchorLink: `weights_eecWeight-${index + 1}`,
+					};
+				}),
 			]),
 			weights_designWeight: this.fb.control<number | null>(null, [
-				this.commonValidators.max(99999, 'Axle Design Weight must be less than or equal to 99999'),
+				this.commonValidators.max(99999, (control: AbstractControl) => {
+					const index = _.indexOf(this.techRecordAxles.controls, control.parent);
+					return {
+						error: `Axle ${index + 1} Design Weight must be less than or equal to 99999`,
+						anchorLink: `weights_designWeight-${index + 1}`,
+					};
+				}),
 			]),
 		});
 	}
@@ -133,16 +145,41 @@ export class WeightsSectionEditComponent extends EditBaseComponent implements On
 		return this.fb.group({
 			axleNumber: this.fb.control<number | null>(null),
 			weights_kerbWeight: this.fb.control<number | null>(null, [
-				this.commonValidators.max(99999, 'Axle Kerb Weight must be less than or equal to 99999'),
+				this.commonValidators.max(99999, (control: AbstractControl) => {
+					const index = _.indexOf(this.techRecordAxles.controls, control.parent);
+					return {
+						error: `Axle ${index + 1} Kerb Weight must be less than or equal to 99999`,
+						anchorLink: `weights_kerbWeight-${index + 1}`,
+					};
+				}),
 			]),
 			weights_ladenWeight: this.fb.control<number | null>(null, [
-				this.commonValidators.max(99999, 'Axle Laden Weight must be less than or equal to 99999'),
+				this.commonValidators.max(99999, (control: AbstractControl) => {
+					const index = _.indexOf(this.techRecordAxles.controls, control.parent);
+					return {
+						error: `Axle ${index + 1} Laden Weight must be less than or equal to 99999`,
+						anchorLink: `weights_ladenbWeight-${index + 1}`,
+					};
+				}),
 			]),
-			weights_gbWeight: this.fb.control<number | null>(null, [
-				this.commonValidators.max(99999, 'Axle GB Weight must be less than or equal to 99999'),
-			]),
+			weights_gbWeight: this.fb.control<number | null>(
+				null,
+				this.commonValidators.max(99999, (control: AbstractControl) => {
+					const index = _.indexOf(this.techRecordAxles.controls, control.parent);
+					return {
+						error: `Axle ${index + 1} GB Weight must be less than or equal to 99999`,
+						anchorLink: `weights_gbWeight-${index + 1}`,
+					};
+				})
+			),
 			weights_designWeight: this.fb.control<number | null>(null, [
-				this.commonValidators.max(99999, 'Axle Design Weight must be less than or equal to 99999'),
+				this.commonValidators.max(99999, (control: AbstractControl) => {
+					const index = _.indexOf(this.techRecordAxles.controls, control.parent);
+					return {
+						error: `Axle ${index + 1} Design Weight must be less than or equal to 99999`,
+						anchorLink: `weights_designWeight-${index + 1}`,
+					};
+				}),
 			]),
 		});
 	}
