@@ -8,7 +8,7 @@ import { TechRecordType as TechRecordTypeByVehicle } from '@dvsa/cvs-type-defini
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb';
 import { LettersComponent } from '@forms/custom-sections/letters/letters.component';
 import { Roles } from '@models/roles.enum';
-import { V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
+import { FitmentCode, SpeedCategorySymbol, V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { FeatureToggleService } from '@services/feature-toggle-service/feature-toggle-service';
 import { MultiOptionsService } from '@services/multi-options/multi-options.service';
@@ -78,14 +78,12 @@ describe('TechRecordSummaryComponent', () => {
 	describe('TechRecordSummaryComponent View', () => {
 		it('should show PSV record found', () => {
 			component.isEditing = false;
-			jest.spyOn(techRecordService, 'techRecord$', 'get').mockReturnValue(
-				of({
-					systemNumber: 'foo',
-					createdTimestamp: 'bar',
-					vin: 'testVin',
-					techRecord_vehicleType: VehicleTypes.PSV,
-				} as V3TechRecordModel)
-			);
+			techRecordService.techRecord$ = of({
+				systemNumber: 'foo',
+				createdTimestamp: 'bar',
+				vin: 'testVin',
+				techRecord_vehicleType: VehicleTypes.PSV,
+			} as V3TechRecordModel);
 			fixture.detectChanges();
 			component.ngOnInit();
 			checkHeading();
@@ -94,14 +92,12 @@ describe('TechRecordSummaryComponent', () => {
 
 		it('should show PSV record found without dimensions', () => {
 			component.isEditing = false;
-			jest.spyOn(techRecordService, 'techRecord$', 'get').mockReturnValue(
-				of({
-					systemNumber: 'foo',
-					createdTimestamp: 'bar',
-					vin: 'testVin',
-					techRecord_vehicleType: VehicleTypes.PSV,
-				} as V3TechRecordModel)
-			);
+			techRecordService.techRecord$ = of({
+				systemNumber: 'foo',
+				createdTimestamp: 'bar',
+				vin: 'testVin',
+				techRecord_vehicleType: VehicleTypes.PSV,
+			} as V3TechRecordModel);
 			component.ngOnInit();
 			fixture.detectChanges();
 
@@ -113,14 +109,12 @@ describe('TechRecordSummaryComponent', () => {
 
 		it('should show HGV record found', () => {
 			component.isEditing = false;
-			jest.spyOn(techRecordService, 'techRecord$', 'get').mockReturnValue(
-				of({
-					systemNumber: 'foo',
-					createdTimestamp: 'bar',
-					vin: 'testVin',
-					techRecord_vehicleType: VehicleTypes.HGV,
-				} as V3TechRecordModel)
-			);
+			techRecordService.techRecord$ = of({
+				systemNumber: 'foo',
+				createdTimestamp: 'bar',
+				vin: 'testVin',
+				techRecord_vehicleType: VehicleTypes.HGV,
+			} as V3TechRecordModel);
 			component.ngOnInit();
 			fixture.detectChanges();
 
@@ -130,14 +124,12 @@ describe('TechRecordSummaryComponent', () => {
 
 		it('should show HGV record found without dimensions', () => {
 			component.isEditing = false;
-			jest.spyOn(techRecordService, 'techRecord$', 'get').mockReturnValue(
-				of({
-					systemNumber: 'foo',
-					createdTimestamp: 'bar',
-					vin: 'testVin',
-					techRecord_vehicleType: VehicleTypes.HGV,
-				} as V3TechRecordModel)
-			);
+			techRecordService.techRecord$ = of({
+				systemNumber: 'foo',
+				createdTimestamp: 'bar',
+				vin: 'testVin',
+				techRecord_vehicleType: VehicleTypes.HGV,
+			} as V3TechRecordModel);
 			component.ngOnInit();
 			fixture.detectChanges();
 
@@ -147,15 +139,13 @@ describe('TechRecordSummaryComponent', () => {
 
 		it('should show TRL record found', () => {
 			component.isEditing = false;
-			jest.spyOn(techRecordService, 'techRecord$', 'get').mockReturnValue(
-				of({
-					systemNumber: 'foo',
-					createdTimestamp: 'bar',
-					vin: 'testVin',
-					techRecord_vehicleType: VehicleTypes.TRL,
-					techRecord_euVehicleCategory: EUVehicleCategory.O2,
-				} as V3TechRecordModel)
-			);
+			techRecordService.techRecord$ = of({
+				systemNumber: 'foo',
+				createdTimestamp: 'bar',
+				vin: 'testVin',
+				techRecord_vehicleType: VehicleTypes.TRL,
+				techRecord_euVehicleCategory: EUVehicleCategory.O2,
+			} as V3TechRecordModel);
 			component.ngOnInit();
 			fixture.detectChanges();
 
@@ -165,14 +155,13 @@ describe('TechRecordSummaryComponent', () => {
 
 		it('should show TRL record found without dimensions', () => {
 			component.isEditing = false;
-			jest.spyOn(techRecordService, 'techRecord$', 'get').mockReturnValue(
-				of({
-					systemNumber: 'foo',
-					createdTimestamp: 'bar',
-					vin: 'testVin',
-					techRecord_vehicleType: VehicleTypes.TRL,
-				} as V3TechRecordModel)
-			);
+			techRecordService.techRecord$ = of({
+				systemNumber: 'foo',
+				createdTimestamp: 'bar',
+				vin: 'testVin',
+				techRecord_vehicleType: VehicleTypes.TRL,
+			} as V3TechRecordModel);
+
 			component.ngOnInit();
 			fixture.detectChanges();
 
@@ -198,6 +187,97 @@ describe('TechRecordSummaryComponent', () => {
 			component.handleFormState({});
 
 			expect(dispatchSpy).toHaveBeenCalledWith(updateEditingTechRecord({ vehicleTechRecord: mockTechRecord }));
+		});
+	});
+
+	describe('getAxleErrors', () => {
+		it('should return an error if PSV has only one axle', () => {
+			const mockTechRecord = {
+				systemNumber: 'foo',
+				createdTimestamp: 'bar',
+				vin: 'testVin',
+				techRecord_vehicleType: VehicleTypes.PSV,
+				techRecord_axles: [
+					{
+						axleNumber: 1,
+						tyres_dataTrAxles: 1,
+						tyres_fitmentCode: FitmentCode.SINGLE,
+						tyres_speedCategorySymbol: SpeedCategorySymbol.A7,
+						weights_gbWeight: 1000,
+						weights_eecWeight: 1000,
+						weights_designWeight: 1000,
+					},
+				],
+			} as unknown as TechRecordType<'put'>;
+			jest.spyOn(component.form, 'getRawValue').mockReturnValue(mockTechRecord);
+
+			const errors = component.getAxleErrors();
+
+			expect(errors).toEqual([
+				{ error: 'You cannot submit a PSV with less than 2 axles', anchorLink: 'weightsAddAxle' },
+			]);
+		});
+
+		it('should return an error if HGV has only one axle', () => {
+			const mockTechRecord = {
+				systemNumber: 'foo',
+				createdTimestamp: 'bar',
+				vin: 'testVin',
+				techRecord_vehicleType: VehicleTypes.HGV,
+				techRecord_axles: [
+					{
+						axleNumber: 1,
+						tyres_dataTrAxles: 1,
+						tyres_fitmentCode: FitmentCode.SINGLE,
+						tyres_speedCategorySymbol: SpeedCategorySymbol.A7,
+						weights_gbWeight: 1000,
+						weights_eecWeight: 1000,
+						weights_designWeight: 1000,
+					},
+				],
+			} as unknown as TechRecordType<'put'>;
+			component.techRecordCalculated = mockTechRecord;
+			jest.spyOn(component.form, 'getRawValue').mockReturnValue(mockTechRecord);
+
+			const errors = component.getAxleErrors();
+
+			expect(errors).toEqual([
+				{ error: 'You cannot submit a HGV with less than 2 axles', anchorLink: 'weightsAddAxle' },
+			]);
+		});
+
+		it('should return an empty array if PSV has two or more axles', () => {
+			const mockTechRecord = {
+				systemNumber: 'foo',
+				createdTimestamp: 'bar',
+				vin: 'testVin',
+				techRecord_vehicleType: VehicleTypes.PSV,
+				techRecord_axles: [
+					{
+						axleNumber: 1,
+						tyres_dataTrAxles: 1,
+						tyres_fitmentCode: FitmentCode.SINGLE,
+						tyres_speedCategorySymbol: SpeedCategorySymbol.A7,
+						weights_gbWeight: 1000,
+						weights_eecWeight: 1000,
+						weights_designWeight: 1000,
+					},
+					{
+						axleNumber: 2,
+						tyres_dataTrAxles: 1,
+						tyres_fitmentCode: FitmentCode.SINGLE,
+						tyres_speedCategorySymbol: SpeedCategorySymbol.A7,
+						weights_gbWeight: 1000,
+						weights_eecWeight: 1000,
+						weights_designWeight: 1000,
+					},
+				],
+			} as unknown as TechRecordType<'put'>;
+			jest.spyOn(component.form, 'getRawValue').mockReturnValue(mockTechRecord);
+
+			const errors = component.getAxleErrors();
+
+			expect(errors).toEqual([]);
 		});
 	});
 });

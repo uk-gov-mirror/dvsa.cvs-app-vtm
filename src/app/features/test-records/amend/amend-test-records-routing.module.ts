@@ -4,6 +4,7 @@ import { CancelEditTestGuard } from '@guards/cancel-edit-test/cancel-edit-test.g
 import { RoleGuard } from '@guards/role-guard/roles.guard';
 import { Roles } from '@models/roles.enum';
 import { TestRecordAmendRoutes } from '@models/routes.enum';
+import { loadingResolver } from '@resolvers/loading/loading.resolver';
 import { defectsTaxonomyResolver } from 'src/app/resolvers/defects-taxonomy/defects-taxonomy.resolver';
 import { requiredStandardsResolver } from 'src/app/resolvers/required-standards/required-standards.resolver';
 import { testResultResolver } from 'src/app/resolvers/test-result/test-result.resolver';
@@ -63,6 +64,7 @@ const routes: Routes = [
 							load: testResultResolver,
 							testTypeTaxonomy: testTypeTaxonomyResolver,
 							defectTaxonomy: defectsTaxonomyResolver,
+							loading: loadingResolver,
 						},
 						canActivate: [RoleGuard],
 						canDeactivate: [CancelEditTestGuard],
@@ -120,7 +122,7 @@ const routes: Routes = [
 									import('./views/test-router-outlet/test-router-outlet.component').then(
 										(m) => m.TestRouterOutletComponent
 									),
-								resolve: { RequiredStandards: requiredStandardsResolver },
+								resolve: { RequiredStandards: requiredStandardsResolver, loading: loadingResolver },
 								data: { title: 'Select Required Standard', roles: Roles.TestResultAmend },
 								children: [
 									{

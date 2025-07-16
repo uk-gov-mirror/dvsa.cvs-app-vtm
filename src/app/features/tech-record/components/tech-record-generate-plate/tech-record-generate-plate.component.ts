@@ -1,8 +1,11 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ButtonGroupComponent } from '@components/button-group/button-group.component';
+import { ButtonComponent } from '@components/button/button.component';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
+import { RadioGroupComponent } from '@forms/components/radio-group/radio-group.component';
 import { PlatesInner } from '@models/vehicle/platesInner';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
@@ -22,9 +25,6 @@ import {
 	getCanGeneratePlate,
 } from '@store/technical-records';
 import { Observable, map, take, tap } from 'rxjs';
-import { ButtonGroupComponent } from '../../../../components/button-group/button-group.component';
-import { ButtonComponent } from '../../../../components/button/button.component';
-import { RadioGroupComponent } from '../../../../forms/components/radio-group/radio-group.component';
 
 @Component({
 	selector: 'app-generate-plate',
@@ -33,6 +33,14 @@ import { RadioGroupComponent } from '../../../../forms/components/radio-group/ra
 	imports: [FormsModule, ReactiveFormsModule, RadioGroupComponent, ButtonGroupComponent, ButtonComponent, AsyncPipe],
 })
 export class GeneratePlateComponent implements OnInit {
+	actions$ = inject(Actions);
+	globalErrorService = inject(GlobalErrorService);
+	route = inject(ActivatedRoute);
+	router = inject(Router);
+	store = inject<Store<State>>(Store<State>);
+	userService = inject(UserService);
+	technicalRecordService = inject(TechnicalRecordService);
+
 	form = new FormGroup({
 		reason: new CustomFormControl(
 			{ name: 'reason', label: 'Reason for generating plate', type: FormNodeTypes.CONTROL },
@@ -43,15 +51,14 @@ export class GeneratePlateComponent implements OnInit {
 
 	emailAddress$?: Observable<string | undefined | null>;
 
-	constructor(
-		private actions$: Actions,
-		private globalErrorService: GlobalErrorService,
-		private route: ActivatedRoute,
-		private router: Router,
-		private store: Store<State>,
-		public userService: UserService,
-		private technicalRecordService: TechnicalRecordService
-	) {}
+	reasons: Array<FormNodeOption<string>> = [
+		{ label: 'Free replacement', value: PlatesInner.PlateReasonForIssueEnum.FreeReplacement },
+		{ label: 'Replacement', value: PlatesInner.PlateReasonForIssueEnum.Replacement },
+		{ label: 'Destroyed', value: PlatesInner.PlateReasonForIssueEnum.Destroyed },
+		{ label: 'Provisional', value: PlatesInner.PlateReasonForIssueEnum.Provisional },
+		{ label: 'Original', value: PlatesInner.PlateReasonForIssueEnum.Original },
+		{ label: 'Manual', value: PlatesInner.PlateReasonForIssueEnum.Manual },
+	];
 
 	ngOnInit(): void {
 		this.actions$.pipe(ofType(generatePlateSuccess), take(1)).subscribe(() => {
@@ -77,17 +84,6 @@ export class GeneratePlateComponent implements OnInit {
 
 	get width(): FormNodeWidth {
 		return FormNodeWidth.L;
-	}
-
-	get reasons(): Array<FormNodeOption<string>> {
-		return [
-			{ label: 'Free replacement', value: PlatesInner.PlateReasonForIssueEnum.FreeReplacement },
-			{ label: 'Replacement', value: PlatesInner.PlateReasonForIssueEnum.Replacement },
-			{ label: 'Destroyed', value: PlatesInner.PlateReasonForIssueEnum.Destroyed },
-			{ label: 'Provisional', value: PlatesInner.PlateReasonForIssueEnum.Provisional },
-			{ label: 'Original', value: PlatesInner.PlateReasonForIssueEnum.Original },
-			{ label: 'Manual', value: PlatesInner.PlateReasonForIssueEnum.Manual },
-		];
 	}
 
 	navigateBack() {

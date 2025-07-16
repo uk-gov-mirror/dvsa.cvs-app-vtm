@@ -11,6 +11,7 @@ import { TestStationType } from '@models/test-stations/test-station-type.enum';
 import { TEST_TYPES } from '@models/testTypeId.enum';
 import { StatusCodes, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
 import { Store, select } from '@ngrx/store';
 import { AnalyticsService } from '@services/analytics/analytics.service';
 import { DynamicFormService } from '@services/dynamic-forms/dynamic-form.service';
@@ -25,6 +26,7 @@ import { getTestStationFromProperty } from '@store/test-stations';
 import { selectTestType } from '@store/test-types/test-types.selectors';
 import merge from 'lodash.merge';
 import { catchError, concatMap, delay, filter, map, mergeMap, of, switchMap, take, withLatestFrom } from 'rxjs';
+import { techRecord } from '../technical-records';
 import {
 	contingencyTestTypeSelected,
 	createTestResult,
@@ -37,6 +39,10 @@ import {
 	fetchTestResultsBySystemNumber,
 	fetchTestResultsBySystemNumberFailed,
 	fetchTestResultsBySystemNumberSuccess,
+	getRecalls,
+	getRecallsFailure,
+	getRecallsSuccess,
+	patchEditingTestResult,
 	templateSectionsChanged,
 	testTypeIdChanged,
 	updateTestResult,
@@ -127,7 +133,7 @@ export class TestResultsEffects {
 										const field = error.match(/"([^"]+)"/);
 										validationsErrors.push({
 											error,
-											anchorLink: field && field.length > 1 ? field[1].replace('"', '') : '',
+											anchorLink: field && field.length > 1 ? field[1].replace(/"/g, '') : '',
 										});
 									})
 								: validationsErrors.push({ error: e.error });
@@ -184,7 +190,7 @@ export class TestResultsEffects {
 									const field = error.match(/"([^"]+)"/);
 									validationsErrors.push({
 										error,
-										anchorLink: field && field.length > 1 ? field[1].replace('"', '') : '',
+										anchorLink: field && field.length > 1 ? field[1].replace(/"/g, '') : '',
 									});
 								});
 							} else if (e.status === 502) {
@@ -368,16 +374,35 @@ export class TestResultsEffects {
 					const testResult = action.value;
 					const testType = testResult.testTypes[0];
 					const reasonsForAbandonment = testType.reasonForAbandoning;
+					this.analyticsService.pushToDataLayer({ abandoned_reason: undefined });
 					if (reasonsForAbandonment && reasonsForAbandonment.length > 0) {
 						const reasons = reasonsForAbandonment.split('. ');
 						if (reasons.length > 0) {
-							reasons.forEach((reason, index) => {
-								this.analyticsService.pushToDataLayer({ [`abandoned_reason_${index + 1}`]: reason });
-							});
+							this.analyticsService.pushToDataLayer({ abandoned_reason: reasons });
 						}
 					}
 				})
 			),
 		{ dispatch: false }
+	);
+
+	onGetRecalls$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(getRecalls),
+			concatLatestFrom(() => this.store.select(techRecord)),
+			switchMap(([_, techRecord]) =>
+				this.httpService.getRecalls(techRecord!.vin).pipe(
+					map((recalls) => getRecallsSuccess({ recalls })),
+					catchError((e) => of(getRecallsFailure({ error: e?.message })))
+				)
+			)
+		)
+	);
+
+	onGetRecallsSuccess$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(getRecallsSuccess),
+			map(({ recalls }) => patchEditingTestResult({ testResult: { recalls } }))
+		)
 	);
 }

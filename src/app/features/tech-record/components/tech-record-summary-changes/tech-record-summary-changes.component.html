@@ -93,13 +93,7 @@
   <ng-template #accordion let-sectionName="sectionName" let-section="section">
     @switch (sectionName) {
       @case ('notesSection') {
-        <!-- New NOTES Summary section -->
-        @if (featureToggleService.isFeatureEnabled('FsNotes')) {
-          <app-notes-section [techRecord]="techRecordEdited" mode="summary" />
-        } @else {
-        <!-- OLD NOTES-->
-          <app-dynamic-form-group [data]="techRecordChanges" [template]="section" />
-        }
+        <app-notes-section [techRecord]="techRecordEdited" mode="summary" />
       }
       @case ('audit') {
         <!-- New Audit section -->
@@ -113,13 +107,7 @@
         <app-vehicle-section [techRecord]="techRecordEdited" [isCreateMode]="false" mode="summary" />
       }
       @case ('bodySection') {
-        <!-- New Body section -->
-        @if (featureToggleService.isFeatureEnabled('FsBody')) {
-          <app-body-section [techRecord]="techRecordEdited" mode="summary" />
-        } @else {
-        <!-- Old Body section -->
-          <app-body [techRecord]="techRecordEdited" [disableLoadOptions]="true" />
-        }
+        <app-body-section [techRecord]="techRecordEdited" mode="summary" />
       }
       @case ('dimensionsSection') {
         @if (
@@ -225,13 +213,7 @@
           techRecordEdited.techRecord_vehicleType === 'psv' ||
           techRecordEdited.techRecord_vehicleType === 'trl'
           ) {
-          <!-- New Tyres section -->
-          @if (featureToggleService.isFeatureEnabled('FsTyres')) {
-            <app-tyres-section [techRecord]="techRecordEdited" [mode]="'summary'" />
-          } @else {
-          <!-- Old Tyres section -->
-            <app-tyres [vehicleTechRecord]="techRecordEdited" />
-          }
+          <app-tyres-section [techRecord]="techRecordEdited" [mode]="'summary'" />
         }
       }
       @case ('weightsSection') {
@@ -248,24 +230,9 @@
                 You removed an axle.
               </strong>
             </div>
-            <!-- New Weights section -->
-            @if (featureToggleService.isFeatureEnabled('FsWeights')) {
-              <app-weights-section [techRecord]="techRecordEdited" [mode]="'summary'"/>
-            } @else {
-            <!-- Old Weights section -->
-              <app-weights [vehicleTechRecord]="techRecordEdited" />
-            }
-          } @else {
-            <!-- New Weights section -->
-            @if (featureToggleService.isFeatureEnabled('FsWeights')) {
-              <app-weights-section [techRecord]="techRecordEdited" [mode]="'summary'"/>
-            } @else {
-              @if (changesForWeights) {
-            <!-- Old Weights section -->
-                <app-modified-weights [vehicleType]="vehicleType" [changes]="changesForWeights" />
-              }
-            }
           }
+          
+          <app-weights-section [techRecord]="techRecordEdited" [mode]="'summary'"/>
         }
       }
 
@@ -317,6 +284,15 @@
           <app-last-applicant-section [techRecord]="techRecordEdited" mode="summary" />
         } @else {
         <!-- Old last applicant section -->
+          <app-dynamic-form-group [data]="techRecordChanges" [template]="section" />
+        }
+      }
+      @case ('reasonForCreationSection') {
+        @if (featureToggleService.isFeatureEnabled('FsReasonForCreation')) {
+          <!-- New reason for creation section -->
+          <app-reason-for-creation-section [techRecord]="techRecordEdited" mode="summary" />
+        } @else {
+          <!-- Old reason for creation section -->
           <app-dynamic-form-group [data]="techRecordChanges" [template]="section" />
         }
       }

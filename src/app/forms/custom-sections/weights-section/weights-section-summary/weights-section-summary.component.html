@@ -93,14 +93,14 @@
     </tbody>
   </table>
   @if (vm.techRecord_vehicleType === VehicleTypes.PSV) {
-    @if (hasChanged('techRecord_unladenWeight')) {
+    @if (tcs.hasChanged('techRecord_unladenWeight')) {
       <dl class="govuk-summary-list">
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
-            Unladen Weight
+            Unladen weight
           </dt>
           <dd class="govuk-summary-list__value">
-            {{ vm.techRecord_unladenWeight | defaultNullOrEmpty }} kg
+            {{ vm.techRecord_unladenWeight | defaultNullOrEmpty:'kg' }}
           </dd>
         </div>
       </dl>

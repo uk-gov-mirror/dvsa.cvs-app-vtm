@@ -1,4 +1,4 @@
-import { AuditSectionComponent } from '@/src/app/forms/custom-sections/audit-section/audit-section.component';
+import { ReasonForCreationSectionComponent } from '@/src/app/forms/custom-sections/reason-for-creation-section/reason-for-creation-section.component';
 import { AsyncPipe, NgTemplateOutlet, ViewportScroller } from '@angular/common';
 import {
 	AfterViewInit,
@@ -14,28 +14,59 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { AccordionControlComponent } from '@components/accordion-control/accordion-control.component';
+import { AccordionComponent } from '@components/accordion/accordion.component';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { GlobalWarning } from '@core/components/global-warning/global-warning.interface';
 import { GlobalWarningService } from '@core/components/global-warning/global-warning.service';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb';
 import { TechRecordType as TechRecordVerbVehicleType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb-vehicle-type';
-import { DynamicFormGroupComponent } from '@forms/components/dynamic-form-group/dynamic-form-group.component';
+import {
+	DynamicFormGroupComponent,
+	DynamicFormGroupComponent as DynamicFormGroupComponent_1,
+} from '@forms/components/dynamic-form-group/dynamic-form-group.component';
+import { AdrCertificateHistoryComponent } from '@forms/custom-sections/adr-certificate-history/adr-certificate-history.component';
 import { AdrCertsSectionComponent } from '@forms/custom-sections/adr-certs-section/adr-certs-section.component';
-import { ApprovalTypeComponent } from '@forms/custom-sections/approval-type/approval-type.component';
+import { AdrSectionComponent } from '@forms/custom-sections/adr-section/adr-section.component';
+import {
+	ApprovalTypeComponent,
+	ApprovalTypeComponent as ApprovalTypeComponent_1,
+} from '@forms/custom-sections/approval-type/approval-type.component';
+import { AuditSectionComponent } from '@forms/custom-sections/audit-section/audit-section.component';
 import { AuthorisationIntoServiceSectionComponent } from '@forms/custom-sections/authorisation-into-service-section/authorisation-into-service-section.component';
-import { BodyComponent } from '@forms/custom-sections/body/body.component';
+import { BodySectionComponent } from '@forms/custom-sections/body-section/body-section.component';
 import { BrakesSectionComponent } from '@forms/custom-sections/brakes-section/brakes-section.component';
 import { DDASectionComponent } from '@forms/custom-sections/dda-section/dda-section.component';
-import { DimensionsComponent } from '@forms/custom-sections/dimensions/dimensions.component';
+import { DimensionsSectionComponent } from '@forms/custom-sections/dimensions-section/dimensions-section.component';
+import {
+	DimensionsComponent,
+	DimensionsComponent as DimensionsComponent_1,
+} from '@forms/custom-sections/dimensions/dimensions.component';
 import { DocumentsSectionComponent } from '@forms/custom-sections/documents-section/documents-section.component';
+import { LastApplicantSectionComponent } from '@forms/custom-sections/last-applicant-section/last-applicant-section.component';
 import { LettersSectionComponent } from '@forms/custom-sections/letters-section/letters-section.component';
-import { LettersComponent } from '@forms/custom-sections/letters/letters.component';
+import {
+	LettersComponent,
+	LettersComponent as LettersComponent_1,
+} from '@forms/custom-sections/letters/letters.component';
 import { ManufacturerSectionComponent } from '@forms/custom-sections/manufacturer-section/manufacturer-section.component';
-import { PsvBrakesComponent } from '@forms/custom-sections/psv-brakes/psv-brakes.component';
-import { TrlBrakesComponent } from '@forms/custom-sections/trl-brakes/trl-brakes.component';
-import { TyresComponent } from '@forms/custom-sections/tyres/tyres.component';
-import { WeightsComponent } from '@forms/custom-sections/weights/weights.component';
+import { NotesSectionComponent } from '@forms/custom-sections/notes-section/notes-section.component';
+import { PlatesSectionComponent } from '@forms/custom-sections/plates-section/plates-section.component';
+import { PlatesComponent } from '@forms/custom-sections/plates/plates.component';
+import {
+	PsvBrakesComponent,
+	PsvBrakesComponent as PsvBrakesComponent_1,
+} from '@forms/custom-sections/psv-brakes/psv-brakes.component';
+import {
+	TrlBrakesComponent,
+	TrlBrakesComponent as TrlBrakesComponent_1,
+} from '@forms/custom-sections/trl-brakes/trl-brakes.component';
+import { TRLPurchasersSectionComponent } from '@forms/custom-sections/trl-purchasers-section/trl-purchasers-section.component';
+import { TypeApprovalSectionComponent } from '@forms/custom-sections/type-approval-section/type-approval-section.component';
+import { TyresSectionComponent } from '@forms/custom-sections/tyres-section/tyres-section.component';
+import { VehicleSectionComponent } from '@forms/custom-sections/vehicle-section/vehicle-section.component';
+import { WeightsSectionComponent } from '@forms/custom-sections/weights-section/weights-section.component';
 import { vehicleTemplateMap } from '@forms/utils/tech-record-constants';
 import { ReasonForEditing, StatusCodes, V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
@@ -47,34 +78,9 @@ import { LoadingService } from '@services/loading/loading.service';
 import { ReferenceDataService } from '@services/reference-data/reference-data.service';
 import { RouterService } from '@services/router/router.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
-import { selectScrollPosition } from '@store/technical-records';
+import { addSectionState, selectScrollPosition } from '@store/technical-records';
 import { cloneDeep, mergeWith } from 'lodash';
-import { Observable, Subject, debounceTime, map, skipWhile, take, takeUntil } from 'rxjs';
-import { AccordionControlComponent } from '../../../../components/accordion-control/accordion-control.component';
-import { AccordionComponent } from '../../../../components/accordion/accordion.component';
-import { DynamicFormGroupComponent as DynamicFormGroupComponent_1 } from '../../../../forms/components/dynamic-form-group/dynamic-form-group.component';
-import { AdrCertificateHistoryComponent } from '../../../../forms/custom-sections/adr-certificate-history/adr-certificate-history.component';
-import { AdrSectionComponent } from '../../../../forms/custom-sections/adr-section/adr-section.component';
-import { ApprovalTypeComponent as ApprovalTypeComponent_1 } from '../../../../forms/custom-sections/approval-type/approval-type.component';
-import { BodySectionComponent } from '../../../../forms/custom-sections/body-section/body-section.component';
-import { BodyComponent as BodyComponent_1 } from '../../../../forms/custom-sections/body/body.component';
-import { DimensionsSectionComponent } from '../../../../forms/custom-sections/dimensions-section/dimensions-section.component';
-import { DimensionsComponent as DimensionsComponent_1 } from '../../../../forms/custom-sections/dimensions/dimensions.component';
-import { LastApplicantSectionComponent } from '../../../../forms/custom-sections/last-applicant-section/last-applicant-section.component';
-import { LettersComponent as LettersComponent_1 } from '../../../../forms/custom-sections/letters/letters.component';
-import { NotesSectionComponent } from '../../../../forms/custom-sections/notes-section/notes-section.component';
-import { PlatesSectionComponent } from '../../../../forms/custom-sections/plates-section/plates-section.component';
-import { PlatesComponent } from '../../../../forms/custom-sections/plates/plates.component';
-import { PsvBrakesComponent as PsvBrakesComponent_1 } from '../../../../forms/custom-sections/psv-brakes/psv-brakes.component';
-import { TrlBrakesComponent as TrlBrakesComponent_1 } from '../../../../forms/custom-sections/trl-brakes/trl-brakes.component';
-import { TRLPurchasersSectionComponent } from '../../../../forms/custom-sections/trl-purchasers-section/trl-purchasers-section.component';
-import { TypeApprovalSectionComponent } from '../../../../forms/custom-sections/type-approval-section/type-approval-section.component';
-import { TyresSectionComponent } from '../../../../forms/custom-sections/tyres-section/tyres-section.component';
-import { TyresComponent as TyresComponent_1 } from '../../../../forms/custom-sections/tyres/tyres.component';
-import { VehicleSectionComponent } from '../../../../forms/custom-sections/vehicle-section/vehicle-section.component';
-import { WeightsSectionComponent } from '../../../../forms/custom-sections/weights-section/weights-section.component';
-import { WeightsComponent as WeightsComponent_1 } from '../../../../forms/custom-sections/weights/weights.component';
-
+import { Subject, debounceTime, map, skipWhile, take, takeUntil } from 'rxjs';
 @Component({
 	selector: 'app-tech-record-summary',
 	templateUrl: './tech-record-summary.component.html',
@@ -90,7 +96,6 @@ import { WeightsComponent as WeightsComponent_1 } from '../../../../forms/custom
 		DynamicFormGroupComponent_1,
 		VehicleSectionComponent,
 		BodySectionComponent,
-		BodyComponent_1,
 		TRLPurchasersSectionComponent,
 		DimensionsSectionComponent,
 		DimensionsComponent_1,
@@ -99,9 +104,7 @@ import { WeightsComponent as WeightsComponent_1 } from '../../../../forms/custom
 		PsvBrakesComponent_1,
 		TrlBrakesComponent_1,
 		TyresSectionComponent,
-		TyresComponent_1,
 		WeightsSectionComponent,
-		WeightsComponent_1,
 		LettersComponent_1,
 		PlatesSectionComponent,
 		PlatesComponent,
@@ -117,16 +120,14 @@ import { WeightsComponent as WeightsComponent_1 } from '../../../../forms/custom
 		ManufacturerSectionComponent,
 		AuditSectionComponent,
 		AdrCertsSectionComponent,
+		ReasonForCreationSectionComponent,
 	],
 })
 export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewInit {
 	readonly sections = viewChildren(DynamicFormGroupComponent);
-	readonly body = viewChild(BodyComponent);
 	readonly dimensions = viewChild(DimensionsComponent);
 	readonly psvBrakes = viewChild(PsvBrakesComponent);
 	readonly trlBrakes = viewChild(TrlBrakesComponent);
-	readonly tyres = viewChild(TyresComponent);
-	readonly weights = viewChild(WeightsComponent);
 	readonly letters = viewChild(LettersComponent);
 	readonly approvalType = viewChild(ApprovalTypeComponent);
 
@@ -160,8 +161,14 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 
 	form: FormGroup = this.fb.group({});
 
+	isEditing$ = this.routerService.getRouteDataProperty$('isEditing').pipe(map((isEditing) => !!isEditing));
+
 	ngOnInit(): void {
 		this.isADRCertGenEnabled = this.featureToggleService.isFeatureEnabled('adrCertToggle');
+
+		this.isEditing$.pipe(takeUntil(this.destroy$)).subscribe((editing) => {
+			this.isEditing = editing;
+		});
 
 		this.technicalRecordService.techRecord$
 			.pipe(
@@ -188,7 +195,6 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 
 		const editingReason = this.activatedRoute.snapshot.data['reason'];
 		if (this.isEditing) {
-			this.technicalRecordService.clearReasonForCreation();
 			this.technicalRecordService.techRecord$.pipe(takeUntil(this.destroy$), take(1)).subscribe((techRecord) => {
 				if (techRecord) {
 					if (editingReason === ReasonForEditing.NOTIFIABLE_ALTERATION_NEEDED) {
@@ -222,25 +228,31 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 			}
 		});
 
-		this.form.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((changes) => {
-			// TODO: remove hacky solution
-			let techRecord = this.techRecordCalculated as TechRecordType<'put'>;
-			if (
-				techRecord?.techRecord_vehicleType === VehicleTypes.PSV ||
-				techRecord?.techRecord_vehicleType === VehicleTypes.HGV ||
-				techRecord?.techRecord_vehicleType === VehicleTypes.TRL
-			) {
-				const axles = mergeWith(cloneDeep(techRecord.techRecord_axles || []), changes.techRecord_axles || []);
-				techRecord = { ...techRecord, ...changes } as TechRecordVerbVehicleType<'psv' | 'hgv' | 'trl', 'put'>;
-				techRecord.techRecord_axles = axles;
-				this.techRecordCalculated = techRecord;
-				this.technicalRecordService.updateEditingTechRecord(this.techRecordCalculated as TechRecordType<'put'>);
-				return;
-			}
-
-			this.techRecordCalculated = { ...this.techRecordCalculated, ...changes };
-			this.technicalRecordService.updateEditingTechRecord(this.techRecordCalculated as TechRecordType<'put'>);
+		this.form.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
+			this.handleFormChanges(this.form.getRawValue());
 		});
+
+		this.store.dispatch(addSectionState({ section: 'reasonForCreationSection' }));
+	}
+
+	// TODO: remove hacky solution
+	handleFormChanges(changes: any) {
+		let techRecord = this.techRecordCalculated as TechRecordType<'put'>;
+		if (
+			techRecord?.techRecord_vehicleType === VehicleTypes.PSV ||
+			techRecord?.techRecord_vehicleType === VehicleTypes.HGV ||
+			techRecord?.techRecord_vehicleType === VehicleTypes.TRL
+		) {
+			const axles = mergeWith(cloneDeep(techRecord.techRecord_axles || []), changes.techRecord_axles || []);
+			techRecord = { ...techRecord, ...changes } as TechRecordVerbVehicleType<'psv' | 'hgv' | 'trl', 'put'>;
+			techRecord.techRecord_axles = axles;
+			this.techRecordCalculated = techRecord;
+			this.technicalRecordService.updateEditingTechRecord(this.techRecordCalculated as TechRecordType<'put'>);
+			return;
+		}
+
+		this.techRecordCalculated = { ...this.techRecordCalculated, ...changes };
+		this.technicalRecordService.updateEditingTechRecord(this.techRecordCalculated as TechRecordType<'put'>);
 	}
 
 	ngOnDestroy(): void {
@@ -274,12 +286,8 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 	}
 
 	get vehicleTemplates(): Array<FormNode> {
-		this.isEditing$.pipe(takeUntil(this.destroy$)).subscribe((editing) => {
-			this.isEditing = editing;
-		});
-		if (!this.vehicleType) {
-			return [];
-		}
+		if (!this.vehicleType) return [];
+
 		return (
 			vehicleTemplateMap
 				.get(this.vehicleType)
@@ -294,10 +302,6 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 
 	isSectionExpanded$(sectionName: string | number) {
 		return this.sectionTemplatesState$?.pipe(map((sections) => sections?.includes(sectionName)));
-	}
-
-	get isEditing$(): Observable<boolean> {
-		return this.routerService.getRouteDataProperty$('isEditing').pipe(map((isEditing) => !!isEditing));
 	}
 
 	get customSectionForms(): Array<CustomFormGroup | CustomFormArray> {
@@ -328,21 +332,9 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 
 	addCustomSectionsBasedOffFlag(): CustomFormGroup[] {
 		const sections = [];
-		const body = this.body();
-		if (body && !this.featureToggleService.isFeatureEnabled('FsBody') && body?.form) {
-			sections.push(body.form);
-		}
 		const dimensions = this.dimensions();
 		if (dimensions && !this.featureToggleService.isFeatureEnabled('FsDimensions') && dimensions?.form) {
 			sections.push(dimensions.form);
-		}
-		const tyres = this.tyres();
-		if (tyres && !this.featureToggleService.isFeatureEnabled('FsTyres') && tyres?.form) {
-			sections.push(tyres.form);
-		}
-		const weights = this.weights();
-		if (weights && !this.featureToggleService.isFeatureEnabled('FsWeights') && weights?.form) {
-			sections.push(weights.form);
 		}
 		const approvalType = this.approvalType();
 		if (approvalType && !this.featureToggleService.isFeatureEnabled('FsApprovalType') && approvalType?.form) {
@@ -360,7 +352,7 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 		this.technicalRecordService.updateEditingTechRecord(this.techRecordCalculated as TechRecordType<'put'>);
 	}
 
-	checkForms(): void {
+	checkForms(): boolean {
 		const forms: Array<CustomFormGroup | CustomFormArray | FormGroup> = this.sections()
 			?.map((section) => section.form)
 			.concat(this.customSectionForms);
@@ -369,7 +361,10 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 
 		this.setErrors(forms);
 
-		this.isFormInvalid.emit(forms.some((form) => form.invalid || this.form.invalid));
+		const isInvalid = forms.some((form) => form.invalid) || this.form.invalid;
+		this.isFormInvalid.emit(isInvalid);
+
+		return isInvalid;
 	}
 
 	setErrors(forms: Array<CustomFormGroup | CustomFormArray | FormGroup>): void {
@@ -379,13 +374,37 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 
 		this.form.markAllAsTouched();
 		this.form.updateValueAndValidity();
+		errors.push(...this.getAxleErrors());
 		errors.push(...this.globalErrorService.extractGlobalErrors(this.form));
 
 		if (errors.length) {
+			this.form.setErrors(errors);
 			this.errorService.setErrors(errors);
 		} else {
 			this.errorService.clearErrors();
 		}
+	}
+
+	getAxleErrors(): GlobalError[] {
+		const value = this.form.getRawValue() as V3TechRecordModel;
+
+		if (
+			value.techRecord_vehicleType === VehicleTypes.PSV &&
+			Array.isArray(value.techRecord_axles) &&
+			value.techRecord_axles.length === 1
+		) {
+			return [{ error: 'You cannot submit a PSV with less than 2 axles', anchorLink: 'weightsAddAxle' }];
+		}
+
+		if (
+			value.techRecord_vehicleType === VehicleTypes.HGV &&
+			Array.isArray(value.techRecord_axles) &&
+			value.techRecord_axles.length === 1
+		) {
+			return [{ error: 'You cannot submit a HGV with less than 2 axles', anchorLink: 'weightsAddAxle' }];
+		}
+
+		return [];
 	}
 
 	private normaliseAxles(record: V3TechRecordModel): V3TechRecordModel {

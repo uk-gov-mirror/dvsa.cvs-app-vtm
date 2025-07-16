@@ -15,13 +15,13 @@ import {
 	TEST_TYPES_GROUP15_16,
 	TEST_TYPES_NON_VOLUNTARY_IVA_HGV_TRL,
 } from '@models/testTypeId.enum';
+// eslint-disable-next-line import/no-cycle
+import { VehicleTypes } from '@models/vehicle-tech-record.model';
 import { EntityAdapter, EntityState, createEntityAdapter } from '@ngrx/entity';
 import { createFeatureSelector, createReducer, on } from '@ngrx/store';
-// eslint-disable-next-line import/no-cycle
 import { FormNode } from '@services/dynamic-forms/dynamic-form.types';
 import cloneDeep from 'lodash.clonedeep';
 import merge from 'lodash.merge';
-import { VehicleTypes } from '../../models/vehicle-tech-record.model';
 import {
 	cancelEditingTestResult,
 	cleanTestResult,
@@ -38,11 +38,15 @@ import {
 	fetchTestResultsBySystemNumberFailed,
 	fetchTestResultsBySystemNumberSuccess,
 	fetchTestResultsSuccess,
+	getRecalls,
+	getRecallsFailure,
+	getRecallsSuccess,
 	initialContingencyTest,
 	patchEditingTestResult,
 	removeDefect,
 	removeRequiredStandard,
 	setResultOfTest,
+	setTestResultLoading,
 	templateSectionsChanged,
 	updateDefect,
 	updateEditingTestResult,
@@ -166,7 +170,11 @@ export const testResultsReducer = createReducer(
 		editingTestResult: calculateTestResultRequiredStandards(state.editingTestResult),
 	})),
 
-	on(cleanTestResult, (state) => ({ ...state, editingTestResult: cleanTestResultPayload(state.editingTestResult) }))
+	on(cleanTestResult, (state) => ({ ...state, editingTestResult: cleanTestResultPayload(state.editingTestResult) })),
+
+	on(getRecalls, (state) => ({ ...state, loading: true })),
+	on(getRecallsSuccess, getRecallsFailure, (state) => ({ ...state, loading: false })),
+	on(setTestResultLoading, (state, action) => ({ ...state, loading: action.loading }))
 );
 
 export const testResultsFeatureState = createFeatureSelector<TestResultsState>(STORE_FEATURE_TEST_RESULTS_KEY);

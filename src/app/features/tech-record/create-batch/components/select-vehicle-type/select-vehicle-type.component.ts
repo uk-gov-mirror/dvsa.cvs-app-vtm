@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ButtonComponent } from '@components/button/button.component';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb';
+import { RadioGroupComponent } from '@forms/components/radio-group/radio-group.component';
 import { CustomValidators } from '@forms/validators/custom-validators/custom-validators';
 import { StatusCodes, TrailerFormType, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
@@ -16,11 +18,8 @@ import {
 	FormNodeTypes,
 } from '@services/dynamic-forms/dynamic-form.types';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
-import { selectTechRecord } from '@store/technical-records';
+import { editingTechRecord } from '@store/technical-records';
 import { take } from 'rxjs';
-import { RadioGroupComponent } from '../../../../../forms/components/radio-group/radio-group.component';
-
-import { ButtonComponent } from '../../../../../components/button/button.component';
 
 @Component({
 	selector: 'app-select-vehicle-type',
@@ -28,6 +27,13 @@ import { ButtonComponent } from '../../../../../components/button/button.compone
 	imports: [FormsModule, ReactiveFormsModule, RadioGroupComponent, ButtonComponent],
 })
 export class SelectVehicleTypeComponent {
+	globalErrorService = inject(GlobalErrorService);
+	batchTechRecordService = inject(BatchTechnicalRecordService);
+	trs = inject(TechnicalRecordService);
+	route = inject(ActivatedRoute);
+	router = inject(Router);
+	store = inject(Store);
+
 	form: CustomFormGroup = new CustomFormGroup(
 		{ name: 'form-group', type: FormNodeTypes.GROUP },
 		{
@@ -55,14 +61,7 @@ export class SelectVehicleTypeComponent {
 		{ label: 'TES 2', value: TrailerFormType.TES2 },
 	];
 
-	constructor(
-		private globalErrorService: GlobalErrorService,
-		private batchTechRecordService: BatchTechnicalRecordService,
-		private trs: TechnicalRecordService,
-		private route: ActivatedRoute,
-		private router: Router,
-		private store: Store
-	) {
+	constructor() {
 		this.batchTechRecordService.clearBatch();
 		this.trs.clearSectionTemplateStates();
 	}
@@ -95,14 +94,16 @@ export class SelectVehicleTypeComponent {
 		this.batchTechRecordService.setVehicleType(type);
 
 		this.store
-			.select(selectTechRecord)
+			.select(editingTechRecord)
 			.pipe(take(1))
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			.subscribe(
-				(vehicle) =>
-					!vehicle &&
-					this.trs.updateEditingTechRecord({ ...vehicle!, techRecord_vehicleType: type } as TechRecordType<'put'>)
-			);
+			.subscribe((vehicle) => {
+				if (!vehicle) {
+					this.trs.updateEditingTechRecord({
+						techRecord_reasonForCreation: '',
+						techRecord_vehicleType: type,
+					} as TechRecordType<'put'>);
+				}
+			});
 
 		this.trs.generateEditingVehicleTechnicalRecordFromVehicleType(type);
 

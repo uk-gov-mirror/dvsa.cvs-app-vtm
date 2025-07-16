@@ -1,7 +1,7 @@
 import { AsyncPipe, NgClass } from '@angular/common';
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="govuk.d.ts">
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Event, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import * as Sentry from '@sentry/angular';
@@ -10,10 +10,9 @@ import { LoadingService } from '@services/loading/loading.service';
 import { UserService } from '@services/user-service/user-service';
 import { startSendingLogs } from '@store/logs/logs.actions';
 import { selectRouteData } from '@store/router/router.selectors';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
 import { initAll } from 'govuk-frontend/govuk/all';
-import { Subject, map, take, takeUntil } from 'rxjs';
+import { Subject, map, takeUntil } from 'rxjs';
 import packageInfo from '../../package.json';
 import { environment } from '../environments/environment';
 import { BreadcrumbsComponent } from './core/components/breadcrumbs/breadcrumbs.component';
@@ -43,21 +42,28 @@ import { State } from './store';
 	],
 })
 export class AppComponent implements OnInit, OnDestroy {
+	userService = inject(UserService);
+	loadingService = inject(LoadingService);
+	router = inject(Router);
+	gtmService = inject(GoogleTagManagerService);
+	store = inject(Store<State>);
+	analyticsService = inject(AnalyticsService);
+
+	currentDate = new Date();
 	private destroy$ = new Subject<void>();
 	protected readonly version = packageInfo.version;
+	private sentryInitialized: boolean | undefined;
+	private interval?: ReturnType<typeof setInterval>;
 
-	constructor(
-		public userService: UserService,
-		private loadingService: LoadingService,
-		private router: Router,
-		private gtmService: GoogleTagManagerService,
-		private store: Store<State>,
-		private analyticsService: AnalyticsService
-	) {}
+	isStandardLayout$ = this.store.pipe(
+		select(selectRouteData),
+		map((routeData) => routeData && !routeData['isCustomLayout'])
+	);
 
 	async ngOnInit() {
-		this.startSentry();
-
+		if (!this.sentryInitialized) {
+			this.startSentry();
+		}
 		this.store.dispatch(startSendingLogs());
 
 		this.router.events.pipe(takeUntil(this.destroy$)).subscribe((event: Event) => {
@@ -74,23 +80,13 @@ export class AppComponent implements OnInit, OnDestroy {
 		this.analyticsService.pushToDataLayer({ AppVersionDataLayer: packageInfo.version });
 		await this.analyticsService.setUserId();
 		initAll();
+		this.checkDateChange();
 	}
 
 	ngOnDestroy(): void {
 		this.destroy$.next();
 		this.destroy$.complete();
-	}
-
-	get isStandardLayout() {
-		return this.store.pipe(
-			take(1),
-			select(selectRouteData),
-			map((routeData) => routeData && !routeData['isCustomLayout'])
-		);
-	}
-
-	get loading() {
-		return this.loadingService.showSpinner$;
+		clearInterval(this.interval);
 	}
 
 	startSentry() {
@@ -104,5 +100,20 @@ export class AppComponent implements OnInit, OnDestroy {
 			enableTracing: false,
 			integrations: [Sentry.browserTracingIntegration(), Sentry.replayIntegration()],
 		});
+		this.sentryInitialized = true;
+	}
+
+	checkDateChange() {
+		this.interval = setInterval(() => {
+			const newDate = new Date();
+			if (newDate.getDate() !== this.currentDate.getDate()) {
+				this.currentDate = newDate;
+				this.reinitializeApp();
+			}
+		}, 21600000); // Check every six hours
+	}
+
+	reinitializeApp() {
+		this.ngOnInit().then((r) => r);
 	}
 }

@@ -1,15 +1,8 @@
-import { NoEmojisDirective } from '@/src/app/directives/no-emojis/no-emojis.directive';
 import { DatePipe, ViewportScroller } from '@angular/common';
 import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
-import {
-	ControlContainer,
-	FormBuilder,
-	FormControl,
-	FormGroup,
-	FormsModule,
-	ReactiveFormsModule,
-} from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PaginationComponent } from '@components/pagination/pagination.component';
 import { ADRAdditionalNotesNumber } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/adrAdditionalNotesNumber.enum.js';
 import { ADRBodyDeclarationTypes } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/adrBodyDeclarationType.enum.js';
 import { ADRBodyType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/adrBodyType.enum.js';
@@ -20,27 +13,22 @@ import { ADRTankStatementSubstancePermitted } from '@dvsa/cvs-type-definitions/t
 import { TC3Types } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/tc3Types.enum.js';
 import { AdditionalExaminerNotes } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/hgv/complete';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
+import { GovukCheckboxGroupComponent } from '@forms/components/govuk-checkbox-group/govuk-checkbox-group.component';
+import { GovukFormGroupCheckboxComponent } from '@forms/components/govuk-form-group-checkbox/govuk-form-group-checkbox.component';
+import { GovukFormGroupDateComponent } from '@forms/components/govuk-form-group-date/govuk-form-group-date.component';
+import { GovukFormGroupInputComponent } from '@forms/components/govuk-form-group-input/govuk-form-group-input.component';
+import { GovukFormGroupRadioComponent } from '@forms/components/govuk-form-group-radio/govuk-form-group-radio.component';
+import { GovukFormGroupSelectComponent } from '@forms/components/govuk-form-group-select/govuk-form-group-select.component';
+import { GovukFormGroupTextareaComponent } from '@forms/components/govuk-form-group-textarea/govuk-form-group-textarea.component';
+import { EditBaseComponent } from '@forms/custom-sections/edit-base-component/edit-base-component';
 import { getOptionsFromEnum } from '@forms/utils/enum-map';
 import { AdrValidatorsService } from '@forms/validators/adr-validators.service';
-import { CommonValidatorsService } from '@forms/validators/common-validators.service';
-import { Store } from '@ngrx/store';
+import { YES_NO_OPTIONS } from '@models/options.model';
+import { DefaultNullOrEmpty } from '@pipes/default-null-or-empty/default-null-or-empty.pipe';
 import { AdrService } from '@services/adr/adr.service';
-import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
-import { removeTC3TankInspection, removeUNNumber, updateScrollPosition } from '@store/technical-records';
+import { FormNodeWidth } from '@services/dynamic-forms/dynamic-form.types';
+import { removeTC3TankInspection, removeUNNumber, techRecord, updateScrollPosition } from '@store/technical-records';
 import { ReplaySubject, takeUntil } from 'rxjs';
-import { PaginationComponent } from '../../../../components/pagination/pagination.component';
-import { NumberOnlyDirective } from '../../../../directives/app-number-only/app-number-only.directive';
-import { DateFocusNextDirective } from '../../../../directives/date-focus-next/date-focus-next.directive';
-import { GovukCheckboxDirective } from '../../../../directives/govuk-checkbox/govuk-checkbox.directive';
-import { GovukDateInputDirective } from '../../../../directives/govuk-date-input/govuk-date-input.directive';
-import { GovukInputDirective } from '../../../../directives/govuk-input/govuk-input.directive';
-import { GovukRadioDirective } from '../../../../directives/govuk-radio/govuk-radio.directive';
-import { GovukSelectDirective } from '../../../../directives/govuk-select/govuk-select.directive';
-import { GovukTextareaDirective } from '../../../../directives/govuk-textarea/govuk-textarea.directive';
-import { DefaultNullOrEmpty } from '../../../../pipes/default-null-or-empty/default-null-or-empty.pipe';
-import { CharacterCountComponent } from '../../../components/character-count/character-count.component';
-import { ControlErrorsComponent } from '../../../components/control-errors/control-errors.component';
-import { DateControlsComponent } from '../../../components/date-controls/date-controls.component';
 
 @Component({
 	selector: 'app-adr-section-edit',
@@ -49,34 +37,24 @@ import { DateControlsComponent } from '../../../components/date-controls/date-co
 	imports: [
 		FormsModule,
 		ReactiveFormsModule,
-		GovukRadioDirective,
-		ControlErrorsComponent,
-		GovukInputDirective,
-		GovukSelectDirective,
-		DateControlsComponent,
-		DateFocusNextDirective,
-		NumberOnlyDirective,
-		GovukDateInputDirective,
-		GovukCheckboxDirective,
-		GovukTextareaDirective,
-		CharacterCountComponent,
 		PaginationComponent,
 		DatePipe,
 		DefaultNullOrEmpty,
-		NoEmojisDirective,
+		GovukFormGroupRadioComponent,
+		GovukFormGroupTextareaComponent,
+		GovukFormGroupInputComponent,
+		GovukFormGroupSelectComponent,
+		GovukFormGroupDateComponent,
+		GovukCheckboxGroupComponent,
+		GovukFormGroupCheckboxComponent,
 	],
 })
-export class AdrSectionEditComponent implements OnInit, OnDestroy {
-	fb = inject(FormBuilder);
-	store = inject(Store);
+export class AdrSectionEditComponent extends EditBaseComponent implements OnInit, OnDestroy {
 	router = inject(Router);
 	route = inject(ActivatedRoute);
 	adrService = inject(AdrService);
 	adrValidators = inject(AdrValidatorsService);
-	commonValidators = inject(CommonValidatorsService);
-	controlContainer = inject(ControlContainer);
 	viewportScroller = inject(ViewportScroller);
-	technicalRecordService = inject(TechnicalRecordService);
 
 	techRecord = input.required<TechRecordType<'hgv' | 'lgv' | 'trl'>>();
 
@@ -201,7 +179,7 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 
 		// Miscellaneous
 		techRecord_adrDetails_memosApply: this.fb.control<string | null>(null),
-		techRecord_adrDetails_m145Statement: this.fb.control<string | null>(null),
+		techRecord_adrDetails_m145Statement: this.fb.control<boolean>(false),
 
 		// Battery List
 		techRecord_adrDetails_listStatementApplicable: this.fb.control<string | null>(null, [
@@ -221,7 +199,7 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 		techRecord_adrDetails_weight: this.fb.control<number | null>(null, [
 			this.commonValidators.max(99999999, 'Weight (tonnes) must be less than or equal to 99999999'),
 			this.adrValidators.requiredWithBrakeEndurance('Weight (tonnes) is required'),
-			this.commonValidators.pattern('^\\d*(\\.\\d{0,2})?$', 'Weight (tonnes) must be a number'),
+			this.commonValidators.pattern('^\\d*(\\.\\d{0,2})?$', 'Weight (tonnes) Max 2 decimal places'),
 		]),
 
 		// Other declarations
@@ -239,11 +217,6 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 	});
 
 	// Option lists
-	dangerousGoodsOptions = [
-		{ label: 'Yes', value: true },
-		{ label: 'No', value: false },
-	];
-
 	adrBodyTypesOptions = getOptionsFromEnum(ADRBodyType);
 
 	usedOnInternationJourneysOptions = [
@@ -265,10 +238,7 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 
 	tankStatementSelectOptions = getOptionsFromEnum(ADRTankDetailsTankStatementSelect);
 
-	batteryListApplicableOptions = [
-		{ value: true, label: 'Yes' },
-		{ value: false, label: 'No' },
-	];
+	readonly YES_NO_OPTIONS = YES_NO_OPTIONS;
 
 	tc3InspectionOptions = getOptionsFromEnum(TC3Types);
 
@@ -276,45 +246,18 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 
 	bodyDeclarationOptions = getOptionsFromEnum(ADRBodyDeclarationTypes);
 
-	isInvalid(formControlName: string) {
-		const control = this.form.get(formControlName);
-		return control?.invalid && control?.touched;
-	}
-
-	toggle(formControlName: string, value: string) {
-		const control = this.form.get(formControlName);
-		if (!control) return;
-
-		if (!control.value) {
-			return control.setValue([value]);
-		}
-
-		const arr = [...control.value];
-		arr.includes(value) ? arr.splice(arr.indexOf(value), 1) : arr.push(value);
-		control.setValue(arr);
-	}
-
 	ngOnInit(): void {
 		// Attatch all form controls to parent
 		this.handleInitialiseUNNumbers();
 		this.handleInitialiseSubsequentTankInspections();
-		const parent = this.controlContainer.control;
-		if (parent instanceof FormGroup) {
-			Object.entries(this.form.controls).forEach(([key, control]) =>
-				parent.addControl(key, control, { emitEvent: false })
-			);
-		}
+		this.init(this.form);
 
 		this.handleADRBodyTypeChange();
 	}
 
 	ngOnDestroy(): void {
 		// Detatch all form controls from parent
-		const parent = this.controlContainer.control;
-		if (parent instanceof FormGroup) {
-			Object.keys(this.form.controls).forEach((key) => parent.removeControl(key, { emitEvent: false }));
-		}
-
+		this.destroy(this.form);
 		// Clear subscriptions
 		this.destroy$.next(true);
 		this.destroy$.complete();
@@ -438,11 +381,17 @@ export class AdrSectionEditComponent implements OnInit, OnDestroy {
 		this.router.navigate([route], { relativeTo: this.route, state: this.techRecord });
 	}
 
-	canDisplayDangerousGoodsWarning(value: TechRecordType<'hgv' | 'lgv' | 'trl'>) {
-		const touched = Object.entries(this.form.controls).some(([key, control]) => {
-			return key !== 'techRecord_adrDetails_dangerousGoods' && control.touched;
-		});
+	get canDisplayDangerousGoodsWarning() {
+		const originalDangerousGoodsValue = (this.store.selectSignal(techRecord)() as TechRecordType<'hgv' | 'lgv' | 'trl'>)
+			?.techRecord_adrDetails_dangerousGoods;
+		const dangerousGoods = this.form.get('techRecord_adrDetails_dangerousGoods');
 
-		return value.techRecord_adrDetails_dangerousGoods === false && touched;
+		const valueHasChanged = originalDangerousGoodsValue !== dangerousGoods?.value;
+
+		return dangerousGoods?.value === false && dangerousGoods.dirty && valueHasChanged
+			? 'By selecting this field it will delete all previous ADR field inputs'
+			: null;
 	}
+
+	protected readonly FormNodeWidth = FormNodeWidth;
 }

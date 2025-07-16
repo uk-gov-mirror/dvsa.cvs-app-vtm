@@ -3,14 +3,8 @@ import { Injectable, inject } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
 import { EUVehicleCategory } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/euVehicleCategoryTrl.enum.js';
 import { TechRecordGETMotorcycleComplete } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/motorcycle/complete';
-import { TechRecordSearchSchema } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/search';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb';
-import {
-	TechRecordGETHGV,
-	TechRecordGETPSV,
-	TechRecordGETTRL,
-	TechRecordType as TechRecordTypeVehicle,
-} from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb-vehicle-type';
+import { TechRecordType as TechRecordTypeVehicle } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb-vehicle-type';
 import { ReferenceDataTyreLoadIndex } from '@models/reference-data.model';
 import { SEARCH_TYPES } from '@models/search-types-enum';
 import {
@@ -60,6 +54,28 @@ export class TechnicalRecordService {
 	private httpService = inject(HttpService);
 	private routerService = inject(RouterService);
 
+	techRecord$ = combineLatest([
+		this.store.pipe(select(selectTechRecord)),
+		this.store.pipe(select(techRecord)),
+		this.routerService.getRouteDataProperty$('isEditing'),
+	]).pipe(
+		tap(([technicalRecord, nonEditingTechRecord, isEditing]) => {
+			if (isEditing && !technicalRecord && nonEditingTechRecord) {
+				this.updateEditingTechRecord(nonEditingTechRecord as TechRecordType<'put'>);
+			}
+		}),
+		map(([technicalRecord, nonEditingTechRecord, isEditing]) =>
+			isEditing && !technicalRecord ? nonEditingTechRecord : technicalRecord
+		)
+	);
+	searchResults$ = this.store.pipe(select(selectTechRecordSearchResults));
+	searchResultsWithUniqueSystemNumbers$ = this.store.pipe(select(selectTechRecordSearchResultsBySystemNumber));
+	techRecordStatus$ = this.techRecord$.pipe(
+		map((technicalRecord) => technicalRecord?.techRecord_statusCode as StatusCodes | undefined)
+	);
+	sectionStates$ = this.store.pipe(select(selectSectionState));
+	techRecordHistory$ = this.store.pipe(select(selectTechRecordHistory));
+
 	getVehicleTypeWithSmallTrl(technicalRecord: V3TechRecordModel): VehicleTypes {
 		return technicalRecord.techRecord_vehicleType === VehicleTypes.TRL &&
 			(technicalRecord.techRecord_euVehicleCategory === EUVehicleCategory.O1 ||
@@ -97,26 +113,6 @@ export class TechnicalRecordService {
 			catchError((error: HttpErrorResponse) => {
 				return (error.status === 404 && of(true)) || throwError(() => error);
 			})
-		);
-	}
-	get techRecordHistory$(): Observable<TechRecordSearchSchema[] | undefined> {
-		return this.store.pipe(select(selectTechRecordHistory));
-	}
-
-	get techRecord$(): Observable<V3TechRecordModel | undefined> {
-		return combineLatest([
-			this.store.pipe(select(selectTechRecord)),
-			this.store.pipe(select(techRecord)),
-			this.routerService.getRouteDataProperty$('isEditing'),
-		]).pipe(
-			tap(([technicalRecord, nonEditingTechRecord, isEditing]) => {
-				if (isEditing && !technicalRecord && nonEditingTechRecord) {
-					this.updateEditingTechRecord(nonEditingTechRecord as TechRecordType<'put'>);
-				}
-			}),
-			map(([technicalRecord, nonEditingTechRecord, isEditing]) =>
-				isEditing && !technicalRecord ? nonEditingTechRecord : technicalRecord
-			)
 		);
 	}
 
@@ -242,23 +238,6 @@ export class TechnicalRecordService {
 		this.store.dispatch(updateEditingTechRecordCancel());
 	}
 
-	get searchResults$(): Observable<TechRecordSearchSchema[] | undefined> {
-		return this.store.pipe(select(selectTechRecordSearchResults));
-	}
-
-	get searchResultsWithUniqueSystemNumbers$(): Observable<TechRecordSearchSchema[] | undefined> {
-		return this.store.pipe(select(selectTechRecordSearchResultsBySystemNumber));
-	}
-	get techRecordStatus$(): Observable<StatusCodes | undefined> {
-		return this.techRecord$.pipe(
-			map((technicalRecord) => technicalRecord?.techRecord_statusCode as StatusCodes | undefined)
-		);
-	}
-
-	get sectionStates$(): Observable<(string | number)[] | undefined> {
-		return this.store.pipe(select(selectSectionState));
-	}
-
 	getMakeAndModel(technicalRecord: V3TechRecordModel): string {
 		if (
 			technicalRecord.techRecord_vehicleType === 'car' ||
@@ -321,72 +300,6 @@ export class TechnicalRecordService {
 				return (err.status === 404 && of(null)) || throwError(() => err);
 			})
 		);
-	}
-
-	hasPsvGrossAxleChanged(changes: Partial<TechRecordGETPSV>): boolean {
-		return [
-			changes.techRecord_grossKerbWeight,
-			changes.techRecord_grossDesignWeight,
-			changes.techRecord_grossLadenWeight,
-			changes.techRecord_grossGbWeight,
-		].some(Boolean);
-	}
-
-	hasHgvGrossAxleChanged(changes: Partial<TechRecordGETHGV>): boolean {
-		return [
-			changes.techRecord_grossEecWeight,
-			changes.techRecord_grossDesignWeight,
-			changes.techRecord_grossGbWeight,
-		].some(Boolean);
-	}
-
-	hasTrlGrossAxleChanged(changes: Partial<TechRecordGETTRL>): boolean {
-		return [
-			changes.techRecord_grossEecWeight,
-			changes.techRecord_grossDesignWeight,
-			changes.techRecord_grossGbWeight,
-		].some(Boolean);
-	}
-
-	hasHgvTrainAxleChanged(changes: Partial<TechRecordGETHGV>): boolean {
-		return [
-			changes.techRecord_trainDesignWeight,
-			changes.techRecord_trainGbWeight,
-			changes.techRecord_trainEecWeight,
-		].some(Boolean);
-	}
-
-	hasPsvTrainAxleChanged(changes: Partial<TechRecordGETPSV>): boolean {
-		return [changes.techRecord_trainDesignWeight, changes.techRecord_maxTrainGbWeight].some(Boolean);
-	}
-
-	hasMaxTrainAxleChanged(changes: Partial<TechRecordGETHGV>): boolean {
-		return [
-			changes.techRecord_maxTrainDesignWeight,
-			changes.techRecord_maxTrainEecWeight,
-			changes.techRecord_maxTrainGbWeight,
-		].some(Boolean);
-	}
-
-	haveAxlesChanged(vehicleType: VehicleTypes, changes: Partial<TechRecordType<'get'>>) {
-		if (
-			vehicleType === 'psv' &&
-			(this.hasPsvGrossAxleChanged(changes as Partial<TechRecordGETPSV>) ||
-				this.hasPsvTrainAxleChanged(changes as Partial<TechRecordGETPSV>))
-		)
-			return true;
-
-		if (
-			vehicleType === 'hgv' &&
-			(this.hasHgvTrainAxleChanged(changes as Partial<TechRecordGETHGV>) ||
-				this.hasMaxTrainAxleChanged(changes as Partial<TechRecordGETHGV>) ||
-				this.hasHgvGrossAxleChanged(changes as Partial<TechRecordGETHGV>))
-		)
-			return true;
-
-		if (vehicleType === 'trl' && this.hasTrlGrossAxleChanged(changes as Partial<TechRecordGETTRL>)) return true;
-
-		return false;
 	}
 
 	getVehicleSize(techRecord: V3TechRecordModel) {

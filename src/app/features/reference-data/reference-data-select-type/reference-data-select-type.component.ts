@@ -1,26 +1,21 @@
 import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { ButtonGroupComponent } from '@components/button-group/button-group.component';
+import { ButtonComponent } from '@components/button/button.component';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
+import { RoleRequiredDirective } from '@directives/app-role-required/app-role-required.directive';
+import { RadioGroupComponent } from '@forms/components/radio-group/radio-group.component';
 import { ReferenceDataResourceType } from '@models/reference-data.model';
 import { Roles } from '@models/roles.enum';
 import { Store, select } from '@ngrx/store';
 import { DynamicFormService } from '@services/dynamic-forms/dynamic-form.service';
-import {
-	CustomFormControl,
-	CustomFormGroup,
-	FormNodeOption,
-	FormNodeTypes,
-} from '@services/dynamic-forms/dynamic-form.types';
+import { CustomFormControl, CustomFormGroup, FormNodeTypes } from '@services/dynamic-forms/dynamic-form.types';
 import { ReferenceDataService } from '@services/reference-data/reference-data.service';
 import { ReferenceDataState, selectAllReferenceDataByResourceType } from '@store/reference-data';
-import { Observable, map, take } from 'rxjs';
-import { ButtonGroupComponent } from '../../../components/button-group/button-group.component';
-import { ButtonComponent } from '../../../components/button/button.component';
-import { RoleRequiredDirective } from '../../../directives/app-role-required/app-role-required.directive';
-import { RadioGroupComponent } from '../../../forms/components/radio-group/radio-group.component';
+import { map } from 'rxjs';
 
 @Component({
 	selector: 'app-reference-data-select-type',
@@ -37,6 +32,12 @@ import { RadioGroupComponent } from '../../../forms/components/radio-group/radio
 	],
 })
 export class ReferenceDataSelectTypeComponent {
+	globalErrorService = inject(GlobalErrorService);
+	referenceDataService = inject(ReferenceDataService);
+	route = inject(ActivatedRoute);
+	router = inject(Router);
+	store = inject<Store<ReferenceDataState>>(Store<ReferenceDataState>);
+
 	form: CustomFormGroup = new CustomFormGroup(
 		{ name: 'form-group', type: FormNodeTypes.GROUP },
 		{
@@ -46,30 +47,21 @@ export class ReferenceDataSelectTypeComponent {
 		}
 	);
 
-	constructor(
-		private globalErrorService: GlobalErrorService,
-		private referenceDataService: ReferenceDataService,
-		private route: ActivatedRoute,
-		private router: Router,
-		private store: Store<ReferenceDataState>
-	) {
-		this.referenceDataService.loadReferenceData(ReferenceDataResourceType.ReferenceDataAdminType);
-	}
+	options$ = this.store.pipe(
+		select(selectAllReferenceDataByResourceType(ReferenceDataResourceType.ReferenceDataAdminType)),
+		map(
+			(types) =>
+				types
+					?.sort((a, b) => (a.label ?? a.resourceType).localeCompare(b.label ?? b.resourceType))
+					.map((type) => ({
+						label: type.label ?? type.resourceKey.toString(),
+						value: type.resourceKey.toString(),
+					})) ?? []
+		)
+	);
 
-	get options$(): Observable<Array<FormNodeOption<string>>> {
-		return this.store.pipe(
-			select(selectAllReferenceDataByResourceType(ReferenceDataResourceType.ReferenceDataAdminType)),
-			take(1),
-			map(
-				(types) =>
-					types
-						?.sort((a, b) => (a.label ?? a.resourceType).localeCompare(b.label ?? b.resourceType))
-						.map((type) => ({
-							label: type.label ?? type.resourceKey.toString(),
-							value: type.resourceKey.toString(),
-						})) ?? []
-			)
-		);
+	constructor() {
+		this.referenceDataService.loadReferenceData(ReferenceDataResourceType.ReferenceDataAdminType);
 	}
 
 	get roles(): typeof Roles {
@@ -82,7 +74,6 @@ export class ReferenceDataSelectTypeComponent {
 		this.globalErrorService.setErrors(errors);
 		return this.form.valid;
 	}
-
 	cancel(): void {
 		void this.router.navigate(['..'], { relativeTo: this.route });
 	}

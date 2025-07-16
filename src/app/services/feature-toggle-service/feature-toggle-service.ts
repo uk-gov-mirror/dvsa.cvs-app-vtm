@@ -11,8 +11,9 @@ export interface FeatureConfig {
 	providedIn: 'root',
 })
 export class FeatureToggleService {
-	config: FeatureConfig | null = null;
 	httpService = inject(HttpService);
+
+	config: FeatureConfig | null = null;
 
 	async loadConfig() {
 		this.httpService

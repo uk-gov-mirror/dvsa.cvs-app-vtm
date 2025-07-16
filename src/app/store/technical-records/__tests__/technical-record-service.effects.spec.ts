@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { EUVehicleCategory } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/euVehicleCategory.enum.js';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb';
 import { TechRecordType as V3TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-verb-vehicle-type';
 import { V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
@@ -274,6 +275,7 @@ describe('TechnicalRecordServiceEffects', () => {
 			const techRecordServiceSpy = jest.spyOn(technicalRecordService, 'updateEditingTechRecord');
 			const expectedTechRecord = getEmptyTechRecord();
 			expectedTechRecord.techRecord_vehicleType = VehicleTypes.CAR;
+			expectedTechRecord.techRecord_euVehicleCategory = EUVehicleCategory.M1;
 
 			store.overrideSelector(editingTechRecord, {
 				vin: 'foo',
@@ -342,7 +344,7 @@ describe('TechnicalRecordServiceEffects', () => {
 			};
 			const prepopulatedTechRecord = {
 				// techRecord_vehicleSubclass: undefined,
-				techRecord_notes: '',
+				// techRecord_notes: '',
 				// techRecord_vehicleConfiguration: undefined,
 				// techRecord_vehicleType: 'car',
 				// techRecord_noOfAxles: 2,
@@ -413,7 +415,7 @@ describe('TechnicalRecordServiceEffects', () => {
 			};
 			const prepopulatedTechRecord = {
 				// techRecord_vehicleSubclass: undefined,
-				techRecord_notes: '',
+				// techRecord_notes: '',
 				// techRecord_vehicleConfiguration: undefined,
 				// techRecord_vehicleType: 'lgv',
 				// techRecord_noOfAxles: 2,
@@ -530,11 +532,11 @@ function getEmptyHGVRecord(): V3TechRecordModel {
 		techRecord_applicantDetails_telephoneNumber: null,
 		techRecord_approvalType: null,
 		techRecord_axles: [],
-		techRecord_approvalTypeNumber: undefined,
-		techRecord_bodyType_code: null,
-		techRecord_bodyType_description: null,
-		techRecord_brakes_dtpNumber: null,
-		techRecord_conversionRefNo: null,
+		// techRecord_approvalTypeNumber: undefined,
+		// techRecord_bodyType_code: null,
+		// techRecord_bodyType_description: null,
+		// techRecord_brakes_dtpNumber: null,
+		// techRecord_conversionRefNo: null,
 		// techRecord_departmentalVehicleMarker: null,
 		techRecord_dimensions_axleSpacing: [],
 		techRecord_dimensions_length: null,
@@ -549,11 +551,11 @@ function getEmptyHGVRecord(): V3TechRecordModel {
 		techRecord_frontVehicleTo5thWheelCouplingMax: null,
 		techRecord_frontVehicleTo5thWheelCouplingMin: null,
 		// techRecord_fuelPropulsionSystem: null,
-		techRecord_functionCode: null,
+		// techRecord_functionCode: null,
 		techRecord_grossDesignWeight: null,
 		techRecord_grossEecWeight: null,
 		techRecord_grossGbWeight: null,
-		techRecord_make: null,
+		// techRecord_make: null,
 		// techRecord_manufactureYear: null,
 		techRecord_maxTrainDesignWeight: null,
 		techRecord_maxTrainEecWeight: null,
@@ -561,9 +563,9 @@ function getEmptyHGVRecord(): V3TechRecordModel {
 		techRecord_microfilm_microfilmDocumentType: undefined,
 		techRecord_microfilm_microfilmRollNumber: undefined,
 		techRecord_microfilm_microfilmSerialNumber: undefined,
-		techRecord_model: null,
+		// techRecord_model: null,
 		// techRecord_noOfAxles: null,
-		techRecord_notes: undefined,
+		// techRecord_notes: undefined,
 		techRecord_ntaNumber: undefined,
 		// techRecord_numberOfWheelsDriven: null,
 		// techRecord_offRoad: null,

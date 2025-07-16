@@ -1,18 +1,17 @@
 import { AsyncPipe, Location } from '@angular/common';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ButtonComponent } from '@components/button/button.component';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
-import { TestResultModel } from '@models/test-results/test-result.model';
+import { TextAreaComponent } from '@forms/components/text-area/text-area.component';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 import { CustomFormControl, CustomFormGroup, FormNodeTypes } from '@services/dynamic-forms/dynamic-form.types';
 import { TestRecordsService } from '@services/test-records/test-records.service';
 import { selectRouteNestedParams } from '@store/router/router.selectors';
 import { selectedTestResultState, updateTestResultSuccess } from '@store/test-records';
-import { Observable, Subject, map, takeUntil } from 'rxjs';
-import { ButtonComponent } from '../../../../../components/button/button.component';
-import { TextAreaComponent } from '../../../../../forms/components/text-area/text-area.component';
+import { Subject, map, takeUntil } from 'rxjs';
 import { VehicleHeaderComponent } from '../../../components/vehicle-header/vehicle-header.component';
 
 @Component({
@@ -21,6 +20,15 @@ import { VehicleHeaderComponent } from '../../../components/vehicle-header/vehic
 	imports: [FormsModule, ReactiveFormsModule, VehicleHeaderComponent, TextAreaComponent, ButtonComponent, AsyncPipe],
 })
 export class ConfirmCancellationComponent implements OnDestroy {
+	actions$ = inject(Actions);
+	errorService = inject(GlobalErrorService);
+	route = inject(ActivatedRoute);
+	router = inject(Router);
+	store = inject(Store);
+	testRecordsService = inject(TestRecordsService);
+	globalErrorService = inject(GlobalErrorService);
+	location = inject(Location);
+
 	form = new CustomFormGroup(
 		{ name: 'cancellation-reason', type: FormNodeTypes.GROUP },
 		{
@@ -32,18 +40,15 @@ export class ConfirmCancellationComponent implements OnDestroy {
 		}
 	);
 
+	testResult$ = this.store.pipe(select(selectedTestResultState));
+	testNumber$ = this.store.pipe(
+		select(selectRouteNestedParams),
+		map((params) => params['testNumber'])
+	);
+
 	private destroy$ = new Subject<void>();
 
-	constructor(
-		private actions$: Actions,
-		private errorService: GlobalErrorService,
-		private route: ActivatedRoute,
-		private router: Router,
-		private store: Store,
-		private testRecordsService: TestRecordsService,
-		private globalErrorService: GlobalErrorService,
-		private location: Location
-	) {
+	constructor() {
 		this.actions$.pipe(ofType(updateTestResultSuccess), takeUntil(this.destroy$)).subscribe(() => {
 			void this.router.navigate(['../../../../..'], { relativeTo: this.route });
 		});
@@ -58,17 +63,6 @@ export class ConfirmCancellationComponent implements OnDestroy {
 	navigateBack() {
 		this.globalErrorService.clearErrors();
 		this.location.back();
-	}
-
-	get testResult$(): Observable<TestResultModel | undefined> {
-		return this.store.pipe(select(selectedTestResultState));
-	}
-
-	get testNumber$(): Observable<string | undefined> {
-		return this.store.pipe(
-			select(selectRouteNestedParams),
-			map((params) => params['testNumber'])
-		);
 	}
 
 	handleSubmit() {

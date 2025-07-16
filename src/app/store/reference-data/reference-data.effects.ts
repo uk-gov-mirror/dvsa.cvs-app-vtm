@@ -1,16 +1,21 @@
 import { Injectable, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { CacheKeys } from '@models/cache-keys.enum';
 import { ReferenceDataModelBase, ReferenceDataResourceType } from '@models/reference-data.model';
 import {
 	ReferenceDataApiResponse,
 	ReferenceDataApiResponseWithPagination,
 } from '@models/reference-data/reference-data.model';
 import { VehicleTypes } from '@models/vehicle-tech-record.model';
+import { HttpCacheManager } from '@ngneat/cashew';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 import { ReferenceDataService } from '@services/reference-data/reference-data.service';
 import { State } from '@store/index';
 import { testResultInEdit } from '@store/test-records';
-import { catchError, map, mergeMap, of, switchMap, take } from 'rxjs';
+import { catchError, filter, map, mergeMap, of, switchMap, take, tap } from 'rxjs';
+import { GlobalErrorService } from '../../core/components/global-error/global-error.service';
+import { RootRoutes } from '../../models/routes.enum';
 import { handleNotFound, sortReferenceData } from './operators';
 import {
 	amendReferenceDataItem,
@@ -33,6 +38,7 @@ import {
 	fetchReferenceDataByKeySearchFailed,
 	fetchReferenceDataByKeySearchSuccess,
 	fetchReferenceDataByKeySuccess,
+	fetchReferenceDataComplete,
 	fetchReferenceDataFailed,
 	fetchReferenceDataSuccess,
 	fetchTyreReferenceDataByKeySearch,
@@ -43,12 +49,24 @@ import {
 @Injectable()
 export class ReferenceDataEffects {
 	private actions$ = inject(Actions);
+	private router = inject(Router);
 	private referenceDataService = inject(ReferenceDataService);
 	private store = inject<Store<State>>(Store);
+	private cacheManager = inject(HttpCacheManager);
+	private globalErrorService = inject(GlobalErrorService);
 
 	fetchReferenceDataByType$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(fetchReferenceData),
+			tap(({ resourceType, paginationToken }) => {
+				if (this.cacheManager.has(CacheKeys.REFERENCE_DATA + resourceType + paginationToken)) {
+					this.store.dispatch(fetchReferenceDataComplete({ resourceType }));
+				}
+			}),
+			filter(
+				({ resourceType, paginationToken }) =>
+					!this.cacheManager.has(CacheKeys.REFERENCE_DATA + resourceType + paginationToken)
+			),
 			mergeMap(({ resourceType, paginationToken }) =>
 				this.referenceDataService.fetchReferenceData(resourceType, paginationToken).pipe(
 					handleNotFound(resourceType),
@@ -225,6 +243,21 @@ export class ReferenceDataEffects {
 				);
 			})
 		)
+	);
+
+	// Wait for response form network after deleting a reference data item before navigating back
+	deleteReferenceDataItemSuccess$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(deleteReferenceDataItemSuccess),
+				tap((action) => {
+					// Clear cache, so we refresh delete items list
+					this.cacheManager.delete(`${CacheKeys.REFERENCE_DATA}${action.resourceType}#AUDIT`);
+					this.router.navigate([RootRoutes.REFERENCE_DATA, action.resourceType]);
+					this.globalErrorService.clearErrors();
+				})
+			),
+		{ dispatch: false }
 	);
 }
 

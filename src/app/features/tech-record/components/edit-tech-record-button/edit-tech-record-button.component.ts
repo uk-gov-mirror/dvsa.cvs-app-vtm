@@ -1,15 +1,14 @@
 import { AsyncPipe, ViewportScroller } from '@angular/common';
-import { Component, OnDestroy, input, model, output } from '@angular/core';
+import { Component, OnDestroy, inject, input, model, output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ButtonGroupComponent } from '@components/button-group/button-group.component';
+import { ButtonComponent } from '@components/button/button.component';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { StatusCodes } from '@models/vehicle-tech-record.model';
 import { Store } from '@ngrx/store';
-import { RouterService } from '@services/router/router.service';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { clearAllSectionStates, clearScrollPosition, updateEditingTechRecordCancel } from '@store/technical-records';
-import { Observable, Subject, distinctUntilChanged, map, takeUntil } from 'rxjs';
-import { ButtonGroupComponent } from '../../../../components/button-group/button-group.component';
-import { ButtonComponent } from '../../../../components/button/button.component';
+import { Subject, distinctUntilChanged, map, takeUntil } from 'rxjs';
 
 @Component({
 	selector: 'app-edit-tech-record-button',
@@ -17,6 +16,13 @@ import { ButtonComponent } from '../../../../components/button/button.component'
 	imports: [ButtonComponent, ButtonGroupComponent, AsyncPipe],
 })
 export class EditTechRecordButtonComponent implements OnDestroy {
+	errorService = inject(GlobalErrorService);
+	route = inject(ActivatedRoute);
+	router = inject(Router);
+	store = inject(Store);
+	technicalRecordService = inject(TechnicalRecordService);
+	viewportScroller = inject(ViewportScroller);
+
 	isEditing = model(false);
 	readonly isDirty = input(false);
 	readonly customId = input('');
@@ -25,31 +31,19 @@ export class EditTechRecordButtonComponent implements OnDestroy {
 	readonly submitChange = output();
 	destroy$ = new Subject();
 
-	constructor(
-		private errorService: GlobalErrorService,
-		private route: ActivatedRoute,
-		private router: Router,
-		private store: Store,
-		private technicalRecordService: TechnicalRecordService,
-		private viewportScroller: ViewportScroller,
-		private routerService: RouterService
-	) {}
+	isArchived$ = this.technicalRecordService.techRecord$.pipe(
+		map(
+			(techRecord) =>
+				!(
+					techRecord?.techRecord_statusCode === StatusCodes.CURRENT ||
+					techRecord?.techRecord_statusCode === StatusCodes.PROVISIONAL
+				)
+		)
+	);
 
 	ngOnDestroy(): void {
 		this.destroy$.next(true);
 		this.destroy$.complete();
-	}
-
-	get isArchived$(): Observable<boolean> {
-		return this.technicalRecordService.techRecord$.pipe(
-			map(
-				(techRecord) =>
-					!(
-						techRecord?.techRecord_statusCode === StatusCodes.CURRENT ||
-						techRecord?.techRecord_statusCode === StatusCodes.PROVISIONAL
-					)
-			)
-		);
 	}
 
 	checkIfEditableReasonRequired() {
