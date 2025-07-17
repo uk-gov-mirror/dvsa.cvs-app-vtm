@@ -5,8 +5,8 @@ import { RouterModule } from '@angular/router';
 
 import { TechRecordsModule } from '../tech-record.module';
 import { HydrateNewVehicleRecordComponent } from './components/hydrate-new-vehicle-record/hydrate-new-vehicle-record.component';
-import { CreateTechRecordComponent } from './create-tech-record.component';
 import { CreateTechRecordsRoutingModule } from './create-tech-records-routing.module';
+import { CreateTechRecordComponent } from './create-v1/create-tech-record.component';
 
 @NgModule({
 	imports: [

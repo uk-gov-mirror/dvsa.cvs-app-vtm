@@ -14,7 +14,10 @@ const routes: Routes = [
 		children: [
 			{
 				path: '',
-				loadComponent: () => import('./create-tech-record.component').then((m) => m.CreateTechRecordComponent),
+				loadComponent: () =>
+					import('./create-wrapper/create-tech-record-wrapper.component').then(
+						(m) => m.CreateTechRecordWrapperComponent
+					),
 				data: { roles: Roles.TechRecordCreate },
 			},
 			{
