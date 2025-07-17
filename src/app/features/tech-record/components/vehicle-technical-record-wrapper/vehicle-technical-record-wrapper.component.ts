@@ -8,7 +8,7 @@ import { VehicleTechnicalRecordV2Component } from './vehicle-technical-record-v2
 	selector: 'app-vehicle-technical-record-wrapper',
 	template: `
     @if (featureToggleService.isFeatureEnabled('TechRecordRedesign')) {
-      <app-vehicle-technical-record-v2 />
+      <app-vehicle-technical-record-v2 [techRecord]="techRecord()" />
     } @else {
       <app-vehicle-technical-record [techRecord]="techRecord()" />
     }
