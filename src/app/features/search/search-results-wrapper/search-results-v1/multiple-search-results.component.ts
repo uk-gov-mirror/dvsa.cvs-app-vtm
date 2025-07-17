@@ -10,7 +10,7 @@ import { Store, select } from '@ngrx/store';
 import { TechnicalRecordService } from '@services/technical-record/technical-record.service';
 import { selectQueryParams } from '@store/router/router.selectors';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { SingleSearchResultComponent } from '../single-search-result/single-search-result.component';
+import { SingleSearchResultComponent } from './single-search-result/single-search-result.component';
 
 @Component({
 	selector: 'app-multiple-search-results',

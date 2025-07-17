@@ -27,14 +27,13 @@ const routes: Routes = [
 				data: { title: 'Technical record search', roles: Roles.TechRecordView },
 				canActivate: [MsalGuard, RoleGuard],
 				canDeactivate: [CancelEditTechGuard],
-				loadChildren: () => import('./features/search/search.module').then((m) => m.SearchModule),
+				loadChildren: () => import('./features/search/search.routes').then((m) => m.routes),
 			},
 			{
 				path: RootRoutes.CREATE_TECHNICAL_RECORD,
 				data: { title: 'Create new technical record', roles: Roles.TechRecordCreate },
 				canActivate: [MsalGuard, RoleGuard],
-				loadChildren: () =>
-					import('./features/tech-record/create/create-tech-records.module').then((m) => m.CreateTechRecordsModule),
+				loadChildren: () => import('./features/tech-record/create/create-tech-records.routes').then((m) => m.routes),
 			},
 			{
 				path: RootRoutes.BATCH_CREATE_TECHNICAL_RECORD,

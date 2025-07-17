@@ -21,7 +21,7 @@ import { TechRecordTitleComponent } from './components/tech-record-title/tech-re
 import { TechRecordUnarchiveComponent } from './components/tech-record-unarchive/tech-record-unarchive-component';
 import { TechRouterOutletComponent } from './components/tech-router-outlet/tech-router-outlet.component';
 import { TestRecordSummaryComponent } from './components/test-record-summary/test-record-summary.component';
-import { VehicleTechnicalRecordComponent } from './components/vehicle-technical-record/vehicle-technical-record.component';
+import { VehicleTechnicalRecordComponent } from './components/vehicle-technical-record-wrapper/vehicle-technical-record-v1/vehicle-technical-record.component';
 
 import { TechRecordsRoutingModule } from './tech-record-routing.module';
 import { TechRecordComponent } from './tech-record.component';
