@@ -1,50 +1,34 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { environment } from '@environments/environment';
-import { get, has, set } from 'lodash';
-import { lastValueFrom, take } from 'rxjs';
+import { get } from 'lodash';
+import { take } from 'rxjs';
+import { HttpService } from '../http/http.service';
 
 export interface FeatureConfig {
-	[key: string]: boolean;
+	[key: string]: { enabled: boolean };
 }
 
 @Injectable({
 	providedIn: 'root',
 })
 export class FeatureToggleService {
-	http = inject(HttpClient);
+	httpService = inject(HttpService);
 
 	config: FeatureConfig | null = null;
-	configPath = this.getConfig();
 
 	async loadConfig() {
-		// eslint-disable-next-line no-return-assign
-		return (this.config = await lastValueFrom(this.http.get<FeatureConfig>(this.configPath).pipe(take(1))));
-	}
-
-	getConfig() {
-		switch (environment.TARGET_ENV) {
-			case 'prod':
-				return 'assets/featureToggle.prod.json';
-			case 'integration':
-				return 'assets/featureToggle.int.json';
-			case 'preprod':
-				return 'assets/featureToggle.preprod.json';
-			default:
-				return 'assets/featureToggle.json';
-		}
-	}
-
-	enableFeature(key: string): void {
-		if (this.config && has(this.config, key)) {
-			set(this.config, key, true);
-		}
+		this.httpService
+			.getFeatureFlags()
+			.pipe(take(1))
+			.subscribe((config) => {
+				this.config = config;
+			});
 	}
 
 	isFeatureEnabled(key: string) {
-		if (this.config && has(this.config, key)) {
-			return get(this.config, key, false);
-		}
-		return false;
+		if (!this.config) return false;
+		const feature = get(this.config, key);
+		if (!feature) return false;
+
+		return feature.enabled;
 	}
 }
