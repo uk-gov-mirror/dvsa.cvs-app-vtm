@@ -14,8 +14,8 @@ import { UserService } from '@services/user-service/user-service';
 import { State, initialAppState } from '@store/index';
 import { selectQueryParams } from '@store/router/router.selectors';
 import { BehaviorSubject, ReplaySubject, firstValueFrom, of } from 'rxjs';
-import { SingleSearchResultComponent } from '../../single-search-result/single-search-result.component';
 import { MultipleSearchResultsComponent } from '../multiple-search-results.component';
+import { SingleSearchResultComponent } from '../single-search-result/single-search-result.component';
 
 describe('MultipleSearchResultsComponent', () => {
 	let component: MultipleSearchResultsComponent;

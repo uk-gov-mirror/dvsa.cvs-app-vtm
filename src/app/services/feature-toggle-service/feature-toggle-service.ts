@@ -35,6 +35,10 @@ export class FeatureToggleService {
 		}
 	}
 
+	setConfig(config: FeatureConfig): void {
+		this.config = config;
+	}
+
 	isFeatureEnabled(key: string) {
 		if (this.config && has(this.config, key)) {
 			return get(this.config, key, false);

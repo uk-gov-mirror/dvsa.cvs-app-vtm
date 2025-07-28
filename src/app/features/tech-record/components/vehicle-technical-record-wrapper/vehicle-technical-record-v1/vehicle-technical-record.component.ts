@@ -22,11 +22,11 @@ import { UserService } from '@services/user-service/user-service';
 import { clearScrollPosition, updateTechRecordSuccess } from '@store/technical-records';
 import { TechnicalRecordServiceState } from '@store/technical-records/technical-record-service.reducer';
 import { Subject, take, takeUntil } from 'rxjs';
-import { EditTechRecordButtonComponent } from '../edit-tech-record-button/edit-tech-record-button.component';
-import { TechRecordHistoryComponent } from '../tech-record-history/tech-record-history.component';
-import { TechRecordSummaryComponent } from '../tech-record-summary/tech-record-summary.component';
-import { TechRecordTitleComponent } from '../tech-record-title/tech-record-title.component';
-import { TestRecordSummaryComponent } from '../test-record-summary/test-record-summary.component';
+import { EditTechRecordButtonComponent } from '../../edit-tech-record-button/edit-tech-record-button.component';
+import { TechRecordHistoryComponent } from '../../tech-record-history/tech-record-history.component';
+import { TechRecordSummaryComponent } from '../../tech-record-summary/tech-record-summary.component';
+import { TechRecordTitleComponent } from '../../tech-record-title/tech-record-title.component';
+import { TestRecordSummaryComponent } from '../../test-record-summary/test-record-summary.component';
 
 @Component({
 	selector: 'app-vehicle-technical-record',

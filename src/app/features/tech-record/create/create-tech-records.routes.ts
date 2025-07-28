@@ -1,12 +1,11 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { MsalGuard } from '@azure/msal-angular';
 import { RoleGuard } from '@guards/role-guard/roles.guard';
 import { Roles } from '@models/roles.enum';
 import { TechRecordCreateRoutes } from '@models/routes.enum';
 import { techRecordDataResolver } from 'src/app/resolvers/tech-record-data/tech-record-data.resolver';
 
-const routes: Routes = [
+export const routes: Routes = [
 	{
 		path: '',
 		resolve: { data: techRecordDataResolver },
@@ -14,7 +13,10 @@ const routes: Routes = [
 		children: [
 			{
 				path: '',
-				loadComponent: () => import('./create-tech-record.component').then((m) => m.CreateTechRecordComponent),
+				loadComponent: () =>
+					import('./create-wrapper/create-tech-record-wrapper.component').then(
+						(m) => m.CreateTechRecordWrapperComponent
+					),
 				data: { roles: Roles.TechRecordCreate },
 			},
 			{
@@ -46,9 +48,3 @@ const routes: Routes = [
 		],
 	},
 ];
-
-@NgModule({
-	imports: [RouterModule.forChild(routes)],
-	exports: [RouterModule],
-})
-export class CreateTechRecordsRoutingModule {}

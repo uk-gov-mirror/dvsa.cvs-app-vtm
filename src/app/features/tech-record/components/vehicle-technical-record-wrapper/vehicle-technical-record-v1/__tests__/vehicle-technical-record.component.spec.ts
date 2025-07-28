@@ -15,11 +15,11 @@ import { UserService } from '@services/user-service/user-service';
 
 import { initialAppState } from '@store/index';
 import { ReplaySubject, of } from 'rxjs';
-import { EditTechRecordButtonComponent } from '../../edit-tech-record-button/edit-tech-record-button.component';
-import { TechRecordHistoryComponent } from '../../tech-record-history/tech-record-history.component';
-import { TechRecordSummaryComponent } from '../../tech-record-summary/tech-record-summary.component';
-import { TechRecordTitleComponent } from '../../tech-record-title/tech-record-title.component';
-import { TestRecordSummaryComponent } from '../../test-record-summary/test-record-summary.component';
+import { EditTechRecordButtonComponent } from '../../../edit-tech-record-button/edit-tech-record-button.component';
+import { TechRecordHistoryComponent } from '../../../tech-record-history/tech-record-history.component';
+import { TechRecordSummaryComponent } from '../../../tech-record-summary/tech-record-summary.component';
+import { TechRecordTitleComponent } from '../../../tech-record-title/tech-record-title.component';
+import { TestRecordSummaryComponent } from '../../../test-record-summary/test-record-summary.component';
 import { VehicleTechnicalRecordComponent } from '../vehicle-technical-record.component';
 
 global.scrollTo = jest.fn();
