@@ -1,10 +1,6 @@
 name: 📱 VTM Build and Deploy
 run-name: 📱 VTM Build and Deploy ${{ inputs.environment }}
 on:
-  push:
-    branches:
-      - feature/CB2-14795
-
   workflow_dispatch:
     inputs:
       environment:
@@ -40,7 +36,7 @@ jobs:
         id: environment
         uses: dvsa/cvs-github-actions/environment@develop
         with:
-          environment: ${{ github.event_name == 'workflow_dispatch' && inputs.environment || 'VTMDev1' }}
+          environment: ${{ inputs.environment == 'nonprod' && github.ref_name || inputs.environment }}
           output-summary: false
 
   build-application:
