@@ -42,7 +42,7 @@ jobs:
   build-application:
     name: Build Application
     runs-on: 
-      - cvs-github-actions
+      - ubuntu-latest
     needs: environment
     steps:
       - name: Checkout
@@ -83,7 +83,7 @@ jobs:
   upload-application:
     name: Upload Application
     runs-on: 
-      - cvs-github-actions
+      - ubuntu-latest
     environment: ${{ needs.environment.outputs.environment-type }}
     needs: 
       - environment
