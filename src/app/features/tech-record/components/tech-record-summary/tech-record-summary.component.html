@@ -77,17 +77,8 @@
             techRecordCalculated.techRecord_vehicleType === 'hgv' ||
             techRecordCalculated.techRecord_vehicleType === 'psv'
             ) {
-            <!-- New dimensions section-->
-            @if (featureToggleService.isFeatureEnabled('FsDimensions')) {
-              <app-dimensions-section [techRecord]="techRecordCalculated" [mode]="(isEditing$ | async) ? 'edit' : 'view'"></app-dimensions-section>
-            } @else {
-              <app-dimensions
-                [techRecord]="techRecordCalculated"
-                [isEditing]="(isEditing$ | async) ?? false"
-                (formChange)="handleFormState($event)"
-              ></app-dimensions>
-            }
-            <!-- Old dimensions section-->
+            <!-- Dimensions section-->
+            <app-dimensions-section [techRecord]="techRecordCalculated" [mode]="(isEditing$ | async) ? 'edit' : 'view'"></app-dimensions-section>
           }
         }
         @case ('documentsSection') {
