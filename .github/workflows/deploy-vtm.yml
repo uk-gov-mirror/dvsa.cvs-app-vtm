@@ -7,7 +7,6 @@ on:
         description: Environment
         type: choice
         options:
-          - feature
           - develop
           - integration
           - preprod
