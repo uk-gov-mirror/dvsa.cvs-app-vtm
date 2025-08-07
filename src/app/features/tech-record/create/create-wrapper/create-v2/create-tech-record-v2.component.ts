@@ -63,7 +63,7 @@ export class CreateTechRecordV2Component implements OnInit, OnChanges {
 	form = this.fb.group({
 		vin: this.fb.nonNullable.control<string>('', [
 			this.commonValidatorService.alphanumeric(() => ({
-				error: 'Vehicle Registration Mark (VRM) or Trailer ID must be alphanumeric',
+				error: 'Vehicle Identification number (VIN) must be alphanumeric',
 				anchorLink: 'input-vin',
 			})),
 			this.commonValidatorService.pattern('^(?!.*[OIQ]).*$', () => ({
@@ -89,7 +89,7 @@ export class CreateTechRecordV2Component implements OnInit, OnChanges {
 				anchorLink: 'input-vrm-or-trailer-id',
 			})),
 			this.commonValidatorService.alphanumeric(() => ({
-				error: 'VRM/Trailer ID must be alphanumeric',
+				error: 'Vehicle Registration Mark (VRM) or Trailer ID must be alphanumeric',
 				anchorLink: 'input-vrm-or-trailer-id',
 			})),
 			this.commonValidatorService.required(() => ({
