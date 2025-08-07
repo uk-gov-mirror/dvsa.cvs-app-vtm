@@ -63,7 +63,7 @@ export class CreateTechRecordV2Component implements OnInit, OnChanges {
 	form = this.fb.group({
 		vin: this.fb.nonNullable.control<string>('', [
 			this.commonValidatorService.alphanumeric(() => ({
-				error: 'Vehicle Identification number (VIN) must be alphanumeric',
+				error: 'Vehicle Registration Mark (VRM) or Trailer ID must be alphanumeric',
 				anchorLink: 'input-vin',
 			})),
 			this.commonValidatorService.pattern('^(?!.*[OIQ]).*$', () => ({
@@ -93,7 +93,7 @@ export class CreateTechRecordV2Component implements OnInit, OnChanges {
 				anchorLink: 'input-vrm-or-trailer-id',
 			})),
 			this.commonValidatorService.required(() => ({
-				error: 'VRM/Trailer ID is required',
+				error: 'Vehicle Registration Mark (VRM) or Trailer ID is required',
 				anchorLink: 'input-vrm-or-trailer-id',
 			})),
 			this.techRecordValidatorService.validateVRMTrailerIdLength('vehicleType'),
@@ -148,7 +148,7 @@ export class CreateTechRecordV2Component implements OnInit, OnChanges {
 		if (value) {
 			vrmTrm.removeValidators(
 				this.commonValidatorService.required(() => ({
-					error: 'VRM/Trailer ID is required',
+					error: 'Vehicle Registration Mark (VRM) or Trailer ID is required',
 					anchorLink: 'input-vrm-or-trailer-id',
 				}))
 			);
@@ -157,7 +157,7 @@ export class CreateTechRecordV2Component implements OnInit, OnChanges {
 		} else {
 			vrmTrm.addValidators(
 				this.commonValidatorService.required(() => ({
-					error: 'VRM/Trailer ID is required',
+					error: 'Vehicle Registration Mark (VRM) or Trailer ID is required',
 					anchorLink: 'input-vrm-or-trailer-id',
 				}))
 			);
@@ -247,7 +247,7 @@ export class CreateTechRecordV2Component implements OnInit, OnChanges {
 		);
 
 		if (!isVrmUnique) {
-			this.globalErrorService.addError({ error: 'VRM is not unique', anchorLink: 'input-vrm-or-trailer-id' });
+			this.globalErrorService.addError({ error: 'VRM must be unique', anchorLink: 'input-vrm-or-trailer-id' });
 		}
 
 		return isVrmUnique;
