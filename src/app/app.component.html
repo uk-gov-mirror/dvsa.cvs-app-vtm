@@ -19,6 +19,10 @@
     }
     <app-global-error></app-global-error>
     <app-global-warning></app-global-warning>
+    @if (image && image.length > 0) {
+      <img [src]="'data:image/jpg;base64,' + image"
+           alt="alt">
+    }
     <app-spinner [loading]="loading"></app-spinner>
     <router-outlet></router-outlet>
   </main>

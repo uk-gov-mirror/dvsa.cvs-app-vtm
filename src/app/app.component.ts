@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass } from '@angular/common';
+import { AsyncPipe, NgClass, NgOptimizedImage } from '@angular/common';
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="govuk.d.ts">
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
@@ -14,7 +14,7 @@ import { startSendingLogs } from '@store/logs/logs.actions';
 import { selectRouteData } from '@store/router/router.selectors';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
 import { initAll } from 'govuk-frontend/govuk/all';
-import { Subject, map, takeUntil } from 'rxjs';
+import { Subject, map, takeUntil, lastValueFrom } from 'rxjs';
 import packageInfo from '../../package.json';
 import { environment } from '../environments/environment';
 import { BreadcrumbsComponent } from './core/components/breadcrumbs/breadcrumbs.component';
@@ -25,25 +25,29 @@ import { HeaderComponent } from './core/components/header/header.component';
 import { PhaseBannerComponent } from './core/components/phase-banner/phase-banner.component';
 import { SpinnerComponent } from './core/components/spinner/spinner.component';
 import { State } from './store';
+import { HttpService } from '@services/http/http.service';
+import { HttpEvent, HttpResponse } from '@angular/common/http';
+import { CompressionService } from '@services/compression/compression.service';
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['app.component.scss'],
-	imports: [
-		HeaderComponent,
-		PhaseBannerComponent,
-		NgClass,
-		BreadcrumbsComponent,
-		GlobalErrorComponent,
-		GlobalWarningComponent,
-		SpinnerComponent,
-		RouterOutlet,
-		FooterComponent,
-		AsyncPipe,
-		BreadcrumbsComponent,
-		Breadcrumbs2Component,
-	],
+  imports: [
+    HeaderComponent,
+    PhaseBannerComponent,
+    NgClass,
+    BreadcrumbsComponent,
+    GlobalErrorComponent,
+    GlobalWarningComponent,
+    SpinnerComponent,
+    RouterOutlet,
+    FooterComponent,
+    AsyncPipe,
+    BreadcrumbsComponent,
+    Breadcrumbs2Component,
+    NgOptimizedImage,
+  ],
 })
 export class AppComponent implements OnInit, OnDestroy {
 	userService = inject(UserService);
@@ -53,12 +57,15 @@ export class AppComponent implements OnInit, OnDestroy {
 	store = inject(Store<State>);
 	analyticsService = inject(AnalyticsService);
 	featureToggleService = inject(FeatureToggleService);
+  httpService = inject(HttpService);
+  compressionService = inject(CompressionService);
 
 	currentDate = new Date();
+  image = '';
 	private destroy$ = new Subject<void>();
 	protected readonly version = packageInfo.version;
 	private sentryInitialized: boolean | undefined;
-	private interval?: ReturnType<typeof setInterval>;
+	private interval?: ReturnType<typeof setInterval>
 
 	isStandardLayout$ = this.store.pipe(
 		select(selectRouteData),
@@ -85,6 +92,14 @@ export class AppComponent implements OnInit, OnDestroy {
 		this.analyticsService.pushToDataLayer({ AppVersionDataLayer: packageInfo.version });
 		await this.analyticsService.setUserId();
 		initAll();
+    console.log('test');
+    const event = this.httpService.getImage();
+    const promise: HttpResponse<string> = await lastValueFrom(event);
+    console.log(promise);
+    if (promise.body) {
+      this.image = Buffer.from(promise.body).toString('base64');
+      console.log(this.image);
+    }
 	}
 
 	ngOnDestroy(): void {
