@@ -146,10 +146,10 @@ export class HttpService {
 
 	getImage() {
 		let headers = new HttpHeaders();
-		headers = headers.set('Content-Type', 'image/jpg; charset=utf-8');
+		// headers = headers.set('Content-Type', 'video/quicktime; charset=utf-8');
 		headers = headers.set('X-Api-Key', environment.DOCUMENT_RETRIEVAL_API_KEY);
 
-		return this.http.get(`${environment.VTM_API_URI}/v1/document-retrieval/downloadImage/image.jpg`, {
+		return this.http.get(`${environment.VTM_API_URI}/v1/document-retrieval/downloadVideo/video.mp4`, {
 			headers,
 			observe: 'response',
 			reportProgress: true,

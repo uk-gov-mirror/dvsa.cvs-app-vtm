@@ -96,7 +96,9 @@ export class AppComponent implements OnInit, OnDestroy {
 		const promise = await lastValueFrom(event);
 		// console.log(promise);
 		if (promise.body) {
-			this.image = Buffer.from(promise.body).toString('base64');
+			const blob = new Blob([promise.body], { type: 'video/mp4' }); // set correct MIME type
+			this.image = URL.createObjectURL(blob);
+			// this.image = Buffer.from(promise.body).toString('base64');
 			console.log(this.image);
 		}
 	}
