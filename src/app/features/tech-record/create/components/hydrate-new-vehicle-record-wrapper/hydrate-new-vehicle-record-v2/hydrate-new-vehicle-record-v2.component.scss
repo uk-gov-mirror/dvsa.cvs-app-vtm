@@ -10,6 +10,38 @@
   }
 }
 
+.govuk-summary-list__value--view {
+  overflow-wrap: normal;
+  padding-top: 0px;
+  padding-bottom: 0px !important;
+}
+
+.govuk-summary-list__value--overflow {
+  overflow-wrap: normal;
+  padding-top: 0px;
+  padding-bottom: 15px !important;
+}
+
+.govuk-summary-list__value--vin {
+  padding-right: 0px;
+  padding-top: 0px;
+  padding-bottom: 15px !important;
+}
+
+.govuk-summary-list__value--vrm {
+  padding-right: 0px;
+  padding-top: 8px;
+  padding-bottom: 15px !important;
+  overflow: visible;
+  white-space: nowrap;
+}
+
+.govuk-summary-list__value--tag {
+  overflow-wrap: normal;
+  padding-top: 8px;
+  padding-bottom: 15px !important;
+}
+
 .govuk-accordion--vtm {
   padding: 0px;
   border: 1px solid #b1b4b6;
@@ -60,6 +92,11 @@
   padding: 5px 20px 5px 20px;
 }
 
+.govuk-summary-list__key-tech {
+  width: 48%;
+  padding-bottom: 4px !important;
+}
+
 .govuk-summary-list__key-filter {
   font-family: "GDS Transport", arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -74,6 +111,14 @@
 
 .govuk-summary-list__value--filter {
   display: inline-block;
+}
+
+.govuk-summary-list__row--value {
+  border-bottom: 1px solid #b1b4b6;
+}
+
+.govuk-summary-list__row--last {
+  border-bottom: 0px;
 }
 
 /* TODO: move into chip/pill/lozenge component along with html */
