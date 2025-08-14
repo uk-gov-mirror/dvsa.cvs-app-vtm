@@ -62,8 +62,20 @@ export class AppComponent implements OnInit, OnDestroy {
 
 	isStandardLayout$ = this.store.pipe(
 		select(selectRouteData),
-		map((routeData) => routeData && !routeData['isCustomLayout'])
+		map(
+			(routeData) =>
+				(routeData && !routeData['isCustomLayout']) ||
+				this.featureToggleService.isFeatureEnabled('TechRecordRedesignCreateDetails')
+		)
 	);
+
+	get isTechRecordRedesignFlagEnabled(): boolean {
+		return (
+			this.featureToggleService.isFeatureEnabled('TechRecordRedesign') ||
+			this.featureToggleService.isFeatureEnabled('TechRecordRedesignCreate') ||
+			this.featureToggleService.isFeatureEnabled('TechRecordRedesignCreateDetails')
+		);
+	}
 
 	async ngOnInit() {
 		if (!this.sentryInitialized) {

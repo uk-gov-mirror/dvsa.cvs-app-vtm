@@ -26,14 +26,26 @@ export const routes: Routes = [
 					{
 						path: '',
 						loadComponent: () =>
-							import('./components/hydrate-new-vehicle-record/hydrate-new-vehicle-record.component').then(
-								(m) => m.HydrateNewVehicleRecordComponent
-							),
+							import(
+								'./components/hydrate-new-vehicle-record-wrapper/hydrate-new-vehicle-record-wrapper.component'
+							).then((m) => m.HydrateNewVehicleRecordWrapperComponent),
 						data: {
 							title: 'New record details',
 							roles: Roles.TechRecordCreate,
 							isCustomLayout: true,
 							isEditing: true,
+						},
+					},
+					{
+						path: TechRecordCreateRoutes.NEW_RECORD_DETAILS_CANCEL,
+						loadComponent: () =>
+							import('./components/new-record-details-cancel/new-record-details-cancel.component').then(
+								(m) => m.NewRecordDetailsCancel
+							),
+						data: {
+							roles: Roles.TechRecordCreate,
+							isEditing: true,
+							title: 'Are you sure you want to cancel creating this record?',
 						},
 					},
 					{
