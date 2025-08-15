@@ -8,7 +8,6 @@
   "FsPurchasers": true,
   "FsAuthorisationIntoService": true,
   "FsManufacturer": true,
-  "FsAdrCerts": true,
   "Betas": false,
   "TechRecordRedesign": false,
   "TechRecordRedesignCreate": false,
