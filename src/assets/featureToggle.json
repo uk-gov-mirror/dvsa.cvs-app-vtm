@@ -13,5 +13,5 @@
   "Betas": true,
   "TechRecordRedesign": false,
   "TechRecordRedesignCreate": true,
-  "TechRecordRedesignCreateDetails": true
+  "TechRecordRedesignCreateDetails": false
 }
