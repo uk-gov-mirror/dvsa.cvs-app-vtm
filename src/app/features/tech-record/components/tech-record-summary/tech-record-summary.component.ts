@@ -25,7 +25,6 @@ import {
 	DynamicFormGroupComponent,
 	DynamicFormGroupComponent as DynamicFormGroupComponent_1,
 } from '@forms/components/dynamic-form-group/dynamic-form-group.component';
-import { AdrCertificateHistoryComponent } from '@forms/custom-sections/adr-certificate-history/adr-certificate-history.component';
 import { AdrCertsSectionComponent } from '@forms/custom-sections/adr-certs-section/adr-certs-section.component';
 import { AdrSectionComponent } from '@forms/custom-sections/adr-section/adr-section.component';
 import {
@@ -89,7 +88,6 @@ import { Subject, debounceTime, map, skipWhile, take, takeUntil } from 'rxjs';
 		PlatesSectionComponent,
 		PlatesComponent,
 		AdrSectionComponent,
-		AdrCertificateHistoryComponent,
 		LastApplicantSectionComponent,
 		AsyncPipe,
 		BrakesSectionComponent,
@@ -303,7 +301,7 @@ export class TechRecordSummaryComponent implements OnInit, OnDestroy, AfterViewI
 	addCustomSectionsBasedOffFlag(): CustomFormGroup[] {
 		const sections = [];
 		const approvalType = this.approvalType();
-		if (approvalType && !this.featureToggleService.isFeatureEnabled('FsApprovalType') && approvalType?.form) {
+		if (approvalType && !this.featureToggleService.isFeatureEnabled('fsapprovaltype') && approvalType?.form) {
 			sections.push(approvalType.form);
 		}
 		return sections;
