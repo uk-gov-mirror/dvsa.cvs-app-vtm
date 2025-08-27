@@ -193,16 +193,12 @@ export class TestResultsEffects {
 				}
 				const testTypeGroup = TestRecordsService.getTestTypeGroup(testTypeId);
 
-				// tech-debt: feature flag check to be removed when required standard is enabled
-				const isRequiredStandardsEnabled = this.featureToggleService.isFeatureEnabled('requiredstandards');
 				const isIVAorMSVATest =
 					testTypeGroup === 'testTypesSpecialistGroup1' || testTypeGroup === 'testTypesSpecialistGroup5';
 
 				const vehicleTpl = masterTpl[`${vehicleType}`];
 				const testTypeGroupString =
-					(!isRequiredStandardsEnabled || isOldIVAorMSVAtest) && isIVAorMSVATest
-						? `${testTypeGroup}OldIVAorMSVA`
-						: testTypeGroup;
+					isOldIVAorMSVAtest && isIVAorMSVATest ? `${testTypeGroup}OldIVAorMSVA` : testTypeGroup;
 
 				let tpl;
 				if (testTypeGroupString && Object.prototype.hasOwnProperty.call(vehicleTpl, testTypeGroupString)) {
@@ -261,18 +257,11 @@ export class TestResultsEffects {
 				}
 
 				const testTypeGroup = TestRecordsService.getTestTypeGroup(id);
-				// tech-debt: feature flag check to be removed when required standard is enabled
-				const isRequiredStandardsEnabled = this.featureToggleService.isFeatureEnabled('requiredstandards');
-				const isIVAorMSVATest =
-					testTypeGroup === 'testTypesSpecialistGroup1' || testTypeGroup === 'testTypesSpecialistGroup5';
-
 				const vehicleTpl = contingencyTestTemplates[`${vehicleType}`];
-				const testTypeGroupString =
-					!isRequiredStandardsEnabled && isIVAorMSVATest ? `${testTypeGroup}OldIVAorMSVA` : testTypeGroup;
 
 				const tpl =
-					testTypeGroupString && Object.prototype.hasOwnProperty.call(vehicleTpl, testTypeGroupString)
-						? vehicleTpl[testTypeGroupString as keyof typeof TEST_TYPES]
+					testTypeGroup && Object.prototype.hasOwnProperty.call(vehicleTpl, testTypeGroup)
+						? vehicleTpl[testTypeGroup as keyof typeof TEST_TYPES]
 						: vehicleTpl['default'];
 
 				const mergedForms = {} as TestResultModel;
