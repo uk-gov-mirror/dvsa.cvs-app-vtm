@@ -45,6 +45,8 @@ export class GovukFormGroupAutocompleteComponent
 
 	readonly noBottomMargin = input(false);
 
+	readonly defaultOption = input('');
+
 	readonly options$ = input.required<Observable<any[]>>();
 
 	document = inject(DOCUMENT);
@@ -134,5 +136,12 @@ export class GovukFormGroupAutocompleteComponent
 
 	addValidators() {
 		this.control?.addValidators(this.commonValidators.invalidOption(`${this.controlLabel()} is invalid`));
+	}
+
+	clear() {
+		console.log('hello');
+		if (this.defaultOption() && this.valueSub === null) {
+			this.writeValue('');
+		}
 	}
 }

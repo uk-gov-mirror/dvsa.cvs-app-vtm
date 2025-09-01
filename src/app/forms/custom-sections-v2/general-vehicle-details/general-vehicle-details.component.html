@@ -16,12 +16,13 @@
     ></govuk-form-group-input>
   }
   @if (shouldDisplayFormControl('techRecord_brakes_dtpNumber')) {
-    <govuk-form-group-input
+    <govuk-form-group-autocomplete
       type="text"
       formControlName="techRecord_brakes_dtpNumber"
       label="DTp number"
-      [width]="FormNodeWidth.L"
-    ></govuk-form-group-input>
+      [width]="FormNodeWidth.XL"
+      [defaultOption]="'Select DTp number'"
+      [options$]="dtpNumbers$"/>
   }
 
   @if (shouldDisplayFormControl('techRecord_vehicleConfiguration')) {
@@ -33,6 +34,43 @@
     ></govuk-form-group-select>
   }
 
+<!--  Start of PSV only fields -->
+  @if (shouldDisplayFormControl('techRecord_chassisMake')) {
+    <govuk-form-group-input
+      type="text"
+      formControlName="techRecord_chassisMake"
+      label="Chassis make"
+      [width]="FormNodeWidth.L"
+    />
+  }
+
+  @if (shouldDisplayFormControl('techRecord_chassisModel')) {
+    <govuk-form-group-input
+      type="text"
+      formControlName="techRecord_chassisModel"
+      label="Chassis model"
+      [width]="FormNodeWidth.L"
+    />
+  }
+
+  @if (shouldDisplayFormControl('techRecord_bodyMake')) {
+    <govuk-form-group-input
+      type="text"
+      formControlName="techRecord_bodyMake"
+      label="Body make"
+      [width]="FormNodeWidth.L"
+    />
+  }
+
+  @if (shouldDisplayFormControl('techRecord_bodyModel')) {
+    <govuk-form-group-input
+      type="text"
+      formControlName="techRecord_bodyModel"
+      label="Body model"
+      [width]="FormNodeWidth.L"
+    />
+  }
+<!--  End of PSV only fields -->
 
   @if (shouldDisplayFormControl('techRecord_make')) {
     <govuk-form-group-select
@@ -57,15 +95,33 @@
   }
 
   @if (shouldDisplayFormControl('techRecord_bodyType_description')) {
-    <govuk-form-group-select
+    @if (techRecord().techRecord_vehicleType === VehicleTypes.PSV) {
+      <govuk-form-group-input
+        type="text"
+        formControlName="techRecord_bodyType_description"
+        label="Body type"
+        [width]="FormNodeWidth.L"
+      />
+    } @else {
+      <govuk-form-group-select
+        type="text"
+        formControlName="techRecord_bodyType_description"
+        label="Body type"
+        [defaultOption]="'Select body type'"
+        [width]="FormNodeWidth.L"
+        [options]="bodyTypes"
+      >
+      </govuk-form-group-select>
+    }
+  }
+
+  @if (shouldDisplayFormControl('techRecord_modelLiteral')) {
+    <govuk-form-group-input
       type="text"
-      formControlName="techRecord_bodyType_description"
-      label="Body type"
-      [defaultOption]="'Select body type'"
+      formControlName="techRecord_modelLiteral"
+      label="Model literal"
       [width]="FormNodeWidth.L"
-      [options]="bodyTypes"
-    >
-    </govuk-form-group-select>
+    />
   }
 
   @if (shouldDisplayFormControl('techRecord_functionCode')) {
