@@ -6,7 +6,6 @@ import { TagType } from '@components/tag/tag.component';
 import { EUVehicleCategory } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/euVehicleCategory.enum.js';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { GovukFormGroupAutocompleteComponent } from '@forms/components/govuk-form-group-autocomplete/govuk-form-group-autocomplete.component';
-import { GovukFormGroupCheckboxComponent } from '@forms/components/govuk-form-group-checkbox/govuk-form-group-checkbox.component';
 import { GovukFormGroupDateComponent } from '@forms/components/govuk-form-group-date/govuk-form-group-date.component';
 import { GovukFormGroupInputComponent } from '@forms/components/govuk-form-group-input/govuk-form-group-input.component';
 import { GovukFormGroupRadioComponent } from '@forms/components/govuk-form-group-radio/govuk-form-group-radio.component';
@@ -18,6 +17,7 @@ import {
 	BodyTypeDescription,
 	articulatedHgvBodyTypeCodeMap,
 	hgvBodyTypeCodeMap,
+	trlBodyTypeCodeMap,
 	vehicleBodyTypeCodeMap,
 	vehicleBodyTypeDescriptionMap,
 } from '@models/body-type-enum';
@@ -25,10 +25,12 @@ import {
 	ALL_EU_VEHICLE_CATEGORY_OPTIONS,
 	ALL_VEHICLE_CONFIGURATION_OPTIONS,
 	CAR_EU_VEHICLE_CATEGORY_OPTIONS,
+	FRAME_DESCRIPTION_OPTIONS,
 	FUNCTION_CODE_OPTIONS,
 	HGV_EU_VEHICLE_CATEGORY_OPTIONS,
 	HGV_PSV_VEHICLE_CONFIGURATION_OPTIONS,
 	LGV_EU_VEHICLE_CATEGORY_OPTIONS,
+	MONTHS,
 	MultiOptions,
 	PSV_EU_VEHICLE_CATEGORY_OPTIONS,
 	SMALL_TRL_EU_VEHICLE_CATEGORY_OPTIONS,
@@ -60,7 +62,6 @@ import { GovukCheckboxGroupComponent } from '../../components/govuk-checkbox-gro
 		GovukFormGroupSelectComponent,
 		GovukFormGroupRadioComponent,
 		ToUppercaseDirective,
-		GovukFormGroupCheckboxComponent,
 		GovukCheckboxGroupComponent,
 		GovukFormGroupAutocompleteComponent,
 	],
@@ -72,6 +73,8 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 	protected readonly VehicleTypes = VehicleTypes;
 	protected readonly FUNCTION_CODE_OPTIONS = FUNCTION_CODE_OPTIONS;
 	protected readonly VEHICLE_SUBCLASS_OPTIONS = VEHICLE_SUBCLASS_OPTIONS;
+	protected readonly MONTHS = MONTHS;
+	protected readonly FRAME_DESCRIPTION_OPTIONS = FRAME_DESCRIPTION_OPTIONS;
 
 	optionsService = inject(MultiOptionsService);
 	referenceDataService = inject(ReferenceDataService);
@@ -130,6 +133,11 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 					}
 				});
 		}
+
+		const vehicleType = this.getVehicleType();
+		if (vehicleType === VehicleTypes.TRL) {
+			this.bodyTypes = getOptionsFromEnum(Array.from(trlBodyTypeCodeMap.values()).flat());
+		}
 	}
 
 	get controlsBasedOffVehicleType() {
@@ -138,8 +146,8 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 				return this.hgvFields;
 			case VehicleTypes.PSV:
 				return this.psvFields;
-			// case VehicleTypes.TRL:
-			//   return this.trlFields;
+			case VehicleTypes.TRL:
+				return this.trlFields;
 			// case VehicleTypes.SMALL_TRL:
 			//   return this.smallTrlFields;
 			// case VehicleTypes.LGV:
@@ -155,6 +163,7 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 
 	get hgvFields(): Partial<Record<keyof TechRecordType<'hgv'>, FormControl>> {
 		return {
+			techRecord_vehicleType: this.fb.control<VehicleTypes | null>({ value: VehicleTypes.HGV, disabled: true }),
 			techRecord_regnDate: this.fb.control<string | null>(null, [
 				this.commonValidators.date('Date of first registration'),
 			]),
@@ -248,6 +257,56 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 			techRecord_euVehicleCategory: this.fb.control<string | null>(null),
 			techRecord_noOfAxles: this.fb.control<number | null>(null, [
 				this.commonValidators.range(2, 10, 'Number of axles must be between 2 and 10'),
+			]),
+		};
+	}
+
+	get trlFields(): Partial<Record<keyof TechRecordType<'trl'>, FormControl>> {
+		return {
+			techRecord_vehicleType: this.fb.control<VehicleTypes | null>({ value: VehicleTypes.TRL, disabled: true }),
+			techRecord_regnDate: this.fb.control<string | null>(null, [
+				this.commonValidators.date('Date of first registration'),
+			]),
+			techRecord_manufactureMonth: this.fb.control<string | null>(null),
+			techRecord_manufactureYear: this.fb.control<number | null>(null, [
+				this.commonValidators.max(9999, 'Year of manufacture must be less than or equal to 9999'),
+				this.commonValidators.min(1000, 'Year of manufacture must be greater than or equal to 1000'),
+				this.commonValidators.xYearsAfterCurrent(
+					1,
+					`Year of manufacture must be equal to or before ${new Date().getFullYear() + 1}`
+				),
+			]),
+			techRecord_firstUseDate: this.fb.control<string | null>(null, [this.commonValidators.date('Date of first use')]),
+			techRecord_brakes_dtpNumber: this.fb.control<string | null>(null, [
+				this.commonValidators.maxLength(6, 'DTp number must be less than or equal to 6 characters'),
+			]),
+			techRecord_vehicleConfiguration: this.fb.control<VehicleConfiguration | null>(null, [
+				this.commonValidators.required('Vehicle configuration is required'),
+			]),
+			techRecord_frameDescription: this.fb.control<string | null>(null),
+			techRecord_make: this.fb.control<string | null>(null, [
+				this.commonValidators.maxLength(50, 'Body make must be less than or equal to 50 characters'),
+				// this.bodyMakeRequiredWithDangerousGoods(),
+			]),
+			techRecord_model: this.fb.control<string | null>(null, [
+				this.commonValidators.maxLength(30, 'Body model must be less than or equal to 30 characters'),
+			]),
+			techRecord_bodyType_description: this.fb.control<string | null>(null, [
+				this.commonValidators.required('Body type is required'),
+			]),
+			techRecord_functionCode: this.fb.control<string | null>(null, [
+				this.commonValidators.maxLength(1, 'Function code must be less than or equal to 1 characters'),
+			]),
+			techRecord_conversionRefNo: this.fb.control<string | null>(null, [
+				this.commonValidators.maxLength(10, 'Conversion reference number must be 10 characters or less'),
+				this.commonValidators.pattern(
+					'^[A-Z0-9 ]{0,10}$',
+					'Conversion reference number must only include numbers and letters A to Z'
+				),
+			]),
+			techRecord_euVehicleCategory: this.fb.control<string | null>(null),
+			techRecord_noOfAxles: this.fb.control<number | null>(null, [
+				this.commonValidators.range(1, 10, 'Number of axles must be between 1 and 10'),
 			]),
 		};
 	}
@@ -380,9 +439,6 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 					});
 				}
 			}
-		} else {
-			const options = vehicleBodyTypeDescriptionMap.get(vehicleType)?.values() || [];
-			this.bodyTypes = getOptionsFromEnum(Array.from(options).flat());
 		}
 
 		const functionCodes: Record<string, string> = {
