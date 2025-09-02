@@ -60,10 +60,6 @@ export class GovukFormGroupAutocompleteComponent
 		combineLatest([this.options$().pipe(takeWhile((options) => !options || options.length === 0, true)), this.valueSub])
 			.pipe(takeUntil(this.destroy))
 			.subscribe(([options, latest]) => {
-				if (!this.valueSub) {
-					console.log('valueSub', this.valueSub);
-					return;
-				}
 				this.autocompleteOptions = options;
 
 				const enhanceParams: AutocompleteEnhanceParams = {
