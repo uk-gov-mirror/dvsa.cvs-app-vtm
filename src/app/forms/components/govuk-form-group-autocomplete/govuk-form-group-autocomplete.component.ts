@@ -45,7 +45,7 @@ export class GovukFormGroupAutocompleteComponent
 
 	readonly noBottomMargin = input(false);
 
-	readonly defaultOption = input('');
+	readonly placeholder = input<string>('');
 
 	readonly options$ = input.required<Observable<any[]>>();
 
@@ -60,6 +60,10 @@ export class GovukFormGroupAutocompleteComponent
 		combineLatest([this.options$().pipe(takeWhile((options) => !options || options.length === 0, true)), this.valueSub])
 			.pipe(takeUntil(this.destroy))
 			.subscribe(([options, latest]) => {
+				if (!this.valueSub) {
+					console.log('valueSub', this.valueSub);
+					return;
+				}
 				this.autocompleteOptions = options;
 
 				const enhanceParams: AutocompleteEnhanceParams = {
@@ -85,8 +89,9 @@ export class GovukFormGroupAutocompleteComponent
 				}
 
 				enhanceSelectElement(enhanceParams);
-
-				this.document.querySelector(`#${this.id}`)?.addEventListener('change', (event) => this.handleChange(event));
+				const control = this.document.querySelector(`#${this.id}`);
+				control?.setAttribute('placeholder', this.placeholder());
+				control?.addEventListener('change', (event) => this.handleChange(event));
 			});
 	}
 
@@ -136,12 +141,5 @@ export class GovukFormGroupAutocompleteComponent
 
 	addValidators() {
 		this.control?.addValidators(this.commonValidators.invalidOption(`${this.controlLabel()} is invalid`));
-	}
-
-	clear() {
-		console.log('hello');
-		if (this.defaultOption() && this.valueSub === null) {
-			this.writeValue('');
-		}
 	}
 }
