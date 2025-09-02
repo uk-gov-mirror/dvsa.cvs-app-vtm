@@ -3,8 +3,10 @@ import { AsyncPipe } from '@angular/common';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, inject, input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { TagType } from '@components/tag/tag.component';
+import { EUVehicleCategory } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/euVehicleCategory.enum.js';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { GovukFormGroupAutocompleteComponent } from '@forms/components/govuk-form-group-autocomplete/govuk-form-group-autocomplete.component';
+import { GovukFormGroupCheckboxComponent } from '@forms/components/govuk-form-group-checkbox/govuk-form-group-checkbox.component';
 import { GovukFormGroupDateComponent } from '@forms/components/govuk-form-group-date/govuk-form-group-date.component';
 import { GovukFormGroupInputComponent } from '@forms/components/govuk-form-group-input/govuk-form-group-input.component';
 import { GovukFormGroupRadioComponent } from '@forms/components/govuk-form-group-radio/govuk-form-group-radio.component';
@@ -32,6 +34,7 @@ import {
 	SMALL_TRL_EU_VEHICLE_CATEGORY_OPTIONS,
 	TRL_EU_VEHICLE_CATEGORY_OPTIONS,
 	TRL_VEHICLE_CONFIGURATION_OPTIONS,
+	VEHICLE_SUBCLASS_OPTIONS,
 } from '@models/options.model';
 import { PsvMake, ReferenceDataModelBase, ReferenceDataResourceType } from '@models/reference-data.model';
 import { VehicleConfiguration } from '@models/vehicle-configuration.enum';
@@ -41,6 +44,7 @@ import { MultiOptionsService } from '@services/multi-options/multi-options.servi
 import { ReferenceDataService } from '@services/reference-data/reference-data.service';
 import { selectReferenceDataByResourceKey } from '@store/reference-data';
 import { ReplaySubject, combineLatest, map, of, skipWhile, switchMap, take, takeUntil } from 'rxjs';
+import { GovukCheckboxGroupComponent } from '../../components/govuk-checkbox-group/govuk-checkbox-group.component';
 
 // type VehicleSectionForm = Partial<Record<keyof TechRecordType<'hgv' | 'car' | 'psv' | 'lgv' | 'trl'>, FormControl>>;
 
@@ -56,6 +60,8 @@ import { ReplaySubject, combineLatest, map, of, skipWhile, switchMap, take, take
 		GovukFormGroupSelectComponent,
 		GovukFormGroupRadioComponent,
 		ToUppercaseDirective,
+		GovukFormGroupCheckboxComponent,
+		GovukCheckboxGroupComponent,
 		GovukFormGroupAutocompleteComponent,
 	],
 })
@@ -64,6 +70,8 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 	protected readonly FormNodeWidth = FormNodeWidth;
 	protected readonly TagType = TagType;
 	protected readonly VehicleTypes = VehicleTypes;
+	protected readonly FUNCTION_CODE_OPTIONS = FUNCTION_CODE_OPTIONS;
+	protected readonly VEHICLE_SUBCLASS_OPTIONS = VEHICLE_SUBCLASS_OPTIONS;
 
 	optionsService = inject(MultiOptionsService);
 	referenceDataService = inject(ReferenceDataService);
@@ -136,8 +144,8 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 			//   return this.smallTrlFields;
 			// case VehicleTypes.LGV:
 			//   return this.lgvFields;
-			// case VehicleTypes.CAR:
-			//   return this.carFields;
+			case VehicleTypes.CAR:
+				return this.carFields;
 			// case VehicleTypes.MOTORCYCLE:
 			//   return this.motorcycleFields;
 			default:
@@ -240,6 +248,32 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 			techRecord_euVehicleCategory: this.fb.control<string | null>(null),
 			techRecord_noOfAxles: this.fb.control<number | null>(null, [
 				this.commonValidators.range(2, 10, 'Number of axles must be between 2 and 10'),
+			]),
+		};
+	}
+
+	get carFields(): Partial<Record<keyof TechRecordType<'car'>, FormControl>> {
+		return {
+			techRecord_vehicleType: this.fb.control<VehicleTypes | null>({ value: VehicleTypes.CAR, disabled: true }),
+			techRecord_manufactureYear: this.fb.control<number | null>(null, [
+				this.commonValidators.max(9999, 'Year of manufacture must be less than or equal to 9999'),
+				this.commonValidators.min(1000, 'Year of manufacture must be greater than or equal to 1000'),
+				this.commonValidators.xYearsAfterCurrent(
+					1,
+					`Year of manufacture must be equal to or before ${new Date().getFullYear() + 1}`
+				),
+			]),
+			techRecord_regnDate: this.fb.control<string | null>(null, [
+				this.commonValidators.date('Date of first registration'),
+			]),
+			techRecord_vehicleConfiguration: this.fb.control<VehicleConfiguration | null>(null, [
+				this.commonValidators.required('Vehicle configuration is required'),
+			]),
+			// default subclass to undefined as null is not allowed and an emtpy array creates a complete record instead of skeleton
+			techRecord_vehicleSubclass: this.fb.control<string[] | undefined>({ value: undefined, disabled: false }),
+			techRecord_euVehicleCategory: this.fb.control<string | null>({ value: EUVehicleCategory.M1, disabled: true }),
+			techRecord_noOfAxles: this.fb.control<number | null>(2, [
+				this.commonValidators.range(2, 20, 'Number of axles must be between 2 and 20'),
 			]),
 		};
 	}
@@ -407,6 +441,4 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 			this.cdr.detectChanges();
 		}
 	}
-
-	protected readonly FUNCTION_CODE_OPTIONS = FUNCTION_CODE_OPTIONS;
 }
