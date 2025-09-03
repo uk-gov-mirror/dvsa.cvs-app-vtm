@@ -1,7 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { FormNodeCombinationOptions, FormNodeOption } from '@services/dynamic-forms/dynamic-form.types';
 
-@Pipe({ name: 'getControlLabel' })
+@Pipe({
+	name: 'getControlLabel',
+	pure: true,
+})
 export class GetControlLabelPipe implements PipeTransform {
 	transform(
 		value: string | number | null | undefined,
