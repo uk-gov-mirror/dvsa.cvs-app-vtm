@@ -35,13 +35,22 @@
   }
 
   @if (shouldDisplayFormControl('techRecord_brakes_dtpNumber')) {
-    <govuk-form-group-autocomplete
-      type="text"
-      formControlName="techRecord_brakes_dtpNumber"
-      label="DTp number"
-      [width]="FormNodeWidth.XL"
-      [placeholder]="'Select DTp number'"
-      [options$]="dtpNumbers$"/>
+    @if (techRecord().techRecord_vehicleType === VehicleTypes.PSV) {
+      <govuk-form-group-autocomplete
+        type="text"
+        formControlName="techRecord_brakes_dtpNumber"
+        label="DTp number"
+        [width]="FormNodeWidth.XL"
+        [placeholder]="'Select DTp number'"
+        [options$]="dtpNumbers$"/>
+    } @else {
+      <govuk-form-group-input
+        type="text"
+        formControlName="techRecord_brakes_dtpNumber"
+        label="DTp number"
+        [width]="FormNodeWidth.L"
+      />
+    }
   }
 
   @if (shouldDisplayFormControl('techRecord_vehicleConfiguration')) {
@@ -53,9 +62,20 @@
     ></govuk-form-group-select>
   }
 
+
+  @if (shouldDisplayFormControl('techRecord_vehicleClass_description')
+    && techRecord().techRecord_vehicleType === VehicleTypes.MOTORCYCLE) {
+    <govuk-form-group-select
+      label="Vehicle class"
+      [defaultOption]="'Select vehicle class'"
+      [options]="MOTORCYCLE_VEHICLE_CLASS_DESCRIPTION_OPTIONS"
+      formControlName="techRecord_vehicleClass_description"
+    ></govuk-form-group-select>
+  }
+
   @if (shouldDisplayFormControl('techRecord_frameDescription')) {
     <govuk-form-group-select
-      label="Frame description (optional)"
+      label="Frame description"
       formControlName="techRecord_frameDescription"
       [options]="FRAME_DESCRIPTION_OPTIONS"
       [defaultOption]="'Select frame description'"
@@ -100,7 +120,8 @@
   }
 <!--  End of PSV only fields -->
 
-  @if (shouldDisplayFormControl('techRecord_vehicleClass_description')) {
+  @if (shouldDisplayFormControl('techRecord_vehicleClass_description')
+      && techRecord().techRecord_vehicleType === VehicleTypes.PSV) {
     <govuk-form-group-input
       type="text"
       formControlName="techRecord_vehicleClass_description"
@@ -200,6 +221,15 @@
       [width]="FormNodeWidth.S"
       [options]="EUCategoryOptions"
     ></govuk-form-group-radio>
+  }
+
+  @if (shouldDisplayFormControl('techRecord_numberOfWheelsDriven')) {
+    <govuk-form-group-input
+      label="Number of wheels"
+      formControlName="techRecord_numberOfWheelsDriven"
+      [width]="FormNodeWidth.XXS"
+      type="number"
+    ></govuk-form-group-input>
   }
 
   @if (shouldDisplayFormControl('techRecord_noOfAxles')) {

@@ -4,6 +4,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit, inject, input } from '
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { TagType } from '@components/tag/tag.component';
 import { EUVehicleCategory } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/euVehicleCategory.enum.js';
+import { VehicleClassDescription } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/vehicleClassDescription.enum.js';
 import { TechRecordType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/tech-record-vehicle-type';
 import { GovukFormGroupAutocompleteComponent } from '@forms/components/govuk-form-group-autocomplete/govuk-form-group-autocomplete.component';
 import { GovukFormGroupDateComponent } from '@forms/components/govuk-form-group-date/govuk-form-group-date.component';
@@ -31,6 +32,8 @@ import {
 	HGV_PSV_VEHICLE_CONFIGURATION_OPTIONS,
 	LGV_EU_VEHICLE_CATEGORY_OPTIONS,
 	MONTHS,
+	MOTORCYCLE_EU_VEHICLE_CATEGORY_OPTIONS,
+	MOTORCYCLE_VEHICLE_CLASS_DESCRIPTION_OPTIONS,
 	MultiOptions,
 	PSV_EU_VEHICLE_CATEGORY_OPTIONS,
 	SMALL_TRL_EU_VEHICLE_CATEGORY_OPTIONS,
@@ -154,8 +157,8 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 			//   return this.lgvFields;
 			case VehicleTypes.CAR:
 				return this.carFields;
-			// case VehicleTypes.MOTORCYCLE:
-			//   return this.motorcycleFields;
+			case VehicleTypes.MOTORCYCLE:
+				return this.motorcycleFields;
 			default:
 				return {};
 		}
@@ -164,6 +167,10 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 	get hgvFields(): Partial<Record<keyof TechRecordType<'hgv'>, FormControl>> {
 		return {
 			techRecord_vehicleType: this.fb.control<VehicleTypes | null>({ value: VehicleTypes.HGV, disabled: true }),
+			techRecord_vehicleClass_description: this.fb.control<string | null>({
+				value: VehicleClassDescription.HeavyGoodsVehicle,
+				disabled: true,
+			}),
 			techRecord_regnDate: this.fb.control<string | null>(null, [
 				this.commonValidators.date('Date of first registration'),
 			]),
@@ -262,6 +269,10 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 	get trlFields(): Partial<Record<keyof TechRecordType<'trl'>, FormControl>> {
 		return {
 			techRecord_vehicleType: this.fb.control<VehicleTypes | null>({ value: VehicleTypes.TRL, disabled: true }),
+			techRecord_vehicleClass_description: this.fb.control<string | null>({
+				value: VehicleClassDescription.Trailer,
+				disabled: true,
+			}),
 			techRecord_regnDate: this.fb.control<string | null>(null, [
 				this.commonValidators.date('Date of first registration'),
 			]),
@@ -359,6 +370,38 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 		};
 	}
 
+	// currently typed as string due to wrong typing of motorcycle, as it has a skeleton car in its place
+	// get motorcycleFields(): Partial<Record<keyof TechRecordType<'motorcycle'>, FormControl>> {
+	get motorcycleFields(): Partial<Record<string, FormControl>> {
+		return {
+			techRecord_vehicleType: this.fb.control<VehicleTypes | null>({ value: VehicleTypes.MOTORCYCLE, disabled: true }),
+			techRecord_manufactureYear: this.fb.control<number | null>(null, [
+				this.commonValidators.max(9999, 'Year of manufacture must be less than or equal to 9999'),
+				this.commonValidators.min(1000, 'Year of manufacture must be greater than or equal to 1000'),
+				this.commonValidators.xYearsAfterCurrent(
+					1,
+					`Year of manufacture must be equal to or before ${new Date().getFullYear() + 1}`
+				),
+			]),
+			techRecord_regnDate: this.fb.control<string | null>(null, [
+				this.commonValidators.date('Date of first registration'),
+			]),
+			techRecord_vehicleConfiguration: this.fb.control<VehicleConfiguration | null>(null, [
+				this.commonValidators.required('Vehicle configuration is required'),
+			]),
+			techRecord_vehicleClass_description: this.fb.control<string | null>(null, [
+				this.commonValidators.required('Vehicle class is required'),
+			]),
+			techRecord_euVehicleCategory: this.fb.control<string | null>({ value: null, disabled: false }),
+			techRecord_numberOfWheelsDriven: this.fb.control<number | null>(null, [
+				this.commonValidators.max(9999, 'Number of wheels driven must be less than or equal to 9999'),
+			]),
+			techRecord_noOfAxles: this.fb.control<number | null>(2, [
+				this.commonValidators.range(2, 20, 'Number of axles must be between 2 and 20'),
+			]),
+		};
+	}
+
 	get vehicleConfigurationOptions() {
 		switch (this.getVehicleType()) {
 			case VehicleTypes.HGV:
@@ -403,6 +446,8 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 				return LGV_EU_VEHICLE_CATEGORY_OPTIONS;
 			case VehicleTypes.CAR:
 				return CAR_EU_VEHICLE_CATEGORY_OPTIONS;
+			case VehicleTypes.MOTORCYCLE:
+				return MOTORCYCLE_EU_VEHICLE_CATEGORY_OPTIONS;
 			default:
 				return ALL_EU_VEHICLE_CATEGORY_OPTIONS;
 		}
@@ -519,4 +564,5 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 			this.cdr.detectChanges();
 		}
 	}
+	protected readonly MOTORCYCLE_VEHICLE_CLASS_DESCRIPTION_OPTIONS = MOTORCYCLE_VEHICLE_CLASS_DESCRIPTION_OPTIONS;
 }
