@@ -3,7 +3,6 @@ import { ReferenceDataTyreLoadIndex } from '@models/reference-data.model';
 
 @Pipe({
 	name: 'tyreAxleLoad',
-	pure: true,
 })
 export class TyreAxleLoadPipe implements PipeTransform {
 	transform(
