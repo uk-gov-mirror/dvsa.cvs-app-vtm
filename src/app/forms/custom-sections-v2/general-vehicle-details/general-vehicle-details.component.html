@@ -36,13 +36,16 @@
 
   @if (shouldDisplayFormControl('techRecord_brakes_dtpNumber')) {
     @if (techRecord().techRecord_vehicleType === VehicleTypes.PSV) {
-      <govuk-form-group-autocomplete
-        type="text"
-        formControlName="techRecord_brakes_dtpNumber"
-        label="DTp number"
-        [width]="FormNodeWidth.XL"
-        [placeholder]="'Select DTp number'"
-        [options$]="dtpNumbers$"/>
+      @if (dtpNumbers$ | async; as dtpNumbers) {
+        <govuk-typeahead
+          [id]="'techRecord_brakes_dtpNumber'"
+          formControlName="techRecord_brakes_dtpNumber"
+          label="DTp number"
+          [placeholder]="'Select DTp number'"
+          [width]="'govuk-input--width-10'"
+          [options]="dtpNumbers"
+        ></govuk-typeahead>
+      }
     } @else {
       <govuk-form-group-input
         type="text"

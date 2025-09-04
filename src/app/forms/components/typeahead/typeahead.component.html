@@ -1,0 +1,70 @@
+<div class="govuk-form-group" [class.govuk-form-group--error]="groupError$() && error$()">
+  <ng-content select="[typeahead-label]">
+    @if (label$()) {
+      <h1 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--m" [htmlFor]="id$()">
+          {{ label$() }}
+        </label>
+      </h1>
+    }
+  </ng-content>
+
+  <ng-content select="[typeahead-hint]">
+    @if (hint$()) {
+      <div [id]="id$() + '-hint'" class="govuk-hint">
+        {{ hint$() }}
+      </div>
+    }
+  </ng-content>
+
+  <ng-content select="[typeahead-errors]">
+    @if (control.touched && error$()) {
+      <p class="govuk-error-message" id="{{ id$() }}-error">
+        <span class="govuk-visually-hidden">Error: </span>
+        <span>{{ error$() }}</span>
+      </p>
+    }
+  </ng-content>
+
+  <!-- Options -->
+  <div class="input-wrapper">
+    <input
+      ngxTypeahead
+      class="govuk-input {{ width$() }}"
+      [id]="id$()"
+      [attr.id]="id$()"
+      [name]="name$()"
+      [placeholder]="placeholder$()"
+      type="text"
+      [disabled]="disabled()"
+      (blur)="onBlur()"
+      [(ngModel)]="value"
+      [taList]="options$()"
+      [taDebounce]="debounce$()"
+      [taAllowEmpty]="true"
+      [taDisplayOnFocus]="true"
+      [taItemTpl]="itemTpl"
+      (taSelected)="handleSelection($event)"
+      #typeahead
+    />
+
+    <div class="arrow">
+      <svg style="height: 17px" viewBox="0 0 512 512">
+        <path
+          d="M256,298.3L256,298.3L256,298.3l174.2-167.2c4.3-4.2,11.4-4.1,15.8,0.2l30.6,29.9c4.4,4.3,4.5,11.3,0.2,15.5L264.1,380.9  c-2.2,2.2-5.2,3.2-8.1,3c-3,0.1-5.9-0.9-8.1-3L35.2,176.7c-4.3-4.2-4.2-11.2,0.2-15.5L66,131.3c4.4-4.3,11.5-4.4,15.8-0.2L256,298.3  z"
+        ></path>
+      </svg>
+    </div>
+
+    <ng-template #itemTpl let-result>
+      <div
+        [id]="id$() + '-item-' + result.index"
+        class="option"
+        [class.bg-grey]="result.index % 2 === 0"
+        [class.bg-white]="result.index % 2 !== 0"
+      >
+        <p class="govuk-body option-text">{{ result.result.label }}</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

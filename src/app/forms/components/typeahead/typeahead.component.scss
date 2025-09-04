@@ -1,0 +1,53 @@
+.arrow {
+  position: absolute; 
+  right: 2px; 
+  top: 0px; 
+  display: grid; 
+  transform: scale(0.6);
+  height: 100%; 
+  place-items: center;
+}
+
+.input-wrapper {
+  position: relative;
+  display: inline;
+}
+
+.input-wrapper input {
+  text-indent: 3px;
+}
+
+.input-wrapper input::placeholder {
+  font-size: 19px;
+  font-weight: normal;
+  color: #0b0c0c;
+  text-indent: 3px;
+}
+
+.option {
+  width: 100%; 
+  border-bottom-width: 1px; 
+  border-color: rgb(177,180,182); 
+}
+
+.bg-white {
+  background-color: white;
+}
+
+.bg-grey {
+  background-color: #fafafa;
+}
+
+.button:focus .option {
+  background-color: rgb(147,197,253);
+}
+
+.option:hover {
+  background-color: rgb(147,197,253);
+}
+
+.option-text {
+  margin-bottom: 0px !important; 
+  padding: 0.5rem; 
+  text-align: left;
+}

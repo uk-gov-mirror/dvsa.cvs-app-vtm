@@ -1,0 +1,31 @@
+<ng-template #suggestionsTplRef>
+  @if (showSuggestions()) {
+    <div class="ta-backdrop" (click)="hideSuggestions()"></div>
+    <section class="section">
+      @for (result of results; track $index) {
+        <button
+          type="button"
+          class="button"
+          [class.active]="markIsActive($index, result)"
+          (click)="handleSelectionClick(result, $index)"
+        >
+          <ng-template
+            [ngTemplateOutlet]="taItemTpl()"
+            [ngTemplateOutletContext]="{ $implicit: { result, index: $index, suggestionIndex } }"
+          ></ng-template>
+        </button>
+      } @empty {
+        <ng-template
+          [ngTemplateOutlet]="taItemTpl()"
+          [ngTemplateOutletContext]="{
+            $implicit: {
+              result: { label: 'No results found', value: null },
+              index: 0,
+              suggestionIndex
+            },
+          }"
+        ></ng-template>
+      }
+    </section>
+  }
+</ng-template>

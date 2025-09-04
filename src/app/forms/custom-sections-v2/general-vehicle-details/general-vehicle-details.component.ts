@@ -50,6 +50,7 @@ import { ReferenceDataService } from '@services/reference-data/reference-data.se
 import { selectReferenceDataByResourceKey } from '@store/reference-data';
 import { ReplaySubject, combineLatest, map, of, skipWhile, switchMap, take, takeUntil } from 'rxjs';
 import { GovukCheckboxGroupComponent } from '../../components/govuk-checkbox-group/govuk-checkbox-group.component';
+import { TypeaheadComponent } from '../../components/typeahead/typeahead.component';
 
 // type VehicleSectionForm = Partial<Record<keyof TechRecordType<'hgv' | 'car' | 'psv' | 'lgv' | 'trl'>, FormControl>>;
 
@@ -67,6 +68,8 @@ import { GovukCheckboxGroupComponent } from '../../components/govuk-checkbox-gro
 		ToUppercaseDirective,
 		GovukCheckboxGroupComponent,
 		GovukFormGroupAutocompleteComponent,
+		TypeaheadComponent,
+		AsyncPipe,
 	],
 })
 export class GeneralVehicleDetailsComponent extends EditBaseComponent implements OnInit, OnDestroy {
@@ -91,7 +94,7 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 	]).pipe(
 		skipWhile(([, loading]) => loading),
 		take(1),
-		map(([data]) => data?.map((option) => option.resourceKey) ?? [])
+		map(([data]) => data?.map((option) => ({ value: option.resourceKey, label: option.resourceKey?.toString() })) ?? [])
 	);
 
 	destroy$ = new ReplaySubject<boolean>(1);
