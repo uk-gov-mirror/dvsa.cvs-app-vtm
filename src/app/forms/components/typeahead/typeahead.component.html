@@ -45,6 +45,7 @@
       [taDisplayOnFocus]="true"
       [taItemTpl]="itemTpl"
       (taSelected)="handleSelection($event)"
+      [class.govuk-input--error]="control.touched && error$()"
       #typeahead
     />
 
