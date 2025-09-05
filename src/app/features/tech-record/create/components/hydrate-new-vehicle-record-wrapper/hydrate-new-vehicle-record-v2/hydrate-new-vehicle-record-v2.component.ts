@@ -16,6 +16,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
 import { GeneralVehicleDetailsComponent } from '@forms/custom-sections-v2/general-vehicle-details/general-vehicle-details.component';
 import { NotesComponent } from '@forms/custom-sections-v2/notes/notes.component';
+import { ReasonForCreationComponent } from '@forms/custom-sections-v2/reason-for-creation/reason-for-creation.component';
 import { Store } from '@ngrx/store';
 import { ReplaySubject, takeUntil } from 'rxjs';
 
@@ -35,6 +36,7 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 		GeneralVehicleDetailsComponent,
 		ReactiveFormsModule,
 		NotesComponent,
+		ReasonForCreationComponent,
 	],
 })
 export class HydrateNewVehicleRecordV2Component implements OnInit, OnDestroy {
@@ -92,5 +94,13 @@ export class HydrateNewVehicleRecordV2Component implements OnInit, OnDestroy {
 		if (!this.techRecord$()) {
 			this.router.navigate([RootRoutes.CREATE_TECHNICAL_RECORD]);
 		}
+	}
+
+	generateRFCDescription(): string {
+		// TODO: Update this method to return a dynamic description message
+		// based on if user is creating or amending a record.
+		// return "Tell us why you're amending this record.";
+
+		return "Tell us why you're creating this record.";
 	}
 }
