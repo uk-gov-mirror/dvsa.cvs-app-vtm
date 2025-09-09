@@ -1,5 +1,3 @@
-import { HgvAndTrlTypeApprovalTemplate } from '@forms/templates/general/approval-type.template';
-import { PsvTypeApprovalTemplate } from '@forms/templates/psv/psv-approval-type.template';
 import { VehicleTypes } from '@models/vehicle-tech-record.model';
 import { FormNode } from '@services/dynamic-forms/dynamic-form.types';
 
@@ -28,6 +26,7 @@ const reasonForCreationSection = { name: 'reasonForCreationSection', label: 'Rea
 const tyresSection = { name: 'tyreSection', label: 'Tyres' } as FormNode;
 const weightsSection = { name: 'weightsSection', label: 'Weights' } as FormNode;
 const platesSection = { name: 'platesSection', label: 'Plates' } as FormNode;
+const approvalSection = { name: 'approvalSection', label: 'Approval type' } as FormNode;
 
 export const vehicleTemplateMap = new Map<VehicleTypes, Array<FormNode>>([
 	[
@@ -36,7 +35,7 @@ export const vehicleTemplateMap = new Map<VehicleTypes, Array<FormNode>>([
 			/*  1 */ reasonForCreationSection,
 			/*  2 */ notesSection,
 			/*  3 */ techRecordSection,
-			/*  4 */ PsvTypeApprovalTemplate,
+			/*  4 */ approvalSection,
 			/*  5 */ brakesSection,
 			/*  6 */ ddaSection,
 			/*  7 */ documentsSection,
@@ -52,7 +51,7 @@ export const vehicleTemplateMap = new Map<VehicleTypes, Array<FormNode>>([
 			/*  1 */ reasonForCreationSection,
 			/*  2 */ notesSection,
 			/*  3 */ techRecordSection,
-			/*  4 */ HgvAndTrlTypeApprovalTemplate,
+			/*  4 */ approvalSection,
 			/*  5 */ lastApplicantSection,
 			/*  6 */ documentsSection,
 			/*  7 */ bodySection,
@@ -70,7 +69,7 @@ export const vehicleTemplateMap = new Map<VehicleTypes, Array<FormNode>>([
 			/*  1 */ reasonForCreationSection,
 			/*  2 */ notesSection,
 			/*  3 */ techRecordSection,
-			/*  4 */ HgvAndTrlTypeApprovalTemplate,
+			/*  4 */ approvalSection,
 			/*  5 */ lastApplicantSection,
 			/*  6 */ documentsSection,
 			/*  7 */ lettersSection,
