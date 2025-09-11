@@ -39,6 +39,7 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 		ReactiveFormsModule,
 		NotesComponent,
 		ReasonForCreationComponent,
+		AdrComponent,
 		LastApplicantComponent,
 		AdrComponent,
 	],
