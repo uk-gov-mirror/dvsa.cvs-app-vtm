@@ -14,6 +14,7 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalErrorService } from '@core/components/global-error/global-error.service';
+import { AdrComponent } from '@forms/custom-sections-v2/adr/adr.component';
 import { GeneralVehicleDetailsComponent } from '@forms/custom-sections-v2/general-vehicle-details/general-vehicle-details.component';
 import { LastApplicantComponent } from '@forms/custom-sections-v2/last-applicant/last-applicant.component';
 import { NotesComponent } from '@forms/custom-sections-v2/notes/notes.component';
@@ -39,6 +40,7 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 		NotesComponent,
 		ReasonForCreationComponent,
 		LastApplicantComponent,
+		AdrComponent,
 	],
 })
 export class HydrateNewVehicleRecordV2Component implements OnInit, OnDestroy {
