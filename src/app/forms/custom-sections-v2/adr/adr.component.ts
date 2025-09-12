@@ -1,5 +1,4 @@
 import { AdrService } from '@/src/app/services/adr/adr.service';
-import { FormNodeWidth } from '@/src/app/services/dynamic-forms/dynamic-form.types';
 import { techRecord } from '@/src/app/store/technical-records/technical-record-service.selectors';
 import { AsyncPipe, DatePipe, ViewportScroller } from '@angular/common';
 import { Component, OnDestroy, OnInit, inject, input } from '@angular/core';
@@ -30,6 +29,7 @@ import { CommonValidatorsService } from '@forms/validators/common-validators.ser
 import { YES_NO_OPTIONS } from '@models/options.model';
 import { V3TechRecordModel, VehicleTypes } from '@models/vehicle-tech-record.model';
 import { DefaultNullOrEmpty } from '@pipes/default-null-or-empty/default-null-or-empty.pipe';
+import { FormNodeWidth } from '@services/dynamic-forms/dynamic-form.types';
 import { updateScrollPosition } from '@store/technical-records';
 import { ReplaySubject, takeUntil } from 'rxjs';
 import { getOptionsFromEnum } from '../../utils/enum-map';
@@ -57,16 +57,32 @@ import { getOptionsFromEnum } from '../../utils/enum-map';
 	],
 })
 export class AdrComponent extends EditBaseComponent implements OnInit, OnDestroy {
-	adrValidators = inject(AdrValidatorsService);
 	validators = inject(CommonValidatorsService);
 	adrService = inject(AdrService);
+	adrValidators = inject(AdrValidatorsService);
 	router = inject(Router);
 	route = inject(ActivatedRoute);
 	viewportScroller = inject(ViewportScroller);
 
+	// TODO properly type this at some point
 	form = this.fb.group({
 		techRecord_adrDetails_dangerousGoods: this.fb.control<boolean>(false),
-
+		// Applicant Details
+		techRecord_adrDetails_applicantDetails_name: this.fb.control<string | null>(null, [
+			this.commonValidators.maxLength(150, 'Name must be less than or equal to 150 characters'),
+		]),
+		techRecord_adrDetails_applicantDetails_street: this.fb.control<string | null>(null, [
+			this.commonValidators.maxLength(150, 'Address line 1 must be less than or equal to 150 characters'),
+		]),
+		techRecord_adrDetails_applicantDetails_town: this.fb.control<string | null>(null, [
+			this.commonValidators.maxLength(100, 'Address line 2 (optional) must be less than or equal to 100 characters'),
+		]),
+		techRecord_adrDetails_applicantDetails_city: this.fb.control<string | null>(null, [
+			this.commonValidators.maxLength(100, 'Town or city must be less than or equal to 100 characters'),
+		]),
+		techRecord_adrDetails_applicantDetails_postcode: this.fb.control<string | null>(null, [
+			this.commonValidators.maxLength(25, 'Postcode must be less than or equal to 25 characters'),
+		]),
 		// ADR Details
 		techRecord_adrDetails_vehicleDetails_type: this.fb.control<string | null>(null, [
 			this.adrValidators.requiredWithDangerousGoods('ADR body type is required with Approved to carry dangerous goods'),
