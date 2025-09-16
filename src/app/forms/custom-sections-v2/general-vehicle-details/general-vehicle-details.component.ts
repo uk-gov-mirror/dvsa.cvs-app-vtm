@@ -402,9 +402,10 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 			techRecord_regnDate: this.fb.control<string | null>(null, [
 				this.commonValidators.date('Date of first registration'),
 			]),
-			techRecord_vehicleConfiguration: this.fb.control<VehicleConfiguration | null>(null, [
-				this.commonValidators.required('Vehicle configuration is required'),
-			]),
+			techRecord_vehicleConfiguration: this.fb.control<VehicleConfiguration | null>(
+				{ value: VehicleConfiguration.OTHER, disabled: true },
+				[this.commonValidators.required('Vehicle configuration is required')]
+			),
 			techRecord_vehicleClass_description: this.fb.control<string | null>(null, [
 				this.commonValidators.required('Vehicle class is required'),
 			]),
