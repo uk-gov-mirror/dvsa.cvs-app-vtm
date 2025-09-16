@@ -1,3 +1,4 @@
+import { PERMITTED_DANGEROUS_GOODS_OPTIONS } from '@/src/app/models/options.model';
 import { createMockHgv } from '@/src/mocks/hgv-record.mock';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
@@ -7,7 +8,6 @@ import { ActivatedRoute } from '@angular/router';
 import { ADRBodyType } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/adrBodyType.enum.js';
 import { ADRDangerousGood } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/adrDangerousGood.enum.js';
 import { TC3Details } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/hgv/complete';
-import { getOptionsFromEnum } from '@forms/utils/enum-map';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { initialAppState } from '@store/index';
 import { updateScrollPosition } from '@store/technical-records';
@@ -233,7 +233,7 @@ describe('AdrComponent', () => {
 				],
 			});
 
-			const options = getOptionsFromEnum(ADRDangerousGood);
+			const options = PERMITTED_DANGEROUS_GOODS_OPTIONS;
 			expect(component.permittedDangerousGoodsOptions).toEqual(options);
 
 			component.handleADRBodyTypeChange();
