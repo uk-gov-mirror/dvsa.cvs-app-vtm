@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { MsalGuard } from '@azure/msal-angular';
 import { CancelEditTechGuard } from '@guards/cancel-edit-tech/cancel-edit-tech.guard';
 import { RoleGuard } from '@guards/role-guard/roles.guard';
@@ -11,7 +10,7 @@ import { techRecordDataResolver } from 'src/app/resolvers/tech-record-data/tech-
 import { techRecordValidateResolver } from 'src/app/resolvers/tech-record-validate/tech-record-validate.resolver';
 import { techRecordViewResolver } from 'src/app/resolvers/tech-record-view/tech-record-view.resolver';
 
-const routes: Routes = [
+export const routes: Routes = [
 	{
 		path: '',
 		loadComponent: () => import('./tech-record.component').then((m) => m.TechRecordComponent),
@@ -237,15 +236,14 @@ const routes: Routes = [
 		data: { title: 'Test record', roles: Roles.TestResultView },
 		canActivate: [MsalGuard, RoleGuard],
 		resolve: { techRecord: techRecordViewResolver },
-		loadChildren: () => import('../test-records/amend/amend-test-records.module').then((m) => m.AmendTestRecordsModule),
+		loadChildren: () => import('../test-records/amend/amend-test-records.routes').then((m) => m.routes),
 	},
 	{
 		path: TechRecordRoutes.CREATE_TEST,
 		data: { title: 'Create Contingency test', roles: Roles.TestResultCreateContingency },
 		canActivate: [MsalGuard, RoleGuard],
 		resolve: { techRecord: techRecordViewResolver },
-		loadChildren: () =>
-			import('../test-records/create/create-test-records.module').then((m) => m.CreateTestRecordsModule),
+		loadChildren: () => import('../test-records/create/create-test-records.routes').then((m) => m.routes),
 	},
 	{
 		path: TechRecordRoutes.ADR_CERTIFICATE,
@@ -257,9 +255,3 @@ const routes: Routes = [
 		canActivate: [MsalGuard, RoleGuard],
 	},
 ];
-
-@NgModule({
-	imports: [RouterModule.forChild(routes)],
-	exports: [RouterModule],
-})
-export class TechRecordsRoutingModule {}

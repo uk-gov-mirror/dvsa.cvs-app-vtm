@@ -41,7 +41,6 @@ import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { DefaultNullOrEmpty } from '@pipes/default-null-or-empty/default-null-or-empty.pipe';
 import { FormatVehicleTypePipe } from '@pipes/format-vehicle-type/format-vehicle-type.pipe';
-import { FormNodeViewTypes } from '@services/dynamic-forms/dynamic-form.types';
 import { FeatureToggleService } from '@services/feature-toggle-service/feature-toggle-service';
 import { RouterService } from '@services/router/router.service';
 import { TechnicalRecordChangesService } from '@services/technical-record/technical-record-change.service';
@@ -237,23 +236,7 @@ export class TechRecordSummaryChangesComponent implements OnInit, OnDestroy {
 		void this.router.navigate(['..'], { relativeTo: this.route });
 	}
 
-	get changesForWeights() {
-		if (this.techRecordEdited == null) return undefined;
-
-		return ['hgv', 'trl', 'psv'].includes(this.techRecordEdited.techRecord_vehicleType)
-			? (this.techRecordChanges as Partial<TechRecordGETHGV | TechRecordGETPSV | TechRecordGETTRL>)
-			: undefined;
-	}
-
 	get vehicleTemplates() {
-		const template = vehicleTemplateMap.get(this.techRecordEdited?.techRecord_vehicleType as VehicleTypes);
-
-		// TODO: remove this once reason for creation is under DFS
-		const reasonForCreation = template?.find((section) => section.name === 'reasonForCreationSection');
-		if (reasonForCreation && reasonForCreation.children?.length) {
-			reasonForCreation.children[0].viewType = FormNodeViewTypes.STRING;
-		}
-
-		return template;
+		return vehicleTemplateMap.get(this.techRecordEdited?.techRecord_vehicleType as VehicleTypes);
 	}
 }

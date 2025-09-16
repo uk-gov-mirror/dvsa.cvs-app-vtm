@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { CancelEditTestGuard } from '@guards/cancel-edit-test/cancel-edit-test.guard';
 import { RoleGuard } from '@guards/role-guard/roles.guard';
 import { Roles } from '@models/roles.enum';
@@ -10,7 +9,7 @@ import { requiredStandardsResolver } from 'src/app/resolvers/required-standards/
 import { testResultResolver } from 'src/app/resolvers/test-result/test-result.resolver';
 import { testTypeTaxonomyResolver } from 'src/app/resolvers/test-type-taxonomy/test-type-taxonomy.resolver';
 
-const routes: Routes = [
+export const routes: Routes = [
 	{
 		path: '',
 		loadComponent: () =>
@@ -184,9 +183,3 @@ const routes: Routes = [
 		],
 	},
 ];
-
-@NgModule({
-	imports: [RouterModule.forChild(routes)],
-	exports: [RouterModule],
-})
-export class AmendTestRecordsRoutingModule {}

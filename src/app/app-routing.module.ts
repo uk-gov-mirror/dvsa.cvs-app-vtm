@@ -20,7 +20,7 @@ const routes: Routes = [
 				data: { title: 'Home', roles: Roles.TechRecordView },
 				canActivate: [MsalGuard, RoleGuard],
 				canDeactivate: [CancelEditTechGuard],
-				loadChildren: () => import('./features/home/home.module').then((m) => m.HomeModule),
+				loadChildren: () => import('./features/home/home.routes').then((m) => m.routes),
 			},
 			{
 				path: RootRoutes.SEARCH_TECHNICAL_RECORD,
@@ -42,22 +42,20 @@ const routes: Routes = [
 				path: RootRoutes.BATCH_CREATE_TECHNICAL_RECORD,
 				data: { title: 'Select Vehicle Type', roles: Roles.TechRecordCreate },
 				canActivate: [MsalGuard, RoleGuard],
-				loadChildren: () =>
-					import('./features/tech-record/create-batch/create-batch.module').then((m) => m.CreateBatchModule),
+				loadChildren: () => import('./features/tech-record/create-batch/create-batch.routes').then((m) => m.routes),
 			},
 			{
 				path: RootRoutes.CURRENT_TEST_RESULT,
 				data: { title: 'Test Result', roles: Roles.TestResultView },
 				canActivate: [MsalGuard, RoleGuard],
 				resolve: { techRecord: techRecordViewResolver },
-				loadChildren: () =>
-					import('./features/test-records/amend/amend-test-records.module').then((m) => m.AmendTestRecordsModule),
+				loadChildren: () => import('./features/test-records/amend/amend-test-records.routes').then((m) => m.routes),
 			},
 			{
 				path: RootRoutes.CURRENT_TECH_RECORD,
 				data: { title: 'Tech Record', roles: Roles.TechRecordView },
 				canActivate: [MsalGuard, RoleGuard],
-				loadChildren: () => import('./features/tech-record/tech-record.module').then((m) => m.TechRecordsModule),
+				loadChildren: () => import('./features/tech-record/tech-record.routes').then((m) => m.routes),
 			},
 			{
 				path: RootRoutes.REFERENCE_DATA,
@@ -66,15 +64,13 @@ const routes: Routes = [
 					roles: Roles.ReferenceDataView,
 				},
 				canActivate: [MsalGuard, RoleGuard],
-				loadChildren: () =>
-					import('./features/reference-data/reference-data.module').then((m) => m.ReferenceDataModule),
+				loadChildren: () => import('./features/reference-data/reference-data.routes').then((m) => m.routes),
 			},
 			{
 				path: RootRoutes.FEATURE_TOGGLE,
 				data: { title: 'Feature Toggle', featureToggleName: 'testtoggle' },
 				canActivate: [MsalGuard, FeatureToggleGuard],
-				loadChildren: () =>
-					import('./features/feature-toggle/feature-toggle.module').then((m) => m.FeatureToggleModule),
+				loadChildren: () => import('./features/feature-toggle/feature-toggle.routes').then((m) => m.routes),
 			},
 			{
 				path: RootRoutes.BETAS,
