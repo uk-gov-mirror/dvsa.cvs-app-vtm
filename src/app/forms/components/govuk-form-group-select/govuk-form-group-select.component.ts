@@ -1,15 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, forwardRef, input, model, output } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { MultiOptions } from '@models/options.model';
-
-import { TagDirective } from '@directives/tag/tag.directive';
 import { GovukFormGroupBaseComponent } from '@forms/components/govuk-form-group-base/govuk-form-group-base.component';
+import { MultiOptions } from '@models/options.model';
 import { TagComponent } from '../../../components/tag/tag.component';
 
 @Component({
 	selector: 'govuk-form-group-select',
-	imports: [CommonModule, FormsModule, ReactiveFormsModule, TagComponent, TagDirective],
+	imports: [CommonModule, FormsModule, ReactiveFormsModule, TagComponent],
 	templateUrl: './govuk-form-group-select.component.html',
 	styleUrls: ['./govuk-form-group-select.component.scss'],
 	providers: [

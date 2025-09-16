@@ -2,10 +2,10 @@
   <fieldset class="govuk-fieldset" role="group">
     @if (controlLabel()) {
       <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-        <h1 class="govuk-fieldset__heading" tag>
+        <h1 class="govuk-fieldset__heading tags">
           {{ controlLabel() }}
           @if (tags().length) {
-            <div>
+            <div class="tags">
               @for (tag of tags(); track tag) {
                 <app-tag [type]="tag.colour">{{ tag.label }}</app-tag>
               }

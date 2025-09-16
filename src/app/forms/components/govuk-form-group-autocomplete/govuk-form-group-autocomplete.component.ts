@@ -11,8 +11,6 @@ import {
 	output,
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-
-import { TagDirective } from '@directives/tag/tag.directive';
 import { GovukFormGroupBaseComponent } from '@forms/components/govuk-form-group-base/govuk-form-group-base.component';
 import {
 	AutocompleteEnhanceParams,
@@ -22,7 +20,7 @@ import { BehaviorSubject, Observable, ReplaySubject, combineLatest, takeUntil, t
 import { TagComponent } from '../../../components/tag/tag.component';
 @Component({
 	selector: 'govuk-form-group-autocomplete',
-	imports: [CommonModule, FormsModule, ReactiveFormsModule, TagComponent, TagDirective],
+	imports: [CommonModule, FormsModule, ReactiveFormsModule, TagComponent],
 	templateUrl: './govuk-form-group-autocomplete.component.html',
 	styleUrls: ['./govuk-form-group-autocomplete.component.scss'],
 	providers: [
