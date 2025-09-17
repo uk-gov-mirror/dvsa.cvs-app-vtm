@@ -71,7 +71,6 @@ export enum FormNodeEditTypes {
 	SELECT = 'select',
 	TEXT = 'text',
 	TEXTAREA = 'textarea',
-	APPROVAL_TYPE = 'approvalType',
 	CUSTOM = 'custom',
 }
 

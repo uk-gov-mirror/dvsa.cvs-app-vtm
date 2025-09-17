@@ -3,14 +3,12 @@ import { Component, forwardRef, input, model, output } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { TagComponent } from '@components/tag/tag.component';
 import { NoEmojisDirective } from '@directives/no-emojis/no-emojis.directive';
-import { FormNodeWidth } from '@services/dynamic-forms/dynamic-form.types';
-
-import { TagDirective } from '@directives/tag/tag.directive';
 import { GovukFormGroupBaseComponent } from '@forms/components/govuk-form-group-base/govuk-form-group-base.component';
+import { FormNodeWidth } from '@services/dynamic-forms/dynamic-form.types';
 
 @Component({
 	selector: 'govuk-form-group-textarea',
-	imports: [CommonModule, FormsModule, ReactiveFormsModule, TagComponent, TagDirective, NoEmojisDirective],
+	imports: [CommonModule, FormsModule, ReactiveFormsModule, TagComponent, NoEmojisDirective],
 	templateUrl: './govuk-form-group-textarea.component.html',
 	styleUrls: ['./govuk-form-group-textarea.component.scss'],
 	providers: [

@@ -1,12 +1,11 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { MsalGuard } from '@azure/msal-angular';
 import { RoleGuard } from '@guards/role-guard/roles.guard';
 import { Roles } from '@models/roles.enum';
 import { TechRecordCreateBatchRoutes } from '@models/routes.enum';
 import { techRecordDataResolver } from '@resolvers/tech-record-data/tech-record-data.resolver';
 
-const routes: Routes = [
+export const routes: Routes = [
 	{
 		path: '',
 		loadComponent: () =>
@@ -75,9 +74,3 @@ const routes: Routes = [
 		],
 	},
 ];
-
-@NgModule({
-	imports: [RouterModule.forChild(routes)],
-	exports: [RouterModule],
-})
-export class CreateBatchRoutingModule {}

@@ -6,7 +6,6 @@ import { SuffixDirective } from '@directives/suffix/suffix.directive';
 import { MultiOptions } from '@models/options.model';
 import { FormNodeEditTypes, FormNodeWidth } from '@services/dynamic-forms/dynamic-form.types';
 import { Observable, of } from 'rxjs';
-import { ApprovalTypeInputComponent } from '../approval-type/approval-type.component';
 import { AutocompleteComponent } from '../autocomplete/autocomplete.component';
 import { CheckboxGroupComponent } from '../checkbox-group/checkbox-group.component';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
@@ -33,7 +32,6 @@ import { TextInputComponent } from '../text-input/text-input.component';
 		CheckboxGroupComponent,
 		NgTemplateOutlet,
 		DateComponent,
-		ApprovalTypeInputComponent,
 		NumberInputComponent,
 		SuffixDirective,
 		RadioGroupComponent,
@@ -60,8 +58,6 @@ export class SwitchableInputComponent implements OnInit {
 	readonly options = input<MultiOptions | undefined>([]);
 	readonly propOptions$ = input<Observable<MultiOptions>>();
 	readonly hint = input<string>();
-	readonly approvalType = input<string>();
-	readonly approvalTypeChange = input<boolean | undefined>(false);
 
 	readonly readOnlyDate = input<boolean>();
 	readonly vehicleType = input<string | null>();
