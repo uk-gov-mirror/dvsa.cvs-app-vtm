@@ -1,14 +1,15 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
-	AfterContentInit,
-	AfterViewInit,
-	Component,
-	OnDestroy,
-	forwardRef,
-	inject,
-	input,
-	model,
-	output,
+  AfterContentInit,
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  forwardRef,
+  inject,
+  input,
+  model,
+  output,
+  DOCUMENT
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { GovukFormGroupBaseComponent } from '@forms/components/govuk-form-group-base/govuk-form-group-base.component';
