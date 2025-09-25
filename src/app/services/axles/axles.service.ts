@@ -317,6 +317,16 @@ export class AxlesService {
 		axlesForm.setErrors({ length: 'Cannot have more than 10 axles' });
 	}
 
+	removeAllAxles(parent: FormGroup, type: 'hgv' | 'psv' | 'trl') {
+		const axlesForm = parent.get('techRecord_axles') as FormArray;
+		const axleSpacingsForm = parent.get('techRecord_dimensions_axleSpacing') as FormArray;
+		axlesForm.clear();
+
+		if (type === VehicleTypes.TRL || type === VehicleTypes.HGV) {
+			axleSpacingsForm.clear();
+		}
+	}
+
 	removeAxle(parent: FormGroup, type: 'hgv' | 'psv' | 'trl', index: number) {
 		const axlesForm = parent.get('techRecord_axles') as FormArray;
 		const minLength = type === VehicleTypes.TRL ? 1 : 2;
