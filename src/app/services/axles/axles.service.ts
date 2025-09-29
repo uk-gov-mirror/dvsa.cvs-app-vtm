@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
+import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { HGVAxles } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/hgv/complete';
 import { PSVAxles } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/psv/skeleton';
 import { TRLAxles } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/trl/complete';
@@ -91,28 +92,28 @@ export class AxlesService {
 
 			// Weight fields
 			weights_gbWeight: this.fb.control<number | null>(axle?.weights_gbWeight || null, [
-				this.commonValidators.max(99999, (control: AbstractControl) => {
+				this.maxWeight(99999, (control: AbstractControl) => {
 					const index = control.parent?.get('axleNumber')?.value || 0;
 					return {
-						error: `Axle ${index} GB Weight must be less than or equal to 99999`,
+						error: `Axle ${index} GB, EEC, Design Weight must be less than or equal to 99999kg`,
 						anchorLink: `weights_gbWeight-${index}`,
 					};
 				}),
 			]),
 			weights_eecWeight: this.fb.control<number | null>(axle?.weights_eecWeight || null, [
-				this.commonValidators.max(99999, (control: AbstractControl) => {
+				this.maxWeight(99999, (control: AbstractControl) => {
 					const index = control.parent?.get('axleNumber')?.value || 0;
 					return {
-						error: `Axle ${index} EEC Weight must be less than or equal to 99999`,
+						error: `Axle ${index} GB, EEC, Design Weight must be less than or equal to 99999kg`,
 						anchorLink: `weights_eecWeight-${index}`,
 					};
 				}),
 			]),
 			weights_designWeight: this.fb.control<number | null>(axle?.weights_designWeight || null, [
-				this.commonValidators.max(99999, (control: AbstractControl) => {
+				this.maxWeight(99999, (control: AbstractControl) => {
 					const index = control.parent?.get('axleNumber')?.value || 0;
 					return {
-						error: `Axle ${index} Design Weight must be less than or equal to 99999`,
+						error: `Axle ${index} GB, EEC, Design Weight must be less than or equal to 99999kg`,
 						anchorLink: `weights_designWeight-${index}`,
 					};
 				}),
@@ -277,6 +278,33 @@ export class AxlesService {
 				}),
 			]),
 		});
+	}
+
+	maxWeight(size: number, func: (control: AbstractControl) => GlobalError): ValidatorFn;
+	maxWeight(size: number, message: string): ValidatorFn;
+	maxWeight(size: number, message: string | ((control: AbstractControl) => GlobalError)): ValidatorFn {
+		return (control) => {
+			if (control.parent) {
+				const GBWeight = control.parent.get('weights_gbWeight')?.value;
+				const EECWeight = control.parent.get('weights_eecWeight')?.value;
+				const DesignWeight = control.parent.get('weights_designWeight')?.value;
+
+				console.log('GBWeight', GBWeight);
+				console.log('control.parent', control.parent);
+				console.log('control', control);
+				if (GBWeight && GBWeight > size) {
+					return { max: typeof message === 'string' ? message : message(control) };
+				}
+				if (EECWeight && EECWeight > size) {
+					return { max: typeof message === 'string' ? message : message(control) };
+				}
+				if (DesignWeight && DesignWeight > size) {
+					return { max: typeof message === 'string' ? message : message(control) };
+				}
+				return null;
+			}
+			return null;
+		};
 	}
 
 	generateAxleSpacingsForm(techRecord: TechRecordType<'hgv' | 'trl'>) {

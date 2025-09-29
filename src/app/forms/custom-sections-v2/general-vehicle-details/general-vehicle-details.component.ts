@@ -589,7 +589,6 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 		const noOfAxles = this.form.get('techRecord_noOfAxles')?.getRawValue() ?? 0;
 		const vehicleType = (this.techRecord() as TechRecordType<'hgv' | 'psv' | 'trl'>).techRecord_vehicleType;
 
-		this.technicalRecordService.updateEditingTechRecord({ techRecord_noOfAxles: noOfAxles } as any);
 		Array.from({ length: noOfAxles }, (_, i) => i + 1).forEach(() => {
 			this.axlesService.addAxle(this.parent, vehicleType);
 		});

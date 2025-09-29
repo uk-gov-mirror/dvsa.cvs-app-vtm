@@ -20,6 +20,7 @@ import { GeneralVehicleDetailsComponent } from '@forms/custom-sections-v2/genera
 import { LastApplicantComponent } from '@forms/custom-sections-v2/last-applicant/last-applicant.component';
 import { NotesComponent } from '@forms/custom-sections-v2/notes/notes.component';
 import { ReasonForCreationComponent } from '@forms/custom-sections-v2/reason-for-creation/reason-for-creation.component';
+import { WeightsComponent } from '@forms/custom-sections-v2/weights/weights.component';
 import { Store } from '@ngrx/store';
 import { AxlesService } from '@services/axles/axles.service';
 import { RouterService } from '@services/router/router.service';
@@ -45,6 +46,7 @@ import { ReplaySubject, map, skipWhile, take, takeUntil } from 'rxjs';
 		AdrComponent,
 		LastApplicantComponent,
 		AdrComponent,
+		WeightsComponent,
 	],
 })
 export class HydrateNewVehicleRecordV2Component implements OnInit, OnDestroy {
@@ -137,13 +139,9 @@ export class HydrateNewVehicleRecordV2Component implements OnInit, OnDestroy {
 	}
 
 	private handleFormChanges(): void {
-		this.form.valueChanges.pipe(takeUntil(this.destroy)).subscribe(() => {
-			// don't want to update noOfAxles based off inputted value,
-			// will manually update it with button click in general vehicle details
-			const { techRecord_noOfAxles, ...allOtherFields } = this.form.getRawValue();
-
+		this.form.valueChanges.pipe(takeUntil(this.destroy)).subscribe((val) => {
 			// TODO: remove any type
-			this.techRecordService.updateEditingTechRecord(allOtherFields as any);
+			this.techRecordService.updateEditingTechRecord(this.form.getRawValue() as any);
 		});
 	}
 
