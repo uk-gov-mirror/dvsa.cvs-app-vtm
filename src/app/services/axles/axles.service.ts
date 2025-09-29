@@ -1,6 +1,5 @@
 import { Injectable, inject } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
-import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { HGVAxles } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/hgv/complete';
 import { PSVAxles } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/psv/skeleton';
 import { TRLAxles } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/trl/complete';
@@ -58,74 +57,51 @@ export class AxlesService {
 	}
 
 	generateHGVAxleForm(axle?: HGVAxles) {
-		return this.fb.group(
-			{
-				axleNumber: this.fb.control<number | null>(axle?.axleNumber || null),
+		return this.fb.group({
+			axleNumber: this.fb.control<number | null>(axle?.axleNumber || null),
 
-				// Tyres fields
-				tyres_tyreCode: this.fb.control<number | null>(axle?.tyres_tyreCode || null, [
-					this.commonValidators.max(99999, (control) => {
-						const index = control.parent?.get('axleNumber')?.value || 0;
-						return {
-							error: `Tyre ${index} Code must be less than or equal to 99999`,
-							anchorLink: `tyres_tyreCode-${index}`,
-						};
-					}),
-					this.commonValidators.min(0, (control) => {
-						const index = control.parent?.get('axleNumber')?.value || 0;
-						return {
-							error: `Tyre ${index} Code must be greater than or equal to 0`,
-							anchorLink: `tyres_tyreCode-${index}`,
-						};
-					}),
-				]),
-				tyres_tyreSize: this.fb.control<string | null>({ value: axle?.tyres_tyreSize || null, disabled: true }, [
-					this.commonValidators.maxLength(12, 'Tyre Size must be less than or equal to 12 characters'),
-					this.commonValidators.minLength(0, 'Tyre Size must be greater than or equal to 0'),
-				]),
-				tyres_plyRating: this.fb.control<string | null>({ value: axle?.tyres_plyRating || null, disabled: true }, [
-					this.commonValidators.maxLength(2, 'Ply Rating must be less than or equal to 2 characters'),
-					this.commonValidators.minLength(0, 'Ply Rating must be greater than or equal to 0'),
-				]),
-				tyres_fitmentCode: this.fb.control<string | null>(axle?.tyres_fitmentCode || null),
-				tyres_dataTrAxles: this.fb.control<number | null>({ value: axle?.tyres_dataTrAxles || null, disabled: true }, [
-					this.commonValidators.max(999, 'Data TR Axles must be less than or equal to 999'),
-					this.commonValidators.min(0, 'Data TR Axles must be greater than or equal to 0'),
-				]),
+			// Tyres fields
+			tyres_tyreCode: this.fb.control<number | null>(axle?.tyres_tyreCode || null, [
+				this.commonValidators.max(99999, (control) => {
+					const index = control.parent?.get('axleNumber')?.value || 0;
+					return {
+						error: `Tyre ${index} Code must be less than or equal to 99999`,
+						anchorLink: `tyres_tyreCode-${index}`,
+					};
+				}),
+				this.commonValidators.min(0, (control) => {
+					const index = control.parent?.get('axleNumber')?.value || 0;
+					return {
+						error: `Tyre ${index} Code must be greater than or equal to 0`,
+						anchorLink: `tyres_tyreCode-${index}`,
+					};
+				}),
+			]),
+			tyres_tyreSize: this.fb.control<string | null>({ value: axle?.tyres_tyreSize || null, disabled: true }, [
+				this.commonValidators.maxLength(12, 'Tyre Size must be less than or equal to 12 characters'),
+				this.commonValidators.minLength(0, 'Tyre Size must be greater than or equal to 0'),
+			]),
+			tyres_plyRating: this.fb.control<string | null>({ value: axle?.tyres_plyRating || null, disabled: true }, [
+				this.commonValidators.maxLength(2, 'Ply Rating must be less than or equal to 2 characters'),
+				this.commonValidators.minLength(0, 'Ply Rating must be greater than or equal to 0'),
+			]),
+			tyres_fitmentCode: this.fb.control<string | null>(axle?.tyres_fitmentCode || null),
+			tyres_dataTrAxles: this.fb.control<number | null>({ value: axle?.tyres_dataTrAxles || null, disabled: true }, [
+				this.commonValidators.max(999, 'Data TR Axles must be less than or equal to 999'),
+				this.commonValidators.min(0, 'Data TR Axles must be greater than or equal to 0'),
+			]),
 
-				// Weight fields
-				weights_gbWeight: this.fb.control<number | null>(axle?.weights_gbWeight || null, [
-					this.commonValidators.max({
-						size: 99999,
-						message: (control) => {
-							const index = control.parent?.get('axleNumber')?.value || 0;
-							return {
-								error: `Axle ${index} GB Weight must be less than or equal to 99999`,
-								anchorLink: `weights_gbWeight-${index}`,
-							};
-						},
-						useValidator: () => !this.featureToggleService.isFeatureEnabled('techrecordredesigncreatedetails'),
-					}),
-				]),
-				weights_eecWeight: this.fb.control<number | null>(axle?.weights_eecWeight || null, []),
-				weights_designWeight: this.fb.control<number | null>(axle?.weights_designWeight || null, []),
-			},
-			{
-				validators: [
-					this.maxWeight({
-						size: 99999,
-						message: (control: AbstractControl) => {
-							const index = control.parent?.get('axleNumber')?.value || 0;
-							return {
-								error: `Axle ${index} GB, EEC, Design Weight must be less than or equal to 99999kg`,
-								anchorLink: `weights_eecWeight-${index}`,
-							};
-						},
-						useValidator: () => this.featureToggleService.isFeatureEnabled('techrecordredesigncreatedetails'),
-					}),
-				],
-			}
-		);
+			// Weight fields
+			weights_gbWeight: this.fb.control<number | null>(axle?.weights_gbWeight || null, [
+				this.maxWeight('weights_gbWeight'),
+			]),
+			weights_eecWeight: this.fb.control<number | null>(axle?.weights_eecWeight || null, [
+				this.maxWeight('weights_eecWeight'),
+			]),
+			weights_designWeight: this.fb.control<number | null>(axle?.weights_designWeight || null, [
+				this.maxWeight('weights_designWeight'),
+			]),
+		});
 	}
 
 	generatePSVAxleForm(axle?: PSVAxles) {
@@ -287,6 +263,7 @@ export class AxlesService {
 		});
 	}
 
+	/*
 	maxWeight(options: {
 		size: number;
 		message: (control: AbstractControl) => GlobalError;
@@ -315,6 +292,19 @@ export class AxlesService {
 
 			return null;
 		};
+	}
+  */
+
+	maxWeight(id: string): ValidatorFn {
+		return this.commonValidators.max(99999, (control) => {
+			const index = control.parent?.get('axleNumber')?.value || 0;
+			return {
+				error: this.featureToggleService.isFeatureEnabled('techrecordredesigncreatedetails')
+					? `Axle ${index} GB, EEC, Design Weight must be less than or equal to 99999kg`
+					: `Axle ${index} GB Weight must be less than or equal to 99999`,
+				anchorLink: `${id}-${index}`,
+			};
+		});
 	}
 
 	generateAxleSpacingsForm(techRecord: TechRecordType<'hgv' | 'trl'>) {

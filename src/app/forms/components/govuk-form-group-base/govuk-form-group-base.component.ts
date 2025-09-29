@@ -68,11 +68,7 @@ export class GovukFormGroupBaseComponent {
 	}
 
 	get hasError() {
-		return (
-			(this.control?.invalid || this.control?.parent?.invalid) &&
-			this.control?.touched &&
-			(this.control?.errors || this.control?.parent?.errors)
-		);
+		return this.control?.invalid && this.control?.touched && this.control?.errors;
 	}
 
 	get hasWarning() {
