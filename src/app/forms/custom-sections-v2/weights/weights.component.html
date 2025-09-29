@@ -10,7 +10,7 @@
       }
       @for (axle of techRecordAxles.controls; track axle; let i = $index) {
         <h2 class="govuk-label govuk-label--s govuk-!-margin-bottom-2">Axle {{ i + 1 }}</h2>
-        @if (axle.get('weights_gbWeight')?.invalid || axle.get('weights_eecWeight')?.invalid || axle.get('weights_designWeight')?.invalid) {
+        @if (techRecordAxles.at(i).invalid) {
           <app-field-error-message [name]="`Axle-${ i + 1 }`" [error]="`Axle ${ i + 1 } GB, EEC, Design Weight must be less than or equal to 99999kg`"/>
         }
         <div class="axle" formGroupName="{{ i }}">
@@ -20,7 +20,6 @@
             type="number"
             formControlName="weights_gbWeight"
             class="govuk-label--s"
-            [hideErrors]="true"
             [suffix]="'kg'"
           />
 
@@ -30,7 +29,6 @@
             type="number"
             formControlName="weights_eecWeight"
             class="govuk-label--s"
-            [hideErrors]="true"
             [suffix]="'kg'"
           />
 
@@ -40,7 +38,6 @@
             type="number"
             formControlName="weights_designWeight"
             class="govuk-label--s"
-            [hideErrors]="true"
             [suffix]="'kg'"
           />
 

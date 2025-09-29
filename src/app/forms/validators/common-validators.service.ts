@@ -15,12 +15,23 @@ export class CommonValidatorsService {
 		};
 	}
 
+	max(options: MaxValidatorOptions, ...args: unknown[]): ValidatorFn;
 	max(size: number, func: (control: AbstractControl) => GlobalError): ValidatorFn;
 	max(size: number, message: string): ValidatorFn;
-	max(size: number, message: string | ((control: AbstractControl) => GlobalError)): ValidatorFn {
+	max(
+		optionsOrSize: number | MaxValidatorOptions,
+		message: string | ((control: AbstractControl) => GlobalError)
+	): ValidatorFn {
 		return (control) => {
+			if (typeof optionsOrSize === 'object') {
+				if (!optionsOrSize.useValidator?.()) return null;
+			}
+
+			const size = typeof optionsOrSize === 'object' ? optionsOrSize.size : optionsOrSize;
+			const msg = typeof optionsOrSize === 'object' ? optionsOrSize.message : message;
+
 			if (control.value && control.value > size) {
-				return { max: typeof message === 'string' ? message : message(control) };
+				return { max: typeof msg === 'string' ? message : msg(control) };
 			}
 
 			return null;
@@ -229,3 +240,9 @@ export class CommonValidatorsService {
 		return (control) => (control.value === '[INVALID_OPTION]' ? { invalidOption: message } : null);
 	}
 }
+
+type MaxValidatorOptions = {
+	size: number;
+	message: (control: AbstractControl) => GlobalError;
+	useValidator?: () => boolean;
+};
