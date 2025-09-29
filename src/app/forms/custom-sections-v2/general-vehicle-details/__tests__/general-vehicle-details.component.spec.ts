@@ -311,23 +311,21 @@ describe('GeneralVehicleDetailsComponent', () => {
 
 	describe('lockAndUpdateAxles', () => {
 		it('should disable the axle input, update tech record, and add axles', () => {
-			const disableSpy = jest.spyOn(component.form.get('techRecord_noOfAxles')!, 'disable');
-			const updateSpy = jest.spyOn(component.technicalRecordService, 'updateEditingTechRecord');
+			const setLockSpy = jest.spyOn(component.axlesService, 'setLockAxles');
 			const addAxleSpy = jest.spyOn(component.axlesService, 'addAxle').mockImplementation();
 			component.form.get('techRecord_noOfAxles')?.setValue(3);
 			jest.spyOn(component, 'techRecord').mockReturnValue({ techRecord_vehicleType: VehicleTypes.HGV } as any);
 
 			component.lockAndUpdateAxles();
 
-			expect(disableSpy).toHaveBeenCalled();
-			expect(updateSpy).toHaveBeenCalledWith({ techRecord_noOfAxles: 3 });
+			expect(setLockSpy).toHaveBeenCalledWith(true);
 			expect(addAxleSpy).toHaveBeenCalledTimes(3);
 		});
 	});
 
 	describe('clearAxleInput', () => {
 		it('should enable the axle input, reset axles to 0, and update tech record', () => {
-			const enableSpy = jest.spyOn(component.form.get('techRecord_noOfAxles')!, 'enable');
+			const setLockSpy = jest.spyOn(component.axlesService, 'setLockAxles');
 			const patchSpy = jest.spyOn(component.form, 'patchValue');
 			const updateSpy = jest.spyOn(component.technicalRecordService, 'updateEditingTechRecord');
 			const removeAllAxlesSpy = jest.spyOn(component.axlesService, 'removeAllAxles').mockImplementation();
@@ -336,7 +334,7 @@ describe('GeneralVehicleDetailsComponent', () => {
 
 			component.clearAxleInput();
 
-			expect(enableSpy).toHaveBeenCalled();
+			expect(setLockSpy).toHaveBeenCalledWith(false);
 			expect(patchSpy).toHaveBeenCalledWith({ techRecord_noOfAxles: 0 });
 			expect(updateSpy).toHaveBeenCalledWith({
 				techRecord_noOfAxles: 0,

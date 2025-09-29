@@ -257,7 +257,7 @@
         type="number"
       />
 
-      @if (isAxlesDisabled()) {
+      @if (isAxlesDisabled) {
         <button
           type="button"
           class="govuk-button govuk-button--warning"
@@ -270,7 +270,7 @@
         </button>
       }
 
-      @if (!isAxlesDisabled()) {
+      @if (!isAxlesDisabled) {
         <button
           type="button"
           class="govuk-button"

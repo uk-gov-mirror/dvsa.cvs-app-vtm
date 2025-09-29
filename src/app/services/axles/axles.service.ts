@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
 import { HGVAxles } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/hgv/complete';
 import { PSVAxles } from '@dvsa/cvs-type-definitions/types/v3/tech-record/get/psv/skeleton';
@@ -15,6 +15,13 @@ export class AxlesService {
 	fb = inject(FormBuilder);
 	featureToggleService = inject(FeatureToggleService);
 	commonValidators = inject(CommonValidatorsService);
+
+	private lockAxlesSignal = signal(false);
+	lockAxles$ = this.lockAxlesSignal.asReadonly();
+
+	setLockAxles(lock: boolean) {
+		this.lockAxlesSignal.set(lock);
+	}
 
 	sortAxles(axles: Axles) {
 		return axles.sort((a, b) => (a.axleNumber || 0) - (b.axleNumber || 0));
@@ -325,6 +332,7 @@ export class AxlesService {
 		const axlesForm = parent.get('techRecord_axles') as FormArray;
 
 		if (axlesForm.controls.length < 10) {
+			this.setLockAxles(true);
 			const axleNumber = axlesForm.controls.length + 1;
 			axlesForm.setErrors(null);
 			axlesForm.push(this.generateAxleForm(type, { axleNumber }));

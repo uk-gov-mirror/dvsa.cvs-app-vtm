@@ -1,6 +1,6 @@
 import { ToUppercaseDirective } from '@/src/app/directives/app-to-uppercase/app-to-uppercase.directive';
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, inject, input } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, effect, inject, input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { EUVehicleCategory } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/euVehicleCategory.enum.js';
 import { VehicleClassDescription } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/vehicleClassDescription.enum.js';
@@ -96,9 +96,21 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 
 	destroy$ = new ReplaySubject<boolean>(1);
 	techRecord = input.required<V3TechRecordModel>();
+	isAxlesDisabled = false;
 
 	// TODO properly type this at some point
 	form = this.fb.group<any>({});
+
+	constructor() {
+		super();
+
+		effect(() => {
+			this.isAxlesDisabled = this.axlesService.lockAxles$();
+			this.isAxlesDisabled
+				? this.form.get('techRecord_noOfAxles')?.disable()
+				: this.form.get('techRecord_noOfAxles')?.enable();
+		});
+	}
 
 	ngOnInit(): void {
 		this.addControls(this.controlsBasedOffVehicleType, this.form);
@@ -583,7 +595,7 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 	}
 
 	lockAndUpdateAxles() {
-		this.form.get('techRecord_noOfAxles')?.disable();
+		this.axlesService.setLockAxles(true);
 
 		// logic for populating other sections based on axles amount
 		const noOfAxles = this.form.get('techRecord_noOfAxles')?.getRawValue() ?? 0;
@@ -595,7 +607,7 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 	}
 
 	clearAxleInput() {
-		this.form.get('techRecord_noOfAxles')?.enable();
+		this.axlesService.setLockAxles(false);
 
 		// logic to clear axles from other sections
 		const vehicleType = (this.techRecord() as TechRecordType<'hgv' | 'psv' | 'trl'>).techRecord_vehicleType;
@@ -612,9 +624,5 @@ export class GeneralVehicleDetailsComponent extends EditBaseComponent implements
 			} as any);
 		}
 		this.axlesService.removeAllAxles(this.parent, vehicleType);
-	}
-
-	isAxlesDisabled() {
-		return this.form.get('techRecord_noOfAxles')?.disabled;
 	}
 }
