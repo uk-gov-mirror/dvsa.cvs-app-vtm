@@ -66,7 +66,7 @@ export class ReferenceDataAmendComponent implements OnInit {
 			}
 		});
 
-		// Set amended data initial to the value of reference data item
+		// Initially set the amended data to the value of reference data item
 		this.data$
 			.pipe(
 				skipWhile((data) => !data),
