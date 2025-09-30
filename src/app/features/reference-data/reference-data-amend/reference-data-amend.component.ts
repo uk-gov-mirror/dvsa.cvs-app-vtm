@@ -17,7 +17,7 @@ import { DynamicFormService } from '@services/dynamic-forms/dynamic-form.service
 import { CustomFormGroup } from '@services/dynamic-forms/dynamic-form.types';
 import { ReferenceDataService } from '@services/reference-data/reference-data.service';
 import { ReferenceDataState, amendReferenceDataItem, selectReferenceDataByResourceKey } from '@store/reference-data';
-import { Observable, first } from 'rxjs';
+import { Observable, first, skipWhile, take } from 'rxjs';
 import { ReferenceDataAmendHistoryComponent } from '../reference-data-amend-history/reference-data-amend-history.component';
 
 @Component({
@@ -65,6 +65,16 @@ export class ReferenceDataAmendComponent implements OnInit {
 				this.referenceDataService.loadReferenceDataByKey(this.type, this.key);
 			}
 		});
+
+		// Set amended data initial to the value of reference data item
+		this.data$
+			.pipe(
+				skipWhile((data) => !data),
+				take(1)
+			)
+			.subscribe((data) => {
+				this.amendedData = data;
+			});
 	}
 
 	get roles(): typeof Roles {
