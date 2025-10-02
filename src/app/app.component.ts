@@ -4,6 +4,14 @@ import { AsyncPipe, NgClass } from '@angular/common';
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Event, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { Breadcrumbs2Component } from '@core/components/breadcrumbs-2/breadcrumbs-2.component';
+import { BreadcrumbsComponent } from '@core/components/breadcrumbs/breadcrumbs.component';
+import { FooterComponent } from '@core/components/footer/footer.component';
+import { GlobalErrorComponent } from '@core/components/global-error/global-error.component';
+import { GlobalWarningComponent } from '@core/components/global-warning/global-warning.component';
+import { HeaderComponent } from '@core/components/header/header.component';
+import { PhaseBannerComponent } from '@core/components/phase-banner/phase-banner.component';
+import { SpinnerComponent } from '@core/components/spinner/spinner.component';
+import { environment } from '@environments/environment';
 import { Store, select } from '@ngrx/store';
 import * as Sentry from '@sentry/angular';
 import { AnalyticsService } from '@services/analytics/analytics.service';
@@ -13,17 +21,10 @@ import { UserService } from '@services/user-service/user-service';
 import { startSendingLogs } from '@store/logs/logs.actions';
 import { selectRouteData } from '@store/router/router.selectors';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
+import { AwsRum, AwsRumConfig } from 'aws-rum-web';
 import { initAll } from 'govuk-frontend/govuk/all';
 import { Subject, map, takeUntil } from 'rxjs';
 import packageInfo from '../../package.json';
-import { environment } from '../environments/environment';
-import { BreadcrumbsComponent } from './core/components/breadcrumbs/breadcrumbs.component';
-import { FooterComponent } from './core/components/footer/footer.component';
-import { GlobalErrorComponent } from './core/components/global-error/global-error.component';
-import { GlobalWarningComponent } from './core/components/global-warning/global-warning.component';
-import { HeaderComponent } from './core/components/header/header.component';
-import { PhaseBannerComponent } from './core/components/phase-banner/phase-banner.component';
-import { SpinnerComponent } from './core/components/spinner/spinner.component';
 import { State } from './store';
 
 @Component({
@@ -54,11 +55,13 @@ export class AppComponent implements OnInit, OnDestroy {
 	analyticsService = inject(AnalyticsService);
 	featureToggleService = inject(FeatureToggleService);
 
-	currentDate = new Date();
 	private destroy$ = new Subject<void>();
 	protected readonly version = packageInfo.version;
 	private sentryInitialized: boolean | undefined;
-	private interval?: ReturnType<typeof setInterval>;
+
+	constructor() {
+		this.initRum();
+	}
 
 	isStandardLayout$ = this.store.pipe(
 		select(selectRouteData),
@@ -81,6 +84,7 @@ export class AppComponent implements OnInit, OnDestroy {
 		if (!this.sentryInitialized) {
 			this.startSentry();
 		}
+
 		this.store.dispatch(startSendingLogs());
 
 		this.router.events.pipe(takeUntil(this.destroy$)).subscribe((event: Event) => {
@@ -97,6 +101,28 @@ export class AppComponent implements OnInit, OnDestroy {
 		this.analyticsService.pushToDataLayer({ AppVersionDataLayer: packageInfo.version });
 		await this.analyticsService.setUserId();
 		initAll();
+	}
+
+	initRum() {
+		try {
+			const config: AwsRumConfig = {
+				sessionSampleRate: 1,
+				identityPoolId: 'eu-west-1:d3ca2ca6-8cd8-49fd-8311-d03ea287039f',
+				endpoint: 'https://dataplane.rum.eu-west-1.amazonaws.com',
+				telemetries: ['performance', 'errors', 'http'],
+				allowCookies: true,
+				enableXRay: false,
+				signing: true, // If you have a public resource policy and wish to send unsigned requests please set this to false
+			};
+
+			const APPLICATION_ID: string = '36e8d801-b088-435d-a586-83b935155c10';
+			const APPLICATION_REGION: string = 'eu-west-1';
+
+			const awsRum = new AwsRum(APPLICATION_ID, packageInfo.version, APPLICATION_REGION, config);
+			console.log(awsRum);
+		} catch (error) {
+			// Ignore errors thrown during CloudWatch RUM web client initialization
+		}
 	}
 
 	ngOnDestroy(): void {
