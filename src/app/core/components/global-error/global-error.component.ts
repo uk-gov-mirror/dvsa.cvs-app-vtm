@@ -1,5 +1,7 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, DOCUMENT, OnDestroy, OnInit, inject } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { ReplaySubject, takeUntil } from 'rxjs';
 import { GlobalError } from './global-error.interface';
 import { GlobalErrorService } from './global-error.service';
 
@@ -8,8 +10,12 @@ import { GlobalErrorService } from './global-error.service';
 	templateUrl: './global-error.component.html',
 	imports: [AsyncPipe],
 })
-export class GlobalErrorComponent {
+export class GlobalErrorComponent implements OnInit, OnDestroy {
+	title = inject(Title);
+	document = inject(DOCUMENT);
 	globalErrorService = inject(GlobalErrorService);
+
+	destroy = new ReplaySubject<boolean>(1);
 
 	goto(error: GlobalError) {
 		if (error.anchorLink) {
@@ -35,5 +41,31 @@ export class GlobalErrorComponent {
 					}
 				});
 		}
+	}
+
+	ngOnInit(): void {
+		this.globalErrorService.errors$.pipe(takeUntil(this.destroy)).subscribe((errors) => {
+			const title = this.title.getTitle();
+
+			if (errors.length > 0) {
+				// Set tab focus to the first error
+				setTimeout(() => {
+					this.document.getElementById(`${errors[0].anchorLink}-global-error`)?.focus({ preventScroll: true });
+				}, 100);
+
+				if (!title.startsWith('Error:')) {
+					this.title.setTitle(`Error: ${title}`);
+				}
+			}
+
+			if (errors.length === 0 && title.startsWith('Error:')) {
+				this.title.setTitle(title.replace('Error: ', ''));
+			}
+		});
+	}
+
+	ngOnDestroy(): void {
+		this.destroy.next(true);
+		this.destroy.complete();
 	}
 }
