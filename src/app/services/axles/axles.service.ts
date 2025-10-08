@@ -244,7 +244,7 @@ export class AxlesService {
 			const index = control.parent?.get('axleNumber')?.value || 0;
 			return {
 				error: this.featureToggleService.isFeatureEnabled('techrecordredesigncreatedetails')
-					? `Axle ${index} Kerb, Laden, GB, EEC, Design Weight must be less than or equal to 99999kg`
+					? `Axle ${index} Kerb, Laden, GB Max, EEC, Design Weight must be less than or equal to 99999kg`
 					: `Axle ${index} ${label} must be less than or equal to 99999`,
 				anchorLink: `${id}-${index}`,
 			};
@@ -262,7 +262,7 @@ export class AxlesService {
 			value: this.fb.control<number | null>(spacing?.value || null, [
 				this.commonValidators.max(99999, () => {
 					return {
-						error: `Axle ${axlesNumber - 1} to ${axlesNumber} spacing must be less than 99999mm`,
+						error: `Axle ${axlesNumber - 1} to ${axlesNumber} spacing must be less than or equal to 99999mm`,
 						anchorLink: `techRecord_dimensions_axleSpacing_${axlesNumber - 2}_value`,
 					};
 				}),
@@ -322,13 +322,38 @@ export class AxlesService {
 				axlesForm.at(i).patchValue({ axleNumber: i + 1 });
 			}
 
+			if (this.featureToggleService.isFeatureEnabled('techrecordredesigncreatedetails')) {
+				parent.get('techRecord_frontAxleToRearAxle')?.patchValue(null);
+			}
 			if (type === VehicleTypes.TRL || type === VehicleTypes.HGV) {
 				const axleSpacingsForm = parent.get('techRecord_dimensions_axleSpacing') as FormArray;
 				axleSpacingsForm.removeAt(index - 1 >= 0 ? index - 1 : 0);
 
 				// Relabel axle spacings
 				for (let i = 0; i < axleSpacingsForm.controls.length; i++) {
-					axleSpacingsForm.at(i).patchValue({ axles: `${i + 1}-${i + 2}` });
+					if (this.featureToggleService.isFeatureEnabled('techrecordredesigncreatedetails')) {
+						if (type === VehicleTypes.TRL) {
+							parent.patchValue({
+								techRecord_rearAxleToRearTrl: null,
+								techRecord_centreOfRearmostAxleToRearOfTrl: null,
+								techRecord_couplingCenterToRearTrlMin: null,
+								techRecord_couplingCenterToRearTrlMax: null,
+								techRecord_couplingCenterToRearAxleMin: null,
+								techRecord_couplingCenterToRearAxleMax: null,
+							});
+						}
+						if (type === VehicleTypes.HGV) {
+							parent.patchValue({
+								techRecord_frontVehicleTo5thWheelCouplingMin: null,
+								techRecord_frontVehicleTo5thWheelCouplingMax: null,
+								techRecord_frontAxleTo5thWheelMin: null,
+								techRecord_frontAxleTo5thWheelMax: null,
+							});
+						}
+						axleSpacingsForm.at(i).patchValue({ axles: `${i + 1}-${i + 2}`, value: null });
+					} else {
+						axleSpacingsForm.at(i).patchValue({ axles: `${i + 1}-${i + 2}` });
+					}
 				}
 			}
 
