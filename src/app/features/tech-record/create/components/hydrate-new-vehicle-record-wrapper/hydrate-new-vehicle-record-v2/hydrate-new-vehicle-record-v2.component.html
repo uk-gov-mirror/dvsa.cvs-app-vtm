@@ -230,6 +230,16 @@
                         >
                           <app-authorisation-into-service [techRecord]="techRecord"></app-authorisation-into-service>
                         </app-accordion>
+
+                        <app-accordion
+                          [id]="'purchasers'"
+                          [title]="'Purchasers'"
+                          [description]="'Contact details for the purchaser.'"
+                          [type]="'condensed'"
+                          [isExpanded]="false"
+                        >
+                          <app-purchasers [techRecord]="techRecord"></app-purchasers>
+                        </app-accordion>
                       }
 
                       @if (techRecord$()?.techRecord_vehicleType !== VehicleTypes.PSV) {

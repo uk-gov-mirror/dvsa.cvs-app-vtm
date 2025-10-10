@@ -24,6 +24,7 @@ import { DocumentsComponent } from '@forms/custom-sections-v2/documents/document
 import { GeneralVehicleDetailsComponent } from '@forms/custom-sections-v2/general-vehicle-details/general-vehicle-details.component';
 import { LastApplicantComponent } from '@forms/custom-sections-v2/last-applicant/last-applicant.component';
 import { NotesComponent } from '@forms/custom-sections-v2/notes/notes.component';
+import { PurchasersComponent } from '@forms/custom-sections-v2/purchasers/purchasers.component';
 import { ReasonForCreationComponent } from '@forms/custom-sections-v2/reason-for-creation/reason-for-creation.component';
 import { WeightsComponent } from '@forms/custom-sections-v2/weights/weights.component';
 import { Store } from '@ngrx/store';
@@ -57,6 +58,7 @@ import { ReplaySubject, map, skipWhile, take, takeUntil } from 'rxjs';
 		DDAComponent,
 		DocumentsComponent,
 		AuthorisationIntoServiceComponent,
+		PurchasersComponent,
 	],
 })
 export class HydrateNewVehicleRecordV2Component implements OnInit, OnDestroy {
