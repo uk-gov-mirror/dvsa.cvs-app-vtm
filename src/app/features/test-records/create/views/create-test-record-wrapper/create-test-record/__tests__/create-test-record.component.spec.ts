@@ -32,8 +32,8 @@ import { UserService } from '@services/user-service/user-service';
 import { State, initialAppState } from '@store/index';
 import { sectionTemplates, testResultInEdit, toEditOrNotToEdit } from '@store/test-records';
 import { Observable, ReplaySubject, of } from 'rxjs';
-import { BaseTestRecordComponent } from '../../../../components/base-test-record/base-test-record.component';
-import { VehicleHeaderComponent } from '../../../../components/vehicle-header/vehicle-header.component';
+import { BaseTestRecordComponent } from '../../../../../components/base-test-record/base-test-record.component';
+import { VehicleHeaderComponent } from '../../../../../components/vehicle-header/vehicle-header.component';
 import { CreateTestRecordComponent } from '../create-test-record.component';
 
 describe('CreateTestRecordComponent', () => {
@@ -79,7 +79,10 @@ describe('CreateTestRecordComponent', () => {
 				provideHttpClientTesting(),
 				provideMockStore({ initialState: initialAppState }),
 				provideMockActions(() => actions$),
-				{ provide: TechnicalRecordService, useValue: mockTechnicalRecordService },
+				{
+					provide: TechnicalRecordService,
+					useValue: mockTechnicalRecordService,
+				},
 				DynamicFormService,
 			],
 		}).compileComponents();
@@ -106,7 +109,10 @@ describe('CreateTestRecordComponent', () => {
 	it('should call createTestResult with value of all forms merged into one', async () => {
 		fixture.detectChanges();
 		const createTestResultSpy = jest.spyOn(testRecordsService, 'createTestResult').mockImplementation(() => {});
-		const testRecord = { testResultId: '1', testTypes: [{ testTypeId: '2' }] } as TestResultModel;
+		const testRecord = {
+			testResultId: '1',
+			testTypes: [{ testTypeId: '2' }],
+		} as TestResultModel;
 		store.overrideSelector(testResultInEdit, testRecord);
 		store.overrideSelector(sectionTemplates, Object.values(contingencyTestTemplates.psv['testTypesGroup1'] ?? {}));
 
@@ -120,7 +126,10 @@ describe('CreateTestRecordComponent', () => {
 
 	it('should not call createTestResult if some forms are invalid', async () => {
 		const createTestResultSpy = jest.spyOn(testRecordsService, 'createTestResult').mockImplementation(() => {});
-		const testRecord = { testResultId: '1', testTypes: [{ testTypeId: '2' }] } as TestResultModel;
+		const testRecord = {
+			testResultId: '1',
+			testTypes: [{ testTypeId: '2' }],
+		} as TestResultModel;
 		store.overrideSelector(testResultInEdit, testRecord);
 		store.overrideSelector(sectionTemplates, Object.values(contingencyTestTemplates.psv['testTypesGroup1'] ?? ''));
 
@@ -150,7 +159,9 @@ describe('CreateTestRecordComponent', () => {
 
 		it('should return true if some forms are invalid', () => {
 			jest.spyOn(component, 'abandonDialog').mockReturnValue({
-				dynamicFormGroup: signal({ form: { controls: { errors: 'foo' }, invalid: true } }),
+				dynamicFormGroup: signal({
+					form: { controls: { errors: 'foo' }, invalid: true },
+				}),
 			} as unknown as AbandonDialogComponent);
 			component.testMode = TestModeEnum.Abandon;
 			DynamicFormService.validate = jest.fn();
@@ -159,7 +170,9 @@ describe('CreateTestRecordComponent', () => {
 
 		it('should return false if no forms are invalid', fakeAsync(() => {
 			jest.spyOn(component, 'baseTestRecordComponent').mockReturnValue({
-				sections: jest.fn().mockReturnValue({ forEach: jest.fn().mockReturnValue([{ foo: 'foo' }]) }),
+				sections: jest.fn().mockReturnValue({
+					forEach: jest.fn().mockReturnValue([{ foo: 'foo' }]),
+				}),
 				defects: jest.fn(),
 				customDefects: jest.fn(),
 			} as unknown as BaseTestRecordComponent);
@@ -198,7 +211,9 @@ describe('CreateTestRecordComponent', () => {
 
 	it('should combine forms', async () => {
 		jest.spyOn(component, 'baseTestRecordComponent').mockReturnValue({
-			sections: jest.fn().mockReturnValue({ forEach: jest.fn().mockReturnValue([{ foo: 'foo' }]) }),
+			sections: jest.fn().mockReturnValue({
+				forEach: jest.fn().mockReturnValue([{ foo: 'foo' }]),
+			}),
 			defects: jest.fn(),
 			customDefects: jest.fn(),
 		} as unknown as BaseTestRecordComponent);
@@ -210,7 +225,10 @@ describe('CreateTestRecordComponent', () => {
 		const createTestResultSpy = jest
 			.spyOn(testRecordsService, 'createTestResult')
 			.mockImplementation(() => Promise.resolve(true));
-		const testRecord = { testResultId: '1', testTypes: [{ testTypeId: '2' }] } as TestResultModel;
+		const testRecord = {
+			testResultId: '1',
+			testTypes: [{ testTypeId: '2' }],
+		} as TestResultModel;
 		store.overrideSelector(testResultInEdit, testRecord);
 		store.overrideSelector(sectionTemplates, Object.values(contingencyTestTemplates.psv['testTypesGroup1'] ?? ''));
 

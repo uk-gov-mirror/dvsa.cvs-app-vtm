@@ -26,7 +26,10 @@ export const routes: Routes = [
 				path: TestRecordCreateRoutes.TYPE,
 				loadComponent: () =>
 					import('./views/create-test-type/create-test-type.component').then((m) => m.CreateTestTypeComponent),
-				resolve: { testTypeTaxonomy: testTypeTaxonomyResolver, contingencyTest: contingencyTestResolver },
+				resolve: {
+					testTypeTaxonomy: testTypeTaxonomyResolver,
+					contingencyTest: contingencyTestResolver,
+				},
 			},
 			{
 				path: TestRecordCreateRoutes.TEST_DETAILS,
@@ -51,15 +54,19 @@ export const routes: Routes = [
 					{
 						path: '',
 						loadComponent: () =>
-							import('./views/create-test-record/create-test-record.component').then(
-								(m) => m.CreateTestRecordComponent
+							import('./views/create-test-record-wrapper/create-test-record-wrapper.component').then(
+								(m) => m.CreateTestRecordWrapperComponent
 							),
 					},
 					{
 						path: TestRecordCreateRoutes.DEFECT,
 						loadComponent: () =>
 							import('@forms/custom-sections/defect/defect.component').then((m) => m.DefectComponent),
-						data: { title: 'Defect', roles: Roles.TestResultCreateContingency, isEditing: true },
+						data: {
+							title: 'Defect',
+							roles: Roles.TestResultCreateContingency,
+							isEditing: true,
+						},
 						canActivate: [RoleGuard],
 					},
 					{
@@ -68,7 +75,10 @@ export const routes: Routes = [
 							import('./views/test-router-outlet/test-router-outlet.component').then(
 								(m) => m.TestRouterOutletComponent
 							),
-						data: { title: 'Select defect', roles: Roles.TestResultCreateContingency },
+						data: {
+							title: 'Select defect',
+							roles: Roles.TestResultCreateContingency,
+						},
 						children: [
 							{
 								path: '',
@@ -82,7 +92,11 @@ export const routes: Routes = [
 								path: TestRecordCreateRoutes.SELECT_DEFECT_REF,
 								loadComponent: () =>
 									import('@forms/custom-sections/defect/defect.component').then((m) => m.DefectComponent),
-								data: { title: 'Defect', roles: Roles.TestResultCreateContingency, isEditing: true },
+								data: {
+									title: 'Defect',
+									roles: Roles.TestResultCreateContingency,
+									isEditing: true,
+								},
 								canActivate: [RoleGuard],
 							},
 						],
@@ -93,7 +107,11 @@ export const routes: Routes = [
 							import('@forms/custom-sections/required-standard/required-standard.component').then(
 								(m) => m.RequiredStandardComponent
 							),
-						data: { title: 'Required Standard', roles: Roles.TestResultCreateContingency, isEditing: true },
+						data: {
+							title: 'Required Standard',
+							roles: Roles.TestResultCreateContingency,
+							isEditing: true,
+						},
 						canActivate: [RoleGuard],
 					},
 					{
@@ -102,8 +120,14 @@ export const routes: Routes = [
 							import('./views/test-router-outlet/test-router-outlet.component').then(
 								(m) => m.TestRouterOutletComponent
 							),
-						resolve: { RequiredStandards: requiredStandardsResolver, loading: loadingResolver },
-						data: { title: 'Select Required Standard', roles: Roles.TestResultCreateContingency },
+						resolve: {
+							RequiredStandards: requiredStandardsResolver,
+							loading: loadingResolver,
+						},
+						data: {
+							title: 'Select Required Standard',
+							roles: Roles.TestResultCreateContingency,
+						},
 						children: [
 							{
 								path: '',
@@ -119,7 +143,11 @@ export const routes: Routes = [
 									import('@forms/custom-sections/required-standard/required-standard.component').then(
 										(m) => m.RequiredStandardComponent
 									),
-								data: { title: 'Required Standard', roles: Roles.TestResultCreateContingency, isEditing: true },
+								data: {
+									title: 'Required Standard',
+									roles: Roles.TestResultCreateContingency,
+									isEditing: true,
+								},
 								canActivate: [RoleGuard],
 							},
 						],
