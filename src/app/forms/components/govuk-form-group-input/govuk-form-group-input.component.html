@@ -42,7 +42,7 @@
         (ngModelChange)="writeValue($event)"
         (blur)="onTouched(); onBlur($event)"
         [class]="style"
-        [disabled]="control?.disabled || false"
+        [disabled]="control?.disabled || disabled() || false"
         [maxlength]="maxlength()"
         />
     }
@@ -62,7 +62,7 @@
         inputmode="numeric"
         (blur)="onTouched(); onBlur($event)"
         [class]="style"
-        [disabled]="control?.disabled || false"
+        [disabled]="control?.disabled || disabled() || false"
         />
     }
 
@@ -80,7 +80,7 @@
         appNumberOnly
         (blur)="onTouched(); onBlur($event)"
         [class]="style"
-        [disabled]="control?.disabled || false"
+        [disabled]="control?.disabled || disabled() || false"
         />
     }
 
@@ -99,13 +99,18 @@
         pattern="^\d*\.?\d*$"
         (blur)="onTouched(); onBlur($event)"
         [class]="style"
-        [disabled]="control?.disabled || false"
+        [disabled]="control?.disabled || disabled() || false"
         />
     }
 
     <!-- Provide suffix via string input -->
     @if (suffix()) {
-      <div class="govuk-input__suffix" aria-hidden="true">{{ suffix() }}</div>
+      <div 
+        class="govuk-input__suffix" 
+        [class.govuk-input__suffix-disabled]="control?.disabled || disabled() || false" 
+        aria-hidden="true">
+        {{ suffix() }}
+      </div>
     }
 
     <!-- Also allow providing of suffix via content projection for more complex suffixes -->
