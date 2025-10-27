@@ -34,7 +34,7 @@ jobs:
         id: environment
         uses: dvsa/cvs-github-actions/environment@develop
         with:
-          environment: ${{ inputs.environment == 'nonprod' && github.ref_name || inputs.environment }}
+          environment: ${{ inputs.environment == 'nonprod' && github.ref_name || inputs.environment || github.ref_name }}
           output-summary: false
 
   build-application:
