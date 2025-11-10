@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, input } from '@angular/core';
 import { type AbstractControl, ReactiveFormsModule, type ValidationErrors, type ValidatorFn } from '@angular/forms';
+import { GlobalError } from '@core/components/global-error/global-error.interface';
 import { ApprovalType as TRLApprovalTypes } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalType.enum';
 import { ApprovalType as HGVAndPSVApprovalTypes } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalTypeHgvOrPsv.enum';
 import { GovukFormGroupInputComponent } from '@forms/components/govuk-form-group-input/govuk-form-group-input.component';
@@ -55,7 +56,11 @@ export class ApprovalTypeComponent extends EditBaseComponent implements OnInit, 
 			const approvalTypeNumber = control.value;
 
 			if (approvalType && !approvalTypeNumber) {
-				return { required: message };
+				const error: GlobalError = {
+					error: message,
+					anchorLink: `techRecord_approvalTypeNumber1-${approvalType}`,
+				};
+				return { required: error };
 			}
 
 			return null;
