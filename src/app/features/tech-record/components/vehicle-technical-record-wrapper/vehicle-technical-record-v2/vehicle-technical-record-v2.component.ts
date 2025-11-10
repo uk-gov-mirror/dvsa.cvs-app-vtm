@@ -98,7 +98,7 @@ export class VehicleTechnicalRecordV2Component implements OnInit, AfterViewInit 
 				take(1)
 			)
 			.subscribe((techRecord) => {
-				if (this.isEditing && techRecord) {
+				if (techRecord) {
 					if (
 						techRecord.techRecord_vehicleType === VehicleTypes.PSV ||
 						techRecord.techRecord_vehicleType === VehicleTypes.HGV ||
