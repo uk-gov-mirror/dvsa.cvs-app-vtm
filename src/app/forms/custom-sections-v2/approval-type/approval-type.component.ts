@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit, input } from '@angular/core';
 import { type AbstractControl, ReactiveFormsModule, type ValidationErrors, type ValidatorFn } from '@angular/forms';
 import { GlobalError } from '@core/components/global-error/global-error.interface';
-import { ApprovalType as TRLApprovalTypes } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalType.enum';
-import { ApprovalType as HGVAndPSVApprovalTypes } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalTypeHgvOrPsv.enum';
+import { ApprovalType as TRLApprovalTypes } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalType.enum.js';
+import { ApprovalType as HGVAndPSVApprovalTypes } from '@dvsa/cvs-type-definitions/types/v3/tech-record/enums/approvalTypeHgvOrPsv.enum.js';
 import { GovukFormGroupInputComponent } from '@forms/components/govuk-form-group-input/govuk-form-group-input.component';
 import { GovukFormGroupSelectComponent } from '@forms/components/govuk-form-group-select/govuk-form-group-select.component';
 import { EditBaseComponent } from '@forms/custom-sections/edit-base-component/edit-base-component';
