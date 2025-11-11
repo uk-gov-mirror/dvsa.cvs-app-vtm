@@ -16,17 +16,17 @@
         id="enter-number-of-axles-tyres-warning-message"
         [warningMessage]="'Enter the number of axles to be able to add tyre details.'" />
     }
+
     @if (dimensionsWarning) {
       <app-field-warning-message id="axle-distances-cleared-tyres-warning-message" [warningMessage]="' '">
         <p class="govuk-!-margin-0">Axle distances have been cleared because you removed an axle.</p>
         <p class="govuk-!-margin-0">Re-enter any axle distances in the dimensions section.</p>
       </app-field-warning-message>
     }
+
     @if (invalidAxlesAll.length > 0) {
       <app-field-warning-message [warningMessage]="' '">
-        <p class="m-0">The GB Axle weight is greater than the selected tyre weight </p>
-        <p class="m-0">
-          GB Axles: Axle
+        <p class="m-0">The GB Axle weight is greater than the selected weight for axle(s)
           @for (axle of invalidAxlesAll; track axle; let i = $index; let isLast = $last) {
             @if (invalidAxlesAll.length > 1 && isLast) {
               and
@@ -38,6 +38,7 @@
         </p>
       </app-field-warning-message>
     }
+
     @if (parent.get('techRecord_axles')) {
       <ng-container formArrayName="techRecord_axles">
       @for (axle of techRecordAxles.controls; track axle; let i = $index) {
