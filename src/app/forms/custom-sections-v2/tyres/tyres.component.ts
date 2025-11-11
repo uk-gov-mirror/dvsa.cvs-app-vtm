@@ -231,7 +231,7 @@ export class TyresComponent extends EditBaseComponent implements OnInit, OnDestr
 	}
 
 	checkAxleWeights(changes: SimpleChanges) {
-		this.invalidAxles = [];
+		this.axlesService.allInvalidAxles = this.invalidAxles = [];
 
 		if (
 			!changes['techRecord']?.currentValue?.techRecord_axles ||
